@@ -101,12 +101,25 @@ export function parseSeries(html) {
         fileName,
         crc32,
         group,
-        url
+        url,
+        isOnline: true
       })
     }
   }
 
   return { title, episodes }
+}
+
+export async function probeUrl(url, timeoutMs = 5000) {
+  try {
+    const res = await fetch(url, {
+      headers: { Range: 'bytes=0-0', 'User-Agent': UA },
+      signal: AbortSignal.timeout(timeoutMs)
+    })
+    return res.status === 206 || res.status === 200
+  } catch {
+    return false
+  }
 }
 
 async function fetchPage(v, retries = MAX_RETRIES) {

@@ -46,19 +46,25 @@ export default new class JapanPawTorrentSource {
 
     const results = series.flatMap(s => (s.episodes ?? [])
       .filter(e => Number(e.episode) === targetEpisode && e.torrentPath && /^[a-f0-9]{40}$/i.test(e.infoHash))
-      .map(e => ({
-        series: s,
-        episode: e,
-        title: e.fileName || `${s.title} - ${String(e.episode).padStart(2, '0')} [${e.resolution}p]`,
-        link: new URL(e.torrentPath, INDEX_URL).href,
-        hash: e.infoHash,
-        size: e.size || 0,
-        date: new Date(),
-        seeders: 50,
-        leechers: 1,
-        downloads: 200,
-        accuracy: 'high'
-      }))
+      .map(e => {
+        const ddlTag = e.isOnline === false ? '[⚠️ DDL Caído - Solo P2P]' : '[⚡ DDL Japan-Paw]'
+        const baseTitle = (e.fileName || `${s.title} - ${String(e.episode).padStart(2, '0')} [${e.resolution}p]`).replace(/\.mkv$/i, '')
+        const finalTitle = `${baseTitle} ${ddlTag}.mkv`
+
+        return {
+          series: s,
+          episode: e,
+          title: finalTitle,
+          link: new URL(e.torrentPath, INDEX_URL).href,
+          hash: e.infoHash,
+          size: e.size || 0,
+          date: new Date(),
+          seeders: e.isOnline === false ? 0 : 50,
+          leechers: 1,
+          downloads: 200,
+          accuracy: 'high'
+        }
+      })
     ).filter(r => !exclusions.some(x => r.title.toLowerCase().includes(x)))
 
     const requestedRes = String(query.resolution ?? '').replace(/p$/i, '')

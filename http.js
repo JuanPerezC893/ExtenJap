@@ -119,6 +119,7 @@ function resolveFile(query, file, catalog) {
   }
 
   if (bestCandidate && bestScore >= 0) {
+    if (bestCandidate.isOnline === false) return undefined
     return {
       url: bestCandidate.url,
       index: file.index

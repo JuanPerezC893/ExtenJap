@@ -3,7 +3,24 @@
     "manifestVersion": 2,
     "name": "Japan-Paw Direct",
     "id": "japanpaw-direct",
-    "version": "0.3.0",
+    "version": "0.3.1",
+    "description": "Catálogo de episodios por torrent y webseed desde Japan-Paw.",
+    "type": "torrent",
+    "accuracy": "high",
+    "icon": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/icon.svg",
+    "media": "sub",
+    "languages": [
+      "ALL"
+    ],
+    "url": "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29t",
+    "code": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/torrent.js",
+    "update": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/manifest.json"
+  },
+  {
+    "manifestVersion": 2,
+    "name": "Japan-Paw WebSeed",
+    "id": "japanpaw-webseed",
+    "version": "0.3.1",
     "description": "Aceleración HTTP directa (WebSeed) para episodios desde Japan-Paw.",
     "type": "http",
     "accuracy": "high",
@@ -13,7 +30,7 @@
       "ALL"
     ],
     "url": "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29t",
-    "code": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/index.js",
+    "code": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/http.js",
     "update": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/manifest.json"
   }
 ]

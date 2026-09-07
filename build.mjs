@@ -14,7 +14,7 @@ const manifest = [{
   code: new URL('index.js', base).href, update: new URL('manifest.json', base).href
 }]
 writeJson('dist/manifest.json', manifest)
-writeJson('dist/index.json', manifest)
+writeJson('dist/index.json', [{ ...manifest[0], update: new URL('index.json', base).href }])
 writeFileSync('dist/icon.svg', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#27344a"/><path d="M25 16v32l25-16z" fill="#a4d6f7"/></svg>')
 if (!existsSync('dist/indexed-catalog.json')) writeJson('dist/indexed-catalog.json', [])
 console.log(`Preparado: ${new URL('manifest.json', base)}`)

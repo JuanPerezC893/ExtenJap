@@ -13,7 +13,7 @@ async function loadIndex(fetchFn, refresh = false) {
   cachedAt = Date.now()
   return data
 }
-export default new class extends TorrentSource {
+export default new class JapanPawDirect {
   async test() { await loadIndex(fetch, true); return true }
   async single(query) {
     const catalog = await loadIndex(query.fetch ?? fetch)

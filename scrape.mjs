@@ -39,7 +39,10 @@ export function cleanUrl(href) {
   return url.href
 }
 
-// Parser validado contra un ejemplo real de la página (Sayonara Lara, v=7901).
+// Extensiones de video soportadas para streaming
+const VIDEO_EXTENSIONS = /\.(mkv|mp4|webm|avi|m4v)$/i
+
+// Parser validado contra ejemplos reales de paste.japan-paw.net
 export function parseSeries(html) {
   const titleMatch = html.match(/<h2\b[^>]*>\s*([\s\S]*?)\s*<\/h2>/i)
   const title = titleMatch ? titleMatch[1].replace(/\s+/g, ' ').trim() : null
@@ -51,8 +54,6 @@ export function parseSeries(html) {
   let t
   while ((t = tabListRe.exec(html))) tabLabels.set(t[1], t[2].trim())
 
-  // Cada tab_content_N es un bloque top-level sin divs anidados en la
-  // sección de links, así que partir por el marcador de apertura es seguro.
   const parts = html.split(/<div id="(tab_content_\d+)" class="tab_content/)
   const episodes = []
 
@@ -68,16 +69,38 @@ export function parseSeries(html) {
     const publicIdx = chunk.indexOf('Publicos-Paste.png')
     const searchArea = publicIdx >= 0 ? chunk.slice(publicIdx) : ''
 
-    const linkRe = /<a href="([^"]+)"[^>]*>\s*Cap[íi]tulo\s*0*(\d+)\s*<\/a>/gi
+    const linkRe = /<a href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi
     let lm
     while ((lm = linkRe.exec(searchArea))) {
       let url
       try { url = cleanUrl(lm[1]) } catch { continue }
-      if (episodes.some(e => e.url === url && e.episode === Number(lm[2]))) continue
+
+      const fileName = decodeURIComponent(new URL(url).pathname.split('/').pop() ?? '')
+
+      // Filtro estricto: descartar juegos, música, software, archivos .rar, .zip, etc.
+      if (!VIDEO_EXTENSIONS.test(fileName)) continue
+
+      // Extraer número de episodio desde el texto del enlace o desde el nombre del archivo
+      const text = lm[2].replace(/<[^>]+>/g, '').trim()
+      const epMatch = text.match(/(?:Cap[íi]tulo|Episodio|Ep\.?)\s*0*(\d+)/i) ||
+                      fileName.match(/(?:[\s\-_]0*(\d{1,4})[\s\-_]|E0*(\d{1,4}))/i)
+      const epNum = epMatch ? parseInt(epMatch[1] || epMatch[2], 10) : null
+      if (epNum === null || !Number.isFinite(epNum)) continue
+
+      if (episodes.some(e => e.url === url && e.episode === epNum)) continue
+
+      const crcMatch = fileName.match(/\[([0-9A-Fa-f]{8})\]/)
+      const crc32 = crcMatch ? crcMatch[1].toUpperCase() : null
+      const groupMatch = fileName.match(/^\[([^\]]+)\]/)
+      const group = groupMatch ? groupMatch[1] : null
+
       episodes.push({
-        episode: parseInt(lm[2], 10),
+        episode: epNum,
         resolution,
         quality,
+        fileName,
+        crc32,
+        group,
         url
       })
     }

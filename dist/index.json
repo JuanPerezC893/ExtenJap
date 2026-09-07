@@ -1,0 +1,19 @@
+[
+  {
+    "manifestVersion": 2,
+    "name": "Japan-Paw Direct",
+    "id": "japanpaw-direct",
+    "version": "0.2.0",
+    "description": "Episodios por HTTP mediante metadatos torrent y webseeds.",
+    "type": "torrent",
+    "accuracy": "low",
+    "icon": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/icon.svg",
+    "media": "sub",
+    "languages": [
+      "ALL"
+    ],
+    "url": "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29t",
+    "code": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/index.js",
+    "update": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/manifest.json"
+  }
+]

@@ -15,7 +15,8 @@ import { isMain, writeJson } from './lib/io.mjs'
 const OUTPUT_FILE = './raw-catalog.json'
 const START = parseInt(process.argv[2] ?? '1', 10)
 const END = parseInt(process.argv[3] ?? '8000', 10)
-const DELAY_MS = parseInt(process.env.DELAY_MS ?? '800', 10)
+const DELAY_MS = parseInt(process.env.DELAY_MS ?? '250', 10)
+const CONCURRENCY = parseInt(process.env.CONCURRENCY ?? '6', 10)
 const MAX_RETRIES = 3
 
 // User-Agent de navegador real: el sitio tiene detección de bots, un fetch
@@ -170,31 +171,51 @@ async function main() {
   const catalog = loadExisting()
   const seenV = new Set(catalog.map(e => e.sourceV))
 
-  console.log(`Scrapeando v=${START}..${END} (${seenV.size} ya en caché)`)
-
+  const queue = []
   for (let v = START; v <= END; v++) {
-    if (seenV.has(v) && !process.argv.includes('--refresh')) continue
-
-    const html = await fetchPage(v)
-    if (html) {
-      const parsed = parseSeries(html)
-      if (parsed && parsed.episodes.length) {
-        const entry = { sourceV: v, title: parsed.title, episodes: parsed.episodes }
-        const old = catalog.findIndex(s => s.sourceV === v)
-        if (old >= 0) catalog[old] = { ...catalog[old], ...entry }
-        else catalog.push(entry)
-        writeJson(OUTPUT_FILE, catalog)
-        console.log(`v=${v}: "${parsed.title}" — ${parsed.episodes.length} episodios`)
-      } else {
-        console.log(`v=${v}: sin contenido público reconocible, saltando`)
-      }
-    } else {
-      console.log(`v=${v}: no se pudo obtener (bloqueo, 404, o error de red)`)
+    if (!seenV.has(v) || process.argv.includes('--refresh')) {
+      queue.push(v)
     }
-
-    if (v % 10 === 0) writeJson(OUTPUT_FILE, catalog)
-    await sleep(DELAY_MS)
   }
+
+  const totalTasks = queue.length
+  console.log(`Scrapeando v=${START}..${END} (${seenV.size} ya en caché, ${totalTasks} pendientes con concurrencia ${CONCURRENCY})`)
+
+  let completed = 0
+  let savedCount = 0
+
+  async function worker() {
+    while (queue.length > 0) {
+      const v = queue.shift()
+      if (v === undefined) break
+
+      const html = await fetchPage(v)
+      if (html) {
+        const parsed = parseSeries(html)
+        if (parsed && parsed.episodes.length) {
+          const entry = { sourceV: v, title: parsed.title, episodes: parsed.episodes }
+          const old = catalog.findIndex(s => s.sourceV === v)
+          if (old >= 0) catalog[old] = { ...catalog[old], ...entry }
+          else catalog.push(entry)
+          savedCount++
+          completed++
+          console.log(`[${completed}/${totalTasks}] v=${v}: "${parsed.title}" (${parsed.episodes.length} eps)`)
+        } else {
+          completed++
+          if (completed % 25 === 0) console.log(`[${completed}/${totalTasks}] progreso...`)
+        }
+      } else {
+        completed++
+      }
+
+      if (savedCount > 0 && savedCount % 15 === 0) {
+        writeJson(OUTPUT_FILE, catalog)
+      }
+      if (DELAY_MS > 0) await sleep(DELAY_MS)
+    }
+  }
+
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, Math.max(1, queue.length)) }, () => worker()))
 
   writeJson(OUTPUT_FILE, catalog)
   console.log(`\nListo. ${catalog.length} series guardadas en ${OUTPUT_FILE}`)

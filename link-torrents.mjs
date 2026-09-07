@@ -11,7 +11,7 @@ async function findNyaaTorrent(title, ep, res, crc) {
   const url = `https://nyaa.si/?f=0&c=0_0&q=${query}`
 
   try {
-    const resFetch = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } })
+    const resFetch = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(10_000) })
     const html = await resFetch.text()
     const rows = html.split('</tr>')
 
@@ -49,7 +49,7 @@ async function linkSeries(series) {
     if (nyaaPath) {
       const torrentUrl = `https://nyaa.si${nyaaPath}`
       try {
-        const res = await fetch(torrentUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } })
+        const res = await fetch(torrentUrl, { headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(15_000) })
         const buf = Buffer.from(await res.arrayBuffer())
         const parsed = await parseTorrent(buf)
         parsed.urlList = [ep.url]

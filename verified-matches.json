@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T02:57:15.694Z",
+  "updatedAt": "2026-09-08T03:14:58.906Z",
   "series": {
     "166610": {
       "title": "Mashle 2nd Season",
@@ -16,8 +16,8 @@
           "torrentPath": "torrents/0e50fd7d3f75e6aff117b9c5ce6f97db84789de9.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:18.255Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:11:46.248Z"
           },
           "isOnline": true
         },
@@ -32,8 +32,8 @@
           "torrentPath": "torrents/7f68009b45a18be302093d983e28a62fc87f2a82.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:19.991Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:11:54.261Z"
           },
           "isOnline": true
         },
@@ -48,8 +48,8 @@
           "torrentPath": "torrents/8aa9cf8b135ef13424f0abccca2256e53d0d51ce.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:22.399Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:11:57.554Z"
           },
           "isOnline": true
         },
@@ -64,8 +64,8 @@
           "torrentPath": "torrents/a5a121d208231cf957d7f6dcb22417d630b084f9.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:24.835Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:02.956Z"
           },
           "isOnline": true
         },
@@ -80,8 +80,8 @@
           "torrentPath": "torrents/b0b114e3ffef512a0050dc170fb58a458a194aaa.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:27.258Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:08.861Z"
           },
           "isOnline": true
         },
@@ -96,8 +96,8 @@
           "torrentPath": "torrents/4a43373f47fad731aded5ade2362c4c66825f342.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:29.628Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:14.015Z"
           },
           "isOnline": true
         },
@@ -112,8 +112,8 @@
           "torrentPath": "torrents/562603d10e78f316e912819548ff39e6623dfec0.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:32.056Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:21.001Z"
           },
           "isOnline": true
         },
@@ -128,8 +128,8 @@
           "torrentPath": "torrents/f568e356a1eea304c24740ff28ec2080356a7a99.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:34.461Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:26.777Z"
           },
           "isOnline": true
         },
@@ -144,8 +144,8 @@
           "torrentPath": "torrents/85ba739db4e4d5e5fab82596d96b68d5dac314b7.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:36.856Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:33.085Z"
           },
           "isOnline": true
         },
@@ -160,8 +160,8 @@
           "torrentPath": "torrents/6673c4941e0422829e76328c15e8b28404aafe0a.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:39.283Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:36.595Z"
           },
           "isOnline": true
         },
@@ -176,8 +176,8 @@
           "torrentPath": "torrents/39129475d5d46fd013c2a79528cd72a9376e82ef.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:41.674Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:43.596Z"
           },
           "isOnline": true
         },
@@ -192,8 +192,8 @@
           "torrentPath": "torrents/1750dbddd1bcecb5a311ad97ee6398bd30739c57.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:44.093Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:51.743Z"
           },
           "isOnline": true
         },
@@ -208,8 +208,8 @@
           "torrentPath": "torrents/da0e9d4f92a882e253f5f1092be44fd1789a8999.torrent",
           "verified": {
             "matchedBy": "same-release",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:48.829Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:57.024Z"
           },
           "isOnline": true
         },
@@ -224,8 +224,8 @@
           "torrentPath": "torrents/2d3673adb84f6a1a9a350266172b28461a6452a8.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:51.223Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:12:59.447Z"
           },
           "isOnline": true
         },
@@ -240,8 +240,8 @@
           "torrentPath": "torrents/39c467a4bf75f5ea2fe2005a9f33a444aea96794.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:53.694Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:13:03.019Z"
           },
           "isOnline": true
         },
@@ -256,8 +256,8 @@
           "torrentPath": "torrents/e7298cd7c03afe9c07495cb9442157abcc213e93.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:56.049Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:13:10.523Z"
           },
           "isOnline": true
         },
@@ -272,8 +272,8 @@
           "torrentPath": "torrents/187472f0dc7bf3775d05dae76055ac05537b2ecc.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:56:58.457Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:13:17.992Z"
           },
           "isOnline": true
         },
@@ -288,8 +288,8 @@
           "torrentPath": "torrents/7af16d8e1439b9d0dd933effeee2255cf5a41562.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:57:00.901Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:13:20.889Z"
           },
           "isOnline": true
         },
@@ -304,8 +304,8 @@
           "torrentPath": "torrents/dff7fd98bf29e70c7f0fcbd8851db38b31c2a538.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:57:03.301Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:13:24.151Z"
           },
           "isOnline": true
         },
@@ -320,8 +320,8 @@
           "torrentPath": "torrents/f2bccc72c8b9b8eba52ba8dbb37b073d9722a237.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:57:05.689Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:13:32.050Z"
           },
           "isOnline": true
         },
@@ -336,8 +336,8 @@
           "torrentPath": "torrents/303891ce3d9c9e5286ffcaf74fa8e89946db261a.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:57:08.115Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:13:48.580Z"
           },
           "isOnline": true
         },
@@ -352,8 +352,8 @@
           "torrentPath": "torrents/2aa5d46b288faa7cf3d5bb9fdd1a9467783c2fb6.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:57:10.548Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:13:52.899Z"
           },
           "isOnline": true
         },
@@ -368,8 +368,8 @@
           "torrentPath": "torrents/b5785a413d2c308af4bdd59f738879e470791465.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:57:12.935Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:14:01.753Z"
           },
           "isOnline": true
         },
@@ -384,8 +384,8 @@
           "torrentPath": "torrents/ff3c6f9b9677f47e4f8f4ebc40454fd84b57be2c.torrent",
           "verified": {
             "matchedBy": "crc",
-            "piecesVerified": false,
-            "verifiedAt": "2026-09-08T02:57:15.320Z"
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:14:28.795Z"
           },
           "isOnline": true
         }

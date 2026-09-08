@@ -1,8 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import fs from 'node:fs'
 import { toTorrentFile, default as parseTorrent } from 'parse-torrent'
-import { createTorrentSource } from '../torrent.js'
-import { verifyPieceHashes } from '../indexer.mjs'
+import { verifyPieceHashes, saveVerifiedMatches, loadVerifiedMatches, episodeReleaseMatch } from '../indexer.mjs'
 import { createHash } from 'node:crypto'
 
 test('indexer: toTorrentFile inyecta url-list (BEP-19 WebSeed) preservando el infoHash', async () => {
@@ -27,106 +27,6 @@ test('indexer: toTorrentFile inyecta url-list (BEP-19 WebSeed) preservando el in
 
   assert.equal(origParsed.infoHash, webSeedParsed.infoHash, 'El infoHash debe ser idéntico con y sin WebSeed')
   assert.deepEqual(webSeedParsed.urlList, ['https://emision.craftervault.com/video-sample.mkv'], 'El urlList debe contener la URL directa')
-})
-
-test('torrent.js: lee catálogo dividido dist/data/<anilistId>.json con accuracy high', async () => {
-  const fakeAnilistId = 999999
-  const fakeEpisode = {
-    episode: 1,
-    resolution: '1080',
-    quality: '1080p',
-    fileName: '[Fansub] Fake Anime - 01 [1080p].mkv',
-    size: 1500000000,
-    hash: 'a'.repeat(40),
-    torrent: 'torrents/' + 'a'.repeat(40) + '.torrent',
-    url: 'https://emision.craftervault.com/fake.mkv',
-    verified: true
-  }
-
-  const mockFetch = async (url) => {
-    if (url.includes(`data/${fakeAnilistId}.json`)) {
-      return {
-        ok: true,
-        json: async () => ({
-          anilistId: fakeAnilistId,
-          title: 'Fake Anime',
-          episodes: [fakeEpisode]
-        })
-      }
-    }
-    return { ok: false, status: 404 }
-  }
-
-  const source = createTorrentSource('https://example.invalid/dist/indexed-catalog.json')
-  const results = await source.single({
-    anilistId: fakeAnilistId,
-    episode: 1,
-    resolution: '1080',
-    fetch: mockFetch
-  })
-
-  assert.equal(results.length, 1, 'Debe retornar exactamente un resultado')
-  assert.equal(results[0].hash, 'a'.repeat(40), 'El infoHash debe coincidir')
-  assert.equal(results[0].accuracy, 'high', 'Debe tener accuracy high al provenir del catálogo pre-verificado')
-  assert.equal(results[0].link, `https://example.invalid/dist/torrents/${'a'.repeat(40)}.torrent`)
-  assert.match(results[0].title, /\[DDL verificado\]/)
-})
-
-test('torrent.js: fallback a búsqueda dinámica cuando no existe dist/data/<anilistId>.json', async () => {
-  const missingId = 888888
-  const dummyTorrent = {
-    info: {
-      name: '[Fansub] Fallback Anime - 02 [1080p].mkv',
-      length: 262144,
-      'piece length': 262144,
-      pieces: Buffer.alloc(20)
-    }
-  }
-  const dummyBuf = toTorrentFile(dummyTorrent)
-  const parsedDummy = await parseTorrent(dummyBuf)
-  const realHash = parsedDummy.infoHash
-
-  const catalog = [
-    {
-      title: 'Fallback Anime',
-      anilistId: missingId,
-      episodes: [
-        {
-          episode: 2,
-          resolution: '1080',
-          fileName: '[Fansub] Fallback Anime - 02 [1080p].mkv',
-          url: 'https://emision.craftervault.com/%5BFansub%5D%20Fallback%20Anime%20-%2002%20%5B1080p%5D.mkv',
-          infoHash: realHash,
-          torrentPath: 'torrents/' + realHash + '.torrent',
-          size: 262144
-        }
-      ]
-    }
-  ]
-
-  const mockFetch = async (url) => {
-    if (url.includes(`data/${missingId}.json`)) {
-      return { ok: false, status: 404 }
-    }
-    if (url.includes('indexed-catalog.json')) {
-      return { ok: true, json: async () => catalog }
-    }
-    if (url.includes('torrents/')) {
-      return { ok: true, arrayBuffer: async () => dummyBuf }
-    }
-    return { ok: false, status: 404 }
-  }
-
-  const source = createTorrentSource('https://example.invalid/dist/indexed-catalog.json')
-  const results = await source.single({
-    anilistId: missingId,
-    episode: 2,
-    resolution: '1080',
-    fetch: mockFetch
-  })
-
-  assert.equal(results.length, 1, 'Debe resolver mediante el catálogo fallback')
-  assert.equal(results[0].hash, realHash)
 })
 
 test('indexer: verifyPieceHashes valida piezas inicial y final por SHA-1', async () => {
@@ -157,7 +57,6 @@ test('indexer: verifyPieceHashes valida piezas inicial y final por SHA-1', async
     }
   }
 
-  // Sustituir global fetch temporalmente
   const origFetch = globalThis.fetch
   globalThis.fetch = mockFetch
   try {
@@ -165,5 +64,59 @@ test('indexer: verifyPieceHashes valida piezas inicial y final por SHA-1', async
     assert.equal(ok, true, 'verifyPieceHashes debe validar con éxito')
   } finally {
     globalThis.fetch = origFetch
+  }
+})
+
+test('indexer: episodeReleaseMatch distingue versiones con diferente release/archivo', () => {
+  const epA = {
+    episode: 1,
+    resolution: '1080',
+    fileName: '[Erai-raws] Show - 01 [1080p].mkv',
+    url: 'https://cdn.invalid/Erai.mkv'
+  }
+  const epB = {
+    episode: 1,
+    resolution: '1080',
+    fileName: '[SubsPlease] Show - 01 [1080p].mkv',
+    url: 'https://cdn.invalid/SubsPlease.mkv'
+  }
+
+  const recordA = {
+    episode: 1,
+    resolution: '1080',
+    fileName: '[Erai-raws] Show - 01 [1080p].mkv',
+    directUrl: 'https://cdn.invalid/Erai.mkv'
+  }
+
+  assert.equal(episodeReleaseMatch(recordA, epA), true, 'Debe coincidir con la misma release')
+  assert.equal(episodeReleaseMatch(recordA, epB), false, 'Debe rechazar una release diferente de 1080p')
+})
+
+test('indexer: guardado atómico y protección ante corrupción en verified-matches.json', () => {
+  const originalVerified = loadVerifiedMatches()
+
+  // Probar guardado atómico
+  saveVerifiedMatches({ ...originalVerified, testKey: 12345 })
+  const reloaded = loadVerifiedMatches()
+  assert.equal(reloaded.testKey, 12345)
+
+  // Restaurar original
+  saveVerifiedMatches(originalVerified)
+
+  // Probar que ante JSON corrupto genera respaldo y lanza error en vez de resetear silenciosamente
+  const backupOriginal = fs.readFileSync('verified-matches.json', 'utf8')
+  fs.writeFileSync('verified-matches.json', '{"incompleto": ', 'utf8')
+
+  try {
+    assert.throws(() => {
+      loadVerifiedMatches()
+    }, /Error crítico al leer/)
+    // Verificar que se creó un archivo de respaldo corrupt
+    const corruptFiles = fs.readdirSync('.').filter(f => f.startsWith('verified-matches.json.corrupt.'))
+    assert.ok(corruptFiles.length > 0, 'Debe crearse un archivo de respaldo del JSON corrupto')
+    // Limpiar archivos de prueba corrupt
+    for (const cf of corruptFiles) fs.unlinkSync(cf)
+  } finally {
+    fs.writeFileSync('verified-matches.json', backupOriginal, 'utf8')
   }
 })

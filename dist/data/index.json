@@ -4,59 +4,5 @@
     "title": "Mashle 2nd Season",
     "episodesCount": 24,
     "file": "data/166610.json"
-  },
-  {
-    "anilistId": 169080,
-    "title": "Azur Lane: Bisoku Zenshin! Ni!!",
-    "episodesCount": 15,
-    "file": "data/169080.json"
-  },
-  {
-    "anilistId": 169582,
-    "title": "Saikyou Degarashi Ouji no Anyaku Teii Arasoi: Munou wo Enjiru SS Rank Ouji wa Koui Keishou-sen wo Kage kara Shihai suru",
-    "episodesCount": 14,
-    "file": "data/169582.json"
-  },
-  {
-    "anilistId": 177637,
-    "title": "Sayonara Lara",
-    "episodesCount": 20,
-    "file": "data/177637.json"
-  },
-  {
-    "anilistId": 190569,
-    "title": "Tenmaku no Jaadugar",
-    "episodesCount": 13,
-    "file": "data/190569.json"
-  },
-  {
-    "anilistId": 198409,
-    "title": "Sekai Saikyou no Kouei: Meikyuukoku no Shinjin Tansakusha",
-    "episodesCount": 16,
-    "file": "data/198409.json"
-  },
-  {
-    "anilistId": 201514,
-    "title": "Saijo no Osewa: Takane no Hanadarake na Meimonkou de, Gakuin Ichi no Ojou-sama (Seikatsu Nouryoku Kaimu) wo Kagenagara Osewa suru Koto ni Narimashita",
-    "episodesCount": 14,
-    "file": "data/201514.json"
-  },
-  {
-    "anilistId": 202269,
-    "title": "Toumei na Yoru ni Kakeru Kimi to, Me ni Mienai Koi wo Shita.",
-    "episodesCount": 16,
-    "file": "data/202269.json"
-  },
-  {
-    "anilistId": 204060,
-    "title": "Tetsunabe no Jan!",
-    "episodesCount": 14,
-    "file": "data/204060.json"
-  },
-  {
-    "anilistId": 210031,
-    "title": "Seihantai na Kimi to Boku 2nd Season",
-    "episodesCount": 20,
-    "file": "data/210031.json"
   }
 ]

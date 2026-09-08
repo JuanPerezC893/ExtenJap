@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, renameSync, copyFileSync, existsSync, mkdirSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import parseTorrent, { toTorrentFile } from 'parse-torrent'
 import { sameRelease, episodeNumber, resolution, isBatchTorrent, VIDEO, fileName, normalize } from './lib/matching.js'
@@ -13,9 +13,13 @@ mkdirSync(TORRENTS_DIR, { recursive: true })
 export function loadVerifiedMatches() {
   if (existsSync(VERIFIED_PATH)) {
     try {
-      return JSON.parse(readFileSync(VERIFIED_PATH, 'utf8'))
-    } catch {
-      return { updatedAt: new Date().toISOString(), series: {} }
+      const content = readFileSync(VERIFIED_PATH, 'utf8')
+      if (!content.trim()) throw new Error('Archivo vacío')
+      return JSON.parse(content)
+    } catch (err) {
+      const corruptPath = `${VERIFIED_PATH}.corrupt.${Date.now()}`
+      copyFileSync(VERIFIED_PATH, corruptPath)
+      throw new Error(`Error crítico al leer ${VERIFIED_PATH}. Se respaldó copia en ${corruptPath}. Detalle: ${err.message}`)
     }
   }
   return { updatedAt: new Date().toISOString(), series: {} }
@@ -23,7 +27,9 @@ export function loadVerifiedMatches() {
 
 export function saveVerifiedMatches(data) {
   data.updatedAt = new Date().toISOString()
-  writeFileSync(VERIFIED_PATH, JSON.stringify(data, null, 2), 'utf8')
+  const tmpPath = `${VERIFIED_PATH}.tmp.${process.pid}.${Date.now()}`
+  writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf8')
+  renameSync(tmpPath, VERIFIED_PATH)
 }
 
 export async function verifyPieceHashes(directUrl, parsed) {
@@ -137,8 +143,18 @@ export async function findAndPrepareTorrent(series, ep, options = {}) {
   return null
 }
 
+export function episodeReleaseMatch(entry, ep) {
+  if (entry.episode !== ep.episode) return false
+  if (String(entry.resolution) !== String(ep.resolution)) return false
+  const epFn = fileName(ep)
+  if (entry.fileName && epFn && entry.fileName === epFn) return true
+  if (entry.directUrl && ep.url && entry.directUrl === ep.url) return true
+  if (entry.quality && ep.quality && entry.quality === ep.quality) return true
+  return false
+}
+
 export async function runIndexer(options = {}) {
-  const { seriesFilter = [], verifyPieces = false, limit = Infinity } = options
+  const { seriesFilter = [], verifyPieces = true, limit = Infinity } = options
   const catalog = JSON.parse(readFileSync(CATALOG_PATH, 'utf8'))
   const verifiedMatches = loadVerifiedMatches()
 
@@ -154,7 +170,7 @@ export async function runIndexer(options = {}) {
 
   console.log(`=== Indexador Independiente de Torrents y WebSeeds ===`)
   console.log(`Series seleccionadas: ${targetSeries.length}`)
-  console.log(`Verificación de piezas: ${verifyPieces ? 'ACTIVADA' : 'DESACTIVADA'}`)
+  console.log(`Verificación de piezas obligatoria: ${verifyPieces ? 'SI (SHA-1 HTTP Range)' : 'NO'}`)
 
   let totalLinked = 0
   let totalProcessed = 0
@@ -175,16 +191,20 @@ export async function runIndexer(options = {}) {
 
     for (const ep of (s.episodes ?? [])) {
       totalProcessed++
-      const existing = seriesRecord.episodes.find(e => e.episode === ep.episode && String(e.resolution) === String(ep.resolution))
-      if (existing && existsSync(`dist/${existing.torrentPath}`)) {
-        console.log(`  ✔ Ep ${ep.episode} (${ep.resolution}p): Ya verificado previamente (${existing.infoHash})`)
+      const existing = seriesRecord.episodes.find(e => episodeReleaseMatch(e, ep))
+      const urlUnchanged = existing?.directUrl === ep.url
+      const torrentExists = existing?.torrentPath && existsSync(`dist/${existing.torrentPath}`)
+      const piecesSatisfied = !verifyPieces || existing?.verified?.piecesVerified === true
+
+      if (existing && urlUnchanged && torrentExists && piecesSatisfied) {
+        console.log(`  ✔ Ep ${ep.episode} (${ep.resolution}p) [${ep.fileName || fileName(ep)}]: Ya verificado previamente (${existing.infoHash}, piezas: ${existing.verified?.piecesVerified})`)
         continue
       }
 
-      console.log(`  🔍 Buscando torrent para Ep ${ep.episode} (${ep.resolution}p)...`)
+      console.log(`  🔍 Buscando y verificando torrent para Ep ${ep.episode} (${ep.resolution}p) [${ep.fileName || fileName(ep)}]...`)
       const match = await findAndPrepareTorrent(s, ep, { verifyPieces })
       if (match) {
-        console.log(`  ✔ Ep ${ep.episode} (${ep.resolution}p): ¡Torrent encontrado y WebSeed embebido! [Hash: ${match.infoHash}]`)
+        console.log(`  ✔ Ep ${ep.episode} (${ep.resolution}p): ¡Torrent verificado con WebSeed embebido! [Hash: ${match.infoHash}, piezas: ${match.piecesVerified}]`)
         const epData = {
           episode: ep.episode,
           resolution: String(ep.resolution || ''),
@@ -202,8 +222,8 @@ export async function runIndexer(options = {}) {
           isOnline: true
         }
 
-        // Actualizar verifiedMatches
-        const idx = seriesRecord.episodes.findIndex(e => e.episode === ep.episode && String(e.resolution) === String(ep.resolution))
+        // Actualizar verifiedMatches en base al archivo coincidente
+        const idx = seriesRecord.episodes.findIndex(e => episodeReleaseMatch(e, ep))
         if (idx >= 0) seriesRecord.episodes[idx] = epData
         else seriesRecord.episodes.push(epData)
 
@@ -233,7 +253,8 @@ export async function runIndexer(options = {}) {
 // Ejecución directa por CLI si se llama standalone
 if (process.argv[1]?.endsWith('indexer.mjs')) {
   const args = process.argv.slice(2)
-  const pieces = args.includes('--pieces')
+  const noPieces = args.includes('--no-pieces')
+  const pieces = !noPieces
   const seriesIdx = args.indexOf('--series')
   let series = []
   if (seriesIdx >= 0) {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T05:04:48.111Z",
+  "updatedAt": "2026-09-08T05:26:21.855Z",
   "series": {
     "84": {
       "title": "Kidou Senshi Gundam 0083: STARDUST MEMORY",
@@ -24,6 +24,11 @@
     "461": {
       "title": "ONE PIECE: Chinjuu-jima no Chopper Oukoku",
       "anilistId": 461,
+      "episodes": []
+    },
+    "467": {
+      "title": "Ghost in the Shell Stand Alone Complex",
+      "anilistId": 467,
       "episodes": []
     },
     "504": {
@@ -54,6 +59,11 @@
     "1729": {
       "title": "Maria-sama ga Miteru 3rd",
       "anilistId": 1729,
+      "episodes": []
+    },
+    "2449": {
+      "title": "Ghost in the Shell Stand Alone Complex - 2nd GIG",
+      "anilistId": 2449,
       "episodes": []
     },
     "3652": {
@@ -234,6 +244,11 @@
     "20880": {
       "title": "Durarara!!X2 Ketsu",
       "anilistId": 20880,
+      "episodes": []
+    },
+    "21056": {
+      "title": "Ghost In The Shell Arise Alternative Architecture",
+      "anilistId": 21056,
       "episodes": []
     },
     "21088": {
@@ -3396,6 +3411,300 @@
         }
       ]
     },
+    "177699": {
+      "title": "Koukaku Kidoutai: THE GHOST IN THE SHELL",
+      "anilistId": 177699,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 01 [1080p AMZN WEB-DL AVC EAC3][MultiSub][28005883].mkv",
+          "size": 1756683018,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2001%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B28005883%5D.mkv",
+          "infoHash": "43a3ed604aaa6ef2a623850249cee00c04c4fe96",
+          "torrentPath": "torrents/43a3ed604aaa6ef2a623850249cee00c04c4fe96.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:24:55.087Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 02 [1080p AMZN WEB-DL AVC EAC3][MultiSub][68D743F6].mkv",
+          "size": 1777624983,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2002%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B68D743F6%5D.mkv",
+          "infoHash": "b54cb72871a81be6e7c7a963ceda0ddeacbc5546",
+          "torrentPath": "torrents/b54cb72871a81be6e7c7a963ceda0ddeacbc5546.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:24:58.540Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 03 [1080p AMZN WEB-DL AVC EAC3][MultiSub][A9ED95D7].mkv",
+          "size": 1773809145,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2003%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BA9ED95D7%5D.mkv",
+          "infoHash": "161c22aecdc3ed95fb629c275ee23f77ca601f3c",
+          "torrentPath": "torrents/161c22aecdc3ed95fb629c275ee23f77ca601f3c.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:02.646Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 04 [1080p AMZN WEB-DL AVC EAC3][MultiSub][FFB03C00].mkv",
+          "size": 1778962717,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2004%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BFFB03C00%5D.mkv",
+          "infoHash": "4ea2f6adfbf9a19d485c9c64947e2736e186b0e9",
+          "torrentPath": "torrents/4ea2f6adfbf9a19d485c9c64947e2736e186b0e9.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:06.445Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 05 [1080p AMZN WEB-DL AVC EAC3][MultiSub][ADDB49AE].mkv",
+          "size": 1766613872,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2005%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BADDB49AE%5D.mkv",
+          "infoHash": "b48d52e58e6c0afb593cb881211d315a0ce18883",
+          "torrentPath": "torrents/b48d52e58e6c0afb593cb881211d315a0ce18883.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:09.866Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 06 [1080p AMZN WEB-DL AVC EAC3][MultiSub][38003497].mkv",
+          "size": 1786646056,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2006%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B38003497%5D.mkv",
+          "infoHash": "49ebfc43dedbc018a47b9a5ff41d5ec6454022a4",
+          "torrentPath": "torrents/49ebfc43dedbc018a47b9a5ff41d5ec6454022a4.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:13.734Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 07 [1080p AMZN WEB-DL AVC EAC3][MultiSub][030D0046].mkv",
+          "size": 1749265565,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2007%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B030D0046%5D.mkv",
+          "infoHash": "8e4f7789e28ca520e9f41a3a281948e970a69749",
+          "torrentPath": "torrents/8e4f7789e28ca520e9f41a3a281948e970a69749.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:17.478Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 08 [1080p AMZN WEB-DL AVC EAC3][MultiSub][84D2100D].mkv",
+          "size": 1742193870,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2008%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B84D2100D%5D.mkv",
+          "infoHash": "2710def9f9dad4ab8b6fcab5c86cc96054f83747",
+          "torrentPath": "torrents/2710def9f9dad4ab8b6fcab5c86cc96054f83747.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:21.283Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 09 [1080p AMZN WEB-DL AVC EAC3][MultiSub][56C7BF49].mkv",
+          "size": 1788192572,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2009%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B56C7BF49%5D.mkv",
+          "infoHash": "8ee27ea98b9c93ed096361edc7ee222261fefab8",
+          "torrentPath": "torrents/8ee27ea98b9c93ed096361edc7ee222261fefab8.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:24.755Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 01 [720p AMZN WEB-DL AVC EAC3][MultiSub][2C23C9E6].mkv",
+          "size": 930390597,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2001%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B2C23C9E6%5D.mkv",
+          "infoHash": "566fe1016353c96075c128378dc18e089362505b",
+          "torrentPath": "torrents/566fe1016353c96075c128378dc18e089362505b.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:28.908Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 02 [720p AMZN WEB-DL AVC EAC3][MultiSub][ED49AEF0].mkv",
+          "size": 894803208,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2002%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BED49AEF0%5D.mkv",
+          "infoHash": "2cbeb01eced6a9bbfcb8ad7ffc3962c77706eece",
+          "torrentPath": "torrents/2cbeb01eced6a9bbfcb8ad7ffc3962c77706eece.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:32.186Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 03 [720p AMZN WEB-DL AVC EAC3][MultiSub][1105B76A].mkv",
+          "size": 930279884,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2003%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B1105B76A%5D.mkv",
+          "infoHash": "9976b26a1b93e39bb7078d1eb3d564fff7200969",
+          "torrentPath": "torrents/9976b26a1b93e39bb7078d1eb3d564fff7200969.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:35.713Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 04 [720p AMZN WEB-DL AVC EAC3][MultiSub][C07E3A20].mkv",
+          "size": 879883021,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2004%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BC07E3A20%5D.mkv",
+          "infoHash": "80984c24badbcba588075edb47646fc76d82ddaf",
+          "torrentPath": "torrents/80984c24badbcba588075edb47646fc76d82ddaf.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:39.079Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 05 [720p AMZN WEB-DL AVC EAC3][MultiSub][CC3F58AA].mkv",
+          "size": 932925760,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2005%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BCC3F58AA%5D.mkv",
+          "infoHash": "dc4fbd2b12ae15c65248a0cb4b6574f62c59ddd5",
+          "torrentPath": "torrents/dc4fbd2b12ae15c65248a0cb4b6574f62c59ddd5.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:42.633Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 06 [720p AMZN WEB-DL AVC EAC3][MultiSub][799A04E3].mkv",
+          "size": 866292295,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2006%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B799A04E3%5D.mkv",
+          "infoHash": "e3b6858286c218c3fdb596947ba80d36ac146480",
+          "torrentPath": "torrents/e3b6858286c218c3fdb596947ba80d36ac146480.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:46.114Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 07 [720p AMZN WEB-DL AVC EAC3][MultiSub][B03A6723].mkv",
+          "size": 932853903,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2007%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BB03A6723%5D.mkv",
+          "infoHash": "7f8c8d8a443ffce36ee14e00bd6e9556d3babe1a",
+          "torrentPath": "torrents/7f8c8d8a443ffce36ee14e00bd6e9556d3babe1a.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:49.784Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 08 [720p AMZN WEB-DL AVC EAC3][MultiSub][B5F34782].mkv",
+          "size": 928121869,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2008%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BB5F34782%5D.mkv",
+          "infoHash": "ff09b5633eb9a596e5adf587f7f157ee3d90e83d",
+          "torrentPath": "torrents/ff09b5633eb9a596e5adf587f7f157ee3d90e83d.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:53.058Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Koukaku Kidoutai (2026) - 09 [720p AMZN WEB-DL AVC EAC3][MultiSub][2C25B953].mkv",
+          "size": 810418540,
+          "directUrl": "https://emision.craftervault.com/0:down/Koukaku%20Kidoutai:%20THE%20GHOST%20IN%20THE%20SHELL/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Koukaku%20Kidoutai%20(2026)%20-%2009%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B2C25B953%5D.mkv",
+          "infoHash": "75c2843d5f9fb1372e1534b1aa5aa67f67ba202d",
+          "torrentPath": "torrents/75c2843d5f9fb1372e1534b1aa5aa67f67ba202d.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:25:56.882Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
     "177937": {
       "title": "SPY×FAMILY Season 3",
       "anilistId": 177937,
@@ -4011,6 +4320,268 @@
             "matchedBy": "prelinked",
             "piecesVerified": false,
             "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "194219": {
+      "title": "Oni no Hanayome",
+      "anilistId": 194219,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 01 [1080p CR WEB-DL AVC AAC][MultiSub][55AA2458].mkv",
+          "size": 1474382467,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B55AA2458%5D.mkv",
+          "infoHash": "8b3cc23a56739bb79f9ae077fa4450a11f9acde7",
+          "torrentPath": "torrents/8b3cc23a56739bb79f9ae077fa4450a11f9acde7.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:22:44.755Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 02 [1080p CR WEB-DL AVC AAC][MultiSub][A3265A7A].mkv",
+          "size": 1475743628,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BA3265A7A%5D.mkv",
+          "infoHash": "0f8cf48697a5e44aa21699e2b440b2205870c4c3",
+          "torrentPath": "torrents/0f8cf48697a5e44aa21699e2b440b2205870c4c3.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:22:48.122Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 03 [1080p CR WEB-DL AVC AAC][MultiSub][80987AC3].mkv",
+          "size": 1476010189,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B80987AC3%5D.mkv",
+          "infoHash": "ca120f0f46dad75f9643d3a89332fa4362ed4979",
+          "torrentPath": "torrents/ca120f0f46dad75f9643d3a89332fa4362ed4979.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:22:51.850Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 04 [1080p CR WEB-DL AVC AAC][MultiSub][F29787E5].mkv",
+          "size": 1476054300,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2004%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF29787E5%5D.mkv",
+          "infoHash": "c256b57984f083e8c9c2b009dfe6cfc520f8a5ad",
+          "torrentPath": "torrents/c256b57984f083e8c9c2b009dfe6cfc520f8a5ad.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:22:55.312Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 05 [1080p CR WEB-DL AVC AAC][MultiSub][17B06CC5].mkv",
+          "size": 1477473342,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B17B06CC5%5D.mkv",
+          "infoHash": "6dcb929b64d0b8914bf007d80e42d0c565f94d68",
+          "torrentPath": "torrents/6dcb929b64d0b8914bf007d80e42d0c565f94d68.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:22:58.694Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 08 [1080p CR WEB-DL AVC AAC][MultiSub][1B6EA419].mkv",
+          "size": 1806793011,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B1B6EA419%5D.mkv",
+          "infoHash": "5869eabacbbf02e996c3b0db19266e33e1e300ca",
+          "torrentPath": "torrents/5869eabacbbf02e996c3b0db19266e33e1e300ca.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:02.231Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 09 [1080p CR WEB-DL AVC AAC][MultiSub][241181DA].mkv",
+          "size": 1811518920,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B241181DA%5D.mkv",
+          "infoHash": "da2aa13b23956785ce19d26b95208b9a61475c6a",
+          "torrentPath": "torrents/da2aa13b23956785ce19d26b95208b9a61475c6a.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:05.965Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 10 [1080p CR WEB-DL AVC AAC][MultiSub][F5B63861].mkv",
+          "size": 1475562347,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2010%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF5B63861%5D.mkv",
+          "infoHash": "50805debc219897922d3ffc13190ca84f4ee30ea",
+          "torrentPath": "torrents/50805debc219897922d3ffc13190ca84f4ee30ea.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:09.314Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 01 [720p CR WEB-DL AVC AAC][MultiSub][D1851DD5].mkv",
+          "size": 523152058,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD1851DD5%5D.mkv",
+          "infoHash": "0c27700fe1a34f76b4873f05e238aa01435af8ee",
+          "torrentPath": "torrents/0c27700fe1a34f76b4873f05e238aa01435af8ee.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:13.604Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 02 [720p CR WEB-DL AVC AAC][MultiSub][E1234C1E].mkv",
+          "size": 547388588,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BE1234C1E%5D.mkv",
+          "infoHash": "3ca80f9f96f866a964cc05625bc7657902516d28",
+          "torrentPath": "torrents/3ca80f9f96f866a964cc05625bc7657902516d28.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:17.250Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 03 [720p CR WEB-DL AVC AAC][MultiSub][1CC1EBE5].mkv",
+          "size": 570961224,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B1CC1EBE5%5D.mkv",
+          "infoHash": "5e43d00aac426f5f0bed0196d35c853375cdebdf",
+          "torrentPath": "torrents/5e43d00aac426f5f0bed0196d35c853375cdebdf.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:20.897Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 04 [720p CR WEB-DL AVC AAC][MultiSub][B2B75BFC].mkv",
+          "size": 573474361,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BB2B75BFC%5D.mkv",
+          "infoHash": "ec0e0a5767fef2a8904b8acc61ff747d6674ee8d",
+          "torrentPath": "torrents/ec0e0a5767fef2a8904b8acc61ff747d6674ee8d.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:24.663Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 05 [720p CR WEB-DL AVC AAC][MultiSub][2D9AE7D7].mkv",
+          "size": 583565136,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B2D9AE7D7%5D.mkv",
+          "infoHash": "3e72e58ad8664d9b0ed77aed6a8c054f0fda7d50",
+          "torrentPath": "torrents/3e72e58ad8664d9b0ed77aed6a8c054f0fda7d50.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:28.074Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 08 [720p CR WEB-DL AVC AAC][MultiSub][054F21D0].mkv",
+          "size": 416610266,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B054F21D0%5D.mkv",
+          "infoHash": "6166ab7a32e26ee5457b0cf1e2d8a12bdca8d875",
+          "torrentPath": "torrents/6166ab7a32e26ee5457b0cf1e2d8a12bdca8d875.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:31.469Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 09 [720p CR WEB-DL AVC AAC][MultiSub][B962D435].mkv",
+          "size": 449624258,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BB962D435%5D.mkv",
+          "infoHash": "db85887bcb51faa6d2f61ca891b6a5926f4100e7",
+          "torrentPath": "torrents/db85887bcb51faa6d2f61ca891b6a5926f4100e7.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:34.869Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Oni no Hanayome - 10 [720p CR WEB-DL AVC AAC][MultiSub][0E7F8875].mkv",
+          "size": 616910187,
+          "directUrl": "https://emision.craftervault.com/0:down/Oni%20no%20Hanayome/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Oni%20no%20Hanayome%20-%2010%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B0E7F8875%5D.mkv",
+          "infoHash": "c47eb395e9712206e9226415984e65ee0687e866",
+          "torrentPath": "torrents/c47eb395e9712206e9226415984e65ee0687e866.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:23:38.213Z"
           },
           "isOnline": true
         }

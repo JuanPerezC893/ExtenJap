@@ -144,6 +144,12 @@
     "file": "data/177637.json"
   },
   {
+    "anilistId": 177699,
+    "title": "Koukaku Kidoutai: THE GHOST IN THE SHELL",
+    "episodesCount": 18,
+    "file": "data/177699.json"
+  },
+  {
     "anilistId": 182483,
     "title": "Hime Kishi wa Barbaroi no Yome",
     "episodesCount": 8,
@@ -160,6 +166,12 @@
     "title": "BLEACH: Sennen Kessen-hen - Kashin-tan",
     "episodesCount": 14,
     "file": "data/185874.json"
+  },
+  {
+    "anilistId": 194219,
+    "title": "Oni no Hanayome",
+    "episodesCount": 16,
+    "file": "data/194219.json"
   },
   {
     "anilistId": 194829,

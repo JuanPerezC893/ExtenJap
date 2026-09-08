@@ -38,7 +38,12 @@ function resolveFile(query, file, catalog) {
 
   const fileName = file.name
   const torrentName = query.name || ''
-  const targetEpisode = Number(query.episode)
+  let targetEpisode = Number(query.episode)
+  if (isNaN(targetEpisode) || targetEpisode === 0) {
+    const m = fileName.match(/(?:[\s\-_]0*(\d{1,4}(?:\.\d+)?)[\s\-_]|E0*(\d{1,4}))/i) ||
+              torrentName.match(/(?:[\s\-_]0*(\d{1,4}(?:\.\d+)?)[\s\-_]|E0*(\d{1,4}))/i)
+    if (m) targetEpisode = parseFloat(m[1] || m[2])
+  }
 
   // 1. Filtrar series candidatas por ID o títulos
   const titles = (query.titles ?? []).map(normalize).filter(Boolean)
@@ -75,7 +80,7 @@ function resolveFile(query, file, catalog) {
   let bestScore = -1
 
   for (const series of candidateSeries) {
-    const episodes = (series.episodes ?? []).filter(e => Number(e.episode) === targetEpisode)
+    const episodes = (series.episodes ?? []).filter(e => isNaN(targetEpisode) || Number(e.episode) === targetEpisode)
 
     for (const ep of episodes) {
       let score = 0

@@ -3,12 +3,11 @@ const INDEX_URL = "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main
 let cache
 let cachedAt = 0
 
-const normalize = value => String(value ?? '')
+const strip = str => String(str ?? '')
   .normalize('NFKD')
   .toLowerCase()
   .replace(/\p{M}/gu, '')
-  .replace(/[^\p{L}\p{N}]+/gu, ' ')
-  .trim()
+  .replace(/[^a-z0-9]+/g, '')
 
 async function loadIndex(fetchFn, refresh = false) {
   if (!refresh && cache && Date.now() - cachedAt < 300_000) return cache
@@ -21,39 +20,100 @@ async function loadIndex(fetchFn, refresh = false) {
   return data
 }
 
+function isBatchTorrent(item) {
+  const title = (item.title || '').toLowerCase()
+  if (/\b(batch|complete|vol\.\d+|s\d+\s*-\s*s\d+|01\s*-\s*\d{2}|01\s*~\s*\d{2})\b/i.test(title)) return true
+  if (item.num_files && item.num_files > 3) return true
+  // Si pesa más de 4.5 GB para un solo episodio, casi seguro es una temporada completa (batch)
+  if (item.total_size && item.total_size > 4.5 * 1024 * 1024 * 1024) return true
+  return false
+}
+
+function matchSeries(catalog, titles, anilistId) {
+  if (anilistId) {
+    const byId = catalog.filter(s => Number(s.anilistId) === Number(anilistId))
+    if (byId.length) return byId
+  }
+
+  const cleanTitles = titles.map(strip).filter(Boolean)
+  if (!cleanTitles.length) return []
+
+  return catalog.filter(s => {
+    const sClean = strip(s.title)
+    if (!sClean) return false
+
+    for (const qClean of cleanTitles) {
+      // 1. Coincidencia exacta sin espacios ni puntuación (ej. Himekishi vs Hime Kishi)
+      if (qClean === sClean) return true
+
+      // 2. Coincidencia por alias si existen
+      if (s.aliases && Array.isArray(s.aliases)) {
+        if (s.aliases.some(a => strip(a) === qClean)) return true
+      }
+
+      // 3. Substring seguro: SOLO si ambos tienen 6 o más caracteres
+      // (Evita que títulos cortos como "K", "Ajin" o "TEST" coincidan con cualquier palabra)
+      if (qClean.length >= 6 && sClean.length >= 6) {
+        if (sClean.includes(qClean) || qClean.includes(sClean)) return true
+      }
+
+      // 4. Coincidencia con nombre en inglés en los nombres de archivo
+      if (s.episodes && s.episodes.length > 0) {
+        const fn = strip(s.episodes[0].fileName || '')
+        if (qClean.length >= 6 && fn.includes(qClean)) return true
+      }
+    }
+    return false
+  })
+}
+
 async function fetchAnimeToshoTorrent(seriesTitle, ep, fetchFn) {
   try {
-    const cleanTitle = seriesTitle.replace(/[!?:;,.'"()[\]]/g, ' ').replace(/\s+/g, ' ').trim()
+    const cleanTitle = seriesTitle.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
     const epNum = Math.floor(Number(ep.episode))
     const epStr = String(epNum).padStart(2, '0')
     const q = encodeURIComponent(`${cleanTitle} ${epStr}`)
     const res = await fetchFn(`https://feed.animetosho.org/json?q=${q}`, {
       headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
-      signal: AbortSignal.timeout(3500)
+      signal: AbortSignal.timeout(4000)
     })
     if (!res.ok) return null
     const items = await res.json()
     if (!Array.isArray(items) || !items.length) return null
 
+    // Filtrar batches para capítulos individuales
+    const singles = items.filter(i => !isBatchTorrent(i))
+    const pool = singles.length ? singles : items
+
     // 1. Prioridad máxima: match exacto por CRC32
     if (ep.crc32) {
-      const match = items.find(i => i.title && i.title.toUpperCase().includes(ep.crc32.toUpperCase()))
+      const match = pool.find(i => i.title && i.title.toUpperCase().includes(ep.crc32.toUpperCase()))
       if (match?.info_hash && match?.torrent_url) return match
     }
 
-    // 2. Prioridad: match por fansub group
+    // 2. Prioridad: match exacto por nombre de archivo
+    if (ep.fileName) {
+      const cleanFn = strip(ep.fileName.replace(/\.mkv$/i, ''))
+      const match = pool.find(i => {
+        const iClean = strip(i.title || '')
+        return iClean.includes(cleanFn) || cleanFn.includes(iClean)
+      })
+      if (match?.info_hash && match?.torrent_url) return match
+    }
+
+    // 3. Prioridad: match por fansub group
     if (ep.group) {
-      const match = items.find(i => i.title && i.title.toLowerCase().includes(ep.group.toLowerCase()))
+      const match = pool.find(i => i.title && i.title.toLowerCase().includes(ep.group.toLowerCase()))
       if (match?.info_hash && match?.torrent_url) return match
     }
 
-    // 3. Match por resolución
+    // 4. Match por resolución
     const resStr = `${ep.resolution}p`
-    const matchRes = items.find(i => i.title && i.title.includes(resStr))
+    const matchRes = pool.find(i => i.title && i.title.includes(resStr))
     if (matchRes?.info_hash && matchRes?.torrent_url) return matchRes
 
-    // 4. Primer resultado que tenga torrent_url e info_hash
-    return items.find(i => i.info_hash && i.torrent_url) || null
+    // 5. Primer resultado individual que tenga torrent_url e info_hash
+    return pool.find(i => i.info_hash && i.torrent_url) || null
   } catch {
     return null
   }
@@ -68,17 +128,8 @@ export default new class JapanPawTorrentSource {
   async single(query) {
     const fetchFn = query.fetch ?? fetch
     const catalog = await loadIndex(fetchFn)
-    const titles = (query.titles ?? []).map(normalize).filter(Boolean)
-    const byId = query.anilistId ? catalog.filter(s => Number(s.anilistId) === Number(query.anilistId)) : []
-
-    const series = byId.length ? byId : catalog.filter(s => {
-      const sTitle = normalize(s.title)
-      if (titles.some(t => t === sTitle || t.includes(sTitle) || sTitle.includes(t))) return true
-      if (s.aliases && Array.isArray(s.aliases)) {
-        if (s.aliases.some(a => titles.includes(normalize(a)))) return true
-      }
-      return false
-    })
+    const titles = query.titles ?? []
+    const series = matchSeries(catalog, titles, query.anilistId)
 
     const targetEpisode = Number(query.episode)
     const exclusions = (query.exclusions ?? []).map(x => String(x).toLowerCase()).filter(Boolean)

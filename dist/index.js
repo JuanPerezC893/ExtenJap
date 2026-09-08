@@ -1,14 +1,13 @@
-// ESM para el worker de Hayase. build.mjs fija esta URL.
+// ESM para el worker de Hayase (WebSeedSource).
 const INDEX_URL = "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/indexed-catalog.json"
 let cache
 let cachedAt = 0
 
-const normalize = value => String(value ?? '')
+const strip = str => String(str ?? '')
   .normalize('NFKD')
   .toLowerCase()
   .replace(/\p{M}/gu, '')
-  .replace(/[^\p{L}\p{N}]+/gu, ' ')
-  .trim()
+  .replace(/[^a-z0-9]+/g, '')
 
 async function loadIndex(fetchFn, refresh = false) {
   if (!refresh && cache && Date.now() - cachedAt < 300_000) return cache
@@ -33,6 +32,36 @@ function extractGroup(str) {
 
 const VIDEO_EXTENSIONS = /\.(mkv|mp4|webm|avi|m4v)$/i
 
+function matchSeries(catalog, titles, anilistId) {
+  if (anilistId) {
+    const byId = catalog.filter(s => Number(s.anilistId) === Number(anilistId))
+    if (byId.length) return byId
+  }
+
+  const cleanTitles = titles.map(strip).filter(Boolean)
+  if (!cleanTitles.length) return []
+
+  return catalog.filter(s => {
+    const sClean = strip(s.title)
+    if (!sClean) return false
+
+    for (const qClean of cleanTitles) {
+      if (qClean === sClean) return true
+      if (s.aliases && Array.isArray(s.aliases)) {
+        if (s.aliases.some(a => strip(a) === qClean)) return true
+      }
+      if (qClean.length >= 6 && sClean.length >= 6) {
+        if (sClean.includes(qClean) || qClean.includes(sClean)) return true
+      }
+      if (s.episodes && s.episodes.length > 0) {
+        const fn = strip(s.episodes[0].fileName || '')
+        if (qClean.length >= 6 && fn.includes(qClean)) return true
+      }
+    }
+    return false
+  })
+}
+
 function resolveFile(query, file, catalog) {
   if (!file || !file.name || !VIDEO_EXTENSIONS.test(file.name)) return undefined
 
@@ -45,37 +74,15 @@ function resolveFile(query, file, catalog) {
     if (m) targetEpisode = parseFloat(m[1] || m[2])
   }
 
-  // 1. Filtrar series candidatas por ID o títulos
-  const titles = (query.titles ?? []).map(normalize).filter(Boolean)
-  const byId = query.anilistId ? catalog.filter(s => Number(s.anilistId) === Number(query.anilistId)) : []
-
-  let candidateSeries = byId.length ? byId : catalog.filter(s => {
-    const sTitle = normalize(s.title)
-    if (titles.some(t => t === sTitle || t.includes(sTitle) || sTitle.includes(t))) return true
-    if (s.aliases && Array.isArray(s.aliases)) {
-      if (s.aliases.some(a => titles.includes(normalize(a)))) return true
-    }
-    const combined = normalize(`${torrentName} ${fileName}`)
-    if (sTitle && combined.includes(sTitle)) return true
-    return false
-  })
-
-  if (!candidateSeries.length) {
-    candidateSeries = catalog.filter(s => {
-      const sTitle = normalize(s.title)
-      return sTitle && normalize(fileName).includes(sTitle)
-    })
-  }
-
+  const titles = (query.titles ?? []).filter(Boolean)
+  const candidateSeries = matchSeries(catalog, [...titles, torrentName, fileName], query.anilistId)
   if (!candidateSeries.length) return undefined
 
-  // 2. Extraer metadatos de la consulta para scoring
   const fileCrc = extractCrc32(fileName)
   const fileGroup = extractGroup(fileName) || extractGroup(torrentName)
   const fileHas1080 = /1080/i.test(`${fileName} ${torrentName}`)
   const fileHas720 = /720/i.test(`${fileName} ${torrentName}`)
 
-  // 3. Buscar y puntuar episodios candidatos
   let bestCandidate = null
   let bestScore = -1
 
@@ -89,29 +96,18 @@ function resolveFile(query, file, catalog) {
       const epGroup = ep.group || extractGroup(ep.fileName || '')
       const epRes = String(ep.resolution || '')
 
-      // Penalización definitiva: grupos o CRC32 incompatibles no deben mezclarse
-      // para evitar errores de SHA-1 en WebTorrent
       if (fileCrc && epCrc && fileCrc !== epCrc) continue
-      if (fileGroup && epGroup && normalize(fileGroup) !== normalize(epGroup)) {
-        continue
-      }
+      if (fileGroup && epGroup && strip(fileGroup) !== strip(epGroup)) continue
 
-      // Prioridad 1: Coincidencia exacta de nombre de archivo
-      if (ep.fileName && (file.name === ep.fileName || normalize(file.name) === normalize(ep.fileName))) {
+      if (ep.fileName && (file.name === ep.fileName || strip(file.name) === strip(ep.fileName))) {
         score += 1000
       }
-
-      // Prioridad 2: Coincidencia de CRC32
       if (fileCrc && epCrc && fileCrc === epCrc) {
         score += 500
       }
-
-      // Prioridad 3: Coincidencia de grupo
-      if (fileGroup && epGroup && normalize(fileGroup) === normalize(epGroup)) {
+      if (fileGroup && epGroup && strip(fileGroup) === strip(epGroup)) {
         score += 200
       }
-
-      // Prioridad 4: Coincidencia de resolución
       if (fileHas1080 && epRes === '1080') score += 100
       else if (fileHas720 && epRes === '720') score += 100
       else if (!fileHas1080 && !fileHas720 && epRes === '1080') score += 50

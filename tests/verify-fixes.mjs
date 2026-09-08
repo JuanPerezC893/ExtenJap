@@ -122,7 +122,27 @@ async function runTests() {
   console.log(`¿Aparece versión 720p?: ${has720 ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
   console.log(`¿Cada versión tiene su propio torrent/hash diferente?: ${distinctHashes ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
   console.log(`¿Se aisló de la Temporada 1 (no se mezclaron)?: ${noSeason1 ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
+
+  console.log('\n=== TEST 7: Mashle 2nd Season Ep 2 (Validación de número de episodio y resoluciones) ===')
+  const r7 = await torrentSource.single({
+    fetch: testFetch,
+    anilistId: 166610,
+    titles: ['MASHLE: MAGIC AND MUSCLES Season 2', 'Mashle 2nd Season'],
+    episode: 2
+  })
+  console.log(`Encontrados para Mashle 2nd Season Ep 2: ${r7.length} resultados`)
+  for (const item of r7) {
+    console.log(`- Título:  ${item.title}`)
+    console.log(`  Res:     ${item.episode.resolution}p`)
+    console.log(`  Hash:    ${item.hash}`)
+    console.log(`  Tamaño:  ${(item.size / 1024 / 1024).toFixed(1)} MB`)
+  }
+  const ep2DistinctHashes = new Set(r7.map(i => i.hash)).size === r7.length
+  const ep2IsEp2 = r7.every(i => !i.title.includes('E12') && !i.title.includes('- 12'))
+  console.log(`¿Episodio 2 es realmente Ep 2 y no Ep 12?: ${ep2IsEp2 ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
+  console.log(`¿1080p y 720p tienen hashes distintos?: ${ep2DistinctHashes ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
 }
 
 runTests().catch(console.error)
+
 

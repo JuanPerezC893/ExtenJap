@@ -126,58 +126,54 @@ function matchSeries(catalog, rawTitles, anilistId) {
   })
 }
 
+function extractEpisodeNumber(title) {
+  // Ignorar bit-depth (10-bit, 8-bit, 12-bit), resoluciones (1080p, 720p, 480p) y años (19xx, 20xx)
+  const clean = String(title || '')
+    .replace(/\b\d{1,2}\s*-?\s*bits?\b/gi, '')
+    .replace(/\b\d{3,4}p\b/gi, '')
+    .replace(/\b(19\d{2}|20\d{2})\b/g, '')
+
+  const m1 = clean.match(/\b(?:s\d+)?\s*(?:e|ep|episode)\s*0*(\d{1,4}(?:\.\d+)?)\b/i)
+  if (m1) return parseFloat(m1[1])
+
+  const m2 = clean.match(/(?:[\s\-_]0*(\d{1,4}(?:\.\d+)?)\s*(?:v\d+)?(?:[\s\-_\[(]|\.mkv|\.mp4))/i)
+  if (m2) return parseFloat(m2[1])
+
+  return null
+}
+
+const toshoCache = new Map()
+
+async function queryAnimeTosho(queryStr, fetchFn) {
+  if (toshoCache.has(queryStr)) return toshoCache.get(queryStr)
+  try {
+    const q = encodeURIComponent(queryStr)
+    const res = await fetchFn(`https://feed.animetosho.org/json?q=${q}`, {
+      headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
+      signal: AbortSignal.timeout(4000)
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    if (Array.isArray(data)) {
+      toshoCache.set(queryStr, data)
+      return data
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
 async function fetchAnimeToshoTorrent(queryTitles, series, ep, fetchFn) {
   try {
     const epNum = Math.floor(Number(ep.episode))
     const epStr = String(epNum).padStart(2, '0')
     
-    // Títulos a consultar en AnimeTosho en orden de calidad (títulos oficiales de AniList primero, luego catálogo)
-    const titlesToTry = [
-      ...((queryTitles || []).filter(t => /[a-z0-9]/i.test(t))),
-      series.title
-    ]
-    
-    let items = null
-    for (const titleCandidate of titlesToTry) {
-      const cleanTitle = titleCandidate.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
-      const q = encodeURIComponent(`${cleanTitle} ${epStr}`)
-      const res = await fetchFn(`https://feed.animetosho.org/json?q=${q}`, {
-        headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
-        signal: AbortSignal.timeout(4000)
-      })
-      if (res.ok) {
-        const data = await res.json()
-        if (Array.isArray(data) && data.length) {
-          items = data
-          break
-        }
-      }
-    }
-
-    // Para películas o especiales de 1 solo episodio, el tracker suele no incluir "01"
-    if ((!items || !items.length) && epNum === 1) {
-      for (const titleCandidate of titlesToTry) {
-        const cleanTitle = titleCandidate.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
-        const q = encodeURIComponent(cleanTitle)
-        const res = await fetchFn(`https://feed.animetosho.org/json?q=${q}`, {
-          headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
-          signal: AbortSignal.timeout(4000)
-        })
-        if (res.ok) {
-          const data = await res.json()
-          if (Array.isArray(data) && data.length) {
-            items = data
-            break
-          }
-        }
-      }
-    }
-
-    if (!items || !items.length) return null
-
-    // Filtrar batches (temporadas completas) para capítulos individuales y películas
-    const singles = items.filter(i => !isBatchTorrent(i))
-    const pool = singles.length ? singles : items
+    // Probar series.title primero (título con el que Japan-Paw nombró los archivos) y luego los títulos de AniList
+    const titlesToTry = Array.from(new Set([
+      series.title,
+      ...((queryTitles || []).filter(t => /[a-z0-9]/i.test(t)))
+    ]))
 
     const targetRes = String(ep.resolution || '').replace(/p$/i, '')
     const targetGroup = (ep.group || '').toLowerCase()
@@ -187,60 +183,80 @@ async function fetchAnimeToshoTorrent(queryTitles, series, ep, fetchFn) {
     let bestMatch = null
     let bestScore = -10000
 
-    for (const item of pool) {
-      if (!item.info_hash || !item.torrent_url) continue
-      const itemTitle = (item.title || '').toLowerCase()
-      let score = 0
-
-      // 1. Coincidencia exacta por CRC32
-      if (targetCrc && itemTitle.toUpperCase().includes(targetCrc)) {
-        score += 10000
+    for (const titleCandidate of titlesToTry) {
+      const cleanTitle = titleCandidate.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
+      const queries = [`${cleanTitle} ${epStr}`]
+      if (epNum === 1) {
+        queries.push(cleanTitle)
       }
 
-      // 2. Coincidencia por nombre de archivo
-      if (ep.fileName) {
-        const cleanFn = strip(ep.fileName.replace(/\.mkv$/i, ''))
-        const iClean = strip(itemTitle)
-        if (iClean.includes(cleanFn) || cleanFn.includes(iClean)) {
-          score += 5000
+      for (const qStr of queries) {
+        const items = await queryAnimeTosho(qStr, fetchFn)
+        if (!items || !items.length) continue
+
+        const singles = items.filter(i => !isBatchTorrent(i))
+        const pool = singles.length ? singles : items
+
+        for (const item of pool) {
+          if (!item.info_hash || !item.torrent_url) continue
+          const itemTitle = (item.title || '').toLowerCase()
+
+          // 1. Validación estricta de episodio: si el torrent indica un número de episodio distinto, descartar
+          const torrentEp = extractEpisodeNumber(itemTitle)
+          if (torrentEp !== null && torrentEp !== epNum) continue
+          if (torrentEp === null && epNum > 1 && !targetCrc && !ep.fileName) continue
+
+          // 2. Validación estricta de resolución: NUNCA asignar 720p a 1080p o viceversa
+          const itemIs1080 = /\b1080p?\b/i.test(itemTitle)
+          const itemIs720 = /\b720p?\b/i.test(itemTitle)
+          const itemIs480 = /\b480p?\b/i.test(itemTitle)
+
+          if (targetRes === '1080' && (itemIs720 || itemIs480)) continue
+          if (targetRes === '720' && (itemIs1080 || itemIs480)) continue
+          if (targetRes === '480' && (itemIs1080 || itemIs720)) continue
+
+          let score = 0
+          if (torrentEp === epNum) score += 3000
+
+          // Coincidencia exacta por CRC32
+          if (targetCrc && itemTitle.toUpperCase().includes(targetCrc)) {
+            score += 10000
+          }
+
+          // Coincidencia por nombre de archivo
+          if (ep.fileName) {
+            const cleanFn = strip(ep.fileName.replace(/\.mkv$/i, ''))
+            const iClean = strip(itemTitle)
+            if (iClean.includes(cleanFn) || cleanFn.includes(iClean)) {
+              score += 5000
+            }
+          }
+
+          // Coincidencia por resolución
+          if (targetRes === '1080' && itemIs1080) score += 2000
+          if (targetRes === '720' && itemIs720) score += 2000
+          if (targetRes === '480' && itemIs480) score += 2000
+
+          // Coincidencia por Fansub Group
+          if (targetGroup && itemTitle.includes(targetGroup)) {
+            score += 1500
+          }
+
+          // Codec HEVC vs AVC
+          const itemIsHevc = /\b(hevc|x265|h\.?265)\b/i.test(itemTitle)
+          if (targetIsHevc === itemIsHevc) score += 500
+          else score -= 300
+
+          if (score > bestScore) {
+            bestScore = score
+            bestMatch = item
+          }
         }
+
+        if (bestMatch && bestScore >= 4000) break
       }
 
-      // 3. Resolución: Prioridad estricta para evitar mezclar 720p con 1080p
-      const itemIs1080 = /\b1080p?\b/i.test(itemTitle)
-      const itemIs720 = /\b720p?\b/i.test(itemTitle)
-      const itemIs480 = /\b480p?\b/i.test(itemTitle)
-
-      if (targetRes === '1080') {
-        if (itemIs1080) score += 2000
-        else if (itemIs720) score -= 2000
-        else if (itemIs480) score -= 3000
-      } else if (targetRes === '720') {
-        if (itemIs720) score += 2000
-        else if (itemIs1080) score -= 2000
-        else if (itemIs480) score -= 3000
-      } else if (targetRes === '480') {
-        if (itemIs480) score += 2000
-        else score -= 1000
-      }
-
-      // 4. Fansub Group
-      if (targetGroup && itemTitle.includes(targetGroup)) {
-        score += 1000
-      }
-
-      // 5. Codec HEVC vs AVC
-      const itemIsHevc = /\b(hevc|x265|h\.?265)\b/i.test(itemTitle)
-      if (targetIsHevc === itemIsHevc) {
-        score += 500
-      } else {
-        score -= 200
-      }
-
-      if (score > bestScore) {
-        bestScore = score
-        bestMatch = item
-      }
+      if (bestMatch && bestScore >= 4000) break
     }
 
     return bestMatch

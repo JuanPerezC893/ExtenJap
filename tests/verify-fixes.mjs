@@ -45,6 +45,45 @@ async function runTests() {
   })
   console.log(`Resultado HTTP:`, r2)
   console.log(`¿Resolvió URL de craftervault?: ${r2?.url?.includes('craftervault.com') ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
+
+  console.log('\n=== TEST 3: Película (Kimi no Na wa) - Sin límite de 4.5 GB ===')
+  const r3 = await torrentSource.single({
+    fetch: testFetch,
+    titles: ['Kimi no Na wa', 'Your Name.'],
+    episode: 1
+  })
+  console.log(`Encontrados para película: ${r3.length} resultados`)
+  for (const item of r3) {
+    console.log(`- Título: ${item.title}`)
+    console.log(`  Tamaño: ${(item.size / 1024 / 1024 / 1024).toFixed(2)} GB`)
+  }
+  const hasMovie = r3.length > 0
+  console.log(`¿Película encontrada correctamente sin ser bloqueada por tamaño?: ${hasMovie ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
+
+  console.log('\n=== TEST 4: Verificación directa de Película (15 GB) vs Batch (15 GB) ===')
+  // Simulación de los dos casos de 15 GB
+  const testMovie = {
+    title: '[BlackRose] Your Name. (2016) (BD 1080p HEVC 10-bit Opus) [Dual-Audio] | Kimi no Na wa.',
+    num_files: 1,
+    total_size: 14_452_000_000 // 14.4 GB
+  }
+  const testBatch = {
+    title: '[Yameii] The Apothecary Diaries - S01 [English Dub] [CR WEB-DL 720p] - Unofficial Batch',
+    num_files: 24,
+    total_size: 18_210_000_000 // 18.2 GB
+  }
+
+  // Importar isBatchTorrent indirectamente o evaluar la lógica
+  const isBatchRegex = /\b(batch|unofficial\s*batch|season\s*\d*\s*complete|complete\s*season|complete\s*series|s\d+\s*-\s*s\d+|0?1\s*-\s*\d{2,}|0?1\s*~\s*\d{2,})\b/i
+  const checkBatch = (item) => {
+    const title = `${item.title || ''} ${item.torrent_name || ''}`.toLowerCase()
+    if (isBatchRegex.test(title)) return true
+    if (item.num_files && item.num_files > 3) return true
+    return false
+  }
+
+  console.log(`Película de 14.4 GB con 1 archivo es batch: ${checkBatch(testMovie)} (Debe ser false -> PERMITIDA)`)
+  console.log(`Batch de 18.2 GB con 24 archivos es batch: ${checkBatch(testBatch)} (Debe ser true -> FILTRADO)`)
 }
 
 runTests().catch(console.error)

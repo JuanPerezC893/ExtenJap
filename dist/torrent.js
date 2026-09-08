@@ -21,11 +21,16 @@ async function loadIndex(fetchFn, refresh = false) {
 }
 
 function isBatchTorrent(item) {
-  const title = (item.title || '').toLowerCase()
-  if (/\b(batch|complete|vol\.\d+|s\d+\s*-\s*s\d+|01\s*-\s*\d{2}|01\s*~\s*\d{2})\b/i.test(title)) return true
-  if (item.num_files && item.num_files > 3) return true
-  // Si pesa más de 4.5 GB para un solo episodio, casi seguro es una temporada completa (batch)
-  if (item.total_size && item.total_size > 4.5 * 1024 * 1024 * 1024) return true
+  const title = `${item.title || ''} ${item.torrent_name || ''}`.toLowerCase()
+  // Detección de patrones explícitos de paquetes/temporadas completas (01-12, batch, etc.)
+  if (/\b(batch|unofficial\s*batch|season\s*\d*\s*complete|complete\s*season|complete\s*series|s\d+\s*-\s*s\d+|0?1\s*-\s*\d{2,}|0?1\s*~\s*\d{2,})\b/i.test(title)) {
+    return true
+  }
+  // Si el torrent contiene múltiples archivos de video (temporada completa con > 3 archivos)
+  // Las películas o episodios individuales (incluso de 10 GB, 20 GB o 4K REMUX) tienen 1 único archivo principal
+  if (item.num_files && item.num_files > 3) {
+    return true
+  }
   return false
 }
 
@@ -72,16 +77,34 @@ async function fetchAnimeToshoTorrent(seriesTitle, ep, fetchFn) {
     const cleanTitle = seriesTitle.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
     const epNum = Math.floor(Number(ep.episode))
     const epStr = String(epNum).padStart(2, '0')
-    const q = encodeURIComponent(`${cleanTitle} ${epStr}`)
-    const res = await fetchFn(`https://feed.animetosho.org/json?q=${q}`, {
+    
+    let items = null
+    const q1 = encodeURIComponent(`${cleanTitle} ${epStr}`)
+    const res1 = await fetchFn(`https://feed.animetosho.org/json?q=${q1}`, {
       headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
       signal: AbortSignal.timeout(4000)
     })
-    if (!res.ok) return null
-    const items = await res.json()
-    if (!Array.isArray(items) || !items.length) return null
+    if (res1.ok) {
+      const data = await res1.json()
+      if (Array.isArray(data) && data.length) items = data
+    }
 
-    // Filtrar batches para capítulos individuales
+    // Para películas o especiales de 1 solo episodio, el tracker suele no incluir "01"
+    if ((!items || !items.length) && epNum === 1) {
+      const q2 = encodeURIComponent(cleanTitle)
+      const res2 = await fetchFn(`https://feed.animetosho.org/json?q=${q2}`, {
+        headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
+        signal: AbortSignal.timeout(4000)
+      })
+      if (res2.ok) {
+        const data = await res2.json()
+        if (Array.isArray(data) && data.length) items = data
+      }
+    }
+
+    if (!items || !items.length) return null
+
+    // Filtrar batches (temporadas completas) para capítulos individuales y películas
     const singles = items.filter(i => !isBatchTorrent(i))
     const pool = singles.length ? singles : items
 

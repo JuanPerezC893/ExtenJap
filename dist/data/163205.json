@@ -1,0 +1,42 @@
+{
+  "anilistId": 163205,
+  "title": "Mononogatari 2nd Season",
+  "episodes": [
+    {
+      "episode": 9,
+      "resolution": "1080",
+      "quality": "[Erai-raws] [Web 1080p]",
+      "fileName": "[Erai-raws] Mononogatari 2nd Season - 09 [1080p][Multiple Subtitle][898E562B].mkv",
+      "size": 1447674179,
+      "hash": "6066243338c22bc5973288ea4ac7a1b4460d6ac5",
+      "torrent": "torrents/6066243338c22bc5973288ea4ac7a1b4460d6ac5.torrent",
+      "url": "https://anime.craftervault.com/0:down/M/Mononogatari/[Erai-raws] Mononogatari 2nd Season [Web 1080p]/[Erai-raws] Mononogatari 2nd Season - 09 [1080p][Multiple Subtitle][898E562B].mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-08T03:56:28.960Z"
+    },
+    {
+      "episode": 4,
+      "resolution": "720",
+      "quality": "[Erai-raws] [Web 720p]",
+      "fileName": "[Erai-raws] Mononogatari 2nd Season - 04 [720p][Multiple Subtitle][FD71223B].mkv",
+      "size": 737027468,
+      "hash": "772eafe8b44355dbe305561bdf785e5b16359fc4",
+      "torrent": "torrents/772eafe8b44355dbe305561bdf785e5b16359fc4.torrent",
+      "url": "https://anime.craftervault.com/0:down/M/Mononogatari/[Erai-raws] Mononogatari 2nd Season [Web 720p]/[Erai-raws] Mononogatari 2nd Season - 04 [720p][Multiple Subtitle][FD71223B].mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-08T03:56:30.107Z"
+    },
+    {
+      "episode": 8,
+      "resolution": "720",
+      "quality": "[Erai-raws] [Web 720p]",
+      "fileName": "[Erai-raws] Mononogatari 2nd Season - 08 [720p][Multiple Subtitle][F01AEA4F].mkv",
+      "size": 740330208,
+      "hash": "17d11438b822c1874ca3093c8aee4608630fd122",
+      "torrent": "torrents/17d11438b822c1874ca3093c8aee4608630fd122.torrent",
+      "url": "https://anime.craftervault.com/0:down/M/Mononogatari/[Erai-raws] Mononogatari 2nd Season [Web 720p]/[Erai-raws] Mononogatari 2nd Season - 08 [720p][Multiple Subtitle][F01AEA4F].mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-08T03:56:32.474Z"
+    }
+  ]
+}

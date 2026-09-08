@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { toTorrentFile, default as parseTorrent } from 'parse-torrent'
-import { verifyPieceHashes, saveVerifiedMatches, loadVerifiedMatches, episodeReleaseMatch } from '../indexer.mjs'
+import { verifyPieceHashes, saveVerifiedMatches, loadVerifiedMatches, episodeReleaseMatch, runIndexer } from '../indexer.mjs'
 import { createHash } from 'node:crypto'
 
 test('indexer: toTorrentFile inyecta url-list (BEP-19 WebSeed) preservando el infoHash', async () => {
@@ -120,3 +120,15 @@ test('indexer: guardado atómico y protección ante corrupción en verified-matc
     fs.writeFileSync('verified-matches.json', backupOriginal, 'utf8')
   }
 })
+
+test('indexer: runIndexer admite concurrencia y procesa workers paralelos', async () => {
+  // Ejecutar con filtro inexistente para validar la inicialización de workers concurrentes
+  await assert.doesNotReject(async () => {
+    await runIndexer({
+      seriesFilter: ['__serie_inexistente_para_test__'],
+      concurrency: 3,
+      useProxy: false
+    })
+  })
+})
+

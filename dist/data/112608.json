@@ -1,0 +1,30 @@
+{
+  "anilistId": 112608,
+  "title": "Slime Taoshite 300-nen Shiranai Uchi ni Level Max ni Nattemashita",
+  "episodes": [
+    {
+      "episode": 8,
+      "resolution": "1080",
+      "quality": "[Erai-raws][Web 1080p]",
+      "fileName": "[Erai-raws] slime300 S2 - 08v2 [1080p CR WEB-DL AVC EAC3][MultiSub][4FDBDE6B].mkv",
+      "size": 1461865451,
+      "hash": "825d845892a4df181e335436adfbfd990c0ed8a3",
+      "torrent": "torrents/825d845892a4df181e335436adfbfd990c0ed8a3.torrent",
+      "url": "https://anime.craftervault.com/0:down/S/Slime Taoshite 300-nen Shiranai Uchi ni Level Max ni Nattemashita/[Erai-raws] Slime300 S2 [Web 1080p]/[Erai-raws] slime300 S2 - 08v2 [1080p Web][4FDBDE6B].mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-08T03:51:21.969Z"
+    },
+    {
+      "episode": 4,
+      "resolution": "720",
+      "quality": "[Erai-raws][Web 720p]",
+      "fileName": "[Erai-raws] slime300 S2 - 04 [720p CR WEB-DL AVC AAC][MultiSub][77D002C1].mkv",
+      "size": 734236376,
+      "hash": "d56add818ce399f7798fb89694600e8a22390d55",
+      "torrent": "torrents/d56add818ce399f7798fb89694600e8a22390d55.torrent",
+      "url": "https://anime.craftervault.com/0:down/S/Slime Taoshite 300-nen Shiranai Uchi ni Level Max ni Nattemashita/[Erai-raws] Slime300 S2 [Web 720p]/[Erai-raws] slime300 S2 - 04 [720p Web][77D002C1].mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-08T03:51:24.211Z"
+    }
+  ]
+}

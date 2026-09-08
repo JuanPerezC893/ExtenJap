@@ -1,0 +1,30 @@
+{
+  "anilistId": 140439,
+  "title": "Mob Psycho 100 III",
+  "episodes": [
+    {
+      "episode": 9,
+      "resolution": "1080",
+      "quality": "[Erai-raws] [Web 1080p]",
+      "fileName": "[Erai-raws] Mob Psycho 100 III - 09 [1080p][Multiple Subtitle][45E31B23].mkv",
+      "size": 1440535354,
+      "hash": "fc4a1b2671c5ae2560429d0ea8981739b9de93fa",
+      "torrent": "torrents/fc4a1b2671c5ae2560429d0ea8981739b9de93fa.torrent",
+      "url": "https://anime.craftervault.com/0:down/M/Mob Psycho 100/[Erai-raws] Mob Psycho 100 III [Web 1080p]/[Erai-raws] Mob Psycho 100 III - 09 [1080p][Multiple Subtitle][45E31B23].mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-08T03:56:47.294Z"
+    },
+    {
+      "episode": 11,
+      "resolution": "720",
+      "quality": "[Erai-raws] [Web 720p]",
+      "fileName": "[Erai-raws] Mob Psycho 100 III - 11 [720p][Multiple Subtitle][349F612A].mkv",
+      "size": 738147978,
+      "hash": "05a78d639f0190124053aa2d998d921d6d9fdaf8",
+      "torrent": "torrents/05a78d639f0190124053aa2d998d921d6d9fdaf8.torrent",
+      "url": "https://anime.craftervault.com/0:down/M/Mob Psycho 100/[Erai-raws] Mob Psycho 100 III [Web 720p]/[Erai-raws] Mob Psycho 100 III - 11 [720p][Multiple Subtitle][349F612A].mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-08T03:56:50.689Z"
+    }
+  ]
+}

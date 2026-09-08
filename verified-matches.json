@@ -1,6 +1,1881 @@
 {
-  "updatedAt": "2026-09-08T03:14:58.906Z",
+  "updatedAt": "2026-09-08T04:10:29.781Z",
   "series": {
+    "84": {
+      "title": "Kidou Senshi Gundam 0083: STARDUST MEMORY",
+      "anilistId": 84,
+      "episodes": []
+    },
+    "121": {
+      "title": "Fullmetal Alchemist",
+      "anilistId": 121,
+      "episodes": []
+    },
+    "133": {
+      "title": "Green Green",
+      "anilistId": 133,
+      "episodes": []
+    },
+    "187": {
+      "title": "Initial D THIRD STAGE",
+      "anilistId": 187,
+      "episodes": []
+    },
+    "461": {
+      "title": "ONE PIECE: Chinjuu-jima no Chopper Oukoku",
+      "anilistId": 461,
+      "episodes": []
+    },
+    "504": {
+      "title": "Garou Densetsu The Motion Picture",
+      "anilistId": 504,
+      "episodes": []
+    },
+    "874": {
+      "title": "Digimon Tamers",
+      "anilistId": 874,
+      "episodes": []
+    },
+    "1172": {
+      "title": "Slayers Try",
+      "anilistId": 1172,
+      "episodes": []
+    },
+    "1290": {
+      "title": "WXIII ~ Patlabor the Movie 3",
+      "anilistId": 1290,
+      "episodes": []
+    },
+    "1472": {
+      "title": "City Hunter 3",
+      "anilistId": 1472,
+      "episodes": []
+    },
+    "1729": {
+      "title": "Maria-sama ga Miteru 3rd",
+      "anilistId": 1729,
+      "episodes": []
+    },
+    "3652": {
+      "title": "Higurashi no Naku Koro ni Rei",
+      "anilistId": 3652,
+      "episodes": []
+    },
+    "3712": {
+      "title": "Zero no Tsukaima: Princesses no Rondo",
+      "anilistId": 3712,
+      "episodes": []
+    },
+    "3785": {
+      "title": "Evangelion 3.33 You Can (Not) Redo",
+      "anilistId": 3785,
+      "episodes": []
+    },
+    "3786": {
+      "title": "Evangelion 3.0+1.0 Thrice Upon a Time",
+      "anilistId": 3786,
+      "episodes": []
+    },
+    "4015": {
+      "title": "School Rumble San Gakki",
+      "anilistId": 4015,
+      "episodes": []
+    },
+    "4195": {
+      "title": "Kodomo no Jikan Ni Gakki",
+      "anilistId": 4195,
+      "episodes": []
+    },
+    "4835": {
+      "title": "Bleach Movie 3: Fade to Black - Kimi no Na wo Yobu",
+      "anilistId": 4835,
+      "episodes": []
+    },
+    "4901": {
+      "title": "Black Lagoon: Roberta's Blood Trail",
+      "anilistId": 4901,
+      "episodes": []
+    },
+    "5690": {
+      "title": "Nodame Cantabile Finale",
+      "anilistId": 5690,
+      "episodes": []
+    },
+    "6377": {
+      "title": "Zan Sayonara Zetsubou Sensei",
+      "anilistId": 6377,
+      "episodes": []
+    },
+    "6773": {
+      "title": "Shakugan no Shana III Final",
+      "anilistId": 6773,
+      "episodes": []
+    },
+    "8057": {
+      "title": "Shin Koihime Musou - Otome Tairan",
+      "anilistId": 8057,
+      "episodes": []
+    },
+    "9624": {
+      "title": "30-sai no Hoken Taiiku",
+      "anilistId": 9624,
+      "episodes": []
+    },
+    "9999": {
+      "title": "ONE PIECE 3D: Mugiwara Chase",
+      "anilistId": 9999,
+      "episodes": []
+    },
+    "10578": {
+      "title": "C3 Cube x Cursed x Curious",
+      "anilistId": 10578,
+      "episodes": []
+    },
+    "10928": {
+      "title": "Nogizaka Haruka no Himitsu Finale",
+      "anilistId": 10928,
+      "episodes": []
+    },
+    "11859": {
+      "title": "Queen's Blade Rebellion",
+      "anilistId": 11859,
+      "episodes": []
+    },
+    "12365": {
+      "title": "Bakuman S3",
+      "anilistId": 12365,
+      "episodes": []
+    },
+    "12783": {
+      "title": "Sora no Otoshimono Final - Eien no Watashi no Torikago",
+      "anilistId": 12783,
+      "episodes": []
+    },
+    "13863": {
+      "title": "Arve Rezzle - Kikaijikake no Yoseitachi",
+      "anilistId": 13863,
+      "episodes": []
+    },
+    "14349": {
+      "title": "Little Witch Academia",
+      "anilistId": 14349,
+      "episodes": []
+    },
+    "14837": {
+      "title": "Dragon Ball Z - La batalla de los dioses",
+      "anilistId": 14837,
+      "episodes": []
+    },
+    "16385": {
+      "title": "Dog Days S3",
+      "anilistId": 16385,
+      "episodes": []
+    },
+    "16706": {
+      "title": "Kami nomi zo Shiru Sekai: Megami-hen",
+      "anilistId": 16706,
+      "episodes": []
+    },
+    "16982": {
+      "title": "Hayate no Gotoku! Cuties",
+      "anilistId": 16982,
+      "episodes": []
+    },
+    "17269": {
+      "title": "Space Pirate Captain Harlock",
+      "anilistId": 17269,
+      "episodes": []
+    },
+    "17821": {
+      "title": "Stella Jogakuin Koutou-ka C³-bu",
+      "anilistId": 17821,
+      "episodes": []
+    },
+    "19647": {
+      "title": "Hajime no Ippo: Rising",
+      "anilistId": 19647,
+      "episodes": []
+    },
+    "19703": {
+      "title": "Kyousou Giga TV",
+      "anilistId": 19703,
+      "episodes": []
+    },
+    "20444": {
+      "title": "Teekyuu 3",
+      "anilistId": 20444,
+      "episodes": []
+    },
+    "20474": {
+      "title": "JoJo's Bizarre Adventure - Stardust Crusaders",
+      "anilistId": 20474,
+      "episodes": []
+    },
+    "20606": {
+      "title": "Kuroshitsuji: Book Of Circus",
+      "anilistId": 20606,
+      "episodes": []
+    },
+    "20704": {
+      "title": "Taimadou Gakuen 35 Shiken Shoutai",
+      "anilistId": 20704,
+      "episodes": []
+    },
+    "20745": {
+      "title": "High School DxD BorN",
+      "anilistId": 20745,
+      "episodes": []
+    },
+    "20796": {
+      "title": "Junjou Romantica 3",
+      "anilistId": 20796,
+      "episodes": []
+    },
+    "20880": {
+      "title": "Durarara!!X2 Ketsu",
+      "anilistId": 20880,
+      "episodes": []
+    },
+    "21088": {
+      "title": "Yuru Yuri San Hai!",
+      "anilistId": 21088,
+      "episodes": []
+    },
+    "21131": {
+      "title": "Gakusen Toshi Asterisk",
+      "anilistId": 21131,
+      "episodes": []
+    },
+    "21289": {
+      "title": "New Initial D Movie: Legend 3 - Mugen",
+      "anilistId": 21289,
+      "episodes": []
+    },
+    "21335": {
+      "title": "ONE PIECE FILM: GOLD",
+      "anilistId": 21335,
+      "episodes": []
+    },
+    "21366": {
+      "title": "Sangatsu no Lion",
+      "anilistId": 21366,
+      "episodes": []
+    },
+    "21379": {
+      "title": "Fate Kaleid Liner Prisma Illya 3rei!!",
+      "anilistId": 21379,
+      "episodes": []
+    },
+    "21400": {
+      "title": "Kizumonogatari III: Reiketsu-hen",
+      "anilistId": 21400,
+      "episodes": []
+    },
+    "21407": {
+      "title": "Yowamushi Pedal - New Generation",
+      "anilistId": 21407,
+      "episodes": []
+    },
+    "21462": {
+      "title": "Bishoujo Senshi Sailor Moon: Crystal - Death Busters-hen",
+      "anilistId": 21462,
+      "episodes": []
+    },
+    "21509": {
+      "title": "Danganronpa 3: The End of Kibougamine Gakuen - Mirai-hen",
+      "anilistId": 21509,
+      "episodes": []
+    },
+    "21624": {
+      "title": "Steins;Gate: Kyoukaimenjou no Missing Link - Divide By Zero",
+      "anilistId": 21624,
+      "episodes": []
+    },
+    "21719": {
+      "title": "Fate - stay night Heaven's Feel III - Spring song",
+      "anilistId": 21719,
+      "episodes": []
+    },
+    "21748": {
+      "title": "FLCL Alternative",
+      "anilistId": 21748,
+      "episodes": []
+    },
+    "21772": {
+      "title": "Lostorage incited WIXOSS",
+      "anilistId": 21772,
+      "episodes": []
+    },
+    "21797": {
+      "title": "Ame-iro Cocoa in Hawaii",
+      "anilistId": 21797,
+      "episodes": []
+    },
+    "21823": {
+      "title": "ACCA 13-ku Kansatsu-ka",
+      "anilistId": 21823,
+      "episodes": []
+    },
+    "21825": {
+      "title": "Danganronpa 3: The End of Kibougamine Gakuen - Zetsubou-hen",
+      "anilistId": 21825,
+      "episodes": []
+    },
+    "97672": {
+      "title": "Danganronpa 3: The End of Kibougamine Gakuen - Kibou-hen",
+      "anilistId": 97672,
+      "episodes": []
+    },
+    "97683": {
+      "title": "Tenshi no 3P!",
+      "anilistId": 97683,
+      "episodes": []
+    },
+    "97888": {
+      "title": "Baki S3",
+      "anilistId": 97888,
+      "episodes": []
+    },
+    "98439": {
+      "title": "Mitsuboshi Colors",
+      "anilistId": 98439,
+      "episodes": []
+    },
+    "98478": {
+      "title": "Sangatsu no Lion 2",
+      "anilistId": 98478,
+      "episodes": []
+    },
+    "99147": {
+      "title": "Shingeki no Kyojin S3",
+      "anilistId": 99147,
+      "episodes": []
+    },
+    "99255": {
+      "title": "Shokugeki no Souma San no Sara",
+      "anilistId": 99255,
+      "episodes": []
+    },
+    "99730": {
+      "title": "Sidonia no Kishi Ai Tsumugu Hoshi",
+      "anilistId": 99730,
+      "episodes": []
+    },
+    "99749": {
+      "title": "Fairy Tail Final Series",
+      "anilistId": 99749,
+      "episodes": []
+    },
+    "100166": {
+      "title": "Boku no Hero Academia S3",
+      "anilistId": 100166,
+      "episodes": []
+    },
+    "100182": {
+      "title": "Sword Art Online Alicization",
+      "anilistId": 100182,
+      "episodes": []
+    },
+    "100185": {
+      "title": "Toaru Majutsu no Index III",
+      "anilistId": 100185,
+      "episodes": []
+    },
+    "100240": {
+      "title": "Tokyo Ghoul Re",
+      "anilistId": 100240,
+      "episodes": []
+    },
+    "100251": {
+      "title": "Dorei - Ku The Animation",
+      "anilistId": 100251,
+      "episodes": []
+    },
+    "100526": {
+      "title": "3D Kanojo Real Girl",
+      "anilistId": 100526,
+      "episodes": []
+    },
+    "100643": {
+      "title": "Made in Abyss Movie 3: Fukaki Tamashii no Reimei",
+      "anilistId": 100643,
+      "episodes": []
+    },
+    "100722": {
+      "title": "Date A Live III",
+      "anilistId": 100722,
+      "episodes": []
+    },
+    "100773": {
+      "title": "Shokugeki no Souma San no Sara - Tootsuki Ressha-hen",
+      "anilistId": 100773,
+      "episodes": []
+    },
+    "101117": {
+      "title": "Free! - Dive to the Future",
+      "anilistId": 101117,
+      "episodes": []
+    },
+    "101215": {
+      "title": "Chihayafuru 3",
+      "anilistId": 101215,
+      "episodes": []
+    },
+    "101474": {
+      "title": "Overlord III",
+      "anilistId": 101474,
+      "episodes": []
+    },
+    "101992": {
+      "title": "Hibike! Euphonium: Chikai no Finale",
+      "anilistId": 101992,
+      "episodes": []
+    },
+    "102353": {
+      "title": "Godzilla 3 - Hoshi wo Kuu Mono",
+      "anilistId": 102353,
+      "episodes": []
+    },
+    "102436": {
+      "title": "Strike the Blood III",
+      "anilistId": 102436,
+      "episodes": []
+    },
+    "104198": {
+      "title": "Gochuumon wa Usagi Desu ka Bloom",
+      "anilistId": 104198,
+      "episodes": []
+    },
+    "104462": {
+      "title": "Toaru Kagaku no Railgun T",
+      "anilistId": 104462,
+      "episodes": []
+    },
+    "108307": {
+      "title": "Psycho-Pass 3",
+      "anilistId": 108307,
+      "episodes": []
+    },
+    "108489": {
+      "title": "Yahari Ore no Seishun Love Comedy wa Machigatteiru - Kan",
+      "anilistId": 108489,
+      "episodes": []
+    },
+    "108759": {
+      "title": "Sword Art Online Alicization - War of Underworld",
+      "anilistId": 108759,
+      "episodes": []
+    },
+    "108928": {
+      "title": "Nanatsu no Taizai: Kamigami no Gekirin",
+      "anilistId": 108928,
+      "episodes": []
+    },
+    "109403": {
+      "title": "Non Non Biyori Nonstop",
+      "anilistId": 109403,
+      "episodes": []
+    },
+    "109731": {
+      "title": "Hibike Euphonium 3",
+      "anilistId": 109731,
+      "episodes": []
+    },
+    "110355": {
+      "title": "Golden Kamuy 3rd Season",
+      "anilistId": 110355,
+      "episodes": []
+    },
+    "111322": {
+      "title": "Tate no Yuusha no Nariagari Season 3",
+      "anilistId": 111322,
+      "episodes": []
+    },
+    "112124": {
+      "title": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III",
+      "anilistId": 112124,
+      "episodes": []
+    },
+    "112608": {
+      "title": "Slime Taoshite 300-nen Shiranai Uchi ni Level Max ni Nattemashita",
+      "anilistId": 112608,
+      "episodes": [
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] slime300 S2 - 08v2 [1080p CR WEB-DL AVC EAC3][MultiSub][4FDBDE6B].mkv",
+          "size": 1461865451,
+          "directUrl": "https://anime.craftervault.com/0:down/S/Slime Taoshite 300-nen Shiranai Uchi ni Level Max ni Nattemashita/[Erai-raws] Slime300 S2 [Web 1080p]/[Erai-raws] slime300 S2 - 08v2 [1080p Web][4FDBDE6B].mkv",
+          "infoHash": "825d845892a4df181e335436adfbfd990c0ed8a3",
+          "torrentPath": "torrents/825d845892a4df181e335436adfbfd990c0ed8a3.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:51:21.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] slime300 S2 - 04 [720p CR WEB-DL AVC AAC][MultiSub][77D002C1].mkv",
+          "size": 734236376,
+          "directUrl": "https://anime.craftervault.com/0:down/S/Slime Taoshite 300-nen Shiranai Uchi ni Level Max ni Nattemashita/[Erai-raws] Slime300 S2 [Web 720p]/[Erai-raws] slime300 S2 - 04 [720p Web][77D002C1].mkv",
+          "infoHash": "d56add818ce399f7798fb89694600e8a22390d55",
+          "torrentPath": "torrents/d56add818ce399f7798fb89694600e8a22390d55.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:51:24.211Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "113108": {
+      "title": "Kingdom 3rd Season",
+      "anilistId": 113108,
+      "episodes": [
+        {
+          "episode": 19,
+          "resolution": "720",
+          "quality": "[Erai-raws] Kingdom 3rd Season [Web 720p]",
+          "fileName": "[Erai-raws] Kingdom 3rd Season - 19 [720p][Multiple Subtitle][E6DBDECB].mkv",
+          "size": 672279870,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kingdom/[Erai-raws] Kingdom 3rd Season [Web 720p]/[Erai-raws] Kingdom 3rd Season - 19 [720p][Multiple Subtitle][E6DBDECB].mkv",
+          "infoHash": "8906d03fef29c0f818054da0086332f698bc5944",
+          "torrentPath": "torrents/8906d03fef29c0f818054da0086332f698bc5944.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:57:53.555Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 26,
+          "resolution": "720",
+          "quality": "[Erai-raws] Kingdom 3rd Season [Web 720p]",
+          "fileName": "[Erai-raws] Kingdom 3rd Season - 26 END [720p][Multiple Subtitle][5FB563C8].mkv",
+          "size": 655757338,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kingdom/[Erai-raws] Kingdom 3rd Season [Web 720p]/[Erai-raws] Kingdom 3rd Season - 26 END [720p][Multiple Subtitle][5FB563C8].mkv",
+          "infoHash": "6387a75ca52885487bcbe3ab60a16cd37feefc68",
+          "torrentPath": "torrents/6387a75ca52885487bcbe3ab60a16cd37feefc68.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:57:56.520Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 19,
+          "resolution": "1080",
+          "quality": "[Erai-raws] Kingdom 3rd Season [Web 1080p]",
+          "fileName": "[Erai-raws] Kingdom 3rd Season - 19 [1080p][Multiple Subtitle][1897AC57].mkv",
+          "size": 1117800463,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kingdom/[Erai-raws] Kingdom 3rd Season [Web 1080p]/[Erai-raws] Kingdom 3rd Season - 19 [1080p][Multiple Subtitle][1897AC57].mkv",
+          "infoHash": "b0983d153c8df92e6bc8fbcca35a75d253e67174",
+          "torrentPath": "torrents/b0983d153c8df92e6bc8fbcca35a75d253e67174.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:58:02.430Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 26,
+          "resolution": "1080",
+          "quality": "[Erai-raws] Kingdom 3rd Season [Web 1080p]",
+          "fileName": "[Erai-raws] Kingdom 3rd Season - 26 END [1080p][Multiple Subtitle][3DC8CB0C].mkv",
+          "size": 1092988419,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kingdom/[Erai-raws] Kingdom 3rd Season [Web 1080p]/[Erai-raws] Kingdom 3rd Season - 26 END [1080p][Multiple Subtitle][3DC8CB0C].mkv",
+          "infoHash": "9e1b80ba0c27197496247a469785c68e2d5a1932",
+          "torrentPath": "torrents/9e1b80ba0c27197496247a469785c68e2d5a1932.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:58:05.658Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "114129": {
+      "title": "Gintama: The final",
+      "anilistId": 114129,
+      "episodes": []
+    },
+    "121176": {
+      "title": "Honzuki no Gekokujou: Shisho ni Naru Tame ni wa Shudan wo Erandeiraremasen 3rd Season",
+      "anilistId": 121176,
+      "episodes": []
+    },
+    "124194": {
+      "title": "Fruits Basket The Final",
+      "anilistId": 124194,
+      "episodes": []
+    },
+    "124195": {
+      "title": "Hanma Baki",
+      "anilistId": 124195,
+      "episodes": []
+    },
+    "124641": {
+      "title": "Jashin-chan Dropkick X",
+      "anilistId": 124641,
+      "episodes": []
+    },
+    "125367": {
+      "title": "Kaguya-sama wa Kokurasetai - Ultra Romantic",
+      "anilistId": 125367,
+      "episodes": [
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic - 09 [1080p][Multiple Subtitle][1B9C393C].mkv",
+          "size": 1531397197,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kaguya-sama wa Kokurasetai/[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic [Web 1080p]/[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic - 09 [1080p][Multiple Subtitle][1B9C393C].mkv",
+          "infoHash": "928d64f6c2150be5804836f480b2c088c4986288",
+          "torrentPath": "torrents/928d64f6c2150be5804836f480b2c088c4986288.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:55.171Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic - 02 [1080p][Multiple Subtitle][6BFAACA0].mkv",
+          "size": 1466270318,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kaguya-sama wa Kokurasetai/[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic [Web 1080p]/[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic - 02 [1080p][Multiple Subtitle][6BFAACA0].mkv",
+          "infoHash": "991267ac17f85d3b677d244db862476c6eec1af8",
+          "torrentPath": "torrents/991267ac17f85d3b677d244db862476c6eec1af8.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:56.591Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic - 02 [720p][Multiple Subtitle][E9B713A0].mkv",
+          "size": 748601379,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kaguya-sama wa Kokurasetai/[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic [Web 720p]/[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic - 02 [720p][Multiple Subtitle][E9B713A0].mkv",
+          "infoHash": "6e6b92f9817f4d3a60e83af3321b1db714388b26",
+          "torrentPath": "torrents/6e6b92f9817f4d3a60e83af3321b1db714388b26.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:00:00.296Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic - 06 [720p][Multiple Subtitle][BF0A0AA6].mkv",
+          "size": 747881460,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kaguya-sama wa Kokurasetai/[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic [Web 720p]/[Erai-raws] Kaguya-sama wa Kokurasetai - Ultra Romantic - 06 [720p][Multiple Subtitle][BF0A0AA6].mkv",
+          "infoHash": "de8ba51163f686887a08354bdafe02682db9290c",
+          "torrentPath": "torrents/de8ba51163f686887a08354bdafe02682db9290c.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:00:04.338Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "126659": {
+      "title": "Boku no Hero Academia the Movie 3: World Heroes' Mission",
+      "anilistId": 126659,
+      "episodes": []
+    },
+    "128643": {
+      "title": "Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan: Dakara, Shishunki wa Owarazu ni, Seishun wa Tsuzuiteiku.",
+      "anilistId": 128643,
+      "episodes": []
+    },
+    "128890": {
+      "title": "IDOLiSH7: Third Beat! Part 2",
+      "anilistId": 128890,
+      "episodes": []
+    },
+    "129610": {
+      "title": "Sonic X Season 3",
+      "anilistId": 129610,
+      "episodes": []
+    },
+    "136804": {
+      "title": "Kono Subarashii Sekai ni Shukufuku wo 3",
+      "anilistId": 136804,
+      "episodes": []
+    },
+    "137612": {
+      "title": "Princess Principal Crown Handler 3",
+      "anilistId": 137612,
+      "episodes": []
+    },
+    "139092": {
+      "title": "Mairimashita! Iruma-kun 3rd Season",
+      "anilistId": 139092,
+      "episodes": [
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 02 [1080p][Multiple Subtitle][09875DEF].mkv",
+          "size": 1501974236,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mairimashita! Iruma-kun/[Erai-raws] Mairimashita! Iruma-kun 3rd Season [Web 1080p]/[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 02 [1080p][Multiple Subtitle][09875DEF].mkv",
+          "infoHash": "eac7054b362c6289cb3135f2d2bfc2ddeab8c993",
+          "torrentPath": "torrents/eac7054b362c6289cb3135f2d2bfc2ddeab8c993.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:01.102Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 09 [1080p][Multiple Subtitle][CD67EF1D].mkv",
+          "size": 1499898278,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mairimashita! Iruma-kun/[Erai-raws] Mairimashita! Iruma-kun 3rd Season [Web 1080p]/[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 09 [1080p][Multiple Subtitle][CD67EF1D].mkv",
+          "infoHash": "0acc2d050f9e2933149f5ac624153bc783bd549f",
+          "torrentPath": "torrents/0acc2d050f9e2933149f5ac624153bc783bd549f.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:03.095Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 16,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 16 [1080p][Multiple Subtitle][2F6D0A5B].mkv",
+          "size": 1500538607,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mairimashita! Iruma-kun/[Erai-raws] Mairimashita! Iruma-kun 3rd Season [Web 1080p]/[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 16 [1080p][Multiple Subtitle][2F6D0A5B].mkv",
+          "infoHash": "187ea49dc283431b759bdcbfe68a3b776ef937d9",
+          "torrentPath": "torrents/187ea49dc283431b759bdcbfe68a3b776ef937d9.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:06.304Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 01 [720p][Multiple Subtitle][865C2038].mkv",
+          "size": 763603206,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mairimashita! Iruma-kun/[Erai-raws] Mairimashita! Iruma-kun 3rd Season [Web 720p]/[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 01 [720p][Multiple Subtitle][865C2038].mkv",
+          "infoHash": "ab486617bf890cf40e0674e1aa2c7dd4a5956043",
+          "torrentPath": "torrents/ab486617bf890cf40e0674e1aa2c7dd4a5956043.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:09.821Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 08 [720p][Multiple Subtitle][D2442F93].mkv",
+          "size": 765736538,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mairimashita! Iruma-kun/[Erai-raws] Mairimashita! Iruma-kun 3rd Season [Web 720p]/[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 08 [720p][Multiple Subtitle][D2442F93].mkv",
+          "infoHash": "9a7a3c5a28ebd45d976c3341360a6607ff2815d4",
+          "torrentPath": "torrents/9a7a3c5a28ebd45d976c3341360a6607ff2815d4.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:12.224Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 14,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 14 [720p][Multiple Subtitle][624607EF].mkv",
+          "size": 765136368,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mairimashita! Iruma-kun/[Erai-raws] Mairimashita! Iruma-kun 3rd Season [Web 720p]/[Erai-raws] Mairimashita! Iruma-kun 3rd Season - 14 [720p][Multiple Subtitle][624607EF].mkv",
+          "infoHash": "b96839af55a4b87e2b7a4830509b57958dbb006b",
+          "torrentPath": "torrents/b96839af55a4b87e2b7a4830509b57958dbb006b.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:15.652Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "140439": {
+      "title": "Mob Psycho 100 III",
+      "anilistId": 140439,
+      "episodes": [
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mob Psycho 100 III - 09 [1080p][Multiple Subtitle][45E31B23].mkv",
+          "size": 1440535354,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mob Psycho 100/[Erai-raws] Mob Psycho 100 III [Web 1080p]/[Erai-raws] Mob Psycho 100 III - 09 [1080p][Multiple Subtitle][45E31B23].mkv",
+          "infoHash": "fc4a1b2671c5ae2560429d0ea8981739b9de93fa",
+          "torrentPath": "torrents/fc4a1b2671c5ae2560429d0ea8981739b9de93fa.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:56:47.294Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 11,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mob Psycho 100 III - 11 [720p][Multiple Subtitle][349F612A].mkv",
+          "size": 738147978,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mob Psycho 100/[Erai-raws] Mob Psycho 100 III [Web 720p]/[Erai-raws] Mob Psycho 100 III - 11 [720p][Multiple Subtitle][349F612A].mkv",
+          "infoHash": "05a78d639f0190124053aa2d998d921d6d9fdaf8",
+          "torrentPath": "torrents/05a78d639f0190124053aa2d998d921d6d9fdaf8.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:56:50.689Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "141852": {
+      "title": "Xian Wang de Richang Shenghuo 3",
+      "anilistId": 141852,
+      "episodes": []
+    },
+    "142877": {
+      "title": "Rurouni Kenshin - Meiji Kenkaku Romantan (2023)",
+      "anilistId": 142877,
+      "episodes": []
+    },
+    "144779": {
+      "title": "Yamato yo Towa ni - Rebel 3199",
+      "anilistId": 144779,
+      "episodes": []
+    },
+    "144932": {
+      "title": "Edens Zero (S2)",
+      "anilistId": 144932,
+      "episodes": []
+    },
+    "145064": {
+      "title": "Jujutsu Kaisen S2",
+      "anilistId": 145064,
+      "episodes": []
+    },
+    "145139": {
+      "title": "Kimetsu no Yaiba - Katanakaji no Sato-hen",
+      "anilistId": 145139,
+      "episodes": [
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen - 09 [1080p][Multiple Subtitle][B6E241F1].mkv",
+          "size": 1448596988,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kimetsu no Yaiba/Kimetsu no Yaiba - Katanakaji no Sato-hen/[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen [Web 1080p]/[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen - 09 [1080p][Multiple Subtitle][B6E241F1].mkv",
+          "infoHash": "17f3db86e6d6971f73206d7ae3c3bb8723743662",
+          "torrentPath": "torrents/17f3db86e6d6971f73206d7ae3c3bb8723743662.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:03:46.741Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen - 04 [720p][Multiple Subtitle][90F9DA75].mkv",
+          "size": 746821533,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kimetsu no Yaiba/Kimetsu no Yaiba - Katanakaji no Sato-hen/[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen [Web 720p]/[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen - 04 [720p][Multiple Subtitle][90F9DA75].mkv",
+          "infoHash": "dc8c7a2136c13bca3a3c5bd642f07f32ef33bfe4",
+          "torrentPath": "torrents/dc8c7a2136c13bca3a3c5bd642f07f32ef33bfe4.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:03:48.523Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen - 09 [720p][Multiple Subtitle][CB49FF50].mkv",
+          "size": 738113544,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kimetsu no Yaiba/Kimetsu no Yaiba - Katanakaji no Sato-hen/[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen [Web 720p]/[Erai-raws] Kimetsu no Yaiba - Katanakaji no Sato Hen - 09 [720p][Multiple Subtitle][CB49FF50].mkv",
+          "infoHash": "afa0e485106eca1768cbf134cd6af62ac79fd694",
+          "torrentPath": "torrents/afa0e485106eca1768cbf134cd6af62ac79fd694.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:03:52.068Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "149118": {
+      "title": "Enen no Shouboutai - San no Shou",
+      "anilistId": 149118,
+      "episodes": [
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Enen no Shouboutai - San no Shou - 07 [1080p CR WEB-DL AVC AAC][MultiSub][856D8962].mkv",
+          "size": 1493504771,
+          "directUrl": "https://anime.craftervault.com/0:down/E/Enen no Shouboutai/[Erai-raws] Enen no Shouboutai - San no Shou [Web 1080p]/[Erai-raws] Enen no Shouboutai - San no Shou - 07 [1080p CR WEB-DL AVC AAC][MultiSub][856D8962].mkv",
+          "infoHash": "bf2d22586183c79cd62d52ee6e91156d0ce57eed",
+          "torrentPath": "torrents/bf2d22586183c79cd62d52ee6e91156d0ce57eed.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:54:01.296Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "150970": {
+      "title": "Cardfight!! Vanguard - Will Dress Season 3",
+      "anilistId": 150970,
+      "episodes": []
+    },
+    "151606": {
+      "title": "Birdie Wing - Golf Girls Story Season 2",
+      "anilistId": 151606,
+      "episodes": []
+    },
+    "152523": {
+      "title": "Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life",
+      "anilistId": 152523,
+      "episodes": [
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life - 06 [1080p][Multiple Subtitle][8794BE30].mkv",
+          "size": 1460296419,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life/[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life [Web 1080p]/[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life - 06 [1080p][Multiple Subtitle][8794BE30].mkv",
+          "infoHash": "e1b1fc9d6b24d809d69d2ab40e863aaac3e01991",
+          "torrentPath": "torrents/e1b1fc9d6b24d809d69d2ab40e863aaac3e01991.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:57:36.858Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life - 12 END [1080p][Multiple Subtitle][EB91C646].mkv",
+          "size": 1458073838,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life/[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life [Web 1080p]/[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life - 12 END [1080p][Multiple Subtitle][EB91C646].mkv",
+          "infoHash": "69e5ded9c866dc311b325e29828bdb60f2f6bd5e",
+          "torrentPath": "torrents/69e5ded9c866dc311b325e29828bdb60f2f6bd5e.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:57:40.174Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life - 06 [720p][Multiple Subtitle][4D924E43].mkv",
+          "size": 744241858,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life/[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life [Web 720p]/[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life - 06 [720p][Multiple Subtitle][4D924E43].mkv",
+          "infoHash": "b0f3923ef1dfe188c351e62f77bff2c053fbe187",
+          "torrentPath": "torrents/b0f3923ef1dfe188c351e62f77bff2c053fbe187.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:57:42.265Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 11,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life - 11 [720p][Multiple Subtitle][B3DE26A4].mkv",
+          "size": 744769540,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life/[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life [Web 720p]/[Erai-raws] Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life - 11 [720p][Multiple Subtitle][B3DE26A4].mkv",
+          "infoHash": "e5ec06c3940ee167ced8b692f9106d666560a028",
+          "torrentPath": "torrents/e5ec06c3940ee167ced8b692f9106d666560a028.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:57:44.494Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "153800": {
+      "title": "One Punch Man 3",
+      "anilistId": 153800,
+      "episodes": [
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] One Punch Man (2025) - 06 (REPACK) [1080p CR WEB-DL AVC AAC][MultiSub][F81B5F09].mkv",
+          "size": 1481175524,
+          "directUrl": "https://anime.craftervault.com/0:down/O/One%20Punch%20Man/%5BErai-raws%5D%20One%20Punch%20Man%20(2025)%20%5BWeb%201080p%5D/%5BErai-raws%5D%20One%20Punch%20Man%20(2025)%20-%2006%20(REPACK)%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF81B5F09%5D.mkv",
+          "infoHash": "4e29497b70f8e02df130540e0541a97a7fc19938",
+          "torrentPath": "torrents/4e29497b70f8e02df130540e0541a97a7fc19938.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:18.142Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] One Punch Man (2025) - 07 [720p CR WEB-DL AVC AAC][MultiSub][7BD5A7FB].mkv",
+          "size": 687950309,
+          "directUrl": "https://anime.craftervault.com/0:down/O/One%20Punch%20Man/%5BErai-raws%5D%20One%20Punch%20Man%20(2025)%20%5BWeb%20720p%5D/%5BErai-raws%5D%20One%20Punch%20Man%20(2025)%20-%2007%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B7BD5A7FB%5D.mkv",
+          "infoHash": "1ed03f33dbe7fcd96f25fc32d7b8b810ea4e2441",
+          "torrentPath": "torrents/1ed03f33dbe7fcd96f25fc32d7b8b810ea4e2441.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:24.005Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "154473": {
+      "title": "Arifureta Shokugyou de Sekai Saikyou 3rd Season",
+      "anilistId": 154473,
+      "episodes": [
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 04 [1080p][Multiple Subtitle][18522DF2].mkv",
+          "size": 1453881655,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Arifureta/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season [Web 1080p]/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 04 [1080p][Multiple Subtitle][18522DF2].mkv",
+          "infoHash": "3f3447e95f92533b13a5fbe9b40aa95b210a3e01",
+          "torrentPath": "torrents/3f3447e95f92533b13a5fbe9b40aa95b210a3e01.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:58:31.363Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 10 [1080p CR WEB-DL AVC AAC][MultiSub][A6282B43].mkv",
+          "size": 1444987750,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Arifureta/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season [Web 1080p]/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 10 [1080p CR WEB-DL AVC AAC][MultiSub][A6282B43].mkv",
+          "infoHash": "209050482d46637e8bafce20f2220b7adf67c9d9",
+          "torrentPath": "torrents/209050482d46637e8bafce20f2220b7adf67c9d9.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:58:33.371Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 15,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 15 [1080p CR WEB-DL AVC AAC][MultiSub][A119CA0F].mkv",
+          "size": 1445107148,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Arifureta/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season [Web 1080p]/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 15 [1080p CR WEB-DL AVC AAC][MultiSub][A119CA0F].mkv",
+          "infoHash": "66b23cc57ebdb28c082ea6be798d010f978c21cf",
+          "torrentPath": "torrents/66b23cc57ebdb28c082ea6be798d010f978c21cf.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:58:37.462Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 04 [720p][Multiple Subtitle][6023225B].mkv",
+          "size": 744933409,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Arifureta/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season [Web 720p]/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 04 [720p][Multiple Subtitle][6023225B].mkv",
+          "infoHash": "05834ea2ee8a0b7fb1907d6845565cddea5f2caa",
+          "torrentPath": "torrents/05834ea2ee8a0b7fb1907d6845565cddea5f2caa.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:58:39.180Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 09 [720p CR WEB-DL AVC AAC][MultiSub][631C45B3].mkv",
+          "size": 735510732,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Arifureta/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season [Web 720p]/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 09 [720p CR WEB-DL AVC AAC][MultiSub][631C45B3].mkv",
+          "infoHash": "b6897e98145bc73af4ed437d878c46e02cc5e7db",
+          "torrentPath": "torrents/b6897e98145bc73af4ed437d878c46e02cc5e7db.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:58:42.177Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 16,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 16 [720p CR WEB-DL AVC AAC][MultiSub][035C0699].mkv",
+          "size": 766866693,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Arifureta/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season [Web 720p]/[Erai-raws] Arifureta Shokugyou de Sekai Saikyou 3rd Season - 16 [720p CR WEB-DL AVC AAC][MultiSub][035C0699].mkv",
+          "infoHash": "ee6a2e1285603262a56fd51a17e34668e0c0e74f",
+          "torrentPath": "torrents/ee6a2e1285603262a56fd51a17e34668e0c0e74f.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:58:45.340Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "154692": {
+      "title": "Kanojo mo Kanojo Season 2",
+      "anilistId": 154692,
+      "episodes": []
+    },
+    "154745": {
+      "title": "Kanojo Okarishimasu 3rd Season",
+      "anilistId": 154745,
+      "episodes": []
+    },
+    "155158": {
+      "title": "Kidou Senshi Gundam - Suisei no Majo Season 2",
+      "anilistId": 155158,
+      "episodes": []
+    },
+    "155168": {
+      "title": "Hataraku Maou-sama!! Part 2",
+      "anilistId": 155168,
+      "episodes": []
+    },
+    "155202": {
+      "title": "Revenger",
+      "anilistId": 155202,
+      "episodes": []
+    },
+    "155389": {
+      "title": "Shy",
+      "anilistId": 155389,
+      "episodes": []
+    },
+    "155502": {
+      "title": "Love Live - Superstar 3rd Season",
+      "anilistId": 155502,
+      "episodes": []
+    },
+    "155908": {
+      "title": "Yuru Camp S3",
+      "anilistId": 155908,
+      "episodes": []
+    },
+    "156092": {
+      "title": "To Be Hero X",
+      "anilistId": 156092,
+      "episodes": [
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] To Be Hero X - 10 (JA) [1080p CR WEB-DL AVC AAC][MultiSub][AE6EB530].mkv",
+          "size": 1444575642,
+          "directUrl": "https://anime.craftervault.com/0:down/T/To Be Hero X/[Erai-raws] To Be Hero X [Web 1080p]/[Erai-raws] To Be Hero X - 10 (JA) [1080p CR WEB-DL AVC AAC][MultiSub][AE6EB530].mkv",
+          "infoHash": "d536d340ff709384e805d5146724ee9a43605704",
+          "torrentPath": "torrents/d536d340ff709384e805d5146724ee9a43605704.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:50:27.945Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 13,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] To Be Hero X - 13 (JA) [1080p CR WEB-DL AVC AAC][MultiSub][1CB9FC10].mkv",
+          "size": 1444925642,
+          "directUrl": "https://anime.craftervault.com/0:down/T/To Be Hero X/[Erai-raws] To Be Hero X [Web 1080p]/[Erai-raws] To Be Hero X - 13 (JA) [1080p CR WEB-DL AVC AAC][MultiSub][1CB9FC10].mkv",
+          "infoHash": "4f2bbbda5fd515c46fbda394c35ebba1305a025d",
+          "torrentPath": "torrents/4f2bbbda5fd515c46fbda394c35ebba1305a025d.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:50:30.115Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 16,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] To Be Hero X - 16 (JA) [1080p CR WEB-DL AVC AAC][MultiSub][75D41A56].mkv",
+          "size": 1445324888,
+          "directUrl": "https://anime.craftervault.com/0:down/T/To Be Hero X/[Erai-raws] To Be Hero X [Web 1080p]/[Erai-raws] To Be Hero X - 16 (JA) [1080p CR WEB-DL AVC AAC][MultiSub][75D41A56].mkv",
+          "infoHash": "fd89fbf9a9cbcad6c7089bb93e812782f543471c",
+          "torrentPath": "torrents/fd89fbf9a9cbcad6c7089bb93e812782f543471c.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:50:35.143Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 23,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] To Be Hero X - 23 (JA) [1080p CR WEB-DL AVC AAC][MultiSub][D7AE5710].mkv",
+          "size": 1458445098,
+          "directUrl": "https://anime.craftervault.com/0:down/T/To Be Hero X/[Erai-raws] To Be Hero X [Web 1080p]/[Erai-raws] To Be Hero X - 23 (JA) [1080p CR WEB-DL AVC AAC][MultiSub][D7AE5710].mkv",
+          "infoHash": "630af953be123a0e0d49bfb0b99b2e18762c4bd6",
+          "torrentPath": "torrents/630af953be123a0e0d49bfb0b99b2e18762c4bd6.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:50:35.558Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] To Be Hero X - 04 (JA) [720p CR WEB-DL AVC AAC][MultiSub][D2250868].mkv",
+          "size": 734258930,
+          "directUrl": "https://anime.craftervault.com/0:down/T/To Be Hero X/[Erai-raws] To Be Hero X [Web 720p]/[Erai-raws] To Be Hero X - 04 (JA) [720p CR WEB-DL AVC AAC][MultiSub][D2250868].mkv",
+          "infoHash": "04b8347ef5322c6bb08eb26b6eec80199916019a",
+          "torrentPath": "torrents/04b8347ef5322c6bb08eb26b6eec80199916019a.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:50:39.313Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] To Be Hero X - 10 (JA) [720p CR WEB-DL AVC AAC][MultiSub][385D805E].mkv",
+          "size": 739081770,
+          "directUrl": "https://anime.craftervault.com/0:down/T/To Be Hero X/[Erai-raws] To Be Hero X [Web 720p]/[Erai-raws] To Be Hero X - 10 (JA) [720p CR WEB-DL AVC AAC][MultiSub][385D805E].mkv",
+          "infoHash": "82facfc7a9233df5f5bbc584fee35e1a0bf8ad7b",
+          "torrentPath": "torrents/82facfc7a9233df5f5bbc584fee35e1a0bf8ad7b.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:50:43.036Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 16,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] To Be Hero X - 16 (JA) [720p CR WEB-DL AVC AAC][MultiSub][BEA56474].mkv",
+          "size": 417665433,
+          "directUrl": "https://anime.craftervault.com/0:down/T/To Be Hero X/[Erai-raws] To Be Hero X [Web 720p]/[Erai-raws] To Be Hero X - 16 (JA) [720p CR WEB-DL AVC AAC][MultiSub][BEA56474].mkv",
+          "infoHash": "f512f0359159dbd92e2c416197f9f09c152514c6",
+          "torrentPath": "torrents/f512f0359159dbd92e2c416197f9f09c152514c6.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:50:44.736Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 22,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] To Be Hero X - 22 (CA) [720p CR WEB-DL AVC AAC][MultiSub][35AFE46E].mkv",
+          "size": 497456403,
+          "directUrl": "https://anime.craftervault.com/0:down/T/To Be Hero X/[Erai-raws] To Be Hero X [Web 720p]/[Erai-raws] To Be Hero X - 22 (CA) [720p CR WEB-DL AVC AAC][MultiSub][35AFE46E].mkv",
+          "infoHash": "d28f4db10c65335e034c0d0ef8ca7b08fc838b7d",
+          "torrentPath": "torrents/d28f4db10c65335e034c0d0ef8ca7b08fc838b7d.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:50:47.053Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "156632": {
+      "title": "Uma Musume - Pretty Derby Season 3",
+      "anilistId": 156632,
+      "episodes": []
+    },
+    "156822": {
+      "title": "Tensei shitara Slime Datta Ken 3rd Season",
+      "anilistId": 156822,
+      "episodes": [
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 04 [1080p][Multiple Subtitle][8EC2ECD9].mkv",
+          "size": 1500931243,
+          "directUrl": "https://anime.craftervault.com/0:down/T/Tensei Shitara Slime Datta Ken/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season [Web 1080p]/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 04 [1080p][Multiple Subtitle][8EC2ECD9].mkv",
+          "infoHash": "fbdf9ced139c8aaf86d0bbdf916a5080d7589d03",
+          "torrentPath": "torrents/fbdf9ced139c8aaf86d0bbdf916a5080d7589d03.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:19.031Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 10 [1080p][Multiple Subtitle][595312F9].mkv",
+          "size": 1503561013,
+          "directUrl": "https://anime.craftervault.com/0:down/T/Tensei Shitara Slime Datta Ken/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season [Web 1080p]/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 10 [1080p][Multiple Subtitle][595312F9].mkv",
+          "infoHash": "1f593dff8e19d859832482914b0668079b66a8b9",
+          "torrentPath": "torrents/1f593dff8e19d859832482914b0668079b66a8b9.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:21.239Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 16,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 16 [1080p][Multiple Subtitle][8E6C0E4F].mkv",
+          "size": 1504473618,
+          "directUrl": "https://anime.craftervault.com/0:down/T/Tensei Shitara Slime Datta Ken/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season [Web 1080p]/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 16 [1080p][Multiple Subtitle][8E6C0E4F].mkv",
+          "infoHash": "37852044c6f81b3eaba5676a025fb2f557e14dc3",
+          "torrentPath": "torrents/37852044c6f81b3eaba5676a025fb2f557e14dc3.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:25.035Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 23,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 23 [1080p][Multiple Subtitle][DBAD1161].mkv",
+          "size": 1504517174,
+          "directUrl": "https://anime.craftervault.com/0:down/T/Tensei Shitara Slime Datta Ken/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season [Web 1080p]/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 23 [1080p][Multiple Subtitle][DBAD1161].mkv",
+          "infoHash": "fc4758a85c3686d236ac4deea7cc76ab024ec9a6",
+          "torrentPath": "torrents/fc4758a85c3686d236ac4deea7cc76ab024ec9a6.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:27.789Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 15,
+          "resolution": "720",
+          "quality": "[Erai-raws]  [Web 720p]",
+          "fileName": "[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 15 [720p][Multiple Subtitle][F820E28A].mkv",
+          "size": 771115943,
+          "directUrl": "https://anime.craftervault.com/0:down/T/Tensei Shitara Slime Datta Ken/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season [Web 720p]/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 15 [720p][Multiple Subtitle][F820E28A].mkv",
+          "infoHash": "6b2fbb2c6551387659eedc4675d922cb79c7adb7",
+          "torrentPath": "torrents/6b2fbb2c6551387659eedc4675d922cb79c7adb7.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:33.539Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 20,
+          "resolution": "720",
+          "quality": "[Erai-raws]  [Web 720p]",
+          "fileName": "[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 20 [720p][Multiple Subtitle][7D4DE4C4].mkv",
+          "size": 770750707,
+          "directUrl": "https://anime.craftervault.com/0:down/T/Tensei Shitara Slime Datta Ken/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season [Web 720p]/[Erai-raws] Tensei shitara Slime Datta Ken 3rd Season - 20 [720p][Multiple Subtitle][7D4DE4C4].mkv",
+          "infoHash": "8c0069ae7fc20c1aff469a8ef248ebfae12d1783",
+          "torrentPath": "torrents/8c0069ae7fc20c1aff469a8ef248ebfae12d1783.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:37.602Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "158539": {
+      "title": "Lookism",
+      "anilistId": 158539,
+      "episodes": []
+    },
+    "158927": {
+      "title": "Spy x Family Season 2",
+      "anilistId": 158927,
+      "episodes": []
+    },
+    "158931": {
+      "title": "Ao no Exorcist - Shimane Illuminati Hen",
+      "anilistId": 158931,
+      "episodes": [
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen - 05 [1080p][Multiple Subtitle][69E43F3F].mkv",
+          "size": 1473643603,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Ao no Exorcist/[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen [Web 1080p]/[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen - 05 [1080p][Multiple Subtitle][69E43F3F].mkv",
+          "infoHash": "fc7b3d1dbc2b8c508ddf29ab0d1e531226587878",
+          "torrentPath": "torrents/fc7b3d1dbc2b8c508ddf29ab0d1e531226587878.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:32.303Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen - 12 [1080p][Multiple Subtitle][D0B8680C].mkv",
+          "size": 1445464132,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Ao no Exorcist/[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen [Web 1080p]/[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen - 12 [1080p][Multiple Subtitle][D0B8680C].mkv",
+          "infoHash": "16e08455c069515314a7a434c20a5803463247f8",
+          "torrentPath": "torrents/16e08455c069515314a7a434c20a5803463247f8.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:33.581Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen - 04 [720p][Multiple Subtitle][42BF0D6B].mkv",
+          "size": 762883787,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Ao no Exorcist/[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen [Web 720p]/[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen - 04 [720p][Multiple Subtitle][42BF0D6B].mkv",
+          "infoHash": "853b61c5c876d6f3dd83d20a0856957271625054",
+          "torrentPath": "torrents/853b61c5c876d6f3dd83d20a0856957271625054.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:37.587Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 11,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen - 11 [720p][Multiple Subtitle][C8392AA0].mkv",
+          "size": 762926634,
+          "directUrl": "https://anime.craftervault.com/0:down/A/Ao no Exorcist/[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen [Web 720p]/[Erai-raws] Ao no Exorcist - Shimane Illuminati Hen - 11 [720p][Multiple Subtitle][C8392AA0].mkv",
+          "infoHash": "5e4dc2345ecbf94a4eec045dacfae4c3a8d3c447",
+          "torrentPath": "torrents/5e4dc2345ecbf94a4eec045dacfae4c3a8d3c447.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:39.677Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "162669": {
+      "title": "Fumetsu no Anata e Season 3",
+      "anilistId": 162669,
+      "episodes": []
+    },
+    "162670": {
+      "title": "Dr. Stone New World Part 2",
+      "anilistId": 162670,
+      "episodes": []
+    },
+    "162720": {
+      "title": "Kibou no Chikara - Otona Precure '23",
+      "anilistId": 162720,
+      "episodes": []
+    },
+    "162803": {
+      "title": "Dead Mount Death Play Part 2",
+      "anilistId": 162803,
+      "episodes": []
+    },
+    "162890": {
+      "title": "3-nen Z-gumi Ginpachi-sensei",
+      "anilistId": 162890,
+      "episodes": [
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Gintama - 3-nen Z-gumi Ginpachi-sensei - 03 [1080p CR WEB-DL AVC AAC][MultiSub][4BD452A6].mkv",
+          "size": 1486199142,
+          "directUrl": "https://anime.craftervault.com/0:down/1.Numeros%20&%20Simbolos/3-nen%20Z-gumi%20Ginpachi-sensei/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20%5BWeb%201080p%5D/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B4BD452A6%5D.mkv",
+          "infoHash": "2b740071a26b3293561a952f3b998999bae9ecd9",
+          "torrentPath": "torrents/2b740071a26b3293561a952f3b998999bae9ecd9.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:05.252Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Gintama - 3-nen Z-gumi Ginpachi-sensei - 09 [1080p CR WEB-DL AVC AAC][MultiSub][F8BECF79].mkv",
+          "size": 1503350213,
+          "directUrl": "https://anime.craftervault.com/0:down/1.Numeros%20&%20Simbolos/3-nen%20Z-gumi%20Ginpachi-sensei/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20%5BWeb%201080p%5D/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF8BECF79%5D.mkv",
+          "infoHash": "8be733e7356103118f61ba428270784229d62404",
+          "torrentPath": "torrents/8be733e7356103118f61ba428270784229d62404.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:06.066Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Gintama - 3-nen Z-gumi Ginpachi-sensei - 12 [1080p CR WEB-DL AVC AAC][MultiSub][A9B2DDB1].mkv",
+          "size": 1485256792,
+          "directUrl": "https://anime.craftervault.com/0:down/1.Numeros%20&%20Simbolos/3-nen%20Z-gumi%20Ginpachi-sensei/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20%5BWeb%201080p%5D/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20-%2012%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BA9B2DDB1%5D.mkv",
+          "infoHash": "cf8a39ec7dbad741bc634aa2db43b3eb0c5be992",
+          "torrentPath": "torrents/cf8a39ec7dbad741bc634aa2db43b3eb0c5be992.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:09.017Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Gintama - 3-nen Z-gumi Ginpachi-sensei - 05 [720p CR WEB-DL AVC AAC][MultiSub][D9D2C289].mkv",
+          "size": 551021637,
+          "directUrl": "https://anime.craftervault.com/0:down/1.Numeros%20&%20Simbolos/3-nen%20Z-gumi%20Ginpachi-sensei/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20%5BWeb%20720p%5D/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD9D2C289%5D.mkv",
+          "infoHash": "0d98d68780c2f9fb8226d486060254a2bd6863ef",
+          "torrentPath": "torrents/0d98d68780c2f9fb8226d486060254a2bd6863ef.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:11.926Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Gintama - 3-nen Z-gumi Ginpachi-sensei - 12 [720p CR WEB-DL AVC AAC][MultiSub][1DD9A5A6].mkv",
+          "size": 486550405,
+          "directUrl": "https://anime.craftervault.com/0:down/1.Numeros%20&%20Simbolos/3-nen%20Z-gumi%20Ginpachi-sensei/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20%5BWeb%20720p%5D/%5BErai-raws%5D%20Gintama%20-%203-nen%20Z-gumi%20Ginpachi-sensei%20-%2012%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B1DD9A5A6%5D.mkv",
+          "infoHash": "e58911d84b5213c8d0aa8d41c00b4074715e83fd",
+          "torrentPath": "torrents/e58911d84b5213c8d0aa8d41c00b4074715e83fd.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:13.702Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "163079": {
+      "title": "Sugar Apple Fairy Tale Part 2",
+      "anilistId": 163079,
+      "episodes": []
+    },
+    "163134": {
+      "title": "Re Zero kara Hajimeru Isekai Seikatsu 3rd Season",
+      "anilistId": 163134,
+      "episodes": [
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws]   [Web 1080p]",
+          "fileName": "[Erai-raws] Re Zero kara Hajimeru Isekai Seikatsu 3rd Season - 07 [1080p][Multiple Subtitle][CFE5CAAC].mkv",
+          "size": 1799705847,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Re:Zero/Re Zero kara Hajimeru Isekai Seikatsu 3rd Season/[Erai-raws] Re Zero S3 [Web 1080p]/[Erai-raws] Re Zero kara Hajimeru Isekai Seikatsu 3rd Season - 07 [1080p][Multiple Subtitle][CFE5CAAC].mkv",
+          "infoHash": "887d2103f87e86d10dfd082bebe768eeb77adba7",
+          "torrentPath": "torrents/887d2103f87e86d10dfd082bebe768eeb77adba7.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:40.205Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 15,
+          "resolution": "1080",
+          "quality": "[Erai-raws]   [Web 1080p]",
+          "fileName": "[Erai-raws] Re Zero kara Hajimeru Isekai Seikatsu 3rd Season - 15 [1080p CR WEB-DL AVC AAC][MultiSub][4DB916D2].mkv",
+          "size": 1443367492,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Re:Zero/Re Zero kara Hajimeru Isekai Seikatsu 3rd Season/[Erai-raws] Re Zero S3 [Web 1080p]/[Erai-raws] Re Zero kara Hajimeru Isekai Seikatsu 3rd Season - 15 [1080p CR WEB-DL AVC AAC][MultiSub][4DB916D2].mkv",
+          "infoHash": "5b95effaf278748b2054d240988b6ab45dbae4cd",
+          "torrentPath": "torrents/5b95effaf278748b2054d240988b6ab45dbae4cd.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:42.332Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Re Zero kara Hajimeru Isekai Seikatsu 3rd Season - 12 [720p CR WEB-DL AVC AAC][MultiSub][75F357DA].mkv",
+          "size": 874601670,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Re:Zero/Re Zero kara Hajimeru Isekai Seikatsu 3rd Season/[Erai-raws] Re Zero S3 [Web 720p]/[Erai-raws] Re Zero kara Hajimeru Isekai Seikatsu 3rd Season - 12 [720p CR WEB-DL AVC AAC][MultiSub][75F357DA].mkv",
+          "infoHash": "6839c57019e053a33807a9af7e21c140ccddd180",
+          "torrentPath": "torrents/6839c57019e053a33807a9af7e21c140ccddd180.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:48.667Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "163136": {
+      "title": "Shadowverse Flame - Seven Shadows Hen",
+      "anilistId": 163136,
+      "episodes": []
+    },
+    "163205": {
+      "title": "Mononogatari 2nd Season",
+      "anilistId": 163205,
+      "episodes": [
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mononogatari 2nd Season - 09 [1080p][Multiple Subtitle][898E562B].mkv",
+          "size": 1447674179,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mononogatari/[Erai-raws] Mononogatari 2nd Season [Web 1080p]/[Erai-raws] Mononogatari 2nd Season - 09 [1080p][Multiple Subtitle][898E562B].mkv",
+          "infoHash": "6066243338c22bc5973288ea4ac7a1b4460d6ac5",
+          "torrentPath": "torrents/6066243338c22bc5973288ea4ac7a1b4460d6ac5.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:56:28.960Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mononogatari 2nd Season - 04 [720p][Multiple Subtitle][FD71223B].mkv",
+          "size": 737027468,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mononogatari/[Erai-raws] Mononogatari 2nd Season [Web 720p]/[Erai-raws] Mononogatari 2nd Season - 04 [720p][Multiple Subtitle][FD71223B].mkv",
+          "infoHash": "772eafe8b44355dbe305561bdf785e5b16359fc4",
+          "torrentPath": "torrents/772eafe8b44355dbe305561bdf785e5b16359fc4.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:56:30.107Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mononogatari 2nd Season - 08 [720p][Multiple Subtitle][F01AEA4F].mkv",
+          "size": 740330208,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mononogatari/[Erai-raws] Mononogatari 2nd Season [Web 720p]/[Erai-raws] Mononogatari 2nd Season - 08 [720p][Multiple Subtitle][F01AEA4F].mkv",
+          "infoHash": "17d11438b822c1874ca3093c8aee4608630fd122",
+          "torrentPath": "torrents/17d11438b822c1874ca3093c8aee4608630fd122.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:56:32.474Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "163329": {
+      "title": "Tokyo Revengers - Tenjiku Hen",
+      "anilistId": 163329,
+      "episodes": []
+    },
+    "163542": {
+      "title": "Spy Kyoushitsu 2nd Season",
+      "anilistId": 163542,
+      "episodes": []
+    },
+    "165790": {
+      "title": "Kekkon Surutte Hontou Desuka",
+      "anilistId": 165790,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Kekkon Surutte Hontou Desuka - 01 [1080p][Multiple Subtitle][52836933].mkv",
+          "size": 1450957781,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kekkon Surutte Hontou Desuka/[Erai-raws] Kekkon Surutte Hontou Desuka [Web 1080p]/[Erai-raws] Kekkon Surutte Hontou Desuka - 01 [1080p][Multiple Subtitle][52836933].mkv",
+          "infoHash": "2b28a81ea801433c00f50b3b8be640cd41d65586",
+          "torrentPath": "torrents/2b28a81ea801433c00f50b3b8be640cd41d65586.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:24.653Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Kekkon Surutte Hontou Desuka - 07 [1080p][Multiple Subtitle][76BBF823].mkv",
+          "size": 1452101005,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kekkon Surutte Hontou Desuka/[Erai-raws] Kekkon Surutte Hontou Desuka [Web 1080p]/[Erai-raws] Kekkon Surutte Hontou Desuka - 07 [1080p][Multiple Subtitle][76BBF823].mkv",
+          "infoHash": "df33d720440561ee281614a82b69e3194321bb15",
+          "torrentPath": "torrents/df33d720440561ee281614a82b69e3194321bb15.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:28.603Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Kekkon Surutte Hontou Desuka - 02 [720p][Multiple Subtitle][B18C72A6].mkv",
+          "size": 743420575,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kekkon Surutte Hontou Desuka/[Erai-raws] Kekkon Surutte Hontou Desuka [Web 720p]/[Erai-raws] Kekkon Surutte Hontou Desuka - 02 [720p][Multiple Subtitle][B18C72A6].mkv",
+          "infoHash": "a95c450030ee178f7cae246328883ec2657b64a6",
+          "torrentPath": "torrents/a95c450030ee178f7cae246328883ec2657b64a6.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:30.476Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Kekkon Surutte Hontou Desuka - 07 [720p][Multiple Subtitle][FFA61AED].mkv",
+          "size": 744490240,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kekkon Surutte Hontou Desuka/[Erai-raws] Kekkon Surutte Hontou Desuka [Web 720p]/[Erai-raws] Kekkon Surutte Hontou Desuka - 07 [720p][Multiple Subtitle][FFA61AED].mkv",
+          "infoHash": "26ff46e4445c66f77c6d3c6d90d56eee536c99e0",
+          "torrentPath": "torrents/26ff46e4445c66f77c6d3c6d90d56eee536c99e0.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:32.847Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Kekkon Surutte Hontou Desuka - 12 [720p CR WEB-DL AVC AAC][MultiSub][4975A2D7].mkv",
+          "size": 738673691,
+          "directUrl": "https://anime.craftervault.com/0:down/K/Kekkon Surutte Hontou Desuka/[Erai-raws] Kekkon Surutte Hontou Desuka [Web 720p]/[Erai-raws] Kekkon Surutte Hontou Desuka - 12 [720p CR WEB-DL AVC AAC][MultiSub][4975A2D7].mkv",
+          "infoHash": "716e8dc4ebe88ad5f8dda27538363b5be247f31c",
+          "torrentPath": "torrents/716e8dc4ebe88ad5f8dda27538363b5be247f31c.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:36.109Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "166452": {
+      "title": "Mahou Tsukai no Yome Season 2 Cour 2",
+      "anilistId": 166452,
+      "episodes": []
+    },
     "166610": {
       "title": "Mashle 2nd Season",
       "anilistId": 166610,
@@ -386,6 +2261,60 @@
             "matchedBy": "crc",
             "piecesVerified": true,
             "verifiedAt": "2026-09-08T03:14:28.795Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "167087": {
+      "title": "30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii",
+      "anilistId": 167087,
+      "episodes": [
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii - 06 [1080p][Multiple Subtitle][61B6D0D8].mkv",
+          "size": 1471747370,
+          "directUrl": "https://anime.craftervault.com/0:down/1.Numeros & Simbolos/30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii/[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii [Web 1080p]/[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii - 06 [1080p][Multiple Subtitle][61B6D0D8].mkv",
+          "infoHash": "115e3a106b2cd4fdfbcee519a314291c84b099aa",
+          "torrentPath": "torrents/115e3a106b2cd4fdfbcee519a314291c84b099aa.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:44.113Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii - 12 [1080p][Multiple Subtitle][92B13879].mkv",
+          "size": 1434508381,
+          "directUrl": "https://anime.craftervault.com/0:down/1.Numeros & Simbolos/30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii/[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii [Web 1080p]/[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii - 12 [1080p][Multiple Subtitle][92B13879].mkv",
+          "infoHash": "029ea0ca9b273619708a23f64211a8f2e2b28b41",
+          "torrentPath": "torrents/029ea0ca9b273619708a23f64211a8f2e2b28b41.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:46.093Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p",
+          "fileName": "[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii - 08 [720p][Multiple Subtitle][3E4FB28D].mkv",
+          "size": 765558499,
+          "directUrl": "https://anime.craftervault.com/0:down/1.Numeros & Simbolos/30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii/[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii [Web 720p]/[Erai-raws] 30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii - 08 [720p][Multiple Subtitle][3E4FB28D].mkv",
+          "infoHash": "191fbc1731a7b729bfe63eceb7dfd80f8084ac88",
+          "torrentPath": "torrents/191fbc1731a7b729bfe63eceb7dfd80f8084ac88.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:02:48.670Z"
           },
           "isOnline": true
         }
@@ -867,6 +2796,280 @@
         }
       ]
     },
+    "169584": {
+      "title": "Shinigami Bocchan to Kuro Maid 3rd Season",
+      "anilistId": 169584,
+      "episodes": [
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season - 08 [1080p][Multiple Subtitle][28DEC8D4].mkv",
+          "size": 1449657007,
+          "directUrl": "https://anime.craftervault.com/0:down/S/Shinigami Bocchan to Kuro Maid/[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season [Web 1080p]/[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season - 08 [1080p][Multiple Subtitle][28DEC8D4].mkv",
+          "infoHash": "7e88899c75441ae581c1188882d0bcfe7bb1c3f4",
+          "torrentPath": "torrents/7e88899c75441ae581c1188882d0bcfe7bb1c3f4.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:00:46.747Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season - 01 [720p][Multiple Subtitle][D34C8FC4].mkv",
+          "size": 745229042,
+          "directUrl": "https://anime.craftervault.com/0:down/S/Shinigami Bocchan to Kuro Maid/[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season [Web 720p]/[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season - 01 [720p][Multiple Subtitle][D34C8FC4].mkv",
+          "infoHash": "e468fa365d121090c41c2ce749947b2744aff0f5",
+          "torrentPath": "torrents/e468fa365d121090c41c2ce749947b2744aff0f5.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:00:49.807Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season - 07 [720p][Multiple Subtitle][92DD0152].mkv",
+          "size": 745381080,
+          "directUrl": "https://anime.craftervault.com/0:down/S/Shinigami Bocchan to Kuro Maid/[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season [Web 720p]/[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season - 07 [720p][Multiple Subtitle][92DD0152].mkv",
+          "infoHash": "a19e71e33a48c0a56b7fad3a1715d793b5ed361c",
+          "torrentPath": "torrents/a19e71e33a48c0a56b7fad3a1715d793b5ed361c.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:00:53.167Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season - 12 [720p][Multiple Subtitle][4E185E50].mkv",
+          "size": 743832609,
+          "directUrl": "https://anime.craftervault.com/0:down/S/Shinigami Bocchan to Kuro Maid/[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season [Web 720p]/[Erai-raws] Shinigami Bocchan to Kuro Maid 3rd Season - 12 [720p][Multiple Subtitle][4E185E50].mkv",
+          "infoHash": "4c760542d138136120b17b60ce4b20ceaf52c575",
+          "torrentPath": "torrents/4c760542d138136120b17b60ce4b20ceaf52c575.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:00:54.334Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "169755": {
+      "title": "BLEACH: Sennen Kessen-hen - Soukoku-tan",
+      "anilistId": 169755,
+      "episodes": []
+    },
+    "170166": {
+      "title": "Shiguang Dailiren: Yingdu Pian",
+      "anilistId": 170166,
+      "episodes": [
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Shiguang Dailiren - Yingdu Pian - 03 [1080p CR WEB-DL AVC AAC][MultiSub][B6188FEB].mkv",
+          "size": 1459111730,
+          "directUrl": "https://anime.craftervault.com/0:down/S/Shiguang Dailiren (Link Click)/[Erai-raws] Shiguang Dailiren: Yingdu Pian [Web 1080p]/[Erai-raws] Shiguang Dailiren - Yingdu Pian - 03 [1080p CR WEB-DL AVC AAC][MultiSub][B6188FEB].mkv",
+          "infoHash": "7d68f43a754e4a7662ae0b2a84b655d8d6259d5d",
+          "torrentPath": "torrents/7d68f43a754e4a7662ae0b2a84b655d8d6259d5d.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:54:24.278Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws]  [Web 720p]",
+          "fileName": "[Erai-raws] Shiguang Dailiren - Yingdu Pian - 02 [720p CR WEB-DL AVC AAC][MultiSub][76CCE234].mkv",
+          "size": 746562371,
+          "directUrl": "https://anime.craftervault.com/0:down/S/Shiguang Dailiren (Link Click)/[Erai-raws] Shiguang Dailiren: Yingdu Pian [Web 720p]/[Erai-raws] Shiguang Dailiren - Yingdu Pian - 02 [720p CR WEB-DL AVC AAC][MultiSub][76CCE234].mkv",
+          "infoHash": "52569a0761ca3da5c454fd26eb148085cf27841e",
+          "torrentPath": "torrents/52569a0761ca3da5c454fd26eb148085cf27841e.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:54:27.567Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "171637": {
+      "title": "Rurouni Kenshin - Kyoto Douran",
+      "anilistId": 171637,
+      "episodes": [
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Rurouni Kenshin - Kyoto Douran - 02 [1080p][Multiple Subtitle][BD2E1BFE].mkv",
+          "size": 1400995130,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Rurouni Kenshin/Rurouni Kenshin - Kyoto Douran/[Erai-raws] Rurouni Kenshin - Kyoto Douran [Web 1080p]/[Erai-raws] Rurouni Kenshin - Kyoto Douran - 02 [1080p][Multiple Subtitle][BD2E1BFE].mkv",
+          "infoHash": "f33b333c92d31ddd0d1fc6644b05d26f0f1cf1e6",
+          "torrentPath": "torrents/f33b333c92d31ddd0d1fc6644b05d26f0f1cf1e6.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:04.437Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Rurouni Kenshin - Kyoto Douran - 09 [1080p CR WEB-DL AVC AAC][MultiSub][07820174].mkv",
+          "size": 1391011438,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Rurouni Kenshin/Rurouni Kenshin - Kyoto Douran/[Erai-raws] Rurouni Kenshin - Kyoto Douran [Web 1080p]/[Erai-raws] Rurouni Kenshin - Kyoto Douran - 09 [1080p CR WEB-DL AVC AAC][MultiSub][07820174].mkv",
+          "infoHash": "3001f2f62c0331b725e2b63a0988ff0324c20c39",
+          "torrentPath": "torrents/3001f2f62c0331b725e2b63a0988ff0324c20c39.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:05.918Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 14,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Rurouni Kenshin - Kyoto Douran - 14 [1080p CR WEB-DL AVC AAC][MultiSub][BF3DB929].mkv",
+          "size": 1397310679,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Rurouni Kenshin/Rurouni Kenshin - Kyoto Douran/[Erai-raws] Rurouni Kenshin - Kyoto Douran [Web 1080p]/[Erai-raws] Rurouni Kenshin - Kyoto Douran - 14 [1080p CR WEB-DL AVC AAC][MultiSub][BF3DB929].mkv",
+          "infoHash": "f476838e4b9ca8755e00dee75c6ab98509d9839a",
+          "torrentPath": "torrents/f476838e4b9ca8755e00dee75c6ab98509d9839a.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:10.787Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 21,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Rurouni Kenshin - Kyoto Douran - 21 [1080p CR WEB-DL AVC AAC][MultiSub][396C5855].mkv",
+          "size": 1395780447,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Rurouni Kenshin/Rurouni Kenshin - Kyoto Douran/[Erai-raws] Rurouni Kenshin - Kyoto Douran [Web 1080p]/[Erai-raws] Rurouni Kenshin - Kyoto Douran - 21 [1080p CR WEB-DL AVC AAC][MultiSub][396C5855].mkv",
+          "infoHash": "a5ebe5f82e3a17426b91e6b7bdca3fc1f02aefe3",
+          "torrentPath": "torrents/a5ebe5f82e3a17426b91e6b7bdca3fc1f02aefe3.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:12.041Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Rurouni Kenshin - Kyoto Douran - 03 [720p][Multiple Subtitle][DEF00501].mkv",
+          "size": 718927857,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Rurouni Kenshin/Rurouni Kenshin - Kyoto Douran/[Erai-raws] Rurouni Kenshin - Kyoto Douran [Web 720p]/[Erai-raws] Rurouni Kenshin - Kyoto Douran - 03 [720p][Multiple Subtitle][DEF00501].mkv",
+          "infoHash": "be4a85c922ffdde9864730b59478d4210ed7429d",
+          "torrentPath": "torrents/be4a85c922ffdde9864730b59478d4210ed7429d.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:16.063Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Rurouni Kenshin - Kyoto Douran - 10 [720p CR WEB-DL AVC AAC][MultiSub][76960473].mkv",
+          "size": 709630840,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Rurouni Kenshin/Rurouni Kenshin - Kyoto Douran/[Erai-raws] Rurouni Kenshin - Kyoto Douran [Web 720p]/[Erai-raws] Rurouni Kenshin - Kyoto Douran - 10 [720p CR WEB-DL AVC AAC][MultiSub][76960473].mkv",
+          "infoHash": "cb63a2a41d6af7c43e973cb141876ac363a77bff",
+          "torrentPath": "torrents/cb63a2a41d6af7c43e973cb141876ac363a77bff.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:17.887Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 16,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Rurouni Kenshin - Kyoto Douran - 16 [720p CR WEB-DL AVC AAC][MultiSub][34189AE8].mkv",
+          "size": 712579743,
+          "directUrl": "https://anime.craftervault.com/0:down/R/Rurouni Kenshin/Rurouni Kenshin - Kyoto Douran/[Erai-raws] Rurouni Kenshin - Kyoto Douran [Web 720p]/[Erai-raws] Rurouni Kenshin - Kyoto Douran - 16 [720p CR WEB-DL AVC AAC][MultiSub][34189AE8].mkv",
+          "infoHash": "1bd3573e3be1bac0132af2a43a50be8eba675122",
+          "torrentPath": "torrents/1bd3573e3be1bac0132af2a43a50be8eba675122.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:59:21.263Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "172463": {
+      "title": "Jujutsu Kaisen: Shimetsu Kaiyuu - Zenpen",
+      "anilistId": 172463,
+      "episodes": [
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Jujutsu Kaisen - Shimetsu Kaiyuu - Zenpen - 09 [1080p CR WEB-DL AVC AAC][MultiSub][DB9CE67A].mkv",
+          "size": 1456131943,
+          "directUrl": "https://anime.craftervault.com/0:down/J/Jujutsu%20Kaisen/%5BErai-raws%5D%20Jujutsu%20Kaisen%20-%20Shimetsu%20Kaiyuu%20-%20Zenpen%20%5BWeb%201080p%5D/%5BErai-raws%5D%20Jujutsu%20Kaisen%20-%20Shimetsu%20Kaiyuu%20-%20Zenpen%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BDB9CE67A%5D.mkv",
+          "infoHash": "850042cc82fbd5d117847e35858d28aeb69047e0",
+          "torrentPath": "torrents/850042cc82fbd5d117847e35858d28aeb69047e0.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:49.660Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Jujutsu Kaisen - Shimetsu Kaiyuu - Zenpen - 07 [720p CR WEB-DL AVC AAC][MultiSub][82AF5D3F].mkv",
+          "size": 393528965,
+          "directUrl": "https://anime.craftervault.com/0:down/J/Jujutsu%20Kaisen/%5BErai-raws%5D%20Jujutsu%20Kaisen%20-%20Shimetsu%20Kaiyuu%20-%20Zenpen%20%5BWeb%20720p%5D/%5BErai-raws%5D%20Jujutsu%20Kaisen%20-%20Shimetsu%20Kaiyuu%20-%20Zenpen%20-%2007%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B82AF5D3F%5D.mkv",
+          "infoHash": "bfebb15ad23ec8ba0644144329d5fdbfa0e15bf6",
+          "torrentPath": "torrents/bfebb15ad23ec8ba0644144329d5fdbfa0e15bf6.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:48:54.460Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "177175": {
+      "title": "Arknights - Rise from Ember",
+      "anilistId": 177175,
+      "episodes": []
+    },
     "177637": {
       "title": "Sayonara Lara",
       "anilistId": 177637,
@@ -1192,6 +3395,48 @@
           "isOnline": true
         }
       ]
+    },
+    "177937": {
+      "title": "SPY×FAMILY Season 3",
+      "anilistId": 177937,
+      "episodes": []
+    },
+    "178789": {
+      "title": "Mushoku Tensei III: Isekai Ittara Honki Dasu",
+      "anilistId": 178789,
+      "episodes": []
+    },
+    "179062": {
+      "title": "Enen no Shouboutai: San no Shou Part 2",
+      "anilistId": 179062,
+      "episodes": []
+    },
+    "182587": {
+      "title": "[Oshi no Ko] 3rd Season",
+      "anilistId": 182587,
+      "episodes": [
+        {
+          "episode": 11,
+          "resolution": "1080",
+          "quality": "[ToonsHub][Web 1080p]",
+          "fileName": "OSHI.NO.KO.S03E11.1080p.CR.WEB-DL.JPN.AAC2.0.H.264.MSubs-ToonsHub.mkv",
+          "size": 3314789514,
+          "directUrl": "https://anime.craftervault.com/0:down/O/Oshi%20no%20Ko/%5BToonsHub%5D%20OSHI%20NO%20KO%20%5BWeb%201080p%5D/OSHI.NO.KO.S03E11.1080p.CR.WEB-DL.JPN.AAC2.0.H.264.MSubs-ToonsHub.mkv",
+          "infoHash": "bdb4b4450c8ba908c29f899750c4778de9512249",
+          "torrentPath": "torrents/bdb4b4450c8ba908c29f899750c4778de9512249.torrent",
+          "verified": {
+            "matchedBy": "same-release",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:49:01.994Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "187921": {
+      "title": "Shuumatsu no Valkyrie III",
+      "anilistId": 187921,
+      "episodes": []
     },
     "190569": {
       "title": "Tenmaku no Jaadugar",
@@ -1668,6 +3913,26 @@
           "isOnline": true
         }
       ]
+    },
+    "198939": {
+      "title": "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou 3rd Season",
+      "anilistId": 198939,
+      "episodes": []
+    },
+    "199111": {
+      "title": "Grand Blue Season 3",
+      "anilistId": 199111,
+      "episodes": []
+    },
+    "199221": {
+      "title": "Dr. STONE: SCIENCE FUTURE Part 3",
+      "anilistId": 199221,
+      "episodes": []
+    },
+    "200637": {
+      "title": "Kimi no Koto ga Dai Dai Dai Dai Daisuki na 100-nin no Kanojo 3rd Season",
+      "anilistId": 200637,
+      "episodes": []
     },
     "201514": {
       "title": "Saijo no Osewa: Takane no Hanadarake na Meimonkou de, Gakuin Ichi no Ojou-sama (Seikatsu Nouryoku Kaimu) wo Kagenagara Osewa suru Koto ni Narimashita",
@@ -2716,6 +4981,416 @@
           "isOnline": true
         }
       ]
+    },
+    "One Piece (2023 - 2026)": {
+      "title": "One Piece (2023 - 2026)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Godzilla Minus One (2023)": {
+      "title": "Godzilla Minus One (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "The Nightmare Before Christmas (1993)": {
+      "title": "The Nightmare Before Christmas (1993)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Peaky Blinders (2013 - 2022)": {
+      "title": "Peaky Blinders (2013 - 2022)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Castlevania Nocturne (2023)": {
+      "title": "Castlevania Nocturne (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Dexter: Temporada 5 - 8 (2010 - 2013)": {
+      "title": "Dexter: Temporada 5 - 8 (2010 - 2013)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Loki (2021 - 2023)": {
+      "title": "Loki (2021 - 2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Silo (2023 - 2024)": {
+      "title": "Silo (2023 - 2024)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Xiaolin Showdown (2003 - 2005)": {
+      "title": "Xiaolin Showdown (2003 - 2005)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Memories of Murder (2003)": {
+      "title": "Memories of Murder (2003)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "School of Rock (2003)": {
+      "title": "School of Rock (2003)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Anatomy of a Fall (2023)": {
+      "title": "Anatomy of a Fall (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Prisoners (2013)": {
+      "title": "Prisoners (2013)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Death's Game (2023)": {
+      "title": "Death's Game (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Extraction 2 (2023)": {
+      "title": "Extraction 2 (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "M3GAN 2.0 (2025)": {
+      "title": "M3GAN 2.0 (2025)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "El Chavo del Ocho (1973)": {
+      "title": "El Chavo del Ocho (1973)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Blancanieves (1938)": {
+      "title": "Blancanieves (1938)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Ai Mai Mii - S3": {
+      "title": "Ai Mai Mii - S3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "BanG Dream! Girls Band Party! PICO Fever! (S3)": {
+      "title": "BanG Dream! Girls Band Party! PICO Fever! (S3)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Grown Ups 2 (2013)": {
+      "title": "Grown Ups 2 (2013)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "M3gan (2022)": {
+      "title": "M3gan (2022)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Frozen (2013)": {
+      "title": "Frozen (2013)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Five Nights at Freddyâ€™s (2023)": {
+      "title": "Five Nights at Freddyâ€™s (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Pacific Rim (2013)": {
+      "title": "Pacific Rim (2013)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Scott Pilgrim Takes Off (2023)": {
+      "title": "Scott Pilgrim Takes Off (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita S2": {
+      "title": "Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita S2",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Ice Age 3: Dawn of the Dinosaurs (2009)": {
+      "title": "Ice Age 3: Dawn of the Dinosaurs (2009)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Invincible - Season 2 (2023)": {
+      "title": "Invincible - Season 2 (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Invincible - Season 3 (2025)": {
+      "title": "Invincible - Season 3 (2025)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "The Last Samurai (2003)": {
+      "title": "The Last Samurai (2003)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Wolf - Season 1 (2023)": {
+      "title": "Wolf - Season 1 (2023)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Old Boy (2003)": {
+      "title": "Old Boy (2003)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "13 Reason Why (2017)": {
+      "title": "13 Reason Why (2017)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3": {
+      "title": "Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3",
+      "anilistId": null,
+      "episodes": [
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 - 08 [1080p][Multiple Subtitle][FE3EFB8B].mkv",
+          "size": 1471043433,
+          "directUrl": "https://anime.craftervault.com/0:down/Y/Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e/Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3/[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 [Web 1080p]/[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 - 08 [1080p][Multiple Subtitle][FE3EFB8B].mkv",
+          "infoHash": "5fcd7ea7aacdbb7771e6c6b2e55cf264e062546e",
+          "torrentPath": "torrents/5fcd7ea7aacdbb7771e6c6b2e55cf264e062546e.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:55:31.662Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 13,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 - 13 [1080p][Multiple Subtitle][EC9FD79D].mkv",
+          "size": 1451986586,
+          "directUrl": "https://anime.craftervault.com/0:down/Y/Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e/Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3/[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 [Web 1080p]/[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 - 13 [1080p][Multiple Subtitle][EC9FD79D].mkv",
+          "infoHash": "bd613bb63fae437196a4e18656be62090b5bb26d",
+          "torrentPath": "torrents/bd613bb63fae437196a4e18656be62090b5bb26d.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:55:35.903Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 - 05 [720p][Multiple Subtitle][BB5F8EBA].mkv",
+          "size": 764301755,
+          "directUrl": "https://anime.craftervault.com/0:down/Y/Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e/Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3/[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 [Web 720p]/[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 - 05 [720p][Multiple Subtitle][BB5F8EBA].mkv",
+          "infoHash": "fbe976885822fa595b9115e8c812d64a9a46464c",
+          "torrentPath": "torrents/fbe976885822fa595b9115e8c812d64a9a46464c.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:55:36.542Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 - 09 [720p][Multiple Subtitle][4E5E3018].mkv",
+          "size": 764671869,
+          "directUrl": "https://anime.craftervault.com/0:down/Y/Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e/Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3/[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 [Web 720p]/[Erai-raws] Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e S3 - 09 [720p][Multiple Subtitle][4E5E3018].mkv",
+          "infoHash": "24fac1e03df476540b5811947a924c4f239eb6b7",
+          "torrentPath": "torrents/24fac1e03df476540b5811947a924c4f239eb6b7.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T03:55:38.732Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "Kuroko no Basket S3": {
+      "title": "Kuroko no Basket S3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Kiniro Mosaic (2013)": {
+      "title": "Kiniro Mosaic (2013)",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Karakai Jouzu no Takagi-san Season 3": {
+      "title": "Karakai Jouzu no Takagi-san Season 3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "JoJo no Kimyou na Bouken [1993]": {
+      "title": "JoJo no Kimyou na Bouken [1993]",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Aeon Flux Season 3": {
+      "title": "Aeon Flux Season 3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Kimi ni Todoke S3": {
+      "title": "Kimi ni Todoke S3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Mahouka Koukou no Rettousei S3": {
+      "title": "Mahouka Koukou no Rettousei S3",
+      "anilistId": null,
+      "episodes": [
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Mahouka Koukou no Rettousei S3 - 04 [1080p][Multiple Subtitle][4F0DAC4B].mkv",
+          "size": 1451775150,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mahouka Koukou no Rettousei/[Erai-raws] Mahouka Koukou no Rettousei S3 [Web 1080p]/[Erai-raws] Mahouka Koukou no Rettousei S3 - 04 [1080p][Multiple Subtitle][4F0DAC4B].mkv",
+          "infoHash": "d6b70daf0c8c2a8920586e8bcb54c707c3c6487d",
+          "torrentPath": "torrents/d6b70daf0c8c2a8920586e8bcb54c707c3c6487d.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:07.887Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "1080",
+          "quality": "[Erai-raws]  [Web 1080p]",
+          "fileName": "[Erai-raws] Mahouka Koukou no Rettousei S3 - 12 [1080p][Multiple Subtitle][1C3755C9].mkv",
+          "size": 1447123908,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mahouka Koukou no Rettousei/[Erai-raws] Mahouka Koukou no Rettousei S3 [Web 1080p]/[Erai-raws] Mahouka Koukou no Rettousei S3 - 12 [1080p][Multiple Subtitle][1C3755C9].mkv",
+          "infoHash": "c35991175fde10e5f798d98ced23a9459e42f173",
+          "torrentPath": "torrents/c35991175fde10e5f798d98ced23a9459e42f173.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:09.084Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws]  [Web 720p]",
+          "fileName": "[Erai-raws] Mahouka Koukou no Rettousei S3 - 03 [720p][Multiple Subtitle][7A147870].mkv",
+          "size": 740218177,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mahouka Koukou no Rettousei/[Erai-raws] Mahouka Koukou no Rettousei S3 [Web 720p]/[Erai-raws] Mahouka Koukou no Rettousei S3 - 03 [720p][Multiple Subtitle][7A147870].mkv",
+          "infoHash": "52d952c0e15ee4c1a4fff5652e3b1b3602676aab",
+          "torrentPath": "torrents/52d952c0e15ee4c1a4fff5652e3b1b3602676aab.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:12.640Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws]  [Web 720p]",
+          "fileName": "[Erai-raws] Mahouka Koukou no Rettousei S3 - 10 [720p][Multiple Subtitle][8775B74D].mkv",
+          "size": 742004279,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mahouka Koukou no Rettousei/[Erai-raws] Mahouka Koukou no Rettousei S3 [Web 720p]/[Erai-raws] Mahouka Koukou no Rettousei S3 - 10 [720p][Multiple Subtitle][8775B74D].mkv",
+          "infoHash": "99b3efdb05e97f13397a0259774adc370e54a746",
+          "torrentPath": "torrents/99b3efdb05e97f13397a0259774adc370e54a746.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:01:15.972Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "Gintama S3": {
+      "title": "Gintama S3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Mahou Shoujo Madokaâ˜…Magica Movie 3: Hangyaku no Monogatari": {
+      "title": "Mahou Shoujo Madokaâ˜…Magica Movie 3: Hangyaku no Monogatari",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Pokemon Movie 3 - El emperador de la torre de cristal, Entei": {
+      "title": "Pokemon Movie 3 - El emperador de la torre de cristal, Entei",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Bungou Stray Dogs S3": {
+      "title": "Bungou Stray Dogs S3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Shingeki no Kyojin S4 The Final Season Part 3 Kanketsu-hen": {
+      "title": "Shingeki no Kyojin S4 The Final Season Part 3 Kanketsu-hen",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Haikyuu!! Temporada 3": {
+      "title": "Haikyuu!! Temporada 3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "JoJo OVAs [1993]": {
+      "title": "JoJo OVAs [1993]",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Ore wo Suki nano wa Omae dake ka yo - Oretachi no Game Set - 360": {
+      "title": "Ore wo Suki nano wa Omae dake ka yo - Oretachi no Game Set - 360",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Dragon Ball Z - Chikyuu Marugoto Choukessen - Movie 3": {
+      "title": "Dragon Ball Z - Chikyuu Marugoto Choukessen - Movie 3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Shingeki no Kyojin The Final Season Part 3 Epecial 2": {
+      "title": "Shingeki no Kyojin The Final Season Part 3 Epecial 2",
+      "anilistId": null,
+      "episodes": []
+    },
+    "Cardfight!! Vanguard - Will Dress  3": {
+      "title": "Cardfight!! Vanguard - Will Dress  3",
+      "anilistId": null,
+      "episodes": []
+    },
+    "3-gatsu no Lion Season 2": {
+      "title": "3-gatsu no Lion Season 2",
+      "anilistId": null,
+      "episodes": []
+    },
+    "3-gatsu no Lion Season 1": {
+      "title": "3-gatsu no Lion Season 1",
+      "anilistId": null,
+      "episodes": []
+    },
+    "3D Kanojo Real Girl S2": {
+      "title": "3D Kanojo Real Girl S2",
+      "anilistId": null,
+      "episodes": []
     }
   }
 }

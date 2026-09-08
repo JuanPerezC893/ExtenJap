@@ -1,8 +1,146 @@
 [
   {
+    "anilistId": 112608,
+    "title": "Slime Taoshite 300-nen Shiranai Uchi ni Level Max ni Nattemashita",
+    "episodesCount": 2,
+    "file": "data/112608.json"
+  },
+  {
+    "anilistId": 113108,
+    "title": "Kingdom 3rd Season",
+    "episodesCount": 4,
+    "file": "data/113108.json"
+  },
+  {
+    "anilistId": 125367,
+    "title": "Kaguya-sama wa Kokurasetai - Ultra Romantic",
+    "episodesCount": 4,
+    "file": "data/125367.json"
+  },
+  {
+    "anilistId": 139092,
+    "title": "Mairimashita! Iruma-kun 3rd Season",
+    "episodesCount": 6,
+    "file": "data/139092.json"
+  },
+  {
+    "anilistId": 140439,
+    "title": "Mob Psycho 100 III",
+    "episodesCount": 2,
+    "file": "data/140439.json"
+  },
+  {
+    "anilistId": 145139,
+    "title": "Kimetsu no Yaiba - Katanakaji no Sato-hen",
+    "episodesCount": 3,
+    "file": "data/145139.json"
+  },
+  {
+    "anilistId": 149118,
+    "title": "Enen no Shouboutai - San no Shou",
+    "episodesCount": 1,
+    "file": "data/149118.json"
+  },
+  {
+    "anilistId": 152523,
+    "title": "Kaiko Sareta Ankoku Heishi (30-dai) no Slow na Second Life",
+    "episodesCount": 4,
+    "file": "data/152523.json"
+  },
+  {
+    "anilistId": 153800,
+    "title": "One Punch Man 3",
+    "episodesCount": 2,
+    "file": "data/153800.json"
+  },
+  {
+    "anilistId": 154473,
+    "title": "Arifureta Shokugyou de Sekai Saikyou 3rd Season",
+    "episodesCount": 6,
+    "file": "data/154473.json"
+  },
+  {
+    "anilistId": 156092,
+    "title": "To Be Hero X",
+    "episodesCount": 8,
+    "file": "data/156092.json"
+  },
+  {
+    "anilistId": 156822,
+    "title": "Tensei shitara Slime Datta Ken 3rd Season",
+    "episodesCount": 6,
+    "file": "data/156822.json"
+  },
+  {
+    "anilistId": 158931,
+    "title": "Ao no Exorcist - Shimane Illuminati Hen",
+    "episodesCount": 4,
+    "file": "data/158931.json"
+  },
+  {
+    "anilistId": 162890,
+    "title": "3-nen Z-gumi Ginpachi-sensei",
+    "episodesCount": 5,
+    "file": "data/162890.json"
+  },
+  {
+    "anilistId": 163134,
+    "title": "Re Zero kara Hajimeru Isekai Seikatsu 3rd Season",
+    "episodesCount": 3,
+    "file": "data/163134.json"
+  },
+  {
+    "anilistId": 163205,
+    "title": "Mononogatari 2nd Season",
+    "episodesCount": 3,
+    "file": "data/163205.json"
+  },
+  {
+    "anilistId": 165790,
+    "title": "Kekkon Surutte Hontou Desuka",
+    "episodesCount": 5,
+    "file": "data/165790.json"
+  },
+  {
     "anilistId": 166610,
     "title": "Mashle 2nd Season",
     "episodesCount": 24,
     "file": "data/166610.json"
+  },
+  {
+    "anilistId": 167087,
+    "title": "30-sai made Doutei da to Mahou Tsukai ni Nareru Rashii",
+    "episodesCount": 3,
+    "file": "data/167087.json"
+  },
+  {
+    "anilistId": 169584,
+    "title": "Shinigami Bocchan to Kuro Maid 3rd Season",
+    "episodesCount": 4,
+    "file": "data/169584.json"
+  },
+  {
+    "anilistId": 170166,
+    "title": "Shiguang Dailiren: Yingdu Pian",
+    "episodesCount": 2,
+    "file": "data/170166.json"
+  },
+  {
+    "anilistId": 171637,
+    "title": "Rurouni Kenshin - Kyoto Douran",
+    "episodesCount": 7,
+    "file": "data/171637.json"
+  },
+  {
+    "anilistId": 172463,
+    "title": "Jujutsu Kaisen: Shimetsu Kaiyuu - Zenpen",
+    "episodesCount": 2,
+    "file": "data/172463.json"
+  },
+  {
+    "anilistId": 182587,
+    "title": "[Oshi no Ko] 3rd Season",
+    "episodesCount": 1,
+    "file": "data/182587.json"
   }
 ]

@@ -1,25 +1,34 @@
 import { execFileSync } from 'node:child_process'
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 
-const START = process.argv[2] ?? '7890'
-const END = process.argv[3] ?? '7910'
+const args = process.argv.slice(2)
+const concurrencyIdx = args.indexOf('--concurrency')
+const concurrency = concurrencyIdx >= 0 && args[concurrencyIdx + 1] ? args[concurrencyIdx + 1] : '8'
+const useProxy = args.includes('--proxy')
 
-console.log(`=== PIPELINE AUTOMÁTICO DE JAPAN-PAW (IDs ${START}..${END}) ===\n`)
+const positional = args.filter(a => !a.startsWith('--') && a !== concurrency)
+const START = positional[0] ?? null
+const END = positional[1] ?? null
 
-// 1. Scraping
-console.log('1. Ejecutando scraper de pastes...')
-execFileSync(process.execPath, ['scrape.mjs', START, END], { stdio: 'inherit' })
+console.log(`=== PIPELINE AUTOMÁTICO DE JAPAN-PAW ===\n`)
+console.log(`Concurrencia: ${concurrency} trabajadores`)
+console.log(`Proxies: ${useProxy ? 'ACTIVADOS' : 'DESACTIVADOS'}\n`)
 
-// 2. Vinculación por CRC32
-console.log('\n2. Vinculando torrents oficiales por CRC32...')
-execFileSync(process.execPath, ['link-by-crc.mjs'], { stdio: 'inherit' })
+// 1. Scraping opcional si se pasaron IDs de inicio y fin
+if (START && END) {
+  console.log(`1. Ejecutando scraper de pastes (IDs ${START}..${END})...`)
+  execFileSync(process.execPath, ['scrape.mjs', START, END], { stdio: 'inherit' })
+} else {
+  console.log('1. Scraping omitido (usando raw-catalog.json existente).')
+}
 
-// 3. Vinculación por Título / Fansub para los que no tengan CRC32
-console.log('\n3. Vinculando torrents restantes por título...')
-execFileSync(process.execPath, ['link-torrents.mjs'], { stdio: 'inherit' })
+// 2. Indexación y Verificación estricta de piezas con WebSeed embebido
+console.log('\n2. Ejecutando indexador con verificación de piezas SHA-1 HTTP...')
+const indexerArgs = ['indexer.mjs', '--concurrency', concurrency]
+if (useProxy) indexerArgs.push('--proxy')
+execFileSync(process.execPath, indexerArgs, { stdio: 'inherit' })
 
-// 4. Compilar distribución
-console.log('\n4. Compilando distribución para GitHub...')
-execFileSync(process.execPath, ['build.mjs', 'https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/'], { stdio: 'inherit' })
+// 3. Compilación y purga de catálogo dividido
+console.log('\n3. Compilando catálogo dividido en dist/data/ y manifest...')
+execFileSync(process.execPath, ['build.mjs'], { stdio: 'inherit' })
 
 console.log('\n=== PIPELINE COMPLETADO EXITOSAMENTE ===')

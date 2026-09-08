@@ -42,12 +42,28 @@ export async function verifyPieceHashes(directUrl, parsed, fetchFn = fetch) {
   for (const i of indices) {
     const start = i * parsed.pieceLength
     const end = Math.min(start + parsed.pieceLength, parsed.length) - 1
-    const res = await fetchFn(directUrl, {
-      headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity' },
-      signal: AbortSignal.timeout(20000)
-    })
-    if (res.status !== 206 || res.headers.get('content-range') !== `bytes ${start}-${end}/${parsed.length}`) {
-      await res.body?.cancel?.()
+    let res = null
+    try {
+      res = await fetch(directUrl, {
+        headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity' },
+        signal: AbortSignal.timeout(15000)
+      })
+    } catch {
+      if (fetchFn !== fetch) {
+        try {
+          res = await fetchFn(directUrl, {
+            headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity' },
+            signal: AbortSignal.timeout(15000)
+          })
+        } catch {
+          return false
+        }
+      } else {
+        return false
+      }
+    }
+    if (!res || res.status !== 206 || res.headers.get('content-range') !== `bytes ${start}-${end}/${parsed.length}`) {
+      await res?.body?.cancel?.()
       return false
     }
     const piece = new Uint8Array(await res.arrayBuffer())

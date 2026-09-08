@@ -154,5 +154,17 @@
     "title": "[Oshi no Ko] 3rd Season",
     "episodesCount": 1,
     "file": "data/182587.json"
+  },
+  {
+    "anilistId": 185874,
+    "title": "BLEACH: Sennen Kessen-hen - Kashin-tan",
+    "episodesCount": 14,
+    "file": "data/185874.json"
+  },
+  {
+    "anilistId": 194829,
+    "title": "Katainaka no Ossan, Kensei ni Naru II",
+    "episodesCount": 18,
+    "file": "data/194829.json"
   }
 ]

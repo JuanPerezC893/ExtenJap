@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T04:47:21.168Z",
+  "updatedAt": "2026-09-08T05:04:48.111Z",
   "series": {
     "84": {
       "title": "Kidou Senshi Gundam 0083: STARDUST MEMORY",
@@ -3567,6 +3567,236 @@
         }
       ]
     },
+    "185874": {
+      "title": "BLEACH: Sennen Kessen-hen - Kashin-tan",
+      "anilistId": 185874,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 01 [1080p DSNP WEB-DL AVC AAC][MultiSub][AE2878AA].mkv",
+          "size": 1074134749,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2001%20%5B1080p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BAE2878AA%5D.mkv",
+          "infoHash": "ce116d0d26cc57f4a315544eaef9280a9554a551",
+          "torrentPath": "torrents/ce116d0d26cc57f4a315544eaef9280a9554a551.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:17.167Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 02 [1080p DSNP WEB-DL AVC AAC][MultiSub][25F4DBB7].mkv",
+          "size": 1132347576,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2002%20%5B1080p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BAE2878AA%5D.mkv",
+          "infoHash": "bbef29cee98a29e22493d84c61ad02da2d71bc7e",
+          "torrentPath": "torrents/bbef29cee98a29e22493d84c61ad02da2d71bc7e.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:18.740Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 04 [1080p DSNP WEB-DL AVC AAC][MultiSub][038DCA77].mkv",
+          "size": 1071141680,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2004%20%5B1080p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B038DCA77%5D.mkv",
+          "infoHash": "1db7129ef7a63a21b996d411825cb6f8d097e20b",
+          "torrentPath": "torrents/1db7129ef7a63a21b996d411825cb6f8d097e20b.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:22.911Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 03 [1080p DSNP WEB-DL AVC AAC][MultiSub][8FFC2E28].mkv",
+          "size": 1054844494,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2003%20%5B1080p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BAE2878AA%5D.mkv",
+          "infoHash": "cddf305d51f9961860afd32faab8b49ecec46ccb",
+          "torrentPath": "torrents/cddf305d51f9961860afd32faab8b49ecec46ccb.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:24.116Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 05 [1080p DSNP WEB-DL AVC AAC][MultiSub][6981C0FE].mkv",
+          "size": 1141442798,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2005%20%5B1080p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B6981C0FE%5D.mkv",
+          "infoHash": "4ae8999bc5508de8c9e3315f6ce4c5a4132fac24",
+          "torrentPath": "torrents/4ae8999bc5508de8c9e3315f6ce4c5a4132fac24.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:26.421Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 06 [1080p DSNP WEB-DL AVC AAC][MultiSub][EB8FF50C].mkv",
+          "size": 914552052,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH%3A%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2006%20%5B1080p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BEB8FF50C%5D.mkv",
+          "infoHash": "c52a5843188f94cd8486880dad3486b83ceca259",
+          "torrentPath": "torrents/c52a5843188f94cd8486880dad3486b83ceca259.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:27.849Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 07 [1080p DSNP WEB-DL AVC AAC][MultiSub][18BD5661].mkv",
+          "size": 1059701376,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH%3A%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2007%20%5B1080p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B18BD5661%5D.mkv",
+          "infoHash": "f068ca30efbc7c1b3c82b610179ee6a24f2a2ad0",
+          "torrentPath": "torrents/f068ca30efbc7c1b3c82b610179ee6a24f2a2ad0.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:28.869Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 01 [720p DSNP WEB-DL AVC AAC][MultiSub][F58CDBB8].mkv",
+          "size": 602825328,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2001%20%5B720p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF58CDBB8%5D.mkv",
+          "infoHash": "2bdc4fb93d4edbcb8c632358eed7feeaa12ae333",
+          "torrentPath": "torrents/2bdc4fb93d4edbcb8c632358eed7feeaa12ae333.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:31.782Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 02 [720p DSNP WEB-DL AVC AAC][MultiSub][126A4695].mkv",
+          "size": 660388966,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2002%20%5B720p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF58CDBB8%5D.mkv",
+          "infoHash": "3f41e9cc2669be76b16f599b4c3384c621730b98",
+          "torrentPath": "torrents/3f41e9cc2669be76b16f599b4c3384c621730b98.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:34.869Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 03 [720p DSNP WEB-DL AVC AAC][MultiSub][E35F5E79].mkv",
+          "size": 606476010,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2003%20%5B720p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF58CDBB8%5D.mkv",
+          "infoHash": "e8eb37826d6316cb3d42f7a64c7b69ed8a25ead7",
+          "torrentPath": "torrents/e8eb37826d6316cb3d42f7a64c7b69ed8a25ead7.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:39.600Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 05 [720p DSNP WEB-DL AVC AAC][MultiSub][D90A4053].mkv",
+          "size": 646997273,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2005%20%5B720p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD90A4053%5D.mkv",
+          "infoHash": "e6f1620ec720a5bfd704a59962619a287b156fe9",
+          "torrentPath": "torrents/e6f1620ec720a5bfd704a59962619a287b156fe9.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:43.196Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 04 [720p DSNP WEB-DL AVC AAC][MultiSub][1AD84338].mkv",
+          "size": 611196743,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH:%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2004%20%5B720p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF58CDBB8%5D.mkv",
+          "infoHash": "a8d9b72cf0ec41f8510cbd2f122e0eeddf91b383",
+          "torrentPath": "torrents/a8d9b72cf0ec41f8510cbd2f122e0eeddf91b383.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:44.375Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 06 [720p DSNP WEB-DL AVC AAC][MultiSub][A303BEFD].mkv",
+          "size": 528094869,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH%3A%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2006%20%5B720p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BA303BEFD%5D.mkv",
+          "infoHash": "6daed89b0def2fe9700d7543f0131843d1a76c20",
+          "torrentPath": "torrents/6daed89b0def2fe9700d7543f0131843d1a76c20.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:46.853Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Bleach - Sennen Kessen Hen - Kashin Tan - 07 [720p DSNP WEB-DL AVC AAC][MultiSub][00D64DE6].mkv",
+          "size": 589108546,
+          "directUrl": "https://emision.craftervault.com/0:down/BLEACH%3A%20Sennen%20Kessen-hen%20-%20Kashin-tan/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Bleach%20-%20Sennen%20Kessen%20Hen%20-%20Kashin%20Tan%20-%2007%20%5B720p%20DSNP%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B00D64DE6%5D.mkv",
+          "infoHash": "1fc3c142ddcdf1beed8a93c1a49203420c5d97fa",
+          "torrentPath": "torrents/1fc3c142ddcdf1beed8a93c1a49203420c5d97fa.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:03:47.594Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
     "187921": {
       "title": "Shuumatsu no Valkyrie III",
       "anilistId": 187921,
@@ -3781,6 +4011,300 @@
             "matchedBy": "prelinked",
             "piecesVerified": false,
             "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "194829": {
+      "title": "Katainaka no Ossan, Kensei ni Naru II",
+      "anilistId": 194829,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 01 [1080p AMZN WEB-DL AVC EAC3][MultiSub][13F1C02B].mkv",
+          "size": 612521004,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2001%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B13F1C02B%5D.mkv",
+          "infoHash": "f4bc1d4d152137b90b969025ba98231170129cf6",
+          "torrentPath": "torrents/f4bc1d4d152137b90b969025ba98231170129cf6.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T04:59:34.673Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 02 [1080p AMZN WEB-DL AVC EAC3][MultiSub][E27C3F25].mkv",
+          "size": 619856006,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2002%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BE27C3F25%5D.mkv",
+          "infoHash": "1f81feaa93bab2e7b7d5aa847a1bcb32f9a5bd9f",
+          "torrentPath": "torrents/1f81feaa93bab2e7b7d5aa847a1bcb32f9a5bd9f.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:00.234Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 03 [1080p AMZN WEB-DL AVC EAC3][MultiSub][FD042123].mkv",
+          "size": 945362074,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2003%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BFD042123%5D.mkv",
+          "infoHash": "6be9adc6733b437def03cbbd8e62d2780503962a",
+          "torrentPath": "torrents/6be9adc6733b437def03cbbd8e62d2780503962a.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:01.040Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 04 [1080p AMZN WEB-DL AVC EAC3][MultiSub][8AC2992E].mkv",
+          "size": 708271833,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2004%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B8AC2992E%5D.mkv",
+          "infoHash": "397c1385a7523c208b7a2ad3f1ddb3adb9a1ec83",
+          "torrentPath": "torrents/397c1385a7523c208b7a2ad3f1ddb3adb9a1ec83.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:03.885Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 05 [1080p AMZN WEB-DL AVC EAC3][MultiSub][B01748EC].mkv",
+          "size": 859651340,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2005%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BB01748EC%5D.mkv",
+          "infoHash": "94750498b9ac853909aa56d05a024106e329b018",
+          "torrentPath": "torrents/94750498b9ac853909aa56d05a024106e329b018.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:04.351Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 06 [1080p AMZN WEB-DL AVC EAC3][MultiSub][80977B2B].mkv",
+          "size": 698805867,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2006%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B80977B2B%5D.mkv",
+          "infoHash": "b63c69139ab370222d57fa4fb340fbade9ac8298",
+          "torrentPath": "torrents/b63c69139ab370222d57fa4fb340fbade9ac8298.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:07.366Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 07 [1080p AMZN WEB-DL AVC EAC3][MultiSub][58B419E9].mkv",
+          "size": 739128192,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2007%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B58B419E9%5D.mkv",
+          "infoHash": "5e65ad5d51c5c3ca4a93592f4b2d63bd6d8b0e49",
+          "torrentPath": "torrents/5e65ad5d51c5c3ca4a93592f4b2d63bd6d8b0e49.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:09.079Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 08 [1080p AMZN WEB-DL AVC EAC3][MultiSub][00AA8340].mkv",
+          "size": 648978389,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2008%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B00AA8340%5D.mkv",
+          "infoHash": "1b8f37cad393e939729744395c19a5d195a8c13b",
+          "torrentPath": "torrents/1b8f37cad393e939729744395c19a5d195a8c13b.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:10.667Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 09 [1080p AMZN WEB-DL AVC EAC3][MultiSub][FB31EE12].mkv",
+          "size": 648041781,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2009%20%5B1080p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BFB31EE12%5D.mkv",
+          "infoHash": "597359274abd2d8976fea3221f8caa4140b7815e",
+          "torrentPath": "torrents/597359274abd2d8976fea3221f8caa4140b7815e.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:12.272Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 01 [720p AMZN WEB-DL AVC EAC3][MultiSub][C5B5251C].mkv",
+          "size": 316388487,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2001%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BC5B5251C%5D.mkv",
+          "infoHash": "f3ba84cdeef477bee8401fb540565b78eb9455e2",
+          "torrentPath": "torrents/f3ba84cdeef477bee8401fb540565b78eb9455e2.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:14.648Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 02 [720p AMZN WEB-DL AVC EAC3][MultiSub][75FAE781].mkv",
+          "size": 319215186,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2002%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B75FAE781%5D.mkv",
+          "infoHash": "cdc9cca2780a3e01e5b617dbe2fbbbf096b0e316",
+          "torrentPath": "torrents/cdc9cca2780a3e01e5b617dbe2fbbbf096b0e316.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:15.759Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 03 [720p AMZN WEB-DL AVC EAC3][MultiSub][47FD1ABE].mkv",
+          "size": 471736882,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2003%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B47FD1ABE%5D.mkv",
+          "infoHash": "d20b7407322c22a5bcc4f3d1c9dd0bf49dbad056",
+          "torrentPath": "torrents/d20b7407322c22a5bcc4f3d1c9dd0bf49dbad056.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:18.025Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 04 [720p AMZN WEB-DL AVC EAC3][MultiSub][81C1D27B].mkv",
+          "size": 350136837,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2004%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B81C1D27B%5D.mkv",
+          "infoHash": "25c9ac34a298ae1283956ce096736e935a8e9981",
+          "torrentPath": "torrents/25c9ac34a298ae1283956ce096736e935a8e9981.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:19.514Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 05 [720p AMZN WEB-DL AVC EAC3][MultiSub][92B01C05].mkv",
+          "size": 432981914,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2005%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B92B01C05%5D.mkv",
+          "infoHash": "6fe0a6809219476bac202ffadcf9a6556eed08ca",
+          "torrentPath": "torrents/6fe0a6809219476bac202ffadcf9a6556eed08ca.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:21.455Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 06 [720p AMZN WEB-DL AVC EAC3][MultiSub][19163F35].mkv",
+          "size": 338023572,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2006%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B19163F35%5D.mkv",
+          "infoHash": "91517cdd66f9cd00a1c13d7907805b973638caba",
+          "torrentPath": "torrents/91517cdd66f9cd00a1c13d7907805b973638caba.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:22.951Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 07 [720p AMZN WEB-DL AVC EAC3][MultiSub][AA5402A8].mkv",
+          "size": 379603235,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2007%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5BAA5402A8%5D.mkv",
+          "infoHash": "14ba13a916738935449e00e784c89f12af3f570b",
+          "torrentPath": "torrents/14ba13a916738935449e00e784c89f12af3f570b.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:24.746Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 08 [720p AMZN WEB-DL AVC EAC3][MultiSub][3014C20F].mkv",
+          "size": 333142313,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2008%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B3014C20F%5D.mkv",
+          "infoHash": "44ad71b42b46f25e3e10a36a3aa8a4380057ddc7",
+          "torrentPath": "torrents/44ad71b42b46f25e3e10a36a3aa8a4380057ddc7.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:26.274Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Katainaka no Ossan Kensei ni Naru II - 09 [720p AMZN WEB-DL AVC EAC3][MultiSub][0C0868B6].mkv",
+          "size": 336693153,
+          "directUrl": "https://emision.craftervault.com/0:down/Katainaka%20no%20Ossan%2C%20Kensei%20ni%20Naru%20II/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Katainaka%20no%20Ossan%20Kensei%20ni%20Naru%20II%20-%2009%20%5B720p%20AMZN%20WEB-DL%20AVC%20EAC3%5D%5BMultiSub%5D%5B0C0868B6%5D.mkv",
+          "infoHash": "d2d1d1bba118c885ce1c8e2847a50dd302afbec7",
+          "torrentPath": "torrents/d2d1d1bba118c885ce1c8e2847a50dd302afbec7.torrent",
+          "verified": {
+            "matchedBy": "nyaa",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-08T05:04:27.957Z"
           },
           "isOnline": true
         }

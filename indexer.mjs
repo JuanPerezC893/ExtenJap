@@ -4,6 +4,9 @@ import parseTorrent, { toTorrentFile } from 'parse-torrent'
 import { sameRelease, episodeNumber, resolution, isBatchTorrent, VIDEO, fileName, normalize } from './lib/matching.js'
 import { validateLinkedTorrent } from './lib/link-validation.js'
 import { ProxyPool, defaultPool } from './lib/proxy-pool.js'
+import { searchNyaa, searchAnimeTosho, buildSearchQueries } from './lib/sources.js'
+
+export { searchNyaa, searchAnimeTosho }
 
 const CATALOG_PATH = 'raw-catalog.json'
 const VERIFIED_PATH = 'verified-matches.json'
@@ -56,48 +59,43 @@ export async function verifyPieceHashes(directUrl, parsed, fetchFn = fetch) {
   return true
 }
 
-export async function searchAnimeTosho(queryStr, fetchFn = fetch) {
-  const url = `https://feed.animetosho.org/json?q=${encodeURIComponent(queryStr)}`
-  try {
-    const res = await fetchFn(url, { headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(10000) })
-    if (!res.ok) return []
-    const data = await res.json()
-    return Array.isArray(data) ? data : []
-  } catch {
-    return []
-  }
-}
-
 export async function findAndPrepareTorrent(series, ep, options = {}) {
   const { verifyPieces = false, signal = AbortSignal.timeout(30000), fetchFn = fetch } = options
   const epNum = Number(ep.episode)
-  const fn = fileName(ep)
-  const crc = ep.crc32 || fn.match(/\[([a-f\d]{8})\]/i)?.[1]
-  const cleanTitle = (series.title || '').replace(/[!?:;,."']/g, ' ').replace(/\s+/g, ' ').trim()
+  const fn = ep.fileName || fileName(ep)
+  const expectedRes = resolution(fn) || String(ep.resolution || '')
 
-  const queries = new Set()
-  if (crc) queries.add(crc)
-  if (fn) queries.add(fn.replace(/\.[a-z0-9]+$/i, ''))
-  const epStr = String(epNum).padStart(2, '0')
-  const resStr = ep.resolution ? `${ep.resolution}p` : ''
-  if (resStr) queries.add(`${cleanTitle} ${epStr} ${resStr}`)
-  queries.add(`${cleanTitle} ${epStr}`)
-  if (epNum === 1) {
-    if (resStr) queries.add(`${cleanTitle} ${resStr}`)
-    queries.add(cleanTitle)
-  }
+  const queries = buildSearchQueries(series, ep)
+  const seenCandidates = new Set()
 
-  for (const q of queries) {
+  for (const { query: q, provider } of queries) {
     if (signal.aborted) break
-    const items = await searchAnimeTosho(q, fetchFn)
+
+    const items = []
+
+    // 1. Consultar Nyaa.si
+    if (provider === 'nyaa' || provider === 'all') {
+      const nyaaItems = await searchNyaa(q, fetchFn)
+      items.push(...nyaaItems)
+    }
+
+    // 2. Consultar AnimeTosho
+    if (provider === 'animetosho' || provider === 'all') {
+      const toshoItems = await searchAnimeTosho(q, fetchFn)
+      items.push(...toshoItems)
+    }
+
     for (const item of items) {
-      if (!item.torrent_url || !item.info_hash || isBatchTorrent(item)) continue
-      const title = item.title || item.torrent_name || ''
+      if (!item.torrent_url || seenCandidates.has(item.torrent_url)) continue
+      seenCandidates.add(item.torrent_url)
+
+      if (item.num_files && isBatchTorrent(item)) continue
+
+      const title = item.title || ''
       const itemEp = episodeNumber(title)
       if (itemEp !== null && itemEp !== epNum) continue
 
       const itemRes = resolution(title)
-      const expectedRes = resolution(fn) || String(ep.resolution || '')
       if (itemRes && expectedRes && itemRes !== expectedRes) continue
 
       // Descargar y validar candidate .torrent contra el archivo real interno
@@ -114,7 +112,6 @@ export async function findAndPrepareTorrent(series, ep, options = {}) {
         if (verifyPieces && ep.url) {
           piecesOk = await verifyPieceHashes(ep.url, parsed, fetchFn)
           if (!piecesOk) {
-            console.warn(`    ⚠ Piezas no coinciden para ${title}, descartando candidato.`)
             continue
           }
         }
@@ -131,7 +128,7 @@ export async function findAndPrepareTorrent(series, ep, options = {}) {
           torrentFileName: parsed.files[0].name,
           torrentPath,
           piecesVerified: piecesOk,
-          matchedBy: crc && (title.includes(crc) || parsed.files[0].name.includes(crc)) ? 'crc' : 'same-release',
+          matchedBy: item.source || 'multi-source',
           title: parsed.name
         }
       } catch (err) {
@@ -162,7 +159,8 @@ export async function runIndexer(options = {}) {
     concurrency = 1,
     useProxy = false,
     proxyFile = null,
-    batchRange = null
+    batchRange = null,
+    includeNonAnime = false
   } = options
 
   const catalog = JSON.parse(readFileSync(CATALOG_PATH, 'utf8'))
@@ -176,16 +174,25 @@ export async function runIndexer(options = {}) {
   }
   const fetchFn = useProxy ? (url, opt) => pool.fetch(url, opt) : fetch
 
+  // 1. Filtrar por anime válido (con AniList ID) por defecto para evitar series occidentales
   let targetSeries = catalog
+  if (!includeNonAnime) {
+    const totalBefore = targetSeries.length
+    targetSeries = targetSeries.filter(s => s.anilistId)
+    const skipped = totalBefore - targetSeries.length
+    if (skipped > 0) {
+      console.log(`Filtro de anime: Se omitieron ${skipped} series no-anime sin AniList ID (ej. películas/series occidentales).`)
+    }
+  }
 
-  // Rango batch por índice si se especifica
+  // 2. Rango batch por índice si se especifica
   if (batchRange && Array.isArray(batchRange) && batchRange.length === 2) {
     const [start, end] = batchRange
     targetSeries = targetSeries.slice(start, end)
     console.log(`Filtro por rango batch: índices [${start}..${end}] (${targetSeries.length} series)`)
   }
 
-  // Filtro por series
+  // 3. Filtro por series específicas si se especifica
   if (seriesFilter.length > 0) {
     const filterLower = seriesFilter.map(s => String(s).toLowerCase().trim())
     targetSeries = targetSeries.filter(s => {
@@ -195,7 +202,7 @@ export async function runIndexer(options = {}) {
     })
   }
 
-  console.log(`=== Indexador Independiente de Torrents y WebSeeds ===`)
+  console.log(`=== Indexador Independiente Multi-Fuente (Nyaa + AnimeTosho) ===`)
   console.log(`Series seleccionadas: ${targetSeries.length}`)
   console.log(`Concurrencia: ${concurrency} trabajador(es) simultáneo(s)`)
   console.log(`Rotación de proxies: ${useProxy ? 'ACTIVADA' : 'DESACTIVADA'}`)
@@ -254,7 +261,7 @@ export async function runIndexer(options = {}) {
       console.log(`[W${workerId}] 🔍 Buscando y verificando: ${s.title} Ep ${ep.episode} (${ep.resolution}p)...`)
       const match = await findAndPrepareTorrent(s, ep, { verifyPieces, fetchFn })
       if (match) {
-        console.log(`[W${workerId}] ✔ ¡Torrent verificado con WebSeed embebido! [${s.title} Ep ${ep.episode} ${ep.resolution}p -> Hash: ${match.infoHash}]`)
+        console.log(`[W${workerId}] ✔ ¡Torrent verificado con WebSeed embebido! [${s.title} Ep ${ep.episode} ${ep.resolution}p -> ${match.matchedBy} -> Hash: ${match.infoHash}]`)
         const epData = {
           episode: ep.episode,
           resolution: String(ep.resolution || ''),
@@ -313,6 +320,7 @@ if (process.argv[1]?.endsWith('indexer.mjs')) {
   let proxyFile = null
   let batchRange = null
   let noPieces = false
+  let includeNonAnime = false
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]
@@ -326,6 +334,8 @@ if (process.argv[1]?.endsWith('indexer.mjs')) {
       noPieces = true
     } else if (arg === '--proxy') {
       useProxy = true
+    } else if (arg === '--include-non-anime') {
+      includeNonAnime = true
     } else if (arg === '--series') {
       while (i + 1 < args.length && !args[i + 1].startsWith('--')) {
         series.push(args[++i])
@@ -339,6 +349,7 @@ if (process.argv[1]?.endsWith('indexer.mjs')) {
     concurrency,
     useProxy,
     proxyFile,
-    batchRange
+    batchRange,
+    includeNonAnime
   }).catch(console.error)
 }

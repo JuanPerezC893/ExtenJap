@@ -64,8 +64,7 @@ def fetch_page(v, max_retries=3):
                 return None
 
             if res.status_code == 200:
-                if "cuenta vip" in res.text or "Iniciar sesion" in res.text or "Iniciar sesión" in res.text:
-                    return None
+                # A public page can also contain a VIP login section.
                 return res.text
 
         except Exception:
@@ -117,7 +116,7 @@ def parse_series(html, v):
 
         html_chunk = str(div)
         public_idx = html_chunk.find("Publicos-Paste.png")
-        search_chunk = html_chunk[public_idx:] if public_idx >= 0 else html_chunk
+        search_chunk = html_chunk[public_idx:] if public_idx >= 0 else ""
         chunk_soup = BeautifulSoup(search_chunk, "html.parser")
 
         for a in chunk_soup.find_all("a", href=True):
@@ -134,7 +133,7 @@ def parse_series(html, v):
             text = a.get_text().strip()
             ep_match = re.search(r"(?:Cap[íi]tulo|Episodio|Ep\.?)\s*0*(\d+(?:\.\d+)?)", text, re.I) or \
                        re.search(r"(?:[\s\-_]0*(\d{1,4}(?:\.\d+)?)[\s\-_]|E0*(\d{1,4}))", file_name, re.I)
-            ep_num = float(ep_match.group(1)) if ep_match else 1.0
+            ep_num = float(next(g for g in ep_match.groups() if g is not None)) if ep_match else 1.0
 
             crc_match = re.search(r"\[([0-9A-Fa-f]{8})\]", file_name)
             crc32 = crc_match.group(1).upper() if crc_match else None
@@ -151,7 +150,7 @@ def parse_series(html, v):
                     "crc32": crc32,
                     "group": group,
                     "url": c_url,
-                    "isOnline": True
+                    "isOnline": None
                 })
 
     return {"sourceV": v, "title": title, "episodes": episodes} if episodes else None

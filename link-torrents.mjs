@@ -1,5 +1,6 @@
 import parseTorrent, { toTorrentFile } from 'parse-torrent'
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { validateLinkedTorrent } from './lib/link-validation.js'
 
 const catalog = JSON.parse(readFileSync('raw-catalog.json', 'utf8'))
 
@@ -52,6 +53,7 @@ async function linkSeries(series) {
         const res = await fetch(torrentUrl, { headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(15_000) })
         const buf = Buffer.from(await res.arrayBuffer())
         const parsed = await parseTorrent(buf)
+        validateLinkedTorrent(parsed, ep)
         parsed.urlList = [ep.url]
         parsed.announce = []
         const newBuf = toTorrentFile(parsed)
@@ -60,7 +62,7 @@ async function linkSeries(series) {
 
         ep.infoHash = parsed.infoHash
         ep.size = parsed.length
-        ep.fileName = parsed.name
+        ep.torrentFileName = parsed.files[0].name
         ep.torrentPath = torrentPath
         linked++
         console.log(`  ✔ Ep ${ep.episode} (${ep.resolution}p): hash ${parsed.infoHash}`)

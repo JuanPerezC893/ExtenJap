@@ -1,341 +1,167 @@
-// ESM para el worker de Hayase (TorrentSource).
+import parseTorrent from 'parse-torrent'
+import { catalogLoader } from './lib/catalog.js'
+import { fileName, sameRelease, matchSeries, episodeNumber, resolution, normalize, isBatchTorrent, onlineState, VIDEO } from './lib/matching.js'
+
 const INDEX_URL = 'http://127.0.0.1:8787/indexed-catalog.json'
-let cache
-let cachedAt = 0
+const validHash = value => /^[a-f\d]{40}$/i.test(value || '')
+const count = value => Number.isFinite(Number(value)) ? Math.max(0, Math.floor(Number(value))) : 0
 
-const strip = str => String(str ?? '')
-  .normalize('NFKD')
-  .toLowerCase()
-  .replace(/\p{M}/gu, '')
-  .replace(/[^a-z0-9]+/g, '')
-
-async function loadIndex(fetchFn, refresh = false) {
-  if (!refresh && cache && Date.now() - cachedAt < 300_000) return cache
-  const response = await fetchFn(INDEX_URL)
-  if (!response.ok) throw new Error(`No se pudo cargar el catálogo: HTTP ${response.status}`)
-  const data = await response.json()
-  if (!Array.isArray(data)) throw new Error('Catálogo inválido')
-  cache = data
-  cachedAt = Date.now()
-  return data
-}
-
-function isBatchTorrent(item) {
-  const title = `${item.title || ''} ${item.torrent_name || ''}`.toLowerCase()
-  // Detección de patrones explícitos de paquetes/temporadas completas (01-12, batch, etc.)
-  if (/\b(batch|unofficial\s*batch|season\s*\d*\s*complete|complete\s*season|complete\s*series|s\d+\s*-\s*s\d+|0?1\s*-\s*\d{2,}|0?1\s*~\s*\d{2,})\b/i.test(title)) {
-    return true
-  }
-  // Si el torrent contiene múltiples archivos de video (temporada completa con > 3 archivos)
-  // Las películas o episodios individuales (incluso de 10 GB, 20 GB o 4K REMUX) tienen 1 único archivo principal
-  if (item.num_files && item.num_files > 3) {
-    return true
-  }
-  return false
-}
-
-function getSeasonNumber(title) {
-  const t = ' ' + String(title ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ') + ' '
-  const m2 = t.match(/\b0*(\d+)(?:st|nd|rd|th)\s*season\b/)
-  if (m2) return parseInt(m2[1], 10)
-  if (/\b(?:iv|4th\s*season)\b/.test(t)) return 4
-  if (/\b(?:iii|3rd\s*season)\b/.test(t)) return 3
-  if (/\b(?:ii|2nd\s*season)\b/.test(t)) return 2
-  const m3 = t.match(/\b(?:part|cour)\s*0*(\d+)\b/)
-  if (m3) return parseInt(m3[1], 10)
-  const m1 = t.match(/\b(?:season|s)\s*0*(\d{1,2})\b/)
-  if (m1) return parseInt(m1[1], 10)
-  return 1
-}
-
-function levenshtein(a, b) {
-  if (a === b) return 0
-  if (!a.length) return b.length
-  if (!b.length) return a.length
-  const m = []
-  for (let i = 0; i <= b.length; i++) m[i] = [i]
-  for (let j = 0; j <= a.length; j++) m[0][j] = j
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      if (b.charAt(i - 1) === a.charAt(j - 1)) m[i][j] = m[i - 1][j - 1]
-      else m[i][j] = Math.min(m[i - 1][j - 1] + 1, m[i][j - 1] + 1, m[i - 1][j] + 1)
+export function createTorrentSource(indexUrl = INDEX_URL) {
+  const load = catalogLoader(indexUrl)
+  const cache = new Map()
+  async function memo(key, action) {
+    const hit = cache.get(key)
+    if (hit && hit.expires > Date.now()) return hit.value
+    const value = await action()
+    if (value !== null) {
+      cache.delete(key)
+      if (cache.size >= 200) cache.delete(cache.keys().next().value)
+      cache.set(key, { value, expires: Date.now() + 300_000 })
     }
+    return value
   }
-  return m[b.length][a.length]
-}
-
-function matchSeries(catalog, rawTitles, anilistId) {
-  if (anilistId) {
-    const byId = catalog.filter(s => Number(s.anilistId) === Number(anilistId))
-    if (byId.length) return byId
+  async function metadata(url, expectedHash, ep, fetchFn) {
+    if (!/^https?:\/\//.test(url) || !validHash(expectedHash)) return null
+    try {
+      const parsed = await memo('torrent:' + url, async () => {
+        const response = await fetchFn(url)
+        if (!response.ok) return null
+        if (Number(response.headers?.get('content-length')) > 4 * 1024 * 1024) { await response.body?.cancel(); return null }
+        const bytes = new Uint8Array(await response.arrayBuffer())
+        if (bytes.length > 4 * 1024 * 1024) return null
+        return parseTorrent(bytes)
+      })
+      if (!parsed || parsed.infoHash !== expectedHash.toLowerCase()) return null
+      if (!Number.isSafeInteger(parsed.length) || parsed.length <= 0 || !Number.isSafeInteger(parsed.pieceLength) || parsed.pieceLength <= 0 || parsed.pieces.length !== Math.ceil(parsed.length / parsed.pieceLength)) return null
+      // Single-file metadata guarantees the HTTP URL covers every torrent byte.
+      if (parsed.files.length !== 1 || !VIDEO.test(parsed.files[0].name) || isBatchTorrent(parsed)) return null
+      if (!sameRelease(ep, parsed.files[0].name)) return null
+      if (ep.size && Number(ep.size) !== parsed.length) return null
+      return parsed
+    } catch { return null }
   }
-
-  const titles = (rawTitles ?? []).filter(Boolean)
-  if (!titles.length) return []
-
-  const cleanTitles = titles.map(strip).filter(Boolean)
-
-  return catalog.filter(s => {
-    const sClean = strip(s.title)
-    if (!sClean) return false
-    const sSeason = getSeasonNumber(s.title)
-
-    for (let i = 0; i < titles.length; i++) {
-      const qRaw = titles[i]
-      const qClean = cleanTitles[i]
-      if (!qClean) continue
-      const qSeason = getSeasonNumber(qRaw)
-
-      // 1. Coincidencia exacta
-      if (qClean === sClean) {
-        if (qSeason === sSeason) return true
-      }
-
-      // 2. Coincidencia por alias
-      if (s.aliases && Array.isArray(s.aliases)) {
-        for (const a of s.aliases) {
-          if (strip(a) === qClean) return true
-        }
-      }
-
-      // 3. Fuzzy match para pequeños errores ortográficos / typos (ej. "Taboo Tattoo" vs "Taboo Tatoo")
-      if (qClean.length >= 6 && sClean.length >= 6) {
-        const maxDist = (qClean.length >= 10 || sClean.length >= 10) ? 2 : 1
-        if (levenshtein(qClean, sClean) <= maxDist) {
-          if (qSeason === sSeason) return true
-        }
-      }
-
-      // 4. Subcadena segura (mismo número de temporada)
-      if (qClean.length >= 6 && sClean.length >= 6) {
-        if (sClean.includes(qClean) || qClean.includes(sClean)) {
-          if (qSeason === sSeason) return true
-        }
-      }
-
-      // 5. Coincidencia con nombre de archivo
-      if (s.episodes && s.episodes.length > 0) {
-        const fn = strip(s.episodes[0].fileName || '')
-        if (qClean.length >= 6 && fn.includes(qClean)) {
-          const fnSeason = getSeasonNumber(s.episodes[0].fileName)
-          if (qSeason === fnSeason) return true
-        }
-      }
+  async function search(series, ep, titles, fetchFn, signal, movie) {
+    const number = Number(ep.episode)
+    const queries = new Set()
+    const crc = ep.crc32 || fileName(ep).match(/\[([a-f\d]{8})\]/i)?.[1]
+    if (crc) queries.add(crc)
+    queries.add(fileName(ep).replace(/\.[a-z0-9]+$/i, ''))
+    for (const title of [...titles, series.title].filter(Boolean).slice(0, 3)) {
+      queries.add(movie ? title : `${title} ${String(number).padStart(2, '0')}`)
     }
-    return false
-  })
-}
-
-function extractEpisodeNumber(title) {
-  // Ignorar bit-depth (10-bit, 8-bit, 12-bit), resoluciones (1080p, 720p, 480p) y años (19xx, 20xx)
-  const clean = String(title || '')
-    .replace(/\b\d{1,2}\s*-?\s*bits?\b/gi, '')
-    .replace(/\b\d{3,4}p\b/gi, '')
-    .replace(/\b(19\d{2}|20\d{2})\b/g, '')
-
-  const m1 = clean.match(/\b(?:s\d+)?\s*(?:e|ep|episode)\s*0*(\d{1,4}(?:\.\d+)?)\b/i)
-  if (m1) return parseFloat(m1[1])
-
-  const m2 = clean.match(/(?:[\s\-_]0*(\d{1,4}(?:\.\d+)?)\s*(?:v\d+)?(?:[\s\-_\[(]|\.mkv|\.mp4))/i)
-  if (m2) return parseFloat(m2[1])
-
-  return null
-}
-
-const toshoCache = new Map()
-
-async function queryAnimeTosho(queryStr, fetchFn) {
-  if (toshoCache.has(queryStr)) return toshoCache.get(queryStr)
-  try {
-    const q = encodeURIComponent(queryStr)
-    const res = await fetchFn(`https://feed.animetosho.org/json?q=${q}`, {
-      headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
-      signal: AbortSignal.timeout(4000)
-    })
-    if (!res.ok) return null
-    const data = await res.json()
-    if (Array.isArray(data)) {
-      toshoCache.set(queryStr, data)
-      return data
+    for (const q of queries) {
+      if (!q || signal.aborted) break
+      let items
+      try {
+        items = await memo('query:' + q, async () => {
+          const response = await fetchFn(`https://feed.animetosho.org/json?q=${encodeURIComponent(q)}`)
+          if (!response.ok) return null
+          const data = await response.json()
+          return Array.isArray(data) ? data : null
+        })
+      } catch { continue }
+      const candidates = (items || []).filter(item => {
+        if (!validHash(item.info_hash) || !item.torrent_url || isBatchTorrent(item)) return false
+        const title = item.title || item.torrent_name || ''
+        if (sameRelease(ep, title) || sameRelease(ep, title + '.mkv') || sameRelease(ep, title + '.mp4')) return true
+        const r = resolution(title), expectedRes = resolution(fileName(ep)) || String(ep.resolution || '')
+        if (r && expectedRes && r !== expectedRes) return false
+        if (!movie && episodeNumber(title) !== number) return false
+        // Weak search matches are only candidates: the actual torrent file must match below.
+        return [...titles, series.title, ...(series.aliases || [])].some(t => normalize(t).length >= 6 && normalize(title).includes(normalize(t)))
+      }).sort((a, b) => Number(Boolean(crc && String(b.title).includes(crc))) - Number(Boolean(crc && String(a.title).includes(crc))))
+      for (const item of candidates.slice(0, 4)) {
+        if (signal.aborted) return null
+        const parsed = await metadata(item.torrent_url, item.info_hash, ep, fetchFn)
+        if (parsed) return { parsed, url: item.torrent_url, item }
+      }
     }
     return null
-  } catch {
-    return null
   }
-}
+  async function single(query, movie = false) {
+    const signal = AbortSignal.timeout(18_000)
+    const fetchFn = (url, options = {}) => (query.fetch ?? fetch)(url, { ...options, signal: AbortSignal.any([signal, options.signal ?? AbortSignal.timeout(5000)]) })
+    const number = Number(movie ? 1 : query.episode)
+    if (!Number.isFinite(number) || number < 0) return []
+    const requested = String(query.resolution || '').replace(/p$/i, '')
+    const exclusions = (query.exclusions || []).map(x => String(x).toLowerCase()).filter(Boolean)
 
-async function fetchAnimeToshoTorrent(queryTitles, series, ep, fetchFn) {
-  try {
-    const epNum = Math.floor(Number(ep.episode))
-    const epStr = String(epNum).padStart(2, '0')
-    
-    // Probar series.title primero (título con el que Japan-Paw nombró los archivos) y luego los títulos de AniList
-    const titlesToTry = Array.from(new Set([
-      series.title,
-      ...((queryTitles || []).filter(t => /[a-z0-9]/i.test(t)))
-    ]))
-
-    const targetRes = String(ep.resolution || '').replace(/p$/i, '')
-    const targetGroup = (ep.group || '').toLowerCase()
-    const targetCrc = (ep.crc32 || '').toUpperCase()
-    const targetIsHevc = /\b(hevc|x265|h\.?265)\b/i.test(`${ep.quality || ''} ${ep.fileName || ''}`)
-
-    let bestMatch = null
-    let bestScore = -10000
-
-    for (const titleCandidate of titlesToTry) {
-      const cleanTitle = titleCandidate.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
-      const queries = [`${cleanTitle} ${epStr}`]
-      if (epNum === 1) {
-        queries.push(cleanTitle)
-      }
-
-      for (const qStr of queries) {
-        const items = await queryAnimeTosho(qStr, fetchFn)
-        if (!items || !items.length) continue
-
-        const singles = items.filter(i => !isBatchTorrent(i))
-        const pool = singles.length ? singles : items
-
-        for (const item of pool) {
-          if (!item.info_hash || !item.torrent_url) continue
-          const itemTitle = (item.title || '').toLowerCase()
-
-          // 1. Validación estricta de episodio: si el torrent indica un número de episodio distinto, descartar
-          const torrentEp = extractEpisodeNumber(itemTitle)
-          if (torrentEp !== null && torrentEp !== epNum) continue
-          if (torrentEp === null && epNum > 1 && !targetCrc && !ep.fileName) continue
-
-          // 2. Validación estricta de resolución: NUNCA asignar 720p a 1080p o viceversa
-          const itemIs1080 = /\b1080p?\b/i.test(itemTitle)
-          const itemIs720 = /\b720p?\b/i.test(itemTitle)
-          const itemIs480 = /\b480p?\b/i.test(itemTitle)
-
-          if (targetRes === '1080' && (itemIs720 || itemIs480)) continue
-          if (targetRes === '720' && (itemIs1080 || itemIs480)) continue
-          if (targetRes === '480' && (itemIs1080 || itemIs720)) continue
-
-          let score = 0
-          if (torrentEp === epNum) score += 3000
-
-          // Coincidencia exacta por CRC32
-          if (targetCrc && itemTitle.toUpperCase().includes(targetCrc)) {
-            score += 10000
-          }
-
-          // Coincidencia por nombre de archivo
-          if (ep.fileName) {
-            const cleanFn = strip(ep.fileName.replace(/\.mkv$/i, ''))
-            const iClean = strip(itemTitle)
-            if (iClean.includes(cleanFn) || cleanFn.includes(iClean)) {
-              score += 5000
-            }
-          }
-
-          // Coincidencia por resolución
-          if (targetRes === '1080' && itemIs1080) score += 2000
-          if (targetRes === '720' && itemIs720) score += 2000
-          if (targetRes === '480' && itemIs480) score += 2000
-
-          // Coincidencia por Fansub Group
-          if (targetGroup && itemTitle.includes(targetGroup)) {
-            score += 1500
-          }
-
-          // Codec HEVC vs AVC
-          const itemIsHevc = /\b(hevc|x265|h\.?265)\b/i.test(itemTitle)
-          if (targetIsHevc === itemIsHevc) score += 500
-          else score -= 300
-
-          if (score > bestScore) {
-            bestScore = score
-            bestMatch = item
-          }
-        }
-
-        if (bestMatch && bestScore >= 4000) break
-      }
-
-      if (bestMatch && bestScore >= 4000) break
-    }
-
-    return bestMatch
-  } catch {
-    return null
-  }
-}
-
-export default new class JapanPawTorrentSource {
-  async test() {
-    const data = await loadIndex(fetch, true)
-    return Array.isArray(data)
-  }
-
-  async single(query) {
-    const fetchFn = query.fetch ?? fetch
-    const catalog = await loadIndex(fetchFn)
-    const titles = query.titles ?? []
-    const series = matchSeries(catalog, titles, query.anilistId)
-
-    const targetEpisode = Number(query.episode)
-    const exclusions = (query.exclusions ?? []).map(x => String(x).toLowerCase()).filter(Boolean)
-    const results = []
-
-    for (const s of series) {
-      const eps = (s.episodes ?? []).filter(e => Number(e.episode) === targetEpisode)
-
-      for (const e of eps) {
-        const ddlTag = e.isOnline === false ? '[⚠️ DDL Caído - Solo P2P]' : '[⚡ DDL Japan-Paw]'
-        const baseTitle = (e.fileName || `${s.title} - ${String(e.episode).padStart(2, '0')} [${e.resolution}p]`).replace(/\.mkv$/i, '')
-        const finalTitle = `${baseTitle} ${ddlTag}.mkv`
-
-        // 1. Si ya tiene torrent pre-vinculado en el catálogo
-        if (e.torrentPath && /^[a-f0-9]{40}$/i.test(e.infoHash)) {
-          results.push({
-            series: s,
-            episode: e,
-            title: finalTitle,
-            link: new URL(e.torrentPath, INDEX_URL).href,
-            hash: e.infoHash,
-            size: e.size || 0,
-            date: new Date(),
-            seeders: e.isOnline === false ? 0 : 50,
-            leechers: 1,
-            downloads: 200,
-            accuracy: 'high'
+    // 1. Vía Rápida: Catálogo Pre-Verificado por AniList ID (dist/data/<id>.json)
+    if (query.anilistId) {
+      try {
+        const dataUrl = new URL(`data/${query.anilistId}.json`, indexUrl).href
+        const dataRes = await fetchFn(dataUrl)
+        if (dataRes.ok) {
+          const animeData = await dataRes.json()
+          const matched = (animeData.episodes || []).filter(ep => {
+            if (Number(ep.episode) !== number) return false
+            if (requested && String(ep.resolution) !== requested) return false
+            const title = ep.fileName || ep.title || ''
+            if (exclusions.some(x => title.toLowerCase().includes(x))) return false
+            return true
           })
-        } else {
-          // 2. Resolución dinámica en tiempo real vía AnimeTosho
-          const tosho = await fetchAnimeToshoTorrent(titles, s, e, fetchFn)
-          if (tosho && tosho.info_hash) {
-            results.push({
-              series: s,
-              episode: e,
-              title: finalTitle,
-              link: tosho.torrent_url || tosho.magnet_uri,
-              hash: tosho.info_hash,
-              size: tosho.total_size || e.size || 0,
-              date: new Date(tosho.timestamp ? tosho.timestamp * 1000 : Date.now()),
-              seeders: Math.max(tosho.seeders || 0, 50),
-              leechers: tosho.leechers || 1,
-              downloads: 300,
-              accuracy: 'high'
+          if (matched.length > 0) {
+            return matched.map(ep => {
+              const original = ep.fileName || `${animeData.title} - ${String(ep.episode).padStart(2, '0')} [${ep.resolution}p].mkv`
+              const ext = original.match(/\.[^.]+$/)?.[0] || ''
+              const baseName = ext ? original.slice(0, -ext.length) : original
+              return {
+                title: `${baseName} [DDL verificado]${ext}`,
+                link: new URL(ep.torrent || ep.torrentPath, indexUrl).href,
+                hash: (ep.hash || ep.infoHash).toLowerCase(),
+                size: ep.size,
+                date: new Date(ep.verified?.verifiedAt || 0),
+                seeders: 0,
+                leechers: 0,
+                downloads: 0,
+                accuracy: 'high'
+              }
             })
           }
         }
+      } catch {}
+    }
+
+    // 2. Vía Dinámica / Fallback para series no pre-indexadas
+    const catalog = await load(fetchFn)
+    const series = matchSeries(catalog, query.titles, query.anilistId)
+    const results = [], seen = new Set()
+    for (const s of series) {
+      for (const ep of s.episodes || []) {
+        if (signal.aborted) return results
+        if (Number(ep.episode) !== number || (requested && (resolution(fileName(ep)) || String(ep.resolution)) !== requested)) continue
+        if (exclusions.some(x => `${fileName(ep)} ${ep.quality}`.toLowerCase().includes(x))) continue
+        let match
+        if (ep.torrentPath && validHash(ep.infoHash)) {
+          const url = new URL(ep.torrentPath, indexUrl).href
+          const parsed = await metadata(url, ep.infoHash, ep, fetchFn)
+          if (parsed) match = { parsed, url, item: {} }
+        }
+        if (!match) match = await search(s, ep, query.titles || [], fetchFn, signal, movie)
+        if (!match || seen.has(match.parsed.infoHash)) continue
+        const { parsed, url, item } = match
+        if (exclusions.some(x => parsed.files[0].name.toLowerCase().includes(x))) continue
+        seen.add(parsed.infoHash)
+        const state = onlineState(ep)
+        const tag = state === true ? '[DDL verificado]' : state === false ? '[DDL caído - Solo P2P]' : '[DDL sin verificar]'
+        const original = parsed.files[0].name
+        const extension = original.match(/\.[^.]+$/)?.[0] || ''
+        results.push({
+          title: original.slice(0, original.length - extension.length) + ' ' + tag + extension,
+          link: url, hash: parsed.infoHash, size: parsed.length,
+          date: new Date(item.timestamp ? item.timestamp * 1000 : ep.hashedAt || 0),
+          seeders: count(item.seeders), leechers: count(item.leechers), downloads: count(item.downloads),
+          accuracy: s.anilistId ? 'medium' : 'low'
+        })
       }
     }
-
-    const filtered = results.filter(r => !exclusions.some(x => r.title.toLowerCase().includes(x)))
-    const requestedRes = String(query.resolution ?? '').replace(/p$/i, '')
-    if (requestedRes) {
-      const preferred = filtered.filter(r => String(r.episode.resolution) === requestedRes)
-      if (preferred.length) return preferred
-    }
-
-    return filtered
+    return results
   }
-
-  async batch() { return [] }
-  async movie() { return [] }
+  return {
+    async test() { await load(fetch, true); return true },
+    single: query => single(query),
+    movie: query => single(query, true),
+    async batch() { return [] }
+  }
 }
+export default createTorrentSource()

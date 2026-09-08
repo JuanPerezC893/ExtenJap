@@ -1,0 +1,2721 @@
+{
+  "updatedAt": "2026-09-08T02:57:15.694Z",
+  "series": {
+    "166610": {
+      "title": "Mashle 2nd Season",
+      "anilistId": 166610,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 01 [1080p][Multiple Subtitle][DF020541].mkv",
+          "size": 1448646250,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 01 [1080p][Multiple Subtitle][DF020541].mkv",
+          "infoHash": "0e50fd7d3f75e6aff117b9c5ce6f97db84789de9",
+          "torrentPath": "torrents/0e50fd7d3f75e6aff117b9c5ce6f97db84789de9.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:18.255Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 02 [1080p][Multiple Subtitle][7EE3BC7D].mkv",
+          "size": 1470832822,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 02 [1080p][Multiple Subtitle][7EE3BC7D].mkv",
+          "infoHash": "7f68009b45a18be302093d983e28a62fc87f2a82",
+          "torrentPath": "torrents/7f68009b45a18be302093d983e28a62fc87f2a82.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:19.991Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 03 [1080p][Multiple Subtitle][40105760].mkv",
+          "size": 1470519971,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 03 [1080p][Multiple Subtitle][40105760].mkv",
+          "infoHash": "8aa9cf8b135ef13424f0abccca2256e53d0d51ce",
+          "torrentPath": "torrents/8aa9cf8b135ef13424f0abccca2256e53d0d51ce.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:22.399Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 04 [1080p][Multiple Subtitle][8839B420].mkv",
+          "size": 1468895644,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 04 [1080p][Multiple Subtitle][8839B420].mkv",
+          "infoHash": "a5a121d208231cf957d7f6dcb22417d630b084f9",
+          "torrentPath": "torrents/a5a121d208231cf957d7f6dcb22417d630b084f9.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:24.835Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 05 [1080p][Multiple Subtitle][19138C0A].mkv",
+          "size": 1464913807,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 05 [1080p][Multiple Subtitle][19138C0A].mkv",
+          "infoHash": "b0b114e3ffef512a0050dc170fb58a458a194aaa",
+          "torrentPath": "torrents/b0b114e3ffef512a0050dc170fb58a458a194aaa.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:27.258Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 06 [1080p][Multiple Subtitle][1367D538].mkv",
+          "size": 1472243536,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 06 [1080p][Multiple Subtitle][1367D538].mkv",
+          "infoHash": "4a43373f47fad731aded5ade2362c4c66825f342",
+          "torrentPath": "torrents/4a43373f47fad731aded5ade2362c4c66825f342.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:29.628Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 07 [1080p][Multiple Subtitle][35719FF7].mkv",
+          "size": 1472682652,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 07 [1080p][Multiple Subtitle][35719FF7].mkv",
+          "infoHash": "562603d10e78f316e912819548ff39e6623dfec0",
+          "torrentPath": "torrents/562603d10e78f316e912819548ff39e6623dfec0.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:32.056Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 08 [1080p][Multiple Subtitle][F4B4280C].mkv",
+          "size": 1472352325,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 08 [1080p][Multiple Subtitle][F4B4280C].mkv",
+          "infoHash": "f568e356a1eea304c24740ff28ec2080356a7a99",
+          "torrentPath": "torrents/f568e356a1eea304c24740ff28ec2080356a7a99.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:34.461Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 09 [1080p][Multiple Subtitle][13BF6513].mkv",
+          "size": 1471732474,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 09 [1080p][Multiple Subtitle][13BF6513].mkv",
+          "infoHash": "85ba739db4e4d5e5fab82596d96b68d5dac314b7",
+          "torrentPath": "torrents/85ba739db4e4d5e5fab82596d96b68d5dac314b7.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:36.856Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 10 [1080p][Multiple Subtitle][0588F158].mkv",
+          "size": 1472192072,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 10 [1080p][Multiple Subtitle][0588F158].mkv",
+          "infoHash": "6673c4941e0422829e76328c15e8b28404aafe0a",
+          "torrentPath": "torrents/6673c4941e0422829e76328c15e8b28404aafe0a.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:39.283Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 11,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 11 [1080p][Multiple Subtitle][CE968F00].mkv",
+          "size": 1450296479,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 11 [1080p][Multiple Subtitle][CE968F00].mkv",
+          "infoHash": "39129475d5d46fd013c2a79528cd72a9376e82ef",
+          "torrentPath": "torrents/39129475d5d46fd013c2a79528cd72a9376e82ef.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:41.674Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "1080",
+          "quality": "[Erai-raws] [Web 1080p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 12 [1080p][Multiple Subtitle][43D6746F].mkv",
+          "size": 1452390142,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 12 [1080p][Multiple Subtitle][43D6746F].mkv",
+          "infoHash": "1750dbddd1bcecb5a311ad97ee6398bd30739c57",
+          "torrentPath": "torrents/1750dbddd1bcecb5a311ad97ee6398bd30739c57.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:44.093Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 01 [720p][Multiple Subtitle][433A3DD8].mkv",
+          "size": 737567086,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 01 [Web 720p].mkv",
+          "infoHash": "da0e9d4f92a882e253f5f1092be44fd1789a8999",
+          "torrentPath": "torrents/da0e9d4f92a882e253f5f1092be44fd1789a8999.torrent",
+          "verified": {
+            "matchedBy": "same-release",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:48.829Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 02 [720p][Multiple Subtitle][0D1D9091].mkv",
+          "size": 762593636,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 02 [720p][Multiple Subtitle][0D1D9091].mkv",
+          "infoHash": "2d3673adb84f6a1a9a350266172b28461a6452a8",
+          "torrentPath": "torrents/2d3673adb84f6a1a9a350266172b28461a6452a8.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:51.223Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 03 [720p][Multiple Subtitle][07708A14].mkv",
+          "size": 762170002,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 03 [720p][Multiple Subtitle][07708A14].mkv",
+          "infoHash": "39c467a4bf75f5ea2fe2005a9f33a444aea96794",
+          "torrentPath": "torrents/39c467a4bf75f5ea2fe2005a9f33a444aea96794.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:53.694Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 04 [720p][Multiple Subtitle][ABE9E816].mkv",
+          "size": 761288768,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 04 [720p][Multiple Subtitle][ABE9E816].mkv",
+          "infoHash": "e7298cd7c03afe9c07495cb9442157abcc213e93",
+          "torrentPath": "torrents/e7298cd7c03afe9c07495cb9442157abcc213e93.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:56.049Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 05 [720p][Multiple Subtitle][F49F2177].mkv",
+          "size": 760443007,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 05 [720p][Multiple Subtitle][F49F2177].mkv",
+          "infoHash": "187472f0dc7bf3775d05dae76055ac05537b2ecc",
+          "torrentPath": "torrents/187472f0dc7bf3775d05dae76055ac05537b2ecc.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:56:58.457Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 06 [720p][Multiple Subtitle][02F35CD0].mkv",
+          "size": 763841640,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 06 [720p][Multiple Subtitle][02F35CD0].mkv",
+          "infoHash": "7af16d8e1439b9d0dd933effeee2255cf5a41562",
+          "torrentPath": "torrents/7af16d8e1439b9d0dd933effeee2255cf5a41562.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:57:00.901Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 07 [720p][Multiple Subtitle][7F2675A0].mkv",
+          "size": 762851246,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 07 [720p][Multiple Subtitle][7F2675A0].mkv",
+          "infoHash": "dff7fd98bf29e70c7f0fcbd8851db38b31c2a538",
+          "torrentPath": "torrents/dff7fd98bf29e70c7f0fcbd8851db38b31c2a538.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:57:03.301Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 08 [720p][Multiple Subtitle][83B884A7].mkv",
+          "size": 762155601,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 08 [720p][Multiple Subtitle][83B884A7].mkv",
+          "infoHash": "f2bccc72c8b9b8eba52ba8dbb37b073d9722a237",
+          "torrentPath": "torrents/f2bccc72c8b9b8eba52ba8dbb37b073d9722a237.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:57:05.689Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 09 [720p][Multiple Subtitle][F94EC900].mkv",
+          "size": 762636952,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 09 [720p][Multiple Subtitle][F94EC900].mkv",
+          "infoHash": "303891ce3d9c9e5286ffcaf74fa8e89946db261a",
+          "torrentPath": "torrents/303891ce3d9c9e5286ffcaf74fa8e89946db261a.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:57:08.115Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 10 [720p][Multiple Subtitle][DE10057E].mkv",
+          "size": 762544728,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 10 [720p][Multiple Subtitle][DE10057E].mkv",
+          "infoHash": "2aa5d46b288faa7cf3d5bb9fdd1a9467783c2fb6",
+          "torrentPath": "torrents/2aa5d46b288faa7cf3d5bb9fdd1a9467783c2fb6.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:57:10.548Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 11,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 11 [720p][Multiple Subtitle][C9C83E4A].mkv",
+          "size": 744242918,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 11 [720p][Multiple Subtitle][C9C83E4A].mkv",
+          "infoHash": "b5785a413d2c308af4bdd59f738879e470791465",
+          "torrentPath": "torrents/b5785a413d2c308af4bdd59f738879e470791465.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:57:12.935Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 12,
+          "resolution": "720",
+          "quality": "[Erai-raws] [Web 720p]",
+          "fileName": "[Erai-raws] Mashle 2nd Season - 12 [720p][Multiple Subtitle][7DE241BD].mkv",
+          "size": 743997630,
+          "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 720p]/[Erai-raws] Mashle 2nd Season - 12 [720p][Multiple Subtitle][7DE241BD].mkv",
+          "infoHash": "ff3c6f9b9677f47e4f8f4ebc40454fd84b57be2c",
+          "torrentPath": "torrents/ff3c6f9b9677f47e4f8f4ebc40454fd84b57be2c.torrent",
+          "verified": {
+            "matchedBy": "crc",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:57:15.320Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "169080": {
+      "title": "Azur Lane: Bisoku Zenshin! Ni!!",
+      "anilistId": 169080,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 01 [1080p CR WEB-DL AVC AAC][MultiSub][1F81BE0F].mkv",
+          "size": 526962839,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane:%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B1F81BE0F%5D.mkv",
+          "infoHash": "bd670e1816e34daeb377a97f2f72aafbda3f9d92",
+          "torrentPath": "torrents/bd670e1816e34daeb377a97f2f72aafbda3f9d92.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 02 [1080p CR WEB-DL AVC AAC][MultiSub][0032A42D].mkv",
+          "size": 526587816,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B0032A42D%5D.mkv",
+          "infoHash": "132dad6dfcfc95222003b89434e0e7e74fa0ed1d",
+          "torrentPath": "torrents/132dad6dfcfc95222003b89434e0e7e74fa0ed1d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 03 [1080p CR WEB-DL AVC AAC][MultiSub][162E9AE0].mkv",
+          "size": 527650947,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B162E9AE0%5D.mkv",
+          "infoHash": "8f316e19292b6fa896df9cc0d0b4221c5909f950",
+          "torrentPath": "torrents/8f316e19292b6fa896df9cc0d0b4221c5909f950.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 05 [1080p CR WEB-DL AVC AAC][MultiSub][3700C409].mkv",
+          "size": 526410993,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B3700C409%5D.mkv",
+          "infoHash": "69051fda1497e5ee0862d9ee811568fc7127b3cd",
+          "torrentPath": "torrents/69051fda1497e5ee0862d9ee811568fc7127b3cd.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 08 [1080p CR WEB-DL AVC AAC][MultiSub][06B3DC53].mkv",
+          "size": 523780160,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B06B3DC53%5D.mkv",
+          "infoHash": "a10e104631cd98d3761df6a46abb3d929fff1e09",
+          "torrentPath": "torrents/a10e104631cd98d3761df6a46abb3d929fff1e09.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 09 [1080p CR WEB-DL AVC AAC][MultiSub][13BD697C].mkv",
+          "size": 527473331,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B13BD697C%5D.mkv",
+          "infoHash": "c2ee159f8cc35986e183ee78eb9951713b614e52",
+          "torrentPath": "torrents/c2ee159f8cc35986e183ee78eb9951713b614e52.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 10 [1080p CR WEB-DL AVC AAC][MultiSub][1760D4A7].mkv",
+          "size": 525290480,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2010%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B1760D4A7%5D.mkv",
+          "infoHash": "250a7a26433da45e1c127f9f3131f2d8f2006470",
+          "torrentPath": "torrents/250a7a26433da45e1c127f9f3131f2d8f2006470.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 01 [720p CR WEB-DL AVC AAC][MultiSub][4CF339F6].mkv",
+          "size": 176289516,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane:%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B4CF339F6%5D.mkv",
+          "infoHash": "8b3e4f21558f3bcfc4fdcaabab936693a0345964",
+          "torrentPath": "torrents/8b3e4f21558f3bcfc4fdcaabab936693a0345964.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 02 [720p CR WEB-DL AVC AAC][MultiSub][5CBD421C].mkv",
+          "size": 158152370,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B5CBD421C%5D.mkv",
+          "infoHash": "b152a4476e23e3375fa9212317f0a8664462945a",
+          "torrentPath": "torrents/b152a4476e23e3375fa9212317f0a8664462945a.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 03 [720p CR WEB-DL AVC AAC][MultiSub][3F691554].mkv",
+          "size": 159530396,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B3F691554%5D.mkv",
+          "infoHash": "7c6158be8f3b9d4a58c7cd65a3be84fd4bc39c58",
+          "torrentPath": "torrents/7c6158be8f3b9d4a58c7cd65a3be84fd4bc39c58.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 04 [720p CR WEB-DL AVC AAC][MultiSub][8AA080BC].mkv",
+          "size": 174282551,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B8AA080BC%5D.mkv",
+          "infoHash": "3274aaaee3a422b7a5861988a299e9978f9f1aac",
+          "torrentPath": "torrents/3274aaaee3a422b7a5861988a299e9978f9f1aac.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 05 [720p CR WEB-DL AVC AAC][MultiSub][32DF1355].mkv",
+          "size": 188663666,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B32DF1355%5D.mkv",
+          "infoHash": "16fa523fbd6d10585d8574d6fb872aeb761ad05f",
+          "torrentPath": "torrents/16fa523fbd6d10585d8574d6fb872aeb761ad05f.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 08 [720p CR WEB-DL AVC AAC][MultiSub][8B7F5744].mkv",
+          "size": 163162223,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B8B7F5744%5D.mkv",
+          "infoHash": "a82d15348bb5911754e6bc68b7a73a0345354b15",
+          "torrentPath": "torrents/a82d15348bb5911754e6bc68b7a73a0345354b15.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 09 [720p CR WEB-DL AVC AAC][MultiSub][A051E38A].mkv",
+          "size": 168584465,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BA051E38A%5D.mkv",
+          "infoHash": "164b8671bec2af015bfb4acf4ff7fb84cd736646",
+          "torrentPath": "torrents/164b8671bec2af015bfb4acf4ff7fb84cd736646.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Azur Lane - Bisoku Zenshin - Ni - 10 [720p CR WEB-DL AVC AAC][MultiSub][B7EE94B8].mkv",
+          "size": 164352557,
+          "directUrl": "https://emision.craftervault.com/0:down/Azur%20Lane%3A%20Bisoku%20Zenshin!%20Ni!!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Azur%20Lane%20-%20Bisoku%20Zenshin%20-%20Ni%20-%2010%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BB7EE94B8%5D.mkv",
+          "infoHash": "e0da162c134b431acbf177cbbd767bb9ab304140",
+          "torrentPath": "torrents/e0da162c134b431acbf177cbbd767bb9ab304140.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "169582": {
+      "title": "Saikyou Degarashi Ouji no Anyaku Teii Arasoi: Munou wo Enjiru SS Rank Ouji wa Koui Keishou-sen wo Kage kara Shihai suru",
+      "anilistId": 169582,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 01 [1080p CR WEB-DL AVC AAC][MultiSub][7F952D6E].mkv",
+          "size": 1453795279,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi:%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B7F952D6E%5D.mkv",
+          "infoHash": "91f022c1e9879bc3d221d56f2e55880f122066d5",
+          "torrentPath": "torrents/91f022c1e9879bc3d221d56f2e55880f122066d5.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 03 [1080p CR WEB-DL AVC AAC][MultiSub][8D9BF2B1].mkv",
+          "size": 1458753209,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B8D9BF2B1%5D.mkv",
+          "infoHash": "c8aad2b4b63da0a2a478ad9ffaefd096759a316a",
+          "torrentPath": "torrents/c8aad2b4b63da0a2a478ad9ffaefd096759a316a.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 04 [1080p CR WEB-DL AVC AAC][MultiSub][2608326E].mkv",
+          "size": 1456246107,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2004%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B2608326E%5D.mkv",
+          "infoHash": "5294e084cca0b06e396c4675c0d345cdd62a0f5d",
+          "torrentPath": "torrents/5294e084cca0b06e396c4675c0d345cdd62a0f5d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 05 [1080p CR WEB-DL AVC AAC][MultiSub][6D268D8E].mkv",
+          "size": 1456390289,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B6D268D8E%5D.mkv",
+          "infoHash": "32f03db8699c16add74598e174785269e810672c",
+          "torrentPath": "torrents/32f03db8699c16add74598e174785269e810672c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 06 [1080p CR WEB-DL AVC AAC][MultiSub][156790BC].mkv",
+          "size": 1456277236,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B156790BC%5D.mkv",
+          "infoHash": "6645ec0a26aea507341d25143bbd10aa92b0a77f",
+          "torrentPath": "torrents/6645ec0a26aea507341d25143bbd10aa92b0a77f.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 08 [1080p CR WEB-DL AVC AAC][MultiSub][105451A7].mkv",
+          "size": 1457253019,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B105451A7%5D.mkv",
+          "infoHash": "d43c644891e0949f6576e41adfc2665e873be30a",
+          "torrentPath": "torrents/d43c644891e0949f6576e41adfc2665e873be30a.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 09 [1080p CR WEB-DL AVC AAC][MultiSub][46B07938].mkv",
+          "size": 1455428209,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B46B07938%5D.mkv",
+          "infoHash": "5bb2dd2c6c6214f1711ee060327e7bb64eeafb7a",
+          "torrentPath": "torrents/5bb2dd2c6c6214f1711ee060327e7bb64eeafb7a.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 01 [720p CR WEB-DL AVC AAC][MultiSub][08B3AD82].mkv",
+          "size": 269502654,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi:%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B08B3AD82%5D.mkv",
+          "infoHash": "c89e150337607de136337c8389a7db25fcbc6e48",
+          "torrentPath": "torrents/c89e150337607de136337c8389a7db25fcbc6e48.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 03 [720p CR WEB-DL AVC AAC][MultiSub][B3577B9C].mkv",
+          "size": 285746202,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BB3577B9C%5D.mkv",
+          "infoHash": "766dce10b67b028b37b7de25e8064c7cc25a44a3",
+          "torrentPath": "torrents/766dce10b67b028b37b7de25e8064c7cc25a44a3.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 04 [720p CR WEB-DL AVC AAC][MultiSub][E31BD80D].mkv",
+          "size": 306528008,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BE31BD80D%5D.mkv",
+          "infoHash": "c2bcdf0f3509e16d20d0d4080eb361bb431f3fdd",
+          "torrentPath": "torrents/c2bcdf0f3509e16d20d0d4080eb361bb431f3fdd.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 05 [720p CR WEB-DL AVC AAC][MultiSub][38A3EE94].mkv",
+          "size": 346567166,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B38A3EE94%5D.mkv",
+          "infoHash": "ad214caed1428fc43d797e36cb12feefa21a1351",
+          "torrentPath": "torrents/ad214caed1428fc43d797e36cb12feefa21a1351.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 06 [720p CR WEB-DL AVC AAC][MultiSub][854628A4].mkv",
+          "size": 211589018,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2006%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B854628A4%5D.mkv",
+          "infoHash": "56fd79422abf7b88c85084192a0cd20c70b66b69",
+          "torrentPath": "torrents/56fd79422abf7b88c85084192a0cd20c70b66b69.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 08 [720p CR WEB-DL AVC AAC][MultiSub][A4A4E012].mkv",
+          "size": 439848974,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BA4A4E012%5D.mkv",
+          "infoHash": "6fe46045e9199cfc40def8b37c4eeaba4debf4ca",
+          "torrentPath": "torrents/6fe46045e9199cfc40def8b37c4eeaba4debf4ca.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Degarashi Ouji - 09 [720p CR WEB-DL AVC AAC][MultiSub][AD60FDA8].mkv",
+          "size": 444785067,
+          "directUrl": "https://emision.craftervault.com/0:down/Saikyou%20Degarashi%20Ouji%20no%20Anyaku%20Teii%20Arasoi%3A%20Munou%20wo%20Enjiru%20SS%20Rank%20Ouji%20wa%20Koui%20Keishou-sen%20wo%20Kage%20kara%20Shihai%20suru/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Degarashi%20Ouji%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BAD60FDA8%5D.mkv",
+          "infoHash": "e05da49b52a931543238ce176016f09e440e4276",
+          "torrentPath": "torrents/e05da49b52a931543238ce176016f09e440e4276.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "177637": {
+      "title": "Sayonara Lara",
+      "anilistId": 177637,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 01 [1080p CR WEB-DL AVC AAC][MultiSub][7A5D5F0E].mkv",
+          "size": 1472749722,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B7A5D5F0E%5D.mkv",
+          "infoHash": "ae2de415a0376b16175ed05ced07787d1782008d",
+          "torrentPath": "torrents/ae2de415a0376b16175ed05ced07787d1782008d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 02 [1080p CR WEB-DL AVC AAC][MultiSub][D8961E66].mkv",
+          "size": 1479232722,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD8961E66%5D.mkv",
+          "infoHash": "eb91484e28cbb4a6bfbbd2d34eb3203f335cea56",
+          "torrentPath": "torrents/eb91484e28cbb4a6bfbbd2d34eb3203f335cea56.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 03 [1080p CR WEB-DL AVC AAC][MultiSub][2A882E80].mkv",
+          "size": 1476788440,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B2A882E80%5D.mkv",
+          "infoHash": "4d00f3f20b1a51bcf65a0b91ab32faa67b6dda68",
+          "torrentPath": "torrents/4d00f3f20b1a51bcf65a0b91ab32faa67b6dda68.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 04 [1080p CR WEB-DL AVC AAC][MultiSub][70520D85].mkv",
+          "size": 1479962229,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2004%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B70520D85%5D.mkv",
+          "infoHash": "b70fde2b82a9220251ce213457ae82955f4d61b2",
+          "torrentPath": "torrents/b70fde2b82a9220251ce213457ae82955f4d61b2.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 05 [1080p CR WEB-DL AVC AAC][MultiSub][681EF625].mkv",
+          "size": 1479378895,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B681EF625%5D.mkv",
+          "infoHash": "b8ef94dffb2b9ab89a50bcee7fc263061cb03919",
+          "torrentPath": "torrents/b8ef94dffb2b9ab89a50bcee7fc263061cb03919.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 06 [1080p CR WEB-DL AVC AAC][MultiSub][B242E4C2].mkv",
+          "size": 1476303741,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BB242E4C2%5D.mkv",
+          "infoHash": "11bf221195a665abfb9e09abd52569d1cf5567a7",
+          "torrentPath": "torrents/11bf221195a665abfb9e09abd52569d1cf5567a7.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 07 [1080p CR WEB-DL AVC AAC][MultiSub][10877D9A].mkv",
+          "size": 1479481986,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2007%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B10877D9A%5D.mkv",
+          "infoHash": "551d6aad207b8e7629aa64e971b66f7cb2ccfbc1",
+          "torrentPath": "torrents/551d6aad207b8e7629aa64e971b66f7cb2ccfbc1.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 08 [1080p CR WEB-DL AVC AAC][MultiSub][0271A2F6].mkv",
+          "size": 1473085773,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B0271A2F6%5D.mkv",
+          "infoHash": "ff1614ae1a56161aa5abb7b8207bbe753952f224",
+          "torrentPath": "torrents/ff1614ae1a56161aa5abb7b8207bbe753952f224.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 09 [1080p CR WEB-DL AVC AAC][MultiSub][BB00D9A6].mkv",
+          "size": 1478936562,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BBB00D9A6%5D.mkv",
+          "infoHash": "465ad0e33666d9a760feda283ca2c61662601b42",
+          "torrentPath": "torrents/465ad0e33666d9a760feda283ca2c61662601b42.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 10 [1080p CR WEB-DL AVC AAC][MultiSub][4C73FD8D].mkv",
+          "size": 1472270314,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2010%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B4C73FD8D%5D.mkv",
+          "infoHash": "8e89428bcd1c6b4c13985d2a6c21b0b0e63e6886",
+          "torrentPath": "torrents/8e89428bcd1c6b4c13985d2a6c21b0b0e63e6886.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 01 [720p CR WEB-DL AVC AAC][MultiSub][3EA76DA0].mkv",
+          "size": 411795960,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B3EA76DA0%5D.mkv",
+          "infoHash": "adcf6849b611ae5058cc0f2b20db85421e16a7b2",
+          "torrentPath": "torrents/adcf6849b611ae5058cc0f2b20db85421e16a7b2.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 02 [720p CR WEB-DL AVC AAC][MultiSub][0CC3BE3E].mkv",
+          "size": 401575201,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B0CC3BE3E%5D.mkv",
+          "infoHash": "c661b116fa480d301e12851308183cec3434f84c",
+          "torrentPath": "torrents/c661b116fa480d301e12851308183cec3434f84c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 03 [720p CR WEB-DL AVC AAC][MultiSub][F3387235].mkv",
+          "size": 423051289,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF3387235%5D.mkv",
+          "infoHash": "bec2be5b6496448ea0aa11f442fe9a6a8ae0196f",
+          "torrentPath": "torrents/bec2be5b6496448ea0aa11f442fe9a6a8ae0196f.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 04 [720p CR WEB-DL AVC AAC][MultiSub][4C7D6BDD].mkv",
+          "size": 352361943,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B4C7D6BDD%5D.mkv",
+          "infoHash": "a3089b3b28a0c075ce266793c4dbcd5c943d9d83",
+          "torrentPath": "torrents/a3089b3b28a0c075ce266793c4dbcd5c943d9d83.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 05 [720p CR WEB-DL AVC AAC][MultiSub][6964C4E0].mkv",
+          "size": 412623737,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B6964C4E0%5D.mkv",
+          "infoHash": "7e2b5468b513e495673579c7765750f279e3d356",
+          "torrentPath": "torrents/7e2b5468b513e495673579c7765750f279e3d356.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 06 [720p CR WEB-DL AVC AAC][MultiSub][D42BF829].mkv",
+          "size": 228767547,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2006%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD42BF829%5D.mkv",
+          "infoHash": "f1a53607c3988c07ed3b6fa80165e5d2372924a6",
+          "torrentPath": "torrents/f1a53607c3988c07ed3b6fa80165e5d2372924a6.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 07 [720p CR WEB-DL AVC AAC][MultiSub][BE894FC8].mkv",
+          "size": 195540280,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2007%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BBE894FC8%5D.mkv",
+          "infoHash": "f28a664395d0f10b701799cf167db4091b4bb4d2",
+          "torrentPath": "torrents/f28a664395d0f10b701799cf167db4091b4bb4d2.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 08 [720p CR WEB-DL AVC AAC][MultiSub][976DA7EE].mkv",
+          "size": 451337507,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B976DA7EE%5D.mkv",
+          "infoHash": "cd04a4d500c790f3b7a79652d397c3648a6cc9d5",
+          "torrentPath": "torrents/cd04a4d500c790f3b7a79652d397c3648a6cc9d5.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.970Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 09 [720p CR WEB-DL AVC AAC][MultiSub][6150D680].mkv",
+          "size": 451157586,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B6150D680%5D.mkv",
+          "infoHash": "e07c6149d08a292282b81befc4b05c5c61a95222",
+          "torrentPath": "torrents/e07c6149d08a292282b81befc4b05c5c61a95222.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sayonara Lara - 10 [720p CR WEB-DL AVC AAC][MultiSub][3EA3FD0E].mkv",
+          "size": 429527727,
+          "directUrl": "https://emision.craftervault.com/0:down/Sayonara%20Lara/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sayonara%20Lara%20-%2010%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B3EA3FD0E%5D.mkv",
+          "infoHash": "f871bc5e6b9a2e51868f1bb0f86f9d8c79715600",
+          "torrentPath": "torrents/f871bc5e6b9a2e51868f1bb0f86f9d8c79715600.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "190569": {
+      "title": "Tenmaku no Jaadugar",
+      "anilistId": 190569,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 01 [1080p CR WEB-DL AVC AAC][MultiSub][206ED175].mkv",
+          "size": 1468290821,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B206ED175%5D.mkv",
+          "infoHash": "77649b2e44af3ff9a314de8ff913a4bdc61b8323",
+          "torrentPath": "torrents/77649b2e44af3ff9a314de8ff913a4bdc61b8323.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 02 [1080p CR WEB-DL AVC AAC][MultiSub][8E4911E9].mkv",
+          "size": 1463019467,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B8E4911E9%5D.mkv",
+          "infoHash": "af8db40594a9dc46fcdeb0b0f3d80011989f6f4c",
+          "torrentPath": "torrents/af8db40594a9dc46fcdeb0b0f3d80011989f6f4c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 04 [1080p CR WEB-DL AVC AAC][MultiSub][CED4F9C3].mkv",
+          "size": 1463182222,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2004%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BCED4F9C3%5D.mkv",
+          "infoHash": "2fda62cdfb1a9757ded70f309f4ba1734959f2f3",
+          "torrentPath": "torrents/2fda62cdfb1a9757ded70f309f4ba1734959f2f3.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 09 [1080p CR WEB-DL AVC AAC][MultiSub][0DD91FF0].mkv",
+          "size": 1462444521,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B0DD91FF0%5D.mkv",
+          "infoHash": "59401735e2d81426b49f17841d93ed3321d2f320",
+          "torrentPath": "torrents/59401735e2d81426b49f17841d93ed3321d2f320.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 10 [1080p CR WEB-DL AVC AAC][MultiSub][1A90FAAC].mkv",
+          "size": 1463011091,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2010%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B1A90FAAC%5D.mkv",
+          "infoHash": "7be956b5b4815546cf8156dc2002428a252817c9",
+          "torrentPath": "torrents/7be956b5b4815546cf8156dc2002428a252817c9.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 11,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 11 [1080p CR WEB-DL AVC AAC][MultiSub][DE2D03AE].mkv",
+          "size": 1456596384,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2011%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BDE2D03AE%5D.mkv",
+          "infoHash": "b7be7ad4a54cadf5ec86113d0bf4c9268c919915",
+          "torrentPath": "torrents/b7be7ad4a54cadf5ec86113d0bf4c9268c919915.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 01 [720p CR WEB-DL AVC AAC][MultiSub][DCD74042].mkv",
+          "size": 751447540,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BDCD74042%5D.mkv",
+          "infoHash": "d8b2a5c3a1446a2b36f66ab90a811c48c45a9190",
+          "torrentPath": "torrents/d8b2a5c3a1446a2b36f66ab90a811c48c45a9190.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 02 [720p CR WEB-DL AVC AAC][MultiSub][4F533C1D].mkv",
+          "size": 747619164,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B4F533C1D%5D.mkv",
+          "infoHash": "f0d4873172125e6fafd8317460043929c1142f36",
+          "torrentPath": "torrents/f0d4873172125e6fafd8317460043929c1142f36.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 03 [720p CR WEB-DL AVC AAC][MultiSub][9B90CA8C].mkv",
+          "size": 748444242,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B9B90CA8C%5D.mkv",
+          "infoHash": "b363ce8f66ff28d724deee07b1a3ecbeffb807f4",
+          "torrentPath": "torrents/b363ce8f66ff28d724deee07b1a3ecbeffb807f4.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 04 [720p CR WEB-DL AVC AAC][MultiSub][D249D1F7].mkv",
+          "size": 736973231,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD249D1F7%5D.mkv",
+          "infoHash": "b3506937d78eaa716911cec4df9227c3580ae04e",
+          "torrentPath": "torrents/b3506937d78eaa716911cec4df9227c3580ae04e.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 09 [720p CR WEB-DL AVC AAC][MultiSub][D77B18E4].mkv",
+          "size": 457387676,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD77B18E4%5D.mkv",
+          "infoHash": "030c6833a4f6ac6eacdd21695a17e188e481b300",
+          "torrentPath": "torrents/030c6833a4f6ac6eacdd21695a17e188e481b300.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 10 [720p CR WEB-DL AVC AAC][MultiSub][9BBB436D].mkv",
+          "size": 456546152,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2010%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B9BBB436D%5D.mkv",
+          "infoHash": "01317eae9dbb9e419dd2a9c77bece08b6b361851",
+          "torrentPath": "torrents/01317eae9dbb9e419dd2a9c77bece08b6b361851.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 11,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tenmaku no Jaadugar - 11 [720p CR WEB-DL AVC AAC][MultiSub][61166F43].mkv",
+          "size": 467032479,
+          "directUrl": "https://emision.craftervault.com/0:down/Tenmaku%20no%20Jaadugar/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tenmaku%20no%20Jaadugar%20-%2011%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B61166F43%5D.mkv",
+          "infoHash": "253a451846f420ae167848a2a0a04699a2c4d5ea",
+          "torrentPath": "torrents/253a451846f420ae167848a2a0a04699a2c4d5ea.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.974Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "198409": {
+      "title": "Sekai Saikyou no Kouei: Meikyuukoku no Shinjin Tansakusha",
+      "anilistId": 198409,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 01 [1080p CR WEB-DL AVC AAC][MultiSub][D9B89835].mkv",
+          "size": 1456259844,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei:%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD9B89835%5D.mkv",
+          "infoHash": "7136a6571f9713868ceaca4c70f72341e167a123",
+          "torrentPath": "torrents/7136a6571f9713868ceaca4c70f72341e167a123.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 02 [1080p CR WEB-DL AVC AAC][MultiSub][9B79DAB1].mkv",
+          "size": 1454143526,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B9B79DAB1%5D.mkv",
+          "infoHash": "9bb03ff385a9bf5332335b60fb783a58838dde7d",
+          "torrentPath": "torrents/9bb03ff385a9bf5332335b60fb783a58838dde7d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 03 [1080p CR WEB-DL AVC AAC][MultiSub][CB2A20B8].mkv",
+          "size": 1457369272,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BCB2A20B8%5D.mkv",
+          "infoHash": "194546e2e6fba3983ab5e5466a21c51e3f72c12f",
+          "torrentPath": "torrents/194546e2e6fba3983ab5e5466a21c51e3f72c12f.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 04 [1080p CR WEB-DL AVC AAC][MultiSub][76AEF4D8].mkv",
+          "size": 1458039020,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2004%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B76AEF4D8%5D.mkv",
+          "infoHash": "c68d8fda7427f2cbc8a0bccf155851158e006cf8",
+          "torrentPath": "torrents/c68d8fda7427f2cbc8a0bccf155851158e006cf8.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 05 [1080p CR WEB-DL AVC AAC][MultiSub][DDD113CE].mkv",
+          "size": 1456198825,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BDDD113CE%5D.mkv",
+          "infoHash": "917e9b490c06472dcbd7d2103407285847e3449d",
+          "torrentPath": "torrents/917e9b490c06472dcbd7d2103407285847e3449d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 08 [1080p CR WEB-DL AVC AAC][MultiSub][6931D98D].mkv",
+          "size": 1455748774,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B6931D98D%5D.mkv",
+          "infoHash": "a230b30860a8849323982dee82997035227c41dd",
+          "torrentPath": "torrents/a230b30860a8849323982dee82997035227c41dd.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 09 [1080p CR WEB-DL AVC AAC][MultiSub][15F80AAA].mkv",
+          "size": 1456693368,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B15F80AAA%5D.mkv",
+          "infoHash": "221f166bf2c5af2678dabf9efb55904559202a6b",
+          "torrentPath": "torrents/221f166bf2c5af2678dabf9efb55904559202a6b.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 10 [1080p CR WEB-DL AVC AAC][MultiSub][EDF0CFF0].mkv",
+          "size": 1457676651,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2010%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BEDF0CFF0%5D.mkv",
+          "infoHash": "b78c5f3c43f4b772f2b78fc6f1232b58e33691a0",
+          "torrentPath": "torrents/b78c5f3c43f4b772f2b78fc6f1232b58e33691a0.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 01 [720p CR WEB-DL AVC AAC][MultiSub][3FFD0A89].mkv",
+          "size": 293160689,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei:%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B3FFD0A89%5D.mkv",
+          "infoHash": "cbc3bd774c06d9d752567d547901c26a48b8a9ca",
+          "torrentPath": "torrents/cbc3bd774c06d9d752567d547901c26a48b8a9ca.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 02 [720p CR WEB-DL AVC AAC][MultiSub][BFEA46AE].mkv",
+          "size": 343209282,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BBFEA46AE%5D.mkv",
+          "infoHash": "2ca4eef941c60553f43499757b1f50ffb1006b3c",
+          "torrentPath": "torrents/2ca4eef941c60553f43499757b1f50ffb1006b3c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 03 [720p CR WEB-DL AVC AAC][MultiSub][5E7C84F9].mkv",
+          "size": 344504295,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B5E7C84F9%5D.mkv",
+          "infoHash": "436f06508aa16fc3f2f13c0b3ea4d6aae5aebaa3",
+          "torrentPath": "torrents/436f06508aa16fc3f2f13c0b3ea4d6aae5aebaa3.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.971Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 04 [720p CR WEB-DL AVC AAC][MultiSub][0C975AF2].mkv",
+          "size": 265142727,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B0C975AF2%5D.mkv",
+          "infoHash": "c4f63c1ab6cf6fe834d9f05858f24bb5debde26f",
+          "torrentPath": "torrents/c4f63c1ab6cf6fe834d9f05858f24bb5debde26f.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 05 [720p CR WEB-DL AVC AAC][MultiSub][032BA2E9].mkv",
+          "size": 342950625,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B032BA2E9%5D.mkv",
+          "infoHash": "403ab0f82cdacebdfda4a78c4ca4d2241260e4dc",
+          "torrentPath": "torrents/403ab0f82cdacebdfda4a78c4ca4d2241260e4dc.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 08 [720p CR WEB-DL AVC AAC][MultiSub][C6DFD27D].mkv",
+          "size": 442718320,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BC6DFD27D%5D.mkv",
+          "infoHash": "c605f9b529e250ccca7e11e77f65209a0bf3f4bc",
+          "torrentPath": "torrents/c605f9b529e250ccca7e11e77f65209a0bf3f4bc.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 09 [720p CR WEB-DL AVC AAC][MultiSub][FA551E13].mkv",
+          "size": 440837203,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BFA551E13%5D.mkv",
+          "infoHash": "906c090b5678530724178f4dde7e69e95967e2f1",
+          "torrentPath": "torrents/906c090b5678530724178f4dde7e69e95967e2f1.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Sekai Saikyou no Kouei - 10 [720p CR WEB-DL AVC AAC][MultiSub][721636FF].mkv",
+          "size": 448451765,
+          "directUrl": "https://emision.craftervault.com/0:down/Sekai%20Saikyou%20no%20Kouei%3A%20Meikyuukoku%20no%20Shinjin%20Tansakusha/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Sekai%20Saikyou%20no%20Kouei%20-%2010%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B721636FF%5D.mkv",
+          "infoHash": "3150a074dfcf5af2e3ba152b0c50d8014e93da15",
+          "torrentPath": "torrents/3150a074dfcf5af2e3ba152b0c50d8014e93da15.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "201514": {
+      "title": "Saijo no Osewa: Takane no Hanadarake na Meimonkou de, Gakuin Ichi no Ojou-sama (Seikatsu Nouryoku Kaimu) wo Kagenagara Osewa suru Koto ni Narimashita",
+      "anilistId": 201514,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 01 [1080p CR WEB-DL AVC AAC][MultiSub][EA94D46E].mkv",
+          "size": 1455888030,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa:%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BEA94D46E%5D.mkv",
+          "infoHash": "6cd346841765668a7c75752c5e545c1cd415f286",
+          "torrentPath": "torrents/6cd346841765668a7c75752c5e545c1cd415f286.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 02 [1080p CR WEB-DL AVC AAC][MultiSub][5089A160].mkv",
+          "size": 1459059747,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B5089A160%5D.mkv",
+          "infoHash": "7aac3f92b2a68050756ccd1a293bd2c7131b8212",
+          "torrentPath": "torrents/7aac3f92b2a68050756ccd1a293bd2c7131b8212.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 03 [1080p CR WEB-DL AVC AAC][MultiSub][571A3592].mkv",
+          "size": 1550389968,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B571A3592%5D.mkv",
+          "infoHash": "81ec618390b6891182b41cbd298a40e1fddc005f",
+          "torrentPath": "torrents/81ec618390b6891182b41cbd298a40e1fddc005f.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 05 [1080p CR WEB-DL AVC AAC][MultiSub][8FFBED80].mkv",
+          "size": 1520059963,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B8FFBED80%5D.mkv",
+          "infoHash": "76399dcaa3274f77d9cbb493646e3f7f5e45961c",
+          "torrentPath": "torrents/76399dcaa3274f77d9cbb493646e3f7f5e45961c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 08 [1080p CR WEB-DL AVC AAC][MultiSub][BE709B8A].mkv",
+          "size": 1455342758,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BBE709B8A%5D.mkv",
+          "infoHash": "5436de920fed877343ec2f24e383e164e2f8dbc4",
+          "torrentPath": "torrents/5436de920fed877343ec2f24e383e164e2f8dbc4.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 09 [1080p CR WEB-DL AVC AAC][MultiSub][026A5A34].mkv",
+          "size": 1519578224,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B026A5A34%5D.mkv",
+          "infoHash": "92ed0ec56a54c77ffe6463c8e2c0f8eba12d2e6b",
+          "torrentPath": "torrents/92ed0ec56a54c77ffe6463c8e2c0f8eba12d2e6b.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 10 [1080p CR WEB-DL AVC AAC][MultiSub][78ABD684].mkv",
+          "size": 1517075749,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2010%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B78ABD684%5D.mkv",
+          "infoHash": "3be3fe5b9999e593341a5f77ee70efe4c45e09a3",
+          "torrentPath": "torrents/3be3fe5b9999e593341a5f77ee70efe4c45e09a3.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 01 [720p CR WEB-DL AVC AAC][MultiSub][E544AC1F].mkv",
+          "size": 301658807,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa:%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BE544AC1F%5D.mkv",
+          "infoHash": "d676f45a516d740f6b2d66221e7154ad54bd0b7c",
+          "torrentPath": "torrents/d676f45a516d740f6b2d66221e7154ad54bd0b7c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 02 [720p CR WEB-DL AVC AAC][MultiSub][E60B7D51].mkv",
+          "size": 382097982,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BE60B7D51%5D.mkv",
+          "infoHash": "d2b0e81285bb863687b1ab1b5fef352af371b7ee",
+          "torrentPath": "torrents/d2b0e81285bb863687b1ab1b5fef352af371b7ee.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 04 [720p CR WEB-DL AVC AAC][MultiSub][B459E778].mkv",
+          "size": 313882109,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BB459E778%5D.mkv",
+          "infoHash": "c19f3e4815cd4d305eec4f63b4b93e08e7791999",
+          "torrentPath": "torrents/c19f3e4815cd4d305eec4f63b4b93e08e7791999.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 05 [720p CR WEB-DL AVC AAC][MultiSub][874033CF].mkv",
+          "size": 348090790,
+          "directUrl": "https://emision.anibatchddl.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B874033CF%5D.mkv",
+          "infoHash": "477b7bce738f9d6f3dd4cc73fa64d9f9beec883b",
+          "torrentPath": "torrents/477b7bce738f9d6f3dd4cc73fa64d9f9beec883b.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 08 [720p CR WEB-DL AVC AAC][MultiSub][AD1B0F36].mkv",
+          "size": 430638655,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BAD1B0F36%5D.mkv",
+          "infoHash": "d8b708e6a01467785e7e1d3bd4baba12c8297b78",
+          "torrentPath": "torrents/d8b708e6a01467785e7e1d3bd4baba12c8297b78.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 09 [720p CR WEB-DL AVC AAC][MultiSub][11C11F16].mkv",
+          "size": 476676818,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B11C11F16%5D.mkv",
+          "infoHash": "3fe69a534248f9055a4d67feea05352233c68885",
+          "torrentPath": "torrents/3fe69a534248f9055a4d67feea05352233c68885.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Saijo no Osewa - 10 [720p CR WEB-DL AVC AAC][MultiSub][DFFC4119].mkv",
+          "size": 474766894,
+          "directUrl": "https://emision.craftervault.com/0:down/Saijo%20no%20Osewa%3A%20Takane%20no%20Hanadarake%20na%20Meimonkou%20de%2C%20Gakuin%20Ichi%20no%20Ojou-sama%20(Seikatsu%20Nouryoku%20Kaimu)%20wo%20Kagenagara%20Osewa%20suru%20Koto%20ni%20Narimashita/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Saijo%20no%20Osewa%20-%2010%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BDFFC4119%5D.mkv",
+          "infoHash": "026c5f9eb3c63067d92d4172eea7bd61211c17ea",
+          "torrentPath": "torrents/026c5f9eb3c63067d92d4172eea7bd61211c17ea.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "202269": {
+      "title": "Toumei na Yoru ni Kakeru Kimi to, Me ni Mienai Koi wo Shita.",
+      "anilistId": 202269,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 01 [1080p CR WEB-DL AVC AAC][MultiSub][CA052642].mkv",
+          "size": 1473379694,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BCA052642%5D.mkv",
+          "infoHash": "a66104443cea0756454dc42f16bd5cd506c45909",
+          "torrentPath": "torrents/a66104443cea0756454dc42f16bd5cd506c45909.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 02 [1080p CR WEB-DL AVC AAC][MultiSub][F3752F11].mkv",
+          "size": 1480258833,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF3752F11%5D.mkv",
+          "infoHash": "e1ceba46db312fe88195f9e8a09db26f937035f0",
+          "torrentPath": "torrents/e1ceba46db312fe88195f9e8a09db26f937035f0.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 03 [1080p CR WEB-DL AVC AAC][MultiSub][514499ED].mkv",
+          "size": 1476342966,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B514499ED%5D.mkv",
+          "infoHash": "7a5a1f52272a9896569b2bce9dd426387cafcf06",
+          "torrentPath": "torrents/7a5a1f52272a9896569b2bce9dd426387cafcf06.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 04 [1080p CR WEB-DL AVC AAC][MultiSub][4294D201].mkv",
+          "size": 1479242505,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2004%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B4294D201%5D.mkv",
+          "infoHash": "f283c15d2301b8ee150e20fd5a796faeb6b97534",
+          "torrentPath": "torrents/f283c15d2301b8ee150e20fd5a796faeb6b97534.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 05 [1080p CR WEB-DL AVC AAC][MultiSub][5A4C9C77].mkv",
+          "size": 1478834909,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B5A4C9C77%5D.mkv",
+          "infoHash": "792b69332187500e562db3c3a69b136385b2497b",
+          "torrentPath": "torrents/792b69332187500e562db3c3a69b136385b2497b.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 06 [1080p CR WEB-DL AVC AAC][MultiSub][767249B5].mkv",
+          "size": 1476392530,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B767249B5%5D.mkv",
+          "infoHash": "a87d44c8e53ca51a1e1dd43ee648e1dc0bda691c",
+          "torrentPath": "torrents/a87d44c8e53ca51a1e1dd43ee648e1dc0bda691c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 08 [1080p CR WEB-DL AVC AAC][MultiSub][AA08150F].mkv",
+          "size": 1479509576,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BAA08150F%5D.mkv",
+          "infoHash": "58b2abfe6a488781dcf421e594cfb44e8178dc9e",
+          "torrentPath": "torrents/58b2abfe6a488781dcf421e594cfb44e8178dc9e.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 09 [1080p CR WEB-DL AVC AAC][MultiSub][62497E9B].mkv",
+          "size": 1474551209,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B62497E9B%5D.mkv",
+          "infoHash": "f009a493e93878f77fdaf5f1cd8e39325991374a",
+          "torrentPath": "torrents/f009a493e93878f77fdaf5f1cd8e39325991374a.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 01 [720p CR WEB-DL AVC AAC][MultiSub][7B7B3162].mkv",
+          "size": 272071825,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B7B7B3162%5D.mkv",
+          "infoHash": "2df6713008e0d8d37ef9debfef83e0d06d9fd24d",
+          "torrentPath": "torrents/2df6713008e0d8d37ef9debfef83e0d06d9fd24d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 02 [720p CR WEB-DL AVC AAC][MultiSub][080D6997].mkv",
+          "size": 264157054,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B080D6997%5D.mkv",
+          "infoHash": "6e9ba8d15895f2f592b5cffe4216408e76857e4d",
+          "torrentPath": "torrents/6e9ba8d15895f2f592b5cffe4216408e76857e4d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 03 [720p CR WEB-DL AVC AAC][MultiSub][21460833].mkv",
+          "size": 280880079,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B21460833%5D.mkv",
+          "infoHash": "844642803ddde6ab29ac4f4d4a9dea221a5a0bdf",
+          "torrentPath": "torrents/844642803ddde6ab29ac4f4d4a9dea221a5a0bdf.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 04 [720p CR WEB-DL AVC AAC][MultiSub][28C5E86B].mkv",
+          "size": 278247787,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B28C5E86B%5D.mkv",
+          "infoHash": "fd2628d0ac4a0bfe3d00e2b3cded649b888ad56c",
+          "torrentPath": "torrents/fd2628d0ac4a0bfe3d00e2b3cded649b888ad56c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 05 [720p CR WEB-DL AVC AAC][MultiSub][B41772C5].mkv",
+          "size": 298159755,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BB41772C5%5D.mkv",
+          "infoHash": "ad79e6f972694507764eb578f005651fe7f6d934",
+          "torrentPath": "torrents/ad79e6f972694507764eb578f005651fe7f6d934.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 06 [720p CR WEB-DL AVC AAC][MultiSub][CB4236BB].mkv",
+          "size": 217298828,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2006%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BCB4236BB%5D.mkv",
+          "infoHash": "7d561c608e508d239b875225f1fcfd250fa52ee0",
+          "torrentPath": "torrents/7d561c608e508d239b875225f1fcfd250fa52ee0.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 08 [720p CR WEB-DL AVC AAC][MultiSub][A9FA77FB].mkv",
+          "size": 471854836,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BA9FA77FB%5D.mkv",
+          "infoHash": "e3d1c3c7a7f6f5a5d5f652f2d92e3c02e2372e4a",
+          "torrentPath": "torrents/e3d1c3c7a7f6f5a5d5f652f2d92e3c02e2372e4a.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Toumei na Yoru ni Kakeru Kimi to Me ni Mienai Koi wo Shita - 09 [720p CR WEB-DL AVC AAC][MultiSub][7E17636C].mkv",
+          "size": 467061244,
+          "directUrl": "https://emision.craftervault.com/0:down/Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%2C%20Me%20ni%20Mienai%20Koi%20wo%20Shita./%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Toumei%20na%20Yoru%20ni%20Kakeru%20Kimi%20to%20Me%20ni%20Mienai%20Koi%20wo%20Shita%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B7E17636C%5D.mkv",
+          "infoHash": "b7a41728455c576618352e85661bb8b948d0e27d",
+          "torrentPath": "torrents/b7a41728455c576618352e85661bb8b948d0e27d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.969Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "204060": {
+      "title": "Tetsunabe no Jan!",
+      "anilistId": 204060,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 01 [1080p CR WEB-DL AVC AAC][MultiSub][3C25A4A4].mkv",
+          "size": 1451265385,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B3C25A4A4%5D.mkv",
+          "infoHash": "ed8385451809c05750c0fde684b8424cd35e3e71",
+          "torrentPath": "torrents/ed8385451809c05750c0fde684b8424cd35e3e71.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 02 [1080p CR WEB-DL AVC AAC][MultiSub][7EF35533].mkv",
+          "size": 1451847454,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B7EF35533%5D.mkv",
+          "infoHash": "be44d59bd30d3a85bc46d851b2552cee7b7d5b41",
+          "torrentPath": "torrents/be44d59bd30d3a85bc46d851b2552cee7b7d5b41.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 03 [1080p CR WEB-DL AVC AAC][MultiSub][C53B4C3A].mkv",
+          "size": 1451745858,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BC53B4C3A%5D.mkv",
+          "infoHash": "003b60a946cf5690dcb1bc353a1ec52cb4d4deb9",
+          "torrentPath": "torrents/003b60a946cf5690dcb1bc353a1ec52cb4d4deb9.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 05 [1080p CR WEB-DL AVC AAC][MultiSub][BBCF3967].mkv",
+          "size": 1450483746,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BBBCF3967%5D.mkv",
+          "infoHash": "5f3d2b0a07cde545261b9b6e5a44921654c14994",
+          "torrentPath": "torrents/5f3d2b0a07cde545261b9b6e5a44921654c14994.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 08 [1080p CR WEB-DL AVC AAC][MultiSub][86E1C24A].mkv",
+          "size": 1450368163,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B86E1C24A%5D.mkv",
+          "infoHash": "a0928cc06571288a511f709224379ec09c4ac18d",
+          "torrentPath": "torrents/a0928cc06571288a511f709224379ec09c4ac18d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 09 [1080p CR WEB-DL AVC AAC][MultiSub][CB66338D].mkv",
+          "size": 1450246797,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BCB66338D%5D.mkv",
+          "infoHash": "46cafe6a573719cc87630968010f3dae45f6dfdc",
+          "torrentPath": "torrents/46cafe6a573719cc87630968010f3dae45f6dfdc.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 10 [1080p CR WEB-DL AVC AAC][MultiSub][63389B4C].mkv",
+          "size": 1451681193,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2010%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B63389B4C%5D.mkv",
+          "infoHash": "afb14c6c2c58a9ad283915d10a0cf741ecfba6d0",
+          "torrentPath": "torrents/afb14c6c2c58a9ad283915d10a0cf741ecfba6d0.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 01 [720p CR WEB-DL AVC AAC][MultiSub][61A52298].mkv",
+          "size": 423721282,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B61A52298%5D.mkv",
+          "infoHash": "4a28c659c2357a89aba16eee253960eba56e3ed7",
+          "torrentPath": "torrents/4a28c659c2357a89aba16eee253960eba56e3ed7.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 02 [720p CR WEB-DL AVC AAC][MultiSub][A3D20BC2].mkv",
+          "size": 396232376,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BA3D20BC2%5D.mkv",
+          "infoHash": "131f1248bf62a2d60cd2cc8b60872ae53d7618d2",
+          "torrentPath": "torrents/131f1248bf62a2d60cd2cc8b60872ae53d7618d2.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 03 [720p CR WEB-DL AVC AAC][MultiSub][804B6FEA].mkv",
+          "size": 388852607,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B804B6FEA%5D.mkv",
+          "infoHash": "07a9347f51d3eab39939c4983b4f156f84ab3ddf",
+          "torrentPath": "torrents/07a9347f51d3eab39939c4983b4f156f84ab3ddf.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 05 [720p CR WEB-DL AVC AAC][MultiSub][52C0227E].mkv",
+          "size": 419310004,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B52C0227E%5D.mkv",
+          "infoHash": "3946cd1f173f455c7a4bd2648aa1597335d3aef4",
+          "torrentPath": "torrents/3946cd1f173f455c7a4bd2648aa1597335d3aef4.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 08 [720p CR WEB-DL AVC AAC][MultiSub][D4F0F747].mkv",
+          "size": 449800913,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD4F0F747%5D.mkv",
+          "infoHash": "0b21c114c8a143193bdc20562909e96d50448048",
+          "torrentPath": "torrents/0b21c114c8a143193bdc20562909e96d50448048.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 09 [720p CR WEB-DL AVC AAC][MultiSub][CD479F36].mkv",
+          "size": 437387741,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BCD479F36%5D.mkv",
+          "infoHash": "f21d70b9330d65f5c7d03a18dd6aeaded45fde9b",
+          "torrentPath": "torrents/f21d70b9330d65f5c7d03a18dd6aeaded45fde9b.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Tetsunabe no Jan - 10 [720p CR WEB-DL AVC AAC][MultiSub][49D3008A].mkv",
+          "size": 450623940,
+          "directUrl": "https://emision.craftervault.com/0:down/Tetsunabe%20no%20Jan!/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Tetsunabe%20no%20Jan%20-%2010%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B49D3008A%5D.mkv",
+          "infoHash": "745913c2a71ad55185fb1c9f960fc03995b33df3",
+          "torrentPath": "torrents/745913c2a71ad55185fb1c9f960fc03995b33df3.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.973Z"
+          },
+          "isOnline": true
+        }
+      ]
+    },
+    "210031": {
+      "title": "Seihantai na Kimi to Boku 2nd Season",
+      "anilistId": 210031,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 01 [1080p CR WEB-DL AVC AAC][MultiSub][19C24D2B].mkv",
+          "size": 1487393933,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B19C24D2B%5D.mkv",
+          "infoHash": "ba4824445fce6f89362cf2d74cd5ec2e8bdca719",
+          "torrentPath": "torrents/ba4824445fce6f89362cf2d74cd5ec2e8bdca719.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 02 [1080p CR WEB-DL AVC AAC][MultiSub][CD01C231].mkv",
+          "size": 1485371054,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BCD01C231%5D.mkv",
+          "infoHash": "9b0b1c51ac8902561b284476b64853d8daefa70f",
+          "torrentPath": "torrents/9b0b1c51ac8902561b284476b64853d8daefa70f.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 03 [1080p CR WEB-DL AVC AAC][MultiSub][6B7D8D34].mkv",
+          "size": 1488016392,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2003%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B6B7D8D34%5D.mkv",
+          "infoHash": "ba9718a3021cfcd288dcfe6dec70dcf202da10be",
+          "torrentPath": "torrents/ba9718a3021cfcd288dcfe6dec70dcf202da10be.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 04 [1080p CR WEB-DL AVC AAC][MultiSub][23547BF0].mkv",
+          "size": 1487602622,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2004%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B23547BF0%5D.mkv",
+          "infoHash": "068561e023be09d10f8208dfbc473f54553b6f0a",
+          "torrentPath": "torrents/068561e023be09d10f8208dfbc473f54553b6f0a.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 05 [1080p CR WEB-DL AVC AAC][MultiSub][01465CC0].mkv",
+          "size": 1483910344,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2005%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B01465CC0%5D.mkv",
+          "infoHash": "a62c37b64cf6a5832389a0b8cf01aa148216e737",
+          "torrentPath": "torrents/a62c37b64cf6a5832389a0b8cf01aa148216e737.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 06 [1080p CR WEB-DL AVC AAC][MultiSub][D7BFEDB8].mkv",
+          "size": 1485089219,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BD7BFEDB8%5D.mkv",
+          "infoHash": "2a19fd7489880fa5b27316d928a8e4af961ff31d",
+          "torrentPath": "torrents/2a19fd7489880fa5b27316d928a8e4af961ff31d.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 07 [1080p CR WEB-DL AVC AAC][MultiSub][6ADBF21C].mkv",
+          "size": 1471980638,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2007%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B6ADBF21C%5D.mkv",
+          "infoHash": "b2d5169f0e01188e1c4c711c56792c0333bda2f4",
+          "torrentPath": "torrents/b2d5169f0e01188e1c4c711c56792c0333bda2f4.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 08 [1080p CR WEB-DL AVC AAC][MultiSub][F74B4B6F].mkv",
+          "size": 1472349068,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2008%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BF74B4B6F%5D.mkv",
+          "infoHash": "d730fda58846451b5149687087e0af33c9f65684",
+          "torrentPath": "torrents/d730fda58846451b5149687087e0af33c9f65684.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 09 [1080p CR WEB-DL AVC AAC][MultiSub][3B8FD9DB].mkv",
+          "size": 1472982869,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2009%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B3B8FD9DB%5D.mkv",
+          "infoHash": "fb72aec196c33aad72a5e1d957843b58ca565c0b",
+          "torrentPath": "torrents/fb72aec196c33aad72a5e1d957843b58ca565c0b.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 10 [1080p CR WEB-DL AVC AAC][MultiSub][5752ED65].mkv",
+          "size": 1471445446,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2010%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B5752ED65%5D.mkv",
+          "infoHash": "e2bfaa2fc989862d7c9f7cc6162b90e0d8da1fc3",
+          "torrentPath": "torrents/e2bfaa2fc989862d7c9f7cc6162b90e0d8da1fc3.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 1,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 01 [720p CR WEB-DL AVC AAC][MultiSub][DCEC095D].mkv",
+          "size": 400796752,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2001%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BDCEC095D%5D.mkv",
+          "infoHash": "3f96b333ea1f0404ce52a80d9f9e6d8781d95c47",
+          "torrentPath": "torrents/3f96b333ea1f0404ce52a80d9f9e6d8781d95c47.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 2,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 02 [720p CR WEB-DL AVC AAC][MultiSub][52D7E89C].mkv",
+          "size": 305994174,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2002%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B52D7E89C%5D.mkv",
+          "infoHash": "acf8eaf8599cda9b380b2a46dc7a68c07679b000",
+          "torrentPath": "torrents/acf8eaf8599cda9b380b2a46dc7a68c07679b000.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 3,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 03 [720p CR WEB-DL AVC AAC][MultiSub][2457C196].mkv",
+          "size": 347936215,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2003%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B2457C196%5D.mkv",
+          "infoHash": "04da9c320e9a0a594a154bb60e14e6f251574e6c",
+          "torrentPath": "torrents/04da9c320e9a0a594a154bb60e14e6f251574e6c.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 4,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 04 [720p CR WEB-DL AVC AAC][MultiSub][B8723F69].mkv",
+          "size": 331017514,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2004%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BB8723F69%5D.mkv",
+          "infoHash": "bf6031a75569bcbd4a7f8e2d6d77d02a2db81d39",
+          "torrentPath": "torrents/bf6031a75569bcbd4a7f8e2d6d77d02a2db81d39.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 5,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 05 [720p CR WEB-DL AVC AAC][MultiSub][73D20297].mkv",
+          "size": 323300433,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2005%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B73D20297%5D.mkv",
+          "infoHash": "43f4ebfc794094ec5adefc24e0cd3123bf2431f0",
+          "torrentPath": "torrents/43f4ebfc794094ec5adefc24e0cd3123bf2431f0.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 6,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 06 [720p CR WEB-DL AVC AAC][MultiSub][4BCF957F].mkv",
+          "size": 222803434,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2006%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B4BCF957F%5D.mkv",
+          "infoHash": "266e581f52438b045f81a1b59cf36a2b7d19517b",
+          "torrentPath": "torrents/266e581f52438b045f81a1b59cf36a2b7d19517b.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 7,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 07 [720p CR WEB-DL AVC AAC][MultiSub][BEF5F62E].mkv",
+          "size": 228919167,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2007%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BBEF5F62E%5D.mkv",
+          "infoHash": "d38806c5cce33dc0778f395d1b530f95091113f9",
+          "torrentPath": "torrents/d38806c5cce33dc0778f395d1b530f95091113f9.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 8,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 08 [720p CR WEB-DL AVC AAC][MultiSub][7E4529BA].mkv",
+          "size": 467553975,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2008%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B7E4529BA%5D.mkv",
+          "infoHash": "39efae79be8e464e9ce6b57604776116905525fd",
+          "torrentPath": "torrents/39efae79be8e464e9ce6b57604776116905525fd.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 9,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 09 [720p CR WEB-DL AVC AAC][MultiSub][97168C47].mkv",
+          "size": 466079723,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2009%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B97168C47%5D.mkv",
+          "infoHash": "9799c5a9af1a38b421e6542b81323745f2e34430",
+          "torrentPath": "torrents/9799c5a9af1a38b421e6542b81323745f2e34430.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        },
+        {
+          "episode": 10,
+          "resolution": "720",
+          "quality": "[Erai-raws][Web 720p]",
+          "fileName": "[Erai-raws] Seihantai na Kimi to Boku 2nd Season - 10 [720p CR WEB-DL AVC AAC][MultiSub][DFAB5097].mkv",
+          "size": 313447086,
+          "directUrl": "https://emision.craftervault.com/0:down/Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season/%5BErai-raws%5D%5BWeb%20720p%5D/%5BErai-raws%5D%20Seihantai%20na%20Kimi%20to%20Boku%202nd%20Season%20-%2010%20%5B720p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5BDFAB5097%5D.mkv",
+          "infoHash": "9854df76171b9a6e57af58af1ad39bcc768eaab6",
+          "torrentPath": "torrents/9854df76171b9a6e57af58af1ad39bcc768eaab6.torrent",
+          "verified": {
+            "matchedBy": "prelinked",
+            "piecesVerified": false,
+            "verifiedAt": "2026-09-08T02:46:51.972Z"
+          },
+          "isOnline": true
+        }
+      ]
+    }
+  }
+}

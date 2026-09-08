@@ -1,68 +1,77 @@
-# Japan-Paw → Hayase
+# Japan-Paw para Hayase — 0.3.6
 
-Continuación del proyecto de la conversación de Claude. Node.js 22 o posterior.
+Repositorio dual: **Japan-Paw Direct** (`torrent.js`) busca metadatos compatibles y **Japan-Paw WebSeed** (`http.js`) aporta el archivo HTTP. El catálogo contiene 3.316 entradas y 83.681 enlaces de episodios/versiones; tener un enlace indexado no significa que exista un torrent compatible.
 
-Estado de esta entrega: pruebas automatizadas aprobadas; catálogo de muestra importado; generado el torrent real de Sayonara Lara 01 en 720p (411.795.960 bytes). Se verificaron por HTTP las piezas 1, 197 y 393 contra sus hashes SHA-1. El torrent ocupa 8.308 bytes. La búsqueda del script empaquetado devuelve la entrada y su URL local responde HTTP 200. Queda pendiente validar la reproducción dentro de Hayase.
+## Correcciones de esta versión
 
-## Qué se corrigió
+- La búsqueda valida el archivo `.torrent` descargado, su infoHash, nombre real, tamaño conocido y estructura. El nombre y el peso mostrados proceden de esos metadatos, no de una combinación del catálogo con un torrent diferente.
+- El nombre exacto o un CRC acompañado de una coincidencia de título/episodio identifica una versión. Los conflictos de CRC, resolución y codec se rechazan; no se acepta el candidato de mayor puntuación si corresponde a otro archivo.
+- No se reintroducen batches cuando la búsqueda solo devuelve paquetes. La fuente Direct utiliza torrents de un único archivo de video, sin límite de tamaño para películas. `movie()` está implementado.
+- La fuente HTTP utiliza la misma comparación. En batches externos resuelve cada archivo por separado y conserva su índice; admite episodio cero.
+- Una consulta con AniList ID no recae en una serie que tenga otro ID. Se preservan Unicode, alias y correcciones tipográficas únicas. Los IDs existentes no han sido auditados uno por uno.
+- Se eliminan los contadores inventados de seeders y descargas. La disponibilidad es **verificada**, **caída** o **sin verificar**, según una comprobación fechada de menos de 24 horas. Los antiguos `isOnline: true` sin fecha no se presentan como verificados.
+- La importación y actualización preservan IDs/alias y conservan metadatos solo para la misma URL de archivo. Los vinculadores de Nyaa también validan la identidad antes de guardar un torrent.
+- Ambas extensiones comparten lógica y se empaquetan con esbuild. No dependen de la existencia de `TorrentSource` o `WebSeedSource` como variables globales.
 
-La extensión HTTP de Hayase complementa un torrent ya identificado. Este proyecto usa una extensión `torrent` que entrega archivos `.torrent` completos con `url-list` (webseed HTTP). No basta un magnet con `ws=`: faltan los hashes de las piezas y otros metadatos cuando no hay peers que los entreguen.
+## Comandos
 
-El hasher lee el archivo completo una vez para calcular las piezas; conserva únicamente los metadatos. Por eso indexar miles de videos puede transferir muchos terabytes. El valor predeterminado es un archivo por ejecución, con un máximo de 2 GiB por archivo. No se ha recorrido todo el sitio.
-
-## Prueba en Windows / PowerShell
+Node.js 22 o posterior:
 
 ```powershell
 npm ci
-npm test
-npm run sample
 npm run build
-node probe.mjs 7901 1 720
-node hash.mjs --series 7901 --episode 1 --resolution 720 --limit 1 --max-bytes 500000000
-node verify.mjs 7901 1 720
-npm run serve
+npm test
 ```
 
-`sample` importa el HTML proporcionado: 20 enlaces (10 episodios × 2 resoluciones). `probe` comprueba soporte Range con una petición de un byte. `hash` descarga el contenido en streaming y genera `dist/torrents/<infoHash>.torrent` y `dist/indexed-catalog.json`. Al repetirlo omite las entradas ya generadas; `--refresh` permite recalcular si el archivo remoto cambió.
-
-Con el servidor abierto, agrega este repositorio en la configuración de extensiones de Hayase:
-
-```text
-http://127.0.0.1:8787/manifest.json
-```
-
-Busca **Sayonara Lara**, episodio **1**, resolución **720p**. El servidor es local y debe permanecer abierto. Si tu versión de Hayase rechaza repositorios HTTP locales, publica `dist` por HTTPS y vuelve a generar los enlaces como se explica abajo. Una búsqueda vacía también puede deberse a un título alternativo: se pueden agregar `aliases` o `anilistId` a la serie del catálogo. No se adivinan temporadas por coincidencias parciales.
-
-## Actualizar series y ampliar el catálogo
+`build` conserva la dirección de alojamiento ya configurada en `dist/manifest.json`. Para cambiarla explícitamente:
 
 ```powershell
-# Actualizar una serie, incluyendo capítulos nuevos
+npm run build -- https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/
+```
+
+El resultado queda en `dist/`. Este comando no hace commit ni push. La actualización en Hayase solo estará disponible cuando se publique esa carpeta en el repositorio correspondiente.
+
+### Actualizar datos
+
+```powershell
 node scrape.mjs 7901 7901 --refresh
-
-# Procesar un rango explícito, con pausa entre peticiones
-$env:DELAY_MS = '1200'
-node scrape.mjs 7902 8000
-
-# Procesar hasta cinco archivos nuevos en 720p
-node hash.mjs --resolution 720 --limit 5
+node import-chapters.mjs
+node check-links.mjs --series 7901 --episode 1 --resolution 720 --limit 1
+npm run build
 ```
 
-Sin `--refresh`, el scraper omite las series guardadas. Con `--refresh`, reemplaza los episodios de las páginas recuperadas correctamente. Las páginas que fallen se conservan para reintentar; errores HTTP no se consideran contenido válido. El parser está adaptado al HTML adjunto y solo extrae la sección pública identificada por `Publicos-Paste.png`; cambios de estructura requieren ajustar el parser.
+El scraper usa por defecto una petición concurrente y una pausa de un segundo. Los errores de acceso no prueban que una serie no exista. El script alternativo `scrape_update.py` requiere sus dependencias de Python y trabaja con la configuración de proxies que ya tenía el proyecto.
 
-## Preparar para alojamiento
+`check-links` hace una petición Range de un byte y registra fecha y estado. Un bloqueo o error de red queda como desconocido. No se han comprobado masivamente todos los enlaces.
+
+### Cuando no existe el torrent exacto
+
+No se puede sustituir un archivo JPN por otro MULTi ni un encode por otro, aunque sean el mismo capítulo y resolución. Para un archivo sin metadatos compatibles sigue disponible el generador local:
 
 ```powershell
-npm run build -- https://tu-dominio.example/japanpaw/
+node hash.mjs --series 7901 --episode 1 --resolution 720 --limit 1 --max-bytes 2000000000
+npm run build
 ```
 
-Sube el contenido de `dist/` a esa ruta. Deben estar disponibles `manifest.json`, `index.js`, `icon.svg`, `indexed-catalog.json` y `torrents/`, con CORS habilitado. El build no borra los torrents ni el catálogo. No se ha publicado nada automáticamente. `npm run build` sin argumentos restaura la configuración local.
+Ese comando lee el video completo una vez; no forma parte de las búsquedas normales. `--max-bytes` limita la transferencia de esa ejecución, no el tamaño permitido por la extensión. Guarda los metadatos en el catálogo de origen y en `dist` para que el siguiente build los conserve.
 
-## Validación y límites
+## Validación
 
-`npm test` verifica el HTML real, limpieza de enlaces, separación de temporadas, títulos Unicode, filtros de codecs, y generación de metadatos completos. La prueba de integración sirve bytes por HTTP y verifica cada pieza descargada contra su hash SHA-1 en el torrent, sin peers. Esto no sustituye una prueba del reproductor dentro de Hayase.
+`npm test` ejecuta pruebas con aserciones, sin consultar servicios externos. Cubre archivos incorrectos, CRC contradictorio, resoluciones, episodios 1–12 de Mashle S2, episodio cero, películas grandes, batches, caché del catálogo, filtros, actualización de datos y carga de los bundles sin módulos externos. También incluye una descarga HTTP local cuyas piezas se verifican contra el torrent.
 
-El servidor de video debe mantener los mismos bytes y permitir Range; una URL caducada o contenido modificado requiere actualizar la entrada. Los videos que necesitan cookies o cabeceras especiales no están cubiertos. No hay soporte de packs ni películas en esta versión. El hasher no añade trackers, pero la configuración del cliente Hayase determina el comportamiento P2P.
+Para una prueba de red explícita:
 
-Los archivos `index.ts`, `index (1).ts`, `http.ts` y `hayase-*.ts` son referencias del código de Hayase, no forman parte del bundle. `test.mjs` y `test-stream.mjs` son experimentos anteriores; la validación vigente es `npm test`.
+```powershell
+node verify-live.mjs
+node verify-live.mjs --pieces
+```
 
-Referencias: [API de extensiones](https://wiki.hayase.watch/extensions/development/creating-extensions), [motor Hayase](https://github.com/hayase-app/torrent-client), [interfaz Hayase](https://github.com/hayase-app/interface), [BEP-19](https://www.bittorrent.org/beps/bep_0019.html).
+Con `--pieces` se comprueban primera y última pieza por SHA-1; no se descarga el video entero. El comando devuelve código distinto de cero si alguno de los casos no tiene un torrent compatible.
+
+Comprobaciones reales durante esta corrección:
+
+- **Mashle S2, episodio 2, 1080p y 720p:** metadatos distintos y correctos; primera y última pieza HTTP coinciden por SHA-1 en ambas versiones.
+- **Sayonara Lara, episodio 1, 1080p y 720p:** mismas comprobaciones correctas.
+- **Barbaroi, episodio 2:** la versión JPN de Japan-Paw tiene 1.494.912.099 bytes; el torrent MULTi que antes se mostraba tiene 1.802.888.724 bytes. Se rechaza. No se encontró una coincidencia exacta en las consultas realizadas.
+
+Estas comprobaciones no equivalen a probar toda la reproducción dentro de Hayase, ni garantizan la disponibilidad futura de los servidores. No se ha modificado la aplicación Hayase ni se ha publicado esta versión automáticamente.

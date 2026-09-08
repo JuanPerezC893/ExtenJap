@@ -11,12 +11,14 @@
 
 import { readFileSync, existsSync } from 'node:fs'
 import { isMain, writeJson } from './lib/io.mjs'
+import { mergeSeries } from './lib/merge-catalog.js'
+import { episodeNumber, resolution as getResolution } from './lib/matching.js'
 
 const OUTPUT_FILE = './raw-catalog.json'
 const START = parseInt(process.argv[2] ?? '1', 10)
 const END = parseInt(process.argv[3] ?? '8000', 10)
-const DELAY_MS = parseInt(process.env.DELAY_MS ?? '250', 10)
-const CONCURRENCY = parseInt(process.env.CONCURRENCY ?? '6', 10)
+const DELAY_MS = Number(process.env.DELAY_MS ?? '1000')
+const CONCURRENCY = Number(process.env.CONCURRENCY ?? '1')
 const MAX_RETRIES = 3
 
 // User-Agent de navegador real: el sitio tiene detección de bots, un fetch
@@ -62,7 +64,7 @@ export function parseSeries(html) {
     const tabId = parts[i]
     const chunk = parts[i + 1] || ''
     const quality = tabLabels.get(tabId) || ''
-    const resMatch = quality.match(/(\d{3,4})p/)
+    const resMatch = quality.match(/(\d{3,4})p/i)
     const resolution = resMatch ? resMatch[1] : ''
 
     // Solo nos interesa lo que viene DESPUÉS de "Publicos-Paste.png":
@@ -76,16 +78,16 @@ export function parseSeries(html) {
       let url
       try { url = cleanUrl(lm[1]) } catch { continue }
 
-      const fileName = decodeURIComponent(new URL(url).pathname.split('/').pop() ?? '')
+      let fileName
+      try { fileName = decodeURIComponent(new URL(url).pathname.split('/').pop() ?? '') } catch { continue }
 
       // Filtro estricto: descartar juegos, música, software, archivos .rar, .zip, etc.
       if (!VIDEO_EXTENSIONS.test(fileName)) continue
 
       // Extraer número de episodio desde el texto del enlace o desde el nombre del archivo
       const text = lm[2].replace(/<[^>]+>/g, '').trim()
-      const epMatch = text.match(/(?:Cap[íi]tulo|Episodio|Ep\.?)\s*0*(\d+)/i) ||
-                      fileName.match(/(?:[\s\-_]0*(\d{1,4})[\s\-_]|E0*(\d{1,4}))/i)
-      const epNum = epMatch ? parseInt(epMatch[1] || epMatch[2], 10) : null
+      const epMatch = text.match(/(?:Cap[íi]tulo|Episodio|Ep\.?)\s*0*(\d+(?:\.\d+)?)/i)
+      const epNum = epMatch ? Number(epMatch[1]) : episodeNumber(fileName) ?? (/pel[ií]cula|movie/i.test(text) ? 1 : null)
       if (epNum === null || !Number.isFinite(epNum)) continue
 
       if (episodes.some(e => e.url === url && e.episode === epNum)) continue
@@ -97,13 +99,13 @@ export function parseSeries(html) {
 
       episodes.push({
         episode: epNum,
-        resolution,
+        resolution: getResolution(fileName) || resolution,
         quality,
         fileName,
         crc32,
         group,
         url,
-        isOnline: true
+        isOnline: null
       })
     }
   }
@@ -117,7 +119,9 @@ export async function probeUrl(url, timeoutMs = 5000) {
       headers: { Range: 'bytes=0-0', 'User-Agent': UA },
       signal: AbortSignal.timeout(timeoutMs)
     })
-    return res.status === 206 || res.status === 200
+    const valid = res.status === 206 && /^bytes 0-0\/\d+$/.test(res.headers.get('content-range') || '')
+    await res.body?.cancel()
+    return valid
   } catch {
     return false
   }
@@ -161,13 +165,14 @@ async function main() {
     const parsed = parseSeries(readFileSync(process.argv[3], 'utf8'))
     if (!parsed?.episodes.length) throw new Error('No se encontraron episodios públicos')
     const sourceV = Number(process.argv[4] ?? 7901)
-    const catalog = loadExisting().filter(s => s.sourceV !== sourceV)
-    catalog.push({ sourceV, ...parsed })
+    const existing = loadExisting()
+    const catalog = existing.filter(s => s.sourceV !== sourceV)
+    catalog.push(mergeSeries(existing.find(s => s.sourceV === sourceV), { sourceV, ...parsed }))
     writeJson(OUTPUT_FILE, catalog)
     console.log(`${parsed.title}: ${parsed.episodes.length} enlaces guardados`)
     return
   }
-  if (!Number.isSafeInteger(START) || !Number.isSafeInteger(END) || START < 1 || END < START || !Number.isFinite(DELAY_MS) || DELAY_MS < 0) throw new Error('Rango o DELAY_MS inválido')
+  if (!Number.isSafeInteger(START) || !Number.isSafeInteger(END) || START < 1 || END < START || !Number.isFinite(DELAY_MS) || DELAY_MS < 0 || !Number.isSafeInteger(CONCURRENCY) || CONCURRENCY < 1) throw new Error('Rango, DELAY_MS o CONCURRENCY inválido')
   const catalog = loadExisting()
   const seenV = new Set(catalog.map(e => e.sourceV))
 
@@ -195,7 +200,7 @@ async function main() {
         if (parsed && parsed.episodes.length) {
           const entry = { sourceV: v, title: parsed.title, episodes: parsed.episodes }
           const old = catalog.findIndex(s => s.sourceV === v)
-          if (old >= 0) catalog[old] = { ...catalog[old], ...entry }
+          if (old >= 0) catalog[old] = mergeSeries(catalog[old], entry)
           else catalog.push(entry)
           savedCount++
           completed++

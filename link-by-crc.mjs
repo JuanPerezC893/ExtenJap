@@ -1,5 +1,6 @@
 import parseTorrent, { toTorrentFile } from 'parse-torrent'
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { validateLinkedTorrent } from './lib/link-validation.js'
 
 const catalog = JSON.parse(readFileSync('raw-catalog.json', 'utf8'))
 const CONCURRENCY = parseInt(process.env.CONCURRENCY ?? '5', 10)
@@ -47,6 +48,7 @@ async function main() {
           const res = await fetch(`https://nyaa.si${nyaaPath}`, { headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(15_000) })
           const buf = Buffer.from(await res.arrayBuffer())
           const parsed = await parseTorrent(buf)
+          validateLinkedTorrent(parsed, ep)
           parsed.urlList = [ep.url]
           parsed.announce = []
           const newBuf = toTorrentFile(parsed)
@@ -55,7 +57,7 @@ async function main() {
 
           ep.infoHash = parsed.infoHash
           ep.size = parsed.length
-          ep.fileName = parsed.name
+          ep.torrentFileName = parsed.files[0].name
           ep.torrentPath = torrentPath
           count++
           console.log(`[${++processed}] ✔ [CRC ${ep.crc32}] ${series.title} Ep ${ep.episode}: hash ${parsed.infoHash}`)

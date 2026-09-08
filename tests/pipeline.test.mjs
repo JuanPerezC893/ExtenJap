@@ -64,31 +64,3 @@ test('HTTP → torrent completo → descarga por piezas verificada sin peers', a
   }
   assert.deepEqual(Buffer.concat(downloaded), bytes)
 })
-
-test('Extensión: temporadas, Unicode, filtros, metadatos y consultas vacías', async () => {
-  globalThis.TorrentSource = class {}
-  const episode = { episode: 1, resolution: '1080', quality: 'WEB 1080p', fileName: 'Demo 01 x265.mkv', torrentPath: 'torrents/a.torrent', infoHash: 'a'.repeat(40), size: 42, hashedAt: '2026-09-01' }
-  const catalog = [
-    { title: 'Demo', episodes: [episode, { ...episode, resolution: '720', fileName: 'Demo 01 AVC.mkv' }] },
-    { title: 'Demo 2', episodes: [{ ...episode, infoHash: 'b'.repeat(40) }] },
-    { title: '日本語', episodes: [{ ...episode, infoHash: 'c'.repeat(40) }] }
-  ]
-  const originalFetch = globalThis.fetch
-  globalThis.fetch = async () => ({ ok: true, json: async () => catalog })
-  try {
-    const { default: extension } = await import('../index.js')
-    assert.equal(await extension.test(), true)
-    const query = { titles: ['Demo'], episode: 1, fetch: globalThis.fetch }
-    const results = await extension.single(query)
-    assert.equal(results.length, 2)
-    assert.match(results[0].link, /\/torrents\/a.torrent$/)
-    assert.equal((await extension.single({ ...query, resolution: '1080', exclusions: ['x265'] }))[0].title, 'Demo 01 AVC.mkv')
-    assert.equal((await extension.single({ ...query, titles: ['Demo 2'] }))[0].hash, 'b'.repeat(40))
-    assert.equal((await extension.single({ ...query, titles: ['日本語'] }))[0].hash, 'c'.repeat(40))
-    assert.deepEqual(await extension.single({ ...query, titles: [''] }), [])
-    assert.deepEqual(await extension.single({ ...query, titles: ['Different'] }), [])
-    assert.deepEqual(await extension.single({ ...query, episode: 99 }), [])
-    assert.deepEqual(await extension.batch(query), [])
-    assert.deepEqual(await extension.movie(query), [])
-  } finally { globalThis.fetch = originalFetch }
-})

@@ -55,7 +55,7 @@ export async function hashVideo(url, output, { maxBytes = Infinity } = {}) {
   const torrentPath = `torrents/${torrent.infoHash}.torrent`
   mkdirSync(join(output, 'torrents'), { recursive: true })
   writeFileSync(join(output, torrentPath), bytes)
-  return { infoHash: torrent.infoHash, size, fileName, torrentPath, hashedAt: new Date().toISOString() }
+  return { infoHash: torrent.infoHash, size, fileName, torrentPath, hashedAt: new Date().toISOString(), isOnline: true, checkedAt: new Date().toISOString() }
 }
 
 async function main() {
@@ -80,7 +80,11 @@ async function main() {
       const previous = saved?.episodes.find(e => e.url === episode.url)
       if (!values.refresh && previous?.torrentPath && existsSync(join(values.output, previous.torrentPath))) {
         const parsed = await parseTorrent(readFileSync(join(values.output, previous.torrentPath)))
-        if (parsed.infoHash === previous.infoHash) continue
+        if (parsed.infoHash === previous.infoHash) {
+          Object.assign(episode, previous)
+          writeJson(values.input, catalog)
+          continue
+        }
       }
       if (count >= limit) return
       count++
@@ -91,8 +95,10 @@ async function main() {
         saved.title = series.title
         if (series.aliases) saved.aliases = series.aliases
         if (series.anilistId) saved.anilistId = series.anilistId
-        saved.episodes = saved.episodes.filter(e => !(e.episode === episode.episode && e.resolution === episode.resolution && e.quality === episode.quality))
+        saved.episodes = saved.episodes.filter(e => e.url !== episode.url)
         saved.episodes.push({ ...episode, ...hashed })
+        Object.assign(episode, hashed)
+        writeJson(values.input, catalog)
         writeJson(target, indexed)
         console.log(`Guardado ${hashed.torrentPath} (${hashed.size} bytes)`)
       } catch (error) { console.error(error.message); process.exitCode = 1 }

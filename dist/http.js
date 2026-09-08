@@ -1,218 +1,147 @@
-// ESM para el worker de Hayase (WebSeedSource).
-const INDEX_URL = "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/indexed-catalog.json"
-let cache
-let cachedAt = 0
-
-const strip = str => String(str ?? '')
-  .normalize('NFKD')
-  .toLowerCase()
-  .replace(/\p{M}/gu, '')
-  .replace(/[^a-z0-9]+/g, '')
-
-async function loadIndex(fetchFn, refresh = false) {
-  if (!refresh && cache && Date.now() - cachedAt < 300_000) return cache
-  const response = await fetchFn(INDEX_URL)
-  if (!response.ok) throw new Error(`No se pudo cargar el catálogo: HTTP ${response.status}`)
-  const data = await response.json()
-  if (!Array.isArray(data)) throw new Error('Catálogo inválido')
-  cache = data
-  cachedAt = Date.now()
-  return data
+// lib/catalog.js
+function catalogLoader(url) {
+  let cached, expires = 0, pending;
+  return async (fetchFn, refresh = false) => {
+    if (!refresh && cached && Date.now() < expires) return cached;
+    if (pending) return pending;
+    pending = (async () => {
+      const response = await fetchFn(url, { signal: AbortSignal.timeout(15e3) });
+      if (!response.ok) throw new Error(`Cat\xE1logo: HTTP ${response.status}`);
+      const data = await response.json();
+      if (!Array.isArray(data) || data.some((s) => !s.title || !Array.isArray(s.episodes))) throw new Error("Cat\xE1logo inv\xE1lido");
+      cached = data;
+      expires = Date.now() + 3e5;
+      return data;
+    })();
+    try {
+      return await pending;
+    } finally {
+      pending = null;
+    }
+  };
 }
 
-function extractCrc32(str) {
-  const m = String(str ?? '').match(/\[([0-9A-Fa-f]{8})\]/)
-  return m ? m[1].toUpperCase() : null
+// lib/matching.js
+var VIDEO = /\.(mkv|mp4|webm|avi|m4v)$/i;
+var normalize = (value) => String(value ?? "").normalize("NFKD").toLowerCase().replace(/\p{M}/gu, "").replace(/[^\p{L}\p{N}]+/gu, "");
+var crc = (value) => String(value ?? "").match(/\[([a-f\d]{8})\]/i)?.[1].toUpperCase();
+var resolution = (value) => String(value ?? "").match(/(?:^|[^\d])(2160|1080|720|540|480)p?(?=$|[^\d])/i)?.[1];
+function fileName(ep) {
+  try {
+    const name = decodeURIComponent(new URL(ep.url).pathname.split("/").pop());
+    if (VIDEO.test(name)) return name;
+  } catch {
+  }
+  return ep.fileName || "";
+}
+var canonicalFile = (value) => String(value ?? "").normalize("NFC").toLowerCase().trim();
+function episodeNumber(value) {
+  const text = String(value ?? "").replace(/\[[^\]]*\]/g, " ");
+  const tagged = text.match(/(?:\bS\d+[ ._-]*)?\b(?:E|EP|Episode)[ ._-]*0*(\d+(?:\.\d+)?)(?=\b|v\d)/i) ?? text.match(/\bS\d+E0*(\d+(?:\.\d+)?)(?=\b|v\d)/i);
+  if (tagged) return Number(tagged[1]);
+  const separated = text.match(/\s-\s*0*(\d{1,3}(?:\.\d+)?)(?:v\d+)?(?=\s|\.[a-z]|$)/i);
+  return separated ? Number(separated[1]) : null;
+}
+function seasonNumber(value) {
+  const text = String(value ?? "");
+  const match = text.match(/\b(\d+)(?:st|nd|rd|th)\s+season\b/i) ?? text.match(/\bseason\s*(\d+)\b/i) ?? text.match(/\bS0*(\d+)(?:E\d+|\b)/i);
+  if (match) return Number(match[1]);
+  const roman = text.match(/\b(II|III|IV|V)\s*$/);
+  return roman ? { II: 2, III: 3, IV: 4, V: 5 }[roman[1]] : 1;
+}
+function editDistance(a, b) {
+  if (Math.abs(a.length - b.length) > 1) return 2;
+  let row = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    const next = [i];
+    for (let j = 1; j <= b.length; j++) next[j] = Math.min(next[j - 1] + 1, row[j] + 1, row[j - 1] + (a[i - 1] !== b[j - 1]));
+    row = next;
+  }
+  return row[b.length];
+}
+function matchSeries(catalog, titles = [], id) {
+  const byId = id ? catalog.filter((s) => Number(s.anilistId) === Number(id)) : [];
+  if (byId.length) return byId;
+  const available = catalog.filter((s) => !id || !s.anilistId);
+  const wanted = titles.filter((t) => normalize(t));
+  const names = (s) => [s.title, ...s.aliases ?? []].filter(Boolean);
+  const exact = available.filter((s) => names(s).some((n) => wanted.some((t) => normalize(n) === normalize(t))));
+  if (exact.length) return exact;
+  const fuzzy = available.filter((s) => names(s).some((n) => wanted.some((t) => {
+    const a = normalize(n), b = normalize(t);
+    return a.length >= 6 && b.length >= 6 && seasonNumber(n) === seasonNumber(t) && editDistance(a, b) <= 1;
+  })));
+  return fuzzy.length === 1 ? fuzzy : [];
+}
+function sameRelease(ep, name) {
+  const expected = fileName(ep);
+  if (!expected || !name) return false;
+  const aCrc = crc(expected) || ep.crc32?.toUpperCase(), bCrc = crc(name);
+  if (aCrc && bCrc && aCrc !== bCrc) return false;
+  const aRes = resolution(expected) || String(ep.resolution || ""), bRes = resolution(name);
+  if (aRes && bRes && aRes !== bRes) return false;
+  const aEp = episodeNumber(expected), bEp = episodeNumber(name);
+  if (aEp !== null && bEp !== null && aEp !== bEp) return false;
+  const codec = (text) => /\b(hevc|x265|h[ .]?265)\b/i.test(text) ? "hevc" : /\b(avc|x264|h[ .]?264)\b/i.test(text) ? "avc" : null;
+  if (codec(expected) && codec(name) && codec(expected) !== codec(name)) return false;
+  if (canonicalFile(expected) === canonicalFile(name)) return true;
+  const core = (value) => normalize(value.replace(/\[[^\]]*\]/g, "").replace(/\.(mkv|mp4|webm|avi|m4v)$/i, ""));
+  if (Boolean(aCrc && bCrc && aCrc === bCrc && core(expected) && core(expected) === core(name))) return true;
+  const group = (text) => String(text).match(/^\[([^\]]+)\]/)?.[1]?.toLowerCase();
+  const aGroup = ep.group?.toLowerCase() || group(expected), bGroup = group(name);
+  if (aGroup && bGroup && aGroup === bGroup && core(expected) && core(expected) === core(name)) return true;
+  return false;
+}
+function onlineState(ep, now = Date.now()) {
+  const checked = Date.parse(ep.checkedAt);
+  if (!Number.isFinite(checked) || checked > now || now - checked > 864e5) return null;
+  return typeof ep.isOnline === "boolean" ? ep.isOnline : null;
 }
 
-function extractGroup(str) {
-  const m = String(str ?? '').match(/^\[([^\]]+)\]/)
-  return m ? m[1].trim() : null
-}
-
-const VIDEO_EXTENSIONS = /\.(mkv|mp4|webm|avi|m4v)$/i
-
-function getSeasonNumber(title) {
-  const t = ' ' + String(title ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ') + ' '
-  const m2 = t.match(/\b0*(\d+)(?:st|nd|rd|th)\s*season\b/)
-  if (m2) return parseInt(m2[1], 10)
-  if (/\b(?:iv|4th\s*season)\b/.test(t)) return 4
-  if (/\b(?:iii|3rd\s*season)\b/.test(t)) return 3
-  if (/\b(?:ii|2nd\s*season)\b/.test(t)) return 2
-  const m3 = t.match(/\b(?:part|cour)\s*0*(\d+)\b/)
-  if (m3) return parseInt(m3[1], 10)
-  const m1 = t.match(/\b(?:season|s)\s*0*(\d{1,2})\b/)
-  if (m1) return parseInt(m1[1], 10)
-  return 1
-}
-
-function levenshtein(a, b) {
-  if (a === b) return 0
-  if (!a.length) return b.length
-  if (!b.length) return a.length
-  const m = []
-  for (let i = 0; i <= b.length; i++) m[i] = [i]
-  for (let j = 0; j <= a.length; j++) m[0][j] = j
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      if (b.charAt(i - 1) === a.charAt(j - 1)) m[i][j] = m[i - 1][j - 1]
-      else m[i][j] = Math.min(m[i - 1][j - 1] + 1, m[i][j - 1] + 1, m[i - 1][j] + 1)
+// http.js
+var INDEX_URL = "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/indexed-catalog.json";
+function resolveFile(query, file, catalog, batch = false) {
+  if (!file?.name || !VIDEO.test(file.name)) return void 0;
+  const series = matchSeries(catalog, query.titles, query.anilistId);
+  const candidates = [];
+  const number = batch ? episodeNumber(file.name) : Number(query.episode);
+  for (const s of series) {
+    for (const ep of s.episodes || []) {
+      if (number !== null && Number.isFinite(number) && Number(ep.episode) !== number) continue;
+      if (!sameRelease(ep, file.name) || onlineState(ep) === false) continue;
+      try {
+        if (!["http:", "https:"].includes(new URL(ep.url).protocol)) continue;
+      } catch {
+        continue;
+      }
+      candidates.push(ep);
     }
   }
-  return m[b.length][a.length]
+  if (!candidates.length) return void 0;
+  const exact = candidates.filter((ep) => fileName(ep) === file.name);
+  const chosen = exact.length ? exact : candidates;
+  if (new Set(chosen.map((ep) => fileName(ep))).size > 1) return void 0;
+  return { url: chosen[0].url, index: file.index };
 }
-
-function matchSeries(catalog, rawTitles, anilistId) {
-  if (anilistId) {
-    const byId = catalog.filter(s => Number(s.anilistId) === Number(anilistId))
-    if (byId.length) return byId
-  }
-
-  const titles = (rawTitles ?? []).filter(Boolean)
-  if (!titles.length) return []
-
-  const cleanTitles = titles.map(strip).filter(Boolean)
-
-  return catalog.filter(s => {
-    const sClean = strip(s.title)
-    if (!sClean) return false
-    const sSeason = getSeasonNumber(s.title)
-
-    for (let i = 0; i < titles.length; i++) {
-      const qRaw = titles[i]
-      const qClean = cleanTitles[i]
-      if (!qClean) continue
-      const qSeason = getSeasonNumber(qRaw)
-
-      // 1. Coincidencia exacta
-      if (qClean === sClean) {
-        if (qSeason === sSeason) return true
-      }
-
-      // 2. Coincidencia por alias
-      if (s.aliases && Array.isArray(s.aliases)) {
-        for (const a of s.aliases) {
-          if (strip(a) === qClean) return true
-        }
-      }
-
-      // 3. Fuzzy match para pequeños errores ortográficos / typos (ej. "Taboo Tattoo" vs "Taboo Tatoo")
-      if (qClean.length >= 6 && sClean.length >= 6) {
-        const maxDist = (qClean.length >= 10 || sClean.length >= 10) ? 2 : 1
-        if (levenshtein(qClean, sClean) <= maxDist) {
-          if (qSeason === sSeason) return true
-        }
-      }
-
-      // 4. Subcadena segura (mismo número de temporada)
-      if (qClean.length >= 6 && sClean.length >= 6) {
-        if (sClean.includes(qClean) || qClean.includes(sClean)) {
-          if (qSeason === sSeason) return true
-        }
-      }
-
-      // 5. Coincidencia con nombre de archivo
-      if (s.episodes && s.episodes.length > 0) {
-        const fn = strip(s.episodes[0].fileName || '')
-        if (qClean.length >= 6 && fn.includes(qClean)) {
-          const fnSeason = getSeasonNumber(s.episodes[0].fileName)
-          if (qSeason === fnSeason) return true
-        }
-      }
+function createHTTPSource(indexUrl = INDEX_URL) {
+  const load = catalogLoader(indexUrl);
+  return {
+    async test() {
+      await load(fetch, true);
+      return true;
+    },
+    async single(query) {
+      return resolveFile(query, query.file, await load(query.fetch ?? fetch));
+    },
+    async batch(query) {
+      const catalog = await load(query.fetch ?? fetch);
+      return (query.files || []).map((file) => resolveFile(query, file, catalog, true)).filter(Boolean);
     }
-    return false
-  })
+  };
 }
-
-function resolveFile(query, file, catalog) {
-  if (!file || !file.name || !VIDEO_EXTENSIONS.test(file.name)) return undefined
-
-  const fileName = file.name
-  const torrentName = query.name || ''
-  let targetEpisode = Number(query.episode)
-  if (isNaN(targetEpisode) || targetEpisode === 0) {
-    const m = fileName.match(/(?:[\s\-_]0*(\d{1,4}(?:\.\d+)?)[\s\-_]|E0*(\d{1,4}))/i) ||
-              torrentName.match(/(?:[\s\-_]0*(\d{1,4}(?:\.\d+)?)[\s\-_]|E0*(\d{1,4}))/i)
-    if (m) targetEpisode = parseFloat(m[1] || m[2])
-  }
-
-  const titles = (query.titles ?? []).filter(Boolean)
-  const candidateSeries = matchSeries(catalog, [...titles, torrentName, fileName], query.anilistId)
-  if (!candidateSeries.length) return undefined
-
-  const fileCrc = extractCrc32(fileName)
-  const fileGroup = extractGroup(fileName) || extractGroup(torrentName)
-  const fileHas1080 = /1080/i.test(`${fileName} ${torrentName}`)
-  const fileHas720 = /720/i.test(`${fileName} ${torrentName}`)
-
-  let bestCandidate = null
-  let bestScore = -1
-
-  for (const series of candidateSeries) {
-    const episodes = (series.episodes ?? []).filter(e => isNaN(targetEpisode) || Number(e.episode) === targetEpisode)
-
-    for (const ep of episodes) {
-      let score = 0
-
-      const epCrc = ep.crc32 || extractCrc32(ep.fileName || ep.url)
-      const epGroup = ep.group || extractGroup(ep.fileName || '')
-      const epRes = String(ep.resolution || '')
-
-      if (fileCrc && epCrc && fileCrc !== epCrc) continue
-      if (fileGroup && epGroup && strip(fileGroup) !== strip(epGroup)) continue
-
-      if (ep.fileName && (file.name === ep.fileName || strip(file.name) === strip(ep.fileName))) {
-        score += 1000
-      }
-      if (fileCrc && epCrc && fileCrc === epCrc) {
-        score += 500
-      }
-      if (fileGroup && epGroup && strip(fileGroup) === strip(epGroup)) {
-        score += 200
-      }
-      if (fileHas1080 && epRes === '1080') score += 100
-      else if (fileHas720 && epRes === '720') score += 100
-      else if (!fileHas1080 && !fileHas720 && epRes === '1080') score += 50
-
-      if (score > bestScore) {
-        bestScore = score
-        bestCandidate = ep
-      }
-    }
-  }
-
-  if (bestCandidate && bestScore >= 0) {
-    if (bestCandidate.isOnline === false) return undefined
-    return {
-      url: bestCandidate.url,
-      index: file.index
-    }
-  }
-
-  return undefined
-}
-
-export default new class JapanPawDirect {
-  async test() {
-    const data = await loadIndex(fetch, true)
-    return Array.isArray(data)
-  }
-
-  async single(query, options) {
-    const catalog = await loadIndex(query.fetch ?? fetch)
-    return resolveFile(query, query.file, catalog)
-  }
-
-  async batch(query, options) {
-    const catalog = await loadIndex(query.fetch ?? fetch)
-    const files = query.files ?? []
-    const results = []
-
-    for (const file of files) {
-      const res = resolveFile(query, file, catalog)
-      if (res) results.push(res)
-    }
-
-    return results
-  }
-}
+var http_default = createHTTPSource();
+export {
+  createHTTPSource,
+  http_default as default,
+  resolveFile
+};

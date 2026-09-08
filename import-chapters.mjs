@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { mergeSeries } from './lib/merge-catalog.js'
 
 const CHAPTERS_FILE = 'chapters.json'
 const CATALOG_FILE = 'raw-catalog.json'
@@ -69,7 +70,7 @@ function main() {
     const existingEpMap = new Map()
     if (existingSeries?.episodes) {
       for (const ep of existingSeries.episodes) {
-        existingEpMap.set(`${ep.episode}_${ep.resolution}`, ep)
+        existingEpMap.set(`${ep.episode}_${ep.url}`, ep)
       }
     }
 
@@ -77,7 +78,7 @@ function main() {
 
     for (const ver of (item.versions || [])) {
       const versionName = ver.version_name || ''
-      const resMatch = versionName.match(/(\d{3,4})p/)
+      const resMatch = versionName.match(/(\d{3,4})p/i)
       const resolution = resMatch ? resMatch[1] : ''
 
       for (const chap of (ver.chapters || [])) {
@@ -92,14 +93,14 @@ function main() {
         const group = groupMatch ? groupMatch[1] : null
 
         // Si ya existía este episodio con torrent vinculado, conservar el torrentPath y hash
-        const epKey = `${epNum}_${resolution}`
+        const epKey = `${epNum}_${cleanUrl}`
         const existingEp = existingEpMap.get(epKey)
 
         if (existingEp?.torrentPath && existingEp?.infoHash) {
           episodes.push({
             ...existingEp,
             url: cleanUrl,
-            isOnline: true
+            isOnline: existingEp.checkedAt ? existingEp.isOnline : null
           })
           preservedTorrents++
         } else {
@@ -111,7 +112,7 @@ function main() {
             crc32,
             group,
             url: cleanUrl,
-            isOnline: true
+            isOnline: null
           })
         }
         totalEpisodes++
@@ -119,11 +120,11 @@ function main() {
     }
 
     if (episodes.length > 0) {
-      mergedCatalog.push({
+      mergedCatalog.push(mergeSeries(existingSeries, {
         sourceV,
         title,
         episodes
-      })
+      }))
     }
   }
 

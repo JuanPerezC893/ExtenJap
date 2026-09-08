@@ -84,6 +84,44 @@ async function runTests() {
 
   console.log(`Película de 14.4 GB con 1 archivo es batch: ${checkBatch(testMovie)} (Debe ser false -> PERMITIDA)`)
   console.log(`Batch de 18.2 GB con 24 archivos es batch: ${checkBatch(testBatch)} (Debe ser true -> FILTRADO)`)
+
+  console.log('\n=== TEST 5: Taboo Tattoo (Tolerancia a errores de tipeo y búsqueda) ===')
+  const r5 = await torrentSource.single({
+    fetch: testFetch,
+    titles: ['Taboo Tattoo'],
+    episode: 1
+  })
+  console.log(`Encontrados para Taboo Tattoo: ${r5.length} resultados`)
+  for (const item of r5) {
+    console.log(`- Título: ${item.title}`)
+    console.log(`  Hash:   ${item.hash}`)
+    console.log(`  Tamaño: ${(item.size / 1024 / 1024).toFixed(1)} MB`)
+  }
+  console.log(`¿Taboo Tattoo encontrado exitosamente?: ${r5.length > 0 ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
+
+  console.log('\n=== TEST 6: Mashle 2nd Season (Separación de resoluciones 1080p vs 720p) ===')
+  const r6 = await torrentSource.single({
+    fetch: testFetch,
+    titles: ['Mashle 2nd Season'],
+    episode: 1
+  })
+  console.log(`Encontrados para Mashle 2nd Season Ep 1: ${r6.length} resultados`)
+  for (const item of r6) {
+    console.log(`- Título:  ${item.title}`)
+    console.log(`  Res:     ${item.episode.resolution}p`)
+    console.log(`  Hash:    ${item.hash}`)
+    console.log(`  Tamaño:  ${(item.size / 1024 / 1024).toFixed(1)} MB`)
+  }
+
+  const has1080 = r6.some(i => i.episode.resolution === '1080')
+  const has720 = r6.some(i => i.episode.resolution === '720')
+  const distinctHashes = new Set(r6.map(i => i.hash)).size === r6.length
+  const noSeason1 = r6.every(i => !i.title.includes('Mashle - 01'))
+
+  console.log(`¿Aparece versión 1080p?: ${has1080 ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
+  console.log(`¿Aparece versión 720p?: ${has720 ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
+  console.log(`¿Cada versión tiene su propio torrent/hash diferente?: ${distinctHashes ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
+  console.log(`¿Se aisló de la Temporada 1 (no se mezclaron)?: ${noSeason1 ? 'SI (CORRECTO)' : 'NO (MALO)'}`)
 }
 
 runTests().catch(console.error)

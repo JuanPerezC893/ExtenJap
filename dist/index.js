@@ -32,30 +32,92 @@ function extractGroup(str) {
 
 const VIDEO_EXTENSIONS = /\.(mkv|mp4|webm|avi|m4v)$/i
 
-function matchSeries(catalog, titles, anilistId) {
+function getSeasonNumber(title) {
+  const t = ' ' + String(title ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ') + ' '
+  const m2 = t.match(/\b0*(\d+)(?:st|nd|rd|th)\s*season\b/)
+  if (m2) return parseInt(m2[1], 10)
+  if (/\b(?:iv|4th\s*season)\b/.test(t)) return 4
+  if (/\b(?:iii|3rd\s*season)\b/.test(t)) return 3
+  if (/\b(?:ii|2nd\s*season)\b/.test(t)) return 2
+  const m3 = t.match(/\b(?:part|cour)\s*0*(\d+)\b/)
+  if (m3) return parseInt(m3[1], 10)
+  const m1 = t.match(/\b(?:season|s)\s*0*(\d{1,2})\b/)
+  if (m1) return parseInt(m1[1], 10)
+  return 1
+}
+
+function levenshtein(a, b) {
+  if (a === b) return 0
+  if (!a.length) return b.length
+  if (!b.length) return a.length
+  const m = []
+  for (let i = 0; i <= b.length; i++) m[i] = [i]
+  for (let j = 0; j <= a.length; j++) m[0][j] = j
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) m[i][j] = m[i - 1][j - 1]
+      else m[i][j] = Math.min(m[i - 1][j - 1] + 1, m[i][j - 1] + 1, m[i - 1][j] + 1)
+    }
+  }
+  return m[b.length][a.length]
+}
+
+function matchSeries(catalog, rawTitles, anilistId) {
   if (anilistId) {
     const byId = catalog.filter(s => Number(s.anilistId) === Number(anilistId))
     if (byId.length) return byId
   }
 
+  const titles = (rawTitles ?? []).filter(Boolean)
+  if (!titles.length) return []
+
   const cleanTitles = titles.map(strip).filter(Boolean)
-  if (!cleanTitles.length) return []
 
   return catalog.filter(s => {
     const sClean = strip(s.title)
     if (!sClean) return false
+    const sSeason = getSeasonNumber(s.title)
 
-    for (const qClean of cleanTitles) {
-      if (qClean === sClean) return true
+    for (let i = 0; i < titles.length; i++) {
+      const qRaw = titles[i]
+      const qClean = cleanTitles[i]
+      if (!qClean) continue
+      const qSeason = getSeasonNumber(qRaw)
+
+      // 1. Coincidencia exacta
+      if (qClean === sClean) {
+        if (qSeason === sSeason) return true
+      }
+
+      // 2. Coincidencia por alias
       if (s.aliases && Array.isArray(s.aliases)) {
-        if (s.aliases.some(a => strip(a) === qClean)) return true
+        for (const a of s.aliases) {
+          if (strip(a) === qClean) return true
+        }
       }
+
+      // 3. Fuzzy match para pequeños errores ortográficos / typos (ej. "Taboo Tattoo" vs "Taboo Tatoo")
       if (qClean.length >= 6 && sClean.length >= 6) {
-        if (sClean.includes(qClean) || qClean.includes(sClean)) return true
+        const maxDist = (qClean.length >= 10 || sClean.length >= 10) ? 2 : 1
+        if (levenshtein(qClean, sClean) <= maxDist) {
+          if (qSeason === sSeason) return true
+        }
       }
+
+      // 4. Subcadena segura (mismo número de temporada)
+      if (qClean.length >= 6 && sClean.length >= 6) {
+        if (sClean.includes(qClean) || qClean.includes(sClean)) {
+          if (qSeason === sSeason) return true
+        }
+      }
+
+      // 5. Coincidencia con nombre de archivo
       if (s.episodes && s.episodes.length > 0) {
         const fn = strip(s.episodes[0].fileName || '')
-        if (qClean.length >= 6 && fn.includes(qClean)) return true
+        if (qClean.length >= 6 && fn.includes(qClean)) {
+          const fnSeason = getSeasonNumber(s.episodes[0].fileName)
+          if (qSeason === fnSeason) return true
+        }
       }
     }
     return false

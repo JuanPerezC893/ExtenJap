@@ -34,71 +34,142 @@ function isBatchTorrent(item) {
   return false
 }
 
-function matchSeries(catalog, titles, anilistId) {
+function getSeasonNumber(title) {
+  const t = ' ' + String(title ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ') + ' '
+  const m2 = t.match(/\b0*(\d+)(?:st|nd|rd|th)\s*season\b/)
+  if (m2) return parseInt(m2[1], 10)
+  if (/\b(?:iv|4th\s*season)\b/.test(t)) return 4
+  if (/\b(?:iii|3rd\s*season)\b/.test(t)) return 3
+  if (/\b(?:ii|2nd\s*season)\b/.test(t)) return 2
+  const m3 = t.match(/\b(?:part|cour)\s*0*(\d+)\b/)
+  if (m3) return parseInt(m3[1], 10)
+  const m1 = t.match(/\b(?:season|s)\s*0*(\d{1,2})\b/)
+  if (m1) return parseInt(m1[1], 10)
+  return 1
+}
+
+function levenshtein(a, b) {
+  if (a === b) return 0
+  if (!a.length) return b.length
+  if (!b.length) return a.length
+  const m = []
+  for (let i = 0; i <= b.length; i++) m[i] = [i]
+  for (let j = 0; j <= a.length; j++) m[0][j] = j
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) m[i][j] = m[i - 1][j - 1]
+      else m[i][j] = Math.min(m[i - 1][j - 1] + 1, m[i][j - 1] + 1, m[i - 1][j] + 1)
+    }
+  }
+  return m[b.length][a.length]
+}
+
+function matchSeries(catalog, rawTitles, anilistId) {
   if (anilistId) {
     const byId = catalog.filter(s => Number(s.anilistId) === Number(anilistId))
     if (byId.length) return byId
   }
 
+  const titles = (rawTitles ?? []).filter(Boolean)
+  if (!titles.length) return []
+
   const cleanTitles = titles.map(strip).filter(Boolean)
-  if (!cleanTitles.length) return []
 
   return catalog.filter(s => {
     const sClean = strip(s.title)
     if (!sClean) return false
+    const sSeason = getSeasonNumber(s.title)
 
-    for (const qClean of cleanTitles) {
-      // 1. Coincidencia exacta sin espacios ni puntuación (ej. Himekishi vs Hime Kishi)
-      if (qClean === sClean) return true
+    for (let i = 0; i < titles.length; i++) {
+      const qRaw = titles[i]
+      const qClean = cleanTitles[i]
+      if (!qClean) continue
+      const qSeason = getSeasonNumber(qRaw)
 
-      // 2. Coincidencia por alias si existen
+      // 1. Coincidencia exacta
+      if (qClean === sClean) {
+        if (qSeason === sSeason) return true
+      }
+
+      // 2. Coincidencia por alias
       if (s.aliases && Array.isArray(s.aliases)) {
-        if (s.aliases.some(a => strip(a) === qClean)) return true
+        for (const a of s.aliases) {
+          if (strip(a) === qClean) return true
+        }
       }
 
-      // 3. Substring seguro: SOLO si ambos tienen 6 o más caracteres
-      // (Evita que títulos cortos como "K", "Ajin" o "TEST" coincidan con cualquier palabra)
+      // 3. Fuzzy match para pequeños errores ortográficos / typos (ej. "Taboo Tattoo" vs "Taboo Tatoo")
       if (qClean.length >= 6 && sClean.length >= 6) {
-        if (sClean.includes(qClean) || qClean.includes(sClean)) return true
+        const maxDist = (qClean.length >= 10 || sClean.length >= 10) ? 2 : 1
+        if (levenshtein(qClean, sClean) <= maxDist) {
+          if (qSeason === sSeason) return true
+        }
       }
 
-      // 4. Coincidencia con nombre en inglés en los nombres de archivo
+      // 4. Subcadena segura (mismo número de temporada)
+      if (qClean.length >= 6 && sClean.length >= 6) {
+        if (sClean.includes(qClean) || qClean.includes(sClean)) {
+          if (qSeason === sSeason) return true
+        }
+      }
+
+      // 5. Coincidencia con nombre de archivo
       if (s.episodes && s.episodes.length > 0) {
         const fn = strip(s.episodes[0].fileName || '')
-        if (qClean.length >= 6 && fn.includes(qClean)) return true
+        if (qClean.length >= 6 && fn.includes(qClean)) {
+          const fnSeason = getSeasonNumber(s.episodes[0].fileName)
+          if (qSeason === fnSeason) return true
+        }
       }
     }
     return false
   })
 }
 
-async function fetchAnimeToshoTorrent(seriesTitle, ep, fetchFn) {
+async function fetchAnimeToshoTorrent(queryTitles, series, ep, fetchFn) {
   try {
-    const cleanTitle = seriesTitle.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
     const epNum = Math.floor(Number(ep.episode))
     const epStr = String(epNum).padStart(2, '0')
     
+    // Títulos a consultar en AnimeTosho en orden de calidad (títulos oficiales de AniList primero, luego catálogo)
+    const titlesToTry = [
+      ...((queryTitles || []).filter(t => /[a-z0-9]/i.test(t))),
+      series.title
+    ]
+    
     let items = null
-    const q1 = encodeURIComponent(`${cleanTitle} ${epStr}`)
-    const res1 = await fetchFn(`https://feed.animetosho.org/json?q=${q1}`, {
-      headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
-      signal: AbortSignal.timeout(4000)
-    })
-    if (res1.ok) {
-      const data = await res1.json()
-      if (Array.isArray(data) && data.length) items = data
+    for (const titleCandidate of titlesToTry) {
+      const cleanTitle = titleCandidate.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
+      const q = encodeURIComponent(`${cleanTitle} ${epStr}`)
+      const res = await fetchFn(`https://feed.animetosho.org/json?q=${q}`, {
+        headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
+        signal: AbortSignal.timeout(4000)
+      })
+      if (res.ok) {
+        const data = await res.json()
+        if (Array.isArray(data) && data.length) {
+          items = data
+          break
+        }
+      }
     }
 
     // Para películas o especiales de 1 solo episodio, el tracker suele no incluir "01"
     if ((!items || !items.length) && epNum === 1) {
-      const q2 = encodeURIComponent(cleanTitle)
-      const res2 = await fetchFn(`https://feed.animetosho.org/json?q=${q2}`, {
-        headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
-        signal: AbortSignal.timeout(4000)
-      })
-      if (res2.ok) {
-        const data = await res2.json()
-        if (Array.isArray(data) && data.length) items = data
+      for (const titleCandidate of titlesToTry) {
+        const cleanTitle = titleCandidate.replace(/[!?:;,.'"()[\]-]/g, ' ').replace(/\s+/g, ' ').trim()
+        const q = encodeURIComponent(cleanTitle)
+        const res = await fetchFn(`https://feed.animetosho.org/json?q=${q}`, {
+          headers: { 'User-Agent': 'Hayase-JapanPaw/1.0' },
+          signal: AbortSignal.timeout(4000)
+        })
+        if (res.ok) {
+          const data = await res.json()
+          if (Array.isArray(data) && data.length) {
+            items = data
+            break
+          }
+        }
       }
     }
 
@@ -108,35 +179,71 @@ async function fetchAnimeToshoTorrent(seriesTitle, ep, fetchFn) {
     const singles = items.filter(i => !isBatchTorrent(i))
     const pool = singles.length ? singles : items
 
-    // 1. Prioridad máxima: match exacto por CRC32
-    if (ep.crc32) {
-      const match = pool.find(i => i.title && i.title.toUpperCase().includes(ep.crc32.toUpperCase()))
-      if (match?.info_hash && match?.torrent_url) return match
+    const targetRes = String(ep.resolution || '').replace(/p$/i, '')
+    const targetGroup = (ep.group || '').toLowerCase()
+    const targetCrc = (ep.crc32 || '').toUpperCase()
+    const targetIsHevc = /\b(hevc|x265|h\.?265)\b/i.test(`${ep.quality || ''} ${ep.fileName || ''}`)
+
+    let bestMatch = null
+    let bestScore = -10000
+
+    for (const item of pool) {
+      if (!item.info_hash || !item.torrent_url) continue
+      const itemTitle = (item.title || '').toLowerCase()
+      let score = 0
+
+      // 1. Coincidencia exacta por CRC32
+      if (targetCrc && itemTitle.toUpperCase().includes(targetCrc)) {
+        score += 10000
+      }
+
+      // 2. Coincidencia por nombre de archivo
+      if (ep.fileName) {
+        const cleanFn = strip(ep.fileName.replace(/\.mkv$/i, ''))
+        const iClean = strip(itemTitle)
+        if (iClean.includes(cleanFn) || cleanFn.includes(iClean)) {
+          score += 5000
+        }
+      }
+
+      // 3. Resolución: Prioridad estricta para evitar mezclar 720p con 1080p
+      const itemIs1080 = /\b1080p?\b/i.test(itemTitle)
+      const itemIs720 = /\b720p?\b/i.test(itemTitle)
+      const itemIs480 = /\b480p?\b/i.test(itemTitle)
+
+      if (targetRes === '1080') {
+        if (itemIs1080) score += 2000
+        else if (itemIs720) score -= 2000
+        else if (itemIs480) score -= 3000
+      } else if (targetRes === '720') {
+        if (itemIs720) score += 2000
+        else if (itemIs1080) score -= 2000
+        else if (itemIs480) score -= 3000
+      } else if (targetRes === '480') {
+        if (itemIs480) score += 2000
+        else score -= 1000
+      }
+
+      // 4. Fansub Group
+      if (targetGroup && itemTitle.includes(targetGroup)) {
+        score += 1000
+      }
+
+      // 5. Codec HEVC vs AVC
+      const itemIsHevc = /\b(hevc|x265|h\.?265)\b/i.test(itemTitle)
+      if (targetIsHevc === itemIsHevc) {
+        score += 500
+      } else {
+        score -= 200
+      }
+
+      if (score > bestScore) {
+        bestScore = score
+        bestMatch = item
+      }
     }
 
-    // 2. Prioridad: match exacto por nombre de archivo
-    if (ep.fileName) {
-      const cleanFn = strip(ep.fileName.replace(/\.mkv$/i, ''))
-      const match = pool.find(i => {
-        const iClean = strip(i.title || '')
-        return iClean.includes(cleanFn) || cleanFn.includes(iClean)
-      })
-      if (match?.info_hash && match?.torrent_url) return match
-    }
-
-    // 3. Prioridad: match por fansub group
-    if (ep.group) {
-      const match = pool.find(i => i.title && i.title.toLowerCase().includes(ep.group.toLowerCase()))
-      if (match?.info_hash && match?.torrent_url) return match
-    }
-
-    // 4. Match por resolución
-    const resStr = `${ep.resolution}p`
-    const matchRes = pool.find(i => i.title && i.title.includes(resStr))
-    if (matchRes?.info_hash && matchRes?.torrent_url) return matchRes
-
-    // 5. Primer resultado individual que tenga torrent_url e info_hash
-    return pool.find(i => i.info_hash && i.torrent_url) || null
+    return bestMatch
   } catch {
     return null
   }
@@ -183,7 +290,7 @@ export default new class JapanPawTorrentSource {
           })
         } else {
           // 2. Resolución dinámica en tiempo real vía AnimeTosho
-          const tosho = await fetchAnimeToshoTorrent(s.title, e, fetchFn)
+          const tosho = await fetchAnimeToshoTorrent(titles, s, e, fetchFn)
           if (tosho && tosho.info_hash) {
             results.push({
               series: s,

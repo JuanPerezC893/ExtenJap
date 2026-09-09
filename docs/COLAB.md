@@ -57,7 +57,16 @@ HTTP 403 confirma que esa solicitud fue rechazada; no prueba por sí solo quién
 
 Guarda un diagnóstico de una tanda pequeña junto con su hora y versión de código. Después compara la misma etapa y el mismo archivo en el entorno donde falla. Evita lanzar otra tanda completa o borrar las pausas guardadas solo porque el resumen indique cero archivos preparados.
 
-### Sondeo y selección de proxies para video
+### Túnel recomendado en Colab: Cloudflare WARP + Privoxy
+
+Para evitar el bloqueo `HTTP 403` que los servidores webseed aplican a las IPs de datacenter de Google Cloud, el cuaderno incluye la celda **2b** que activa Cloudflare WARP en modo proxy (`socks5://127.0.0.1:40000`) y crea un puente HTTP local con Privoxy (`http://127.0.0.1:8118`).
+
+Esto permite:
+1. No alterar la tabla de enrutamiento principal de Colab, evitando que la sesión del navegador se desconecte.
+2. Salir a internet a través de la red Anycast de Cloudflare con latencia mínima y gran ancho de banda.
+3. Descargar fragmentos de video y verificar hashes SHA-1 en Craftervault con total compatibilidad.
+
+### Sondeo y selección de proxies alternativos para video
 
 Si las peticiones de fragmentos de video son rechazadas con HTTP 403 desde Colab, puedes sondear y seleccionar proxies que realmente permitan descargar piezas de video y pasen la comprobación SHA-1:
 

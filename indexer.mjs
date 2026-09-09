@@ -4,11 +4,11 @@ import { createHash } from 'node:crypto'
 import parseTorrent, { toTorrentFile } from 'parse-torrent'
 import { fileName, episodeNumber, resolution, seasonNumber, isBatchTorrent } from './lib/matching.js'
 import { validateLinkedTorrent } from './lib/link-validation.js'
-import { searchNyaa, searchAnimeTosho, buildSearchQueries } from './lib/sources.js'
+import { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT, buildSearchQueries } from './lib/sources.js'
 import { createIndexerNetwork } from './lib/indexer-network.js'
 import { directUrl } from './lib/direct-url.js'
 import { isMain } from './lib/io.mjs'
-export { searchNyaa, searchAnimeTosho }
+export { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT }
 
 function atomicWrite(path, value) {
   mkdirSync(dirname(path), { recursive: true })
@@ -88,7 +88,8 @@ export function createSearchCache() {
 function boundedQueries(series, ep, maxQueries) {
   const plans = [], seen = new Set()
   for (const q of buildSearchQueries(series, { ...ep, fileName: fileName(ep) })) {
-    for (const provider of q.provider === 'all' ? ['nyaa', 'animetosho'] : [q.provider]) {
+    const providers = q.provider === 'all' ? ['anisearch', 'animetosho', 'nekobt'] : [q.provider]
+    for (const provider of providers) {
       const key = provider + ':' + q.query
       if (!seen.has(key)) { seen.add(key); plans.push({ provider, query: q.query }) }
     }
@@ -124,13 +125,20 @@ async function resolveRelease(series, ep, options) {
     try { const match = await tryTorrent(readFileSync(path), 'saved-torrent'); if (match) return { status: 'prepared', match, searched, candidates } }
     catch (err) { if (fatalDisk(err)) throw err; if (err.code) errors.push(errorData(err)); else incompatible++ }
   }
+  const searchMap = {
+    nyaa: searchNyaa,
+    animetosho: searchAnimeTosho,
+    anisearch: searchAniSearch,
+    nekobt: searchNekoBT
+  }
   const { plans, truncated } = boundedQueries(series, ep, maxQueries)
   for (const plan of plans) {
     signal?.throwIfAborted()
     let items
     try {
       searched++
-      items = await searchCache(`${plan.provider}:${plan.query}`, () => (plan.provider === 'nyaa' ? searchNyaa : searchAnimeTosho)(plan.query, fetchFn, { signal }))
+      const searchFn = searchMap[plan.provider] || searchAnimeTosho
+      items = await searchCache(`${plan.provider}:${plan.query}`, () => searchFn(plan.query, fetchFn, { signal }))
     } catch (err) { errors.push(errorData(err)); continue }
     for (const item of items) {
       signal?.throwIfAborted()
@@ -141,8 +149,24 @@ async function resolveRelease(series, ep, options) {
       if (candidates >= maxCandidates) break
       candidates++
       try {
-        const response = await fetchFn(item.torrent_url, { signal, maxBodyBytes: 4 * 1024 * 1024 })
-        if (!response.ok) throw failure('HTTP_ERROR', `Torrent HTTP ${response.status}`, { status: response.status })
+        let response
+        try {
+          response = await fetchFn(item.torrent_url, { signal, maxBodyBytes: 4 * 1024 * 1024 })
+          if (!response.ok) throw failure('HTTP_ERROR', `Torrent HTTP ${response.status}`, { status: response.status })
+        } catch (fetchErr) {
+          if (item.info_hash) {
+            try {
+              const toshoRes = await fetchFn(`https://feed.animetosho.xyz/json?info_hash=${item.info_hash}`, { signal, maxBodyBytes: 1024 * 1024 })
+              if (toshoRes.ok) {
+                const data = await toshoRes.json()
+                if (data?.[0]?.torrent_url) {
+                  response = await fetchFn(data[0].torrent_url, { signal, maxBodyBytes: 4 * 1024 * 1024 })
+                }
+              }
+            } catch {}
+          }
+          if (!response || !response.ok) throw fetchErr
+        }
         const match = await tryTorrent(new Uint8Array(await response.arrayBuffer()), item.source || plan.provider)
         if (match) return { status: 'prepared', match, searched, candidates }
       } catch (err) { if (fatalDisk(err)) throw err; if (err.code) errors.push(errorData(err)); else incompatible++ }
@@ -206,7 +230,17 @@ export async function runIndexer(options = {}) {
         pool = new ProxyPool({ enabled: true, proxyFile, strictProxy: true, maxRetries: 0, timeoutMs: 20000 }); await pool.warmup(15, 100, { signal })
         trackerFetch = (url, opts) => pool.fetch(url, opts, 0)
       }
-      const network = createIndexerNetwork({ ...networkOptions, fetchFn: (url, opts) => ['nyaa.si', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org'].includes(new URL(url).hostname) ? trackerFetch(url, opts) : fetchFn(url, opts), signal, initialState: state.providers })
+      const trackerHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to']
+      const network = createIndexerNetwork({
+        ...networkOptions,
+        fetchFn: (url, opts) => {
+          const hostname = new URL(url).hostname.toLowerCase()
+          const isTracker = trackerHosts.some(h => hostname === h || hostname.endsWith('.' + h))
+          return isTracker ? trackerFetch(url, opts) : fetchFn(url, opts)
+        },
+        signal,
+        initialState: state.providers
+      })
       const cache = createSearchCache()
       const report = { startedAt: new Date().toISOString(), selected: 0, attempted: 0, prepared: 0, reused: 0, deferred: 0, not_found: 0, incompatible: 0, needs_review: 0, postponed: 0, stopReason: 'complete' }
       const checkpoint = () => {
@@ -235,7 +269,8 @@ export async function runIndexer(options = {}) {
       let cursor = 0, stop = false, fatal
       const blockedProviders = () => {
         const hosts = network.snapshot().hosts || {}
-        return ['nyaa.si', 'feed.animetosho.org'].every(h => Number(hosts[h]?.retryAt || hosts[h]?.cooldownUntil) > Date.now())
+        const activeProviders = ['api.anisearch.org', 'feed.animetosho.xyz', 'nekobt.to']
+        return activeProviders.every(h => Number(hosts[h]?.retryAt || hosts[h]?.cooldownUntil) > Date.now())
       }
       async function worker(id) {
         while (cursor < tasks.length && !stop && !signal.aborted) {

@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { extractCrc32, extractFansubGroup, cleanReleaseFileName, buildSearchQueries, parseNyaaResults, parseAnimeToshoResults, searchNyaa, searchAnimeTosho } from '../lib/sources.js'
+import { extractCrc32, extractFansubGroup, cleanReleaseFileName, buildSearchQueries, parseNyaaResults, parseAnimeToshoResults, parseAniSearchResults, parseNekoBTResults, searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT } from '../lib/sources.js'
 import { createIndexerNetwork } from '../lib/indexer-network.js'
 
 test('sources: extractCrc32 extrae hash de 8 caracteres en mayúsculas', () => {
@@ -59,8 +59,46 @@ test('sources: AnimeTosho admite listas vacías y rechaza JSON con otro esquema'
   assert.throws(() => parseAnimeToshoResults([{}]), { code: 'INVALID_RESPONSE' })
 })
 
+test('sources: AniSearch parsea resultados, convierte URLs de view a download y rechaza JSON inválido', () => {
+  assert.deepEqual(parseAniSearchResults([]), [])
+  const parsed = parseAniSearchResults([{
+    torrentName: 'Release 01',
+    torrentFileUrl: 'https://nyaa.si/view/12345/torrent',
+    infohash: 'abcd1234',
+    length: 1000000
+  }])
+  assert.equal(parsed[0].title, 'Release 01')
+  assert.equal(parsed[0].torrent_url, 'https://nyaa.si/download/12345.torrent')
+  assert.equal(parsed[0].info_hash, 'abcd1234')
+  assert.equal(parsed[0].total_size, 1000000)
+  assert.equal(parsed[0].source, 'anisearch')
+  assert.throws(() => parseAniSearchResults({ error: 'fail' }), { code: 'INVALID_RESPONSE' })
+  assert.throws(() => parseAniSearchResults([{}]), { code: 'INVALID_RESPONSE' })
+})
+
+test('sources: NekoBT parsea resultados, construye link de descarga por ID y rechaza JSON inválido', () => {
+  assert.deepEqual(parseNekoBTResults({ data: { results: [] } }), [])
+  const parsed = parseNekoBTResults({
+    data: {
+      results: [{
+        id: '998877',
+        title: 'Neko Release',
+        infohash: 'ef012345',
+        filesize: '500000'
+      }]
+    }
+  })
+  assert.equal(parsed[0].title, 'Neko Release')
+  assert.equal(parsed[0].torrent_url, 'https://nekobt.to/api/v1/torrents/998877/download?public=true')
+  assert.equal(parsed[0].info_hash, 'ef012345')
+  assert.equal(parsed[0].total_size, 500000)
+  assert.equal(parsed[0].source, 'nekobt')
+  assert.throws(() => parseNekoBTResults({ invalid: true }), { code: 'INVALID_RESPONSE' })
+  assert.throws(() => parseNekoBTResults({ data: { results: [{}] } }), { code: 'INVALID_RESPONSE' })
+})
+
 test('sources: búsquedas fallidas no se convierten en resultados vacíos ni se reintentan por trabajador', async () => {
-  for (const search of [searchNyaa, searchAnimeTosho]) {
+  for (const search of [searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT]) {
     let calls = 0
     await assert.rejects(search('crc', async () => { calls++; return new Response('slow down', { status: 429, headers: { 'Retry-After': '60' } }) }, 5), { code: 'RATE_LIMITED', status: 429 })
     assert.equal(calls, 1)

@@ -1,3 +1,6 @@
 node_modules/
 raw-catalog.json
 *.tmp
+indexer-state.json
+indexer-report.json
+indexer.lock

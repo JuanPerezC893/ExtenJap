@@ -3,7 +3,7 @@
     "manifestVersion": 2,
     "name": "Japan-Paw Direct",
     "id": "japanpaw-direct",
-    "version": "0.3.8",
+    "version": "0.4.3",
     "description": "Catálogo pre-verificado con aceleración WebSeed directa desde Japan-Paw.",
     "type": "torrent",
     "accuracy": "high",

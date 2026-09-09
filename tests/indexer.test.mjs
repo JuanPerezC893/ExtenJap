@@ -31,7 +31,7 @@ test('indexer: toTorrentFile inyecta url-list (BEP-19 WebSeed) preservando el in
 
 test('indexer: verifyPieceHashes valida piezas inicial y final por SHA-1', async () => {
   const piece0 = Buffer.from('PRIMERA_PIEZA_DEL_VIDEO_PROBANDO_HASH_1234567890')
-  const pieceLast = Buffer.from('ULTIMA_PIEZA_DEL_VIDEO_PROBANDO_HASH_0987654321')
+  const pieceLast = Buffer.from('ULTIMA_PIEZA__DEL_VIDEO_PROBANDO_HASH_0987654321')
   const hash0 = createHash('sha1').update(piece0).digest('hex')
   const hashLast = createHash('sha1').update(pieceLast).digest('hex')
 

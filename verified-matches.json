@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T05:26:21.855Z",
+  "updatedAt": "2026-09-09T14:52:31.539Z",
   "series": {
     "84": {
       "title": "Kidou Senshi Gundam 0083: STARDUST MEMORY",
@@ -1900,32 +1900,90 @@
           "resolution": "1080",
           "quality": "[Erai-raws] [Web 1080p]",
           "fileName": "[Erai-raws] Mashle 2nd Season - 01 [1080p][Multiple Subtitle][DF020541].mkv",
-          "size": 1448646250,
+          "sourceFileName": "[Erai-raws] Mashle 2nd Season - 01 [1080p][Multiple Subtitle][DF020541].mkv",
+          "sourceFingerprint": "e1cd4fc7f6917eb619c8bf9cbf6d306282bf3179295b6f4be54ed0da03ff41dc",
           "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 01 [1080p][Multiple Subtitle][DF020541].mkv",
           "infoHash": "0e50fd7d3f75e6aff117b9c5ce6f97db84789de9",
-          "torrentPath": "torrents/0e50fd7d3f75e6aff117b9c5ce6f97db84789de9.torrent",
+          "size": 1448646250,
+          "torrentPath": "torrents/0e50fd7d3f75e6aff117b9c5ce6f97db84789de9-ac42c30c172fe074.torrent",
           "verified": {
-            "matchedBy": "crc",
+            "matchedBy": "saved-torrent",
             "piecesVerified": true,
-            "verifiedAt": "2026-09-08T03:11:46.248Z"
+            "verifiedAt": "2026-09-09T14:43:51.219Z",
+            "evidence": {
+              "method": "sha1-samples",
+              "totalSize": 1448646250,
+              "pieceLength": 1048576,
+              "pieces": [
+                {
+                  "index": 0,
+                  "start": 0,
+                  "end": 1048575,
+                  "sha1": "a834291dab513a14315e420827b963467170d441"
+                },
+                {
+                  "index": 691,
+                  "start": 724566016,
+                  "end": 725614591,
+                  "sha1": "162547085f552ca0b5e66de11601b3f3be26705a"
+                },
+                {
+                  "index": 1381,
+                  "start": 1448083456,
+                  "end": 1448646249,
+                  "sha1": "0821c48c531a1f95bfacefd7f8fd6f0916485e16"
+                }
+              ],
+              "checkedAt": "2026-09-09T14:43:51.217Z"
+            }
           },
-          "isOnline": true
+          "isOnline": true,
+          "checkedAt": "2026-09-09T14:43:51.217Z"
         },
         {
           "episode": 2,
           "resolution": "1080",
           "quality": "[Erai-raws] [Web 1080p]",
           "fileName": "[Erai-raws] Mashle 2nd Season - 02 [1080p][Multiple Subtitle][7EE3BC7D].mkv",
-          "size": 1470832822,
+          "sourceFileName": "[Erai-raws] Mashle 2nd Season - 02 [1080p][Multiple Subtitle][7EE3BC7D].mkv",
+          "sourceFingerprint": "ea07eab5cf74428371b100d117e9a90392f528136f14c21fade6df8ffc38aca7",
           "directUrl": "https://anime.craftervault.com/0:down/M/Mashle/[Erai-raws] Mashle 2nd Season [Web 1080p]/[Erai-raws] Mashle 2nd Season - 02 [1080p][Multiple Subtitle][7EE3BC7D].mkv",
           "infoHash": "7f68009b45a18be302093d983e28a62fc87f2a82",
-          "torrentPath": "torrents/7f68009b45a18be302093d983e28a62fc87f2a82.torrent",
+          "size": 1470832822,
+          "torrentPath": "torrents/7f68009b45a18be302093d983e28a62fc87f2a82-4f795d782271ce98.torrent",
           "verified": {
-            "matchedBy": "crc",
+            "matchedBy": "saved-torrent",
             "piecesVerified": true,
-            "verifiedAt": "2026-09-08T03:11:54.261Z"
+            "verifiedAt": "2026-09-09T14:44:05.670Z",
+            "evidence": {
+              "method": "sha1-samples",
+              "totalSize": 1470832822,
+              "pieceLength": 1048576,
+              "pieces": [
+                {
+                  "index": 0,
+                  "start": 0,
+                  "end": 1048575,
+                  "sha1": "2f9f820812048e24665ff43d3c05112efb85f4d8"
+                },
+                {
+                  "index": 701,
+                  "start": 735051776,
+                  "end": 736100351,
+                  "sha1": "9f9fa3306deedb14fba506467d8b860a2075f42e"
+                },
+                {
+                  "index": 1402,
+                  "start": 1470103552,
+                  "end": 1470832821,
+                  "sha1": "c02c308469118544d8d8a53052da4b37e129ded5"
+                }
+              ],
+              "checkedAt": "2026-09-09T14:44:05.669Z"
+            }
           },
-          "isOnline": true
+          "isOnline": true,
+          "checkedAt": "2026-09-09T14:44:05.669Z"
         },
         {
           "episode": 3,

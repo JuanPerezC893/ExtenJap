@@ -131,18 +131,23 @@ async function downloadTorrentBuffer(item, fetchFn, signal) {
 
   const fetchFromToshoMirror = async query => {
     if (!query) return null
-    try {
-      const res = await fetchFn(`https://feed.animetosho.xyz/json?q=${encodeURIComponent(query)}`, {
-        headers: { 'User-Agent': 'JapanPawIndexer/1.0' },
-        signal,
-        maxBodyBytes: 1024 * 1024
-      })
-      if (res && res.ok) {
-        const data = await res.json()
-        const mirrorUrl = data?.[0]?.torrent_url
-        if (mirrorUrl) return await fetchValidTorrent(mirrorUrl)
-      }
-    } catch {}
+    for (const host of ['feed.animetosho.xyz', 'feed.animetosho.org']) {
+      try {
+        const res = await fetchFn(`https://${host}/json?q=${encodeURIComponent(query)}`, {
+          headers: { 'User-Agent': 'JapanPawIndexer/1.0' },
+          signal,
+          maxBodyBytes: 1024 * 1024
+        })
+        if (res && res.ok) {
+          const data = await res.json()
+          const mirrorUrl = data?.[0]?.torrent_url
+          if (mirrorUrl) {
+            const buf = await fetchValidTorrent(mirrorUrl)
+            if (buf) return buf
+          }
+        }
+      } catch {}
+    }
     return null
   }
 
@@ -171,7 +176,7 @@ async function downloadTorrentBuffer(item, fetchFn, signal) {
 
 async function resolveRelease(series, ep, options) {
   const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing } = options
-  const errors = [], seen = new Set()
+  const errors = [], rejections = [], seen = new Set()
   let candidates = 0, incompatible = 0, searched = 0, successfulSearches = 0
   const url = directUrl(ep.url)
   if (!url) throw failure('INVALID_DIRECT_URL', 'URL de video inválida')
@@ -194,7 +199,7 @@ async function resolveRelease(series, ep, options) {
     seen.add(record.torrentPath)
     const path = inside(resolve(stateDir, 'dist'), record.torrentPath)
     if (!existsSync(path)) continue
-    try { const match = await tryTorrent(readFileSync(path), 'saved-torrent'); if (match) return { status: 'prepared', match, searched, candidates } }
+    try { const match = await tryTorrent(readFileSync(path), 'saved-torrent'); if (match) return { status: 'prepared', match, searched, candidates, rejections } }
     catch (err) { if (fatalDisk(err)) throw err; if (err.code) errors.push(errorData(err)); else incompatible++ }
   }
   const searchMap = {
@@ -223,21 +228,30 @@ async function resolveRelease(series, ep, options) {
       candidates++
       try {
         const bytes = await downloadTorrentBuffer(item, fetchFn, signal)
-        if (!bytes) continue
+        if (!bytes) {
+          rejections.push(`${item.source || plan.provider}:download_failed`)
+          continue
+        }
         const match = await tryTorrent(bytes, item.source || plan.provider)
-        if (match) return { status: 'prepared', match, searched, candidates }
+        if (!match) {
+          rejections.push('sha1_mismatch')
+          continue
+        }
+        return { status: 'prepared', match, searched, candidates, rejections }
       } catch (err) {
         if (fatalDisk(err)) throw err
         if (err.code === 'RANGE_UNAVAILABLE' || err.code === 'TIMEOUT' || err.code === 'NETWORK_ERROR' || err.name === 'AbortError') {
           errors.push(errorData(err))
+          rejections.push(err.code || 'NETWORK_ERROR')
         } else {
           incompatible++
+          rejections.push(`${err.code || 'validation'}:${err.message}`)
         }
       }
     }
     if (candidates >= maxCandidates) break
   }
-  const details = { searched, candidates, incompatible, errors, searchLimited: truncated || candidates >= maxCandidates }
+  const details = { searched, candidates, incompatible, errors, rejections, searchLimited: truncated || candidates >= maxCandidates }
   if ((successfulSearches === 0 || errors.some(e => e.code === 'RANGE_UNAVAILABLE')) && errors.length) {
     const mainErr = errors.find(e => e.code === 'RANGE_UNAVAILABLE') || errors[0]
     return { ...details, status: 'deferred', reason: mainErr.code, retryAt: Math.max(Date.now() + 60000, ...errors.map(e => e.retryAt || 0)) }
@@ -332,7 +346,7 @@ export async function runIndexer(options = {}) {
         if (!seen.has(key)) { seen.add(key); tasks.push({ series, ep, key }) }
       }
       report.selected = tasks.length
-      log(`Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      log(`[Indexer v0.5.2] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
       let cursor = 0, stop = false, fatal
       const blockedProviders = () => {
         const hosts = network.snapshot().hosts || {}
@@ -385,7 +399,7 @@ export async function runIndexer(options = {}) {
           }
           const { match, ...outcome } = result
           state.jobs[key] = { ...stamp, ...outcome }; report[result.status]++
-          log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}`)
+          log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}${result.rejections?.length ? ' [' + result.rejections.slice(0, 3).join('; ') + ']' : ''}`)
           checkpoint()
         }
       }

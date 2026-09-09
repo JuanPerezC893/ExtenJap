@@ -270,8 +270,9 @@ function episodeIssue(series, ep, conflictingIds) {
 }
 export async function runIndexer(options = {}) {
   const defaultCatalog = existsSync('raw-catalog.json') ? 'raw-catalog.json' : 'dist/indexed-catalog.json'
-  const { seriesFilter = [], verifyPieces = true, limit = Infinity, concurrency = 2, useProxy = false, proxyFile = null, batchRange = null, includeNonAnime = false, retryPending = false, maxQueries = 4, maxCandidates = 4, maxMinutes = 15, stateDir: requestedDir = '.', catalogPath = defaultCatalog, signal: parentSignal, fetchFn = fetch, networkOptions = {}, log = console.log } = options
+  const { seriesFilter = [], verifyPieces = true, limit = Infinity, concurrency = 2, useProxy = false, proxyFile = null, batchRange = null, includeNonAnime = false, retryPending = false, maxQueries = 4, maxCandidates = 4, maxMinutes = 15, stateDir: requestedDir = '.', catalogPath = defaultCatalog, signal: parentSignal, fetchFn = fetch, networkOptions = {}, log = console.log, intervalMs = null } = options
   if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 16) throw new Error('concurrency debe ser un entero de 1 a 16')
+  if (intervalMs !== null && (!Number.isInteger(intervalMs) || intervalMs < 0)) throw new Error('interval-ms debe ser un entero mayor o igual a 0')
   if (!(limit === Infinity || Number.isInteger(limit) && limit > 0) || !Number.isFinite(maxMinutes) || maxMinutes <= 0 || !Number.isInteger(maxQueries) || maxQueries < 1 || !Number.isInteger(maxCandidates) || maxCandidates < 1) throw new Error('Límites inválidos')
   if (useProxy && !proxyFile) throw new Error('--proxy requiere --proxy-file; no se cargarán listas públicas automáticamente')
   const stateDir = resolve(requestedDir)
@@ -298,6 +299,8 @@ export async function runIndexer(options = {}) {
       const initialProviders = state.providers
       const proxiedHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com']
       const network = createIndexerNetwork({
+        concurrencyPerHost: Math.max(2, Math.min(concurrency, 8)),
+        minIntervalMs: intervalMs ?? (concurrency > 2 ? 300 : 600),
         ...networkOptions,
         fetchFn: (url, opts) => {
           const hostname = new URL(url).hostname.toLowerCase()
@@ -404,7 +407,7 @@ export async function runIndexer(options = {}) {
 }
 export function parseIndexerArgs(args) {
   const out = { seriesFilter: [] }
-  const numbers = { '--concurrency': 'concurrency', '--limit': 'limit', '--max-minutes': 'maxMinutes', '--max-queries': 'maxQueries', '--max-candidates': 'maxCandidates' }
+  const numbers = { '--concurrency': 'concurrency', '--limit': 'limit', '--max-minutes': 'maxMinutes', '--max-queries': 'maxQueries', '--max-candidates': 'maxCandidates', '--interval-ms': 'intervalMs' }
   const strings = { '--state-dir': 'stateDir', '--catalog': 'catalogPath', '--proxy-file': 'proxyFile' }
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]

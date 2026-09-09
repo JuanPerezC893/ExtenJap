@@ -250,7 +250,7 @@ async function resolveRelease(series, ep, options) {
         const isNetwork = ['RANGE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'BODY_TOO_LARGE'].includes(err.code) || err.name === 'AbortError' || err.name === 'IndexerNetworkError'
         if (isNetwork) {
           errors.push(errorData(err))
-          rejections.push(err.code || 'NETWORK_ERROR')
+          rejections.push(err.status ? `${err.code || 'HTTP_ERROR'}:${err.status}` : (err.code || 'NETWORK_ERROR'))
         } else {
           incompatible++
           rejections.push(`${err.code || 'validation'}:${err.message}`)
@@ -329,13 +329,13 @@ export async function runIndexer(options = {}) {
           }
         }
       }
-      const trackerHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to']
+      const proxiedHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com']
       const network = createIndexerNetwork({
         ...networkOptions,
         fetchFn: (url, opts) => {
           const hostname = new URL(url).hostname.toLowerCase()
-          const isTracker = trackerHosts.some(h => hostname === h || hostname.endsWith('.' + h))
-          return isTracker ? trackerFetch(url, opts) : fetchFn(url, opts)
+          const shouldProxy = useProxy && proxiedHosts.some(h => hostname === h || hostname.endsWith('.' + h))
+          return shouldProxy ? trackerFetch(url, opts) : fetchFn(url, opts)
         },
         signal,
         initialState: initialProviders
@@ -368,7 +368,7 @@ export async function runIndexer(options = {}) {
         if (!seen.has(key)) { seen.add(key); tasks.push({ series, ep, key }) }
       }
       report.selected = tasks.length
-      log(`[Indexer v0.5.3] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      log(`[Indexer v0.5.4] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
       let cursor = 0, stop = false, fatal
       const blockedProviders = () => {
         const hosts = network.snapshot().hosts || {}

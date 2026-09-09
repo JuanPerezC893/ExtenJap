@@ -87,20 +87,28 @@ export function createSearchCache() {
 }
 function boundedQueries(series, ep, maxQueries) {
   const plans = [], seen = new Set()
-  for (const q of buildSearchQueries(series, { ...ep, fileName: fileName(ep) })) {
-    const providers = q.provider === 'all' ? ['anisearch', 'animetosho', 'nekobt'] : [q.provider]
+  const queries = buildSearchQueries(series, { ...ep, fileName: fileName(ep) })
+  for (const q of queries) {
+    const providers = q.provider === 'all'
+      ? (q.priority === 'crc' ? ['anisearch', 'animetosho'] : ['animetosho', 'anisearch'])
+      : [q.provider]
     for (const provider of providers) {
       const key = provider + ':' + q.query
-      if (!seen.has(key)) { seen.add(key); plans.push({ provider, query: q.query }) }
+      if (!seen.has(key)) {
+        seen.add(key)
+        plans.push({ provider, query: q.query })
+        if (plans.length >= maxQueries) break
+      }
     }
+    if (plans.length >= maxQueries) break
   }
-  return { plans: plans.slice(0, maxQueries), truncated: plans.length > maxQueries }
+  return { plans, truncated: queries.length > plans.length }
 }
 const fatalDisk = err => ['ENOSPC', 'EACCES', 'EPERM', 'EROFS', 'EIO'].includes(err.code)
 async function resolveRelease(series, ep, options) {
   const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing } = options
   const errors = [], seen = new Set()
-  let candidates = 0, incompatible = 0, searched = 0
+  let candidates = 0, incompatible = 0, searched = 0, successfulSearches = 0
   const url = directUrl(ep.url)
   if (!url) throw failure('INVALID_DIRECT_URL', 'URL de video inválida')
   const tryTorrent = async (bytes, source) => {
@@ -139,6 +147,7 @@ async function resolveRelease(series, ep, options) {
       searched++
       const searchFn = searchMap[plan.provider] || searchAnimeTosho
       items = await searchCache(`${plan.provider}:${plan.query}`, () => searchFn(plan.query, fetchFn, { signal }))
+      successfulSearches++
     } catch (err) { errors.push(errorData(err)); continue }
     for (const item of items) {
       signal?.throwIfAborted()
@@ -169,12 +178,17 @@ async function resolveRelease(series, ep, options) {
         }
         const match = await tryTorrent(new Uint8Array(await response.arrayBuffer()), item.source || plan.provider)
         if (match) return { status: 'prepared', match, searched, candidates }
-      } catch (err) { if (fatalDisk(err)) throw err; if (err.code) errors.push(errorData(err)); else incompatible++ }
+      } catch (err) {
+        if (fatalDisk(err)) throw err
+        incompatible++
+      }
     }
     if (candidates >= maxCandidates) break
   }
   const details = { searched, candidates, incompatible, errors, searchLimited: truncated || candidates >= maxCandidates }
-  if (errors.length) return { ...details, status: 'deferred', reason: errors[0].code, retryAt: Math.max(Date.now() + 60000, ...errors.map(e => e.retryAt || 0)) }
+  if (successfulSearches === 0 && errors.length) {
+    return { ...details, status: 'deferred', reason: errors[0].code, retryAt: Math.max(Date.now() + 60000, ...errors.map(e => e.retryAt || 0)) }
+  }
   return { ...details, status: incompatible ? 'incompatible' : 'not_found', reason: incompatible ? 'SAMPLED_OR_METADATA_MISMATCH' : 'NO_MATCH_IN_SEARCH_BUDGET', retryAt: Date.now() + 86400000 }
 }
 export async function findAndPrepareTorrent(series, ep, options = {}) {
@@ -269,7 +283,7 @@ export async function runIndexer(options = {}) {
       let cursor = 0, stop = false, fatal
       const blockedProviders = () => {
         const hosts = network.snapshot().hosts || {}
-        const activeProviders = ['api.anisearch.org', 'feed.animetosho.xyz', 'nekobt.to']
+        const activeProviders = ['api.anisearch.org', 'feed.animetosho.xyz']
         return activeProviders.every(h => Number(hosts[h]?.retryAt || hosts[h]?.cooldownUntil) > Date.now())
       }
       async function worker(id) {

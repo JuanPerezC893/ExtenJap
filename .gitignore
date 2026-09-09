@@ -4,3 +4,4 @@ raw-catalog.json
 indexer-state.json
 indexer-report.json
 indexer.lock
+artifacts/

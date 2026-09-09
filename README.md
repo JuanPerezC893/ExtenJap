@@ -1,77 +1,58 @@
-# Japan-Paw para Hayase — 0.3.6
+# Japan-Paw para Hayase
 
-Repositorio dual: **Japan-Paw Direct** (`torrent.js`) busca metadatos compatibles y **Japan-Paw WebSeed** (`http.js`) aporta el archivo HTTP. El catálogo contiene 3.316 entradas y 83.681 enlaces de episodios/versiones; tener un enlace indexado no significa que exista un torrent compatible.
+La extensión lee catálogos preparados por AniList ID. El indexador busca metadatos por separado, comprueba muestras del archivo HTTP y añade el webseed al `.torrent`. El catálogo completo de enlaces no equivale a contenido listo para reproducir.
 
-## Correcciones de esta versión
+## Indexador 0.5.5
 
-- La búsqueda valida el archivo `.torrent` descargado, su infoHash, nombre real, tamaño conocido y estructura. El nombre y el peso mostrados proceden de esos metadatos, no de una combinación del catálogo con un torrent diferente.
-- El nombre exacto o un CRC acompañado de una coincidencia de título/episodio identifica una versión. Los conflictos de CRC, resolución y codec se rechazan; no se acepta el candidato de mayor puntuación si corresponde a otro archivo.
-- No se reintroducen batches cuando la búsqueda solo devuelve paquetes. La fuente Direct utiliza torrents de un único archivo de video, sin límite de tamaño para películas. `movie()` está implementado.
-- La fuente HTTP utiliza la misma comparación. En batches externos resuelve cada archivo por separado y conserva su índice; admite episodio cero.
-- Una consulta con AniList ID no recae en una serie que tenga otro ID. Se preservan Unicode, alias y correcciones tipográficas únicas. Los IDs existentes no han sido auditados uno por uno.
-- Se eliminan los contadores inventados de seeders y descargas. La disponibilidad es **verificada**, **caída** o **sin verificar**, según una comprobación fechada de menos de 24 horas. Los antiguos `isOnline: true` sin fecha no se presentan como verificados.
-- La importación y actualización preservan IDs/alias y conservan metadatos solo para la misma URL de archivo. Los vinculadores de Nyaa también validan la identidad antes de guardar un torrent.
-- Ambas extensiones comparten lógica y se empaquetan con esbuild. No dependen de la existencia de `TorrentSource` o `WebSeedSource` como variables globales.
+- Antes de buscar, solicita un rango de un byte al video. Si el servidor rechaza la petición, el archivo queda diferido sin gastar consultas a los buscadores.
+- Los diagnósticos distinguen `video_probe`, `search`, `torrent_download` y `video_pieces`, con host y código HTTP. Un error de acceso o HTML servido como torrent nunca se interpreta como hash incompatible.
+- Todos los trabajadores comparten las pausas de los servidores. Se conservan al reiniciar, incluido el servidor del video. Los fallos repetidos suspenden la tanda; no se cambian proxies para ignorar `Retry-After`.
+- Las búsquedas y candidatos tienen presupuestos explícitos. Los proveedores alternativos se consultan dentro de ese presupuesto; no se hacen búsquedas ocultas por ID ni se acepta arbitrariamente el primer torrent de un espejo.
+- Solo las asociaciones que superan las comprobaciones de piezas se publican. El muestreo incluye primera, central y última pieza cuando son distintas; la evidencia queda guardada. No equivale a verificar el archivo completo.
 
-## Comandos
+## Ejecutar por tandas
 
-Node.js 22 o posterior:
+Desde la carpeta del proyecto, con Node.js 20 o posterior:
 
 ```powershell
 npm ci
-npm run build
 npm test
+node indexer.mjs --catalog raw-catalog.json --concurrency 2 --limit 100 --max-minutes 15
 ```
 
-`build` conserva la dirección de alojamiento ya configurada en `dist/manifest.json`. Para cambiarla explícitamente:
+Sin `--state-dir`, usa las asociaciones y torrents existentes de esta carpeta. Para trabajar en otro directorio, añade `--state-dir RUTA`. El nuevo directorio empieza vacío: para conservar resultados anteriores usa su directorio de estado o copia el registro y sus torrents juntos antes de empezar. El cuaderno de Colab hace esta copia inicial sin sobrescribir un registro existente.
+
+Para priorizar un anime añade `--series 207809`, o un nombre. `--limit` cuenta intentos nuevos, no asociaciones reutilizadas; ejecutar otra tanda puede avanzar. Los pendientes se revisitan cuando vence su fecha de reintento. `--retry-pending` los adelanta explícitamente, pero no elimina las pausas de los servidores.
 
 ```powershell
-npm run build -- https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/
+node build.mjs
+# Si usaste otro estado:
+node build.mjs --state-dir RUTA
 ```
 
-El resultado queda en `dist/`. Este comando no hace commit ni push. La actualización en Hayase solo estará disponible cuando se publique esa carpeta en el repositorio correspondiente.
+Compilar prepara `dist`; no publica ni hace commit/push. Hayase usa una sola extensión de tipo torrent con webseed incorporado. La extensión HTTP antigua ya no forma parte del manifiesto.
 
-### Actualizar datos
+## Google Colab
 
-```powershell
-node scrape.mjs 7901 7901 --refresh
-node import-chapters.mjs
-node check-links.mjs --series 7901 --episode 1 --resolution 720 --limit 1
-npm run build
-```
+Abre `Colab_Indexador_Reanudable.ipynb` y sigue [la guía](docs/COLAB.md). El cuaderno permite cargar el ZIP corregido, monta Drive y conserva el estado entre sesiones. No elimina cambios locales de Git ni reinicia todos los pendientes automáticamente. Para probar las correcciones locales debes usar el ZIP actualizado; clonar Git descarga únicamente lo publicado.
 
-El scraper usa por defecto una petición concurrente y una pausa de un segundo. Los errores de acceso no prueban que una serie no exista. El script alternativo `scrape_update.py` requiere sus dependencias de Python y trabaja con la configuración de proxies que ya tenía el proyecto.
+La conexión directa es el valor predeterminado. Un proxy configurado se activa con `--proxy --proxy-file RUTA`; no se descargan listas públicas automáticamente. El proxy también se usa para el servidor del video. Las mismas pausas y verificaciones se aplican en ambos modos.
 
-`check-links` hace una petición Range de un byte y registra fecha y estado. Un bloqueo o error de red queda como desconocido. No se han comprobado masivamente todos los enlaces.
+## Resultados y reanudación
 
-### Cuando no existe el torrent exacto
+- `verified-matches.json`: asociaciones y evidencia de las comprobaciones.
+- `indexer-state.json`: estado por archivo, errores y pausas de servidores.
+- `indexer-report.json`: resumen de la última tanda y solicitudes por host.
+- `dist/torrents/`: archivos necesarios para compilar y reutilizar asociaciones.
 
-No se puede sustituir un archivo JPN por otro MULTi ni un encode por otro, aunque sean el mismo capítulo y resolución. Para un archivo sin metadatos compatibles sigue disponible el generador local:
+Conserva estos archivos juntos. Un único proceso puede escribir en un directorio de estado. Ante una interrupción normal se cancelan peticiones, se guarda el avance y se libera `indexer.lock`. Si se pierde la sesión de golpe, confirma que el proceso anterior terminó antes de retirar un lock residual; nunca borres el registro para resolverlo.
 
-```powershell
-node hash.mjs --series 7901 --episode 1 --resolution 720 --limit 1 --max-bytes 2000000000
-npm run build
-```
+Código de salida: `0` tanda terminada o límite alcanzado; `2` trabajo diferido por acceso; `130` interrupción; `1` error fatal. Un `0` no afirma que se preparó todo el catálogo.
 
-Ese comando lee el video completo una vez; no forma parte de las búsquedas normales. `--max-bytes` limita la transferencia de esa ejecución, no el tamaño permitido por la extensión. Guarda los metadatos en el catálogo de origen y en `dist` para que el siguiente build los conserve.
+Los conflictos detectados de episodio, tamaño o temporadas quedan en `needs_review`. No se corrigen automáticamente los IDs ni la numeración: nombres con offsets absolutos o temporadas pueden necesitar una asociación explícita.
 
 ## Validación
 
-`npm test` ejecuta pruebas con aserciones, sin consultar servicios externos. Cubre archivos incorrectos, CRC contradictorio, resoluciones, episodios 1–12 de Mashle S2, episodio cero, películas grandes, batches, caché del catálogo, filtros, actualización de datos y carga de los bundles sin módulos externos. También incluye una descarga HTTP local cuyas piezas se verifican contra el torrent.
+`npm test` usa fixtures y servidores HTTP locales; las pruebas no editan el catálogo ni el registro de trabajo. Se comprueban, entre otros casos, límites compartidos, respuestas de bloqueo, muestras SHA-1, concurrencia y reanudación.
 
-Para una prueba de red explícita:
-
-```powershell
-node verify-live.mjs
-node verify-live.mjs --pieces
-```
-
-Con `--pieces` se comprueban primera y última pieza por SHA-1; no se descarga el video entero. El comando devuelve código distinto de cero si alguno de los casos no tiene un torrent compatible.
-
-Comprobaciones reales durante esta corrección:
-
-- **Mashle S2, episodio 2, 1080p y 720p:** metadatos distintos y correctos; primera y última pieza HTTP coinciden por SHA-1 en ambas versiones.
-- **Sayonara Lara, episodio 1, 1080p y 720p:** mismas comprobaciones correctas.
-- **Barbaroi, episodio 2:** la versión JPN de Japan-Paw tiene 1.494.912.099 bytes; el torrent MULTi que antes se mostraba tiene 1.802.888.724 bytes. Se rechaza. No se encontró una coincidencia exacta en las consultas realizadas.
-
-Estas comprobaciones no equivalen a probar toda la reproducción dentro de Hayase, ni garantizan la disponibilidad futura de los servidores. No se ha modificado la aplicación Hayase ni se ha publicado esta versión automáticamente.
+Una prueba real desde este PC preparó Sora wa Akai Kawa no Hotori, episodio 1, 1080p, y compiló su catálogo. El diagnóstico queda en `artifacts/diagnostico-local/`. Este resultado no comprueba la conexión de Colab ni garantiza disponibilidad o velocidad futura.

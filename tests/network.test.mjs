@@ -187,3 +187,27 @@ test('network: el parser puede pausar un host que entrega challenges con HTTP200
   assert.ok(failure.retryAt > Date.now())
   await assert.rejects(network.fetch('https://nyaa.si/?q=two'), { code: 'HOST_COOLDOWN' })
 })
+
+test('network: 403 aislado del video no pausa todo; tres fallos sí, y se restauran', async () => {
+  let calls = 0
+  const net = createIndexerNetwork({ minIntervalMs: 0, fetchFn: async () => { calls++; return new Response('', { status: 403 }) } })
+  for (let i = 0; i < 3; i++) {
+    await assert.rejects(net.fetch(`https://emision.craftervault.com/${i}.mkv`), { code: 'HTTP_ERROR', status: 403 })
+    if (i < 2) assert.equal(net.snapshot().hosts['emision.craftervault.com'].retryAt, 0)
+  }
+  await assert.rejects(net.fetch('https://emision.craftervault.com/next.mkv'), { code: 'HOST_COOLDOWN' })
+  const resumed = createIndexerNetwork({ initialState: net.snapshot(), fetchFn: async () => { calls++; throw new Error('No request during cooldown') } })
+  await assert.rejects(resumed.fetch('https://emision.craftervault.com/other.mkv'), { code: 'HOST_COOLDOWN' })
+  assert.equal(calls, 3)
+})
+
+test('network: Range rechazado cancela el video entero antes de leerlo', async () => {
+  let cancelled = false, reads = 0
+  const net = createIndexerNetwork({ fetchFn: async (_url, options) => {
+    assert.equal(options.requiredStatus, undefined)
+    return new Response(new ReadableStream({ pull() { reads++ }, cancel() { cancelled = true } }, { highWaterMark: 0 }), { status: 200 })
+  } })
+  await assert.rejects(net.fetch('https://video.test/full', { requiredStatus: 206, maxBodyBytes: 1 }), { code: 'RANGE_UNAVAILABLE', status: 200 })
+  assert.equal(cancelled, true)
+  assert.equal(reads, 0)
+})

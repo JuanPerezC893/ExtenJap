@@ -1,6 +1,13 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join, resolve, sep } from 'node:path'
+function tempState(t) {
+  const path = fs.mkdtempSync(join(tmpdir(), 'japanpaw-index-test-'))
+  t.after(() => { if (!resolve(path).startsWith(resolve(tmpdir()) + sep + 'japanpaw-index-test-')) throw new Error('Unsafe cleanup'); fs.rmSync(path, { recursive: true, force: true }) })
+  return path
+}
 import { toTorrentFile, default as parseTorrent } from 'parse-torrent'
 import { verifyPieceHashes, saveVerifiedMatches, loadVerifiedMatches, episodeReleaseMatch, runIndexer, findAndPrepareTorrent } from '../indexer.mjs'
 import { createHash } from 'node:crypto'
@@ -92,47 +99,26 @@ test('indexer: episodeReleaseMatch distingue versiones con diferente release/arc
   assert.equal(episodeReleaseMatch(recordA, epB), false, 'Debe rechazar una release diferente de 1080p')
 })
 
-test('indexer: guardado atómico y protección ante corrupción en verified-matches.json', () => {
-  const originalVerified = loadVerifiedMatches()
-
-  // Probar guardado atómico
-  saveVerifiedMatches({ ...originalVerified, testKey: 12345 })
-  const reloaded = loadVerifiedMatches()
-  assert.equal(reloaded.testKey, 12345)
-
-  // Restaurar original
-  saveVerifiedMatches(originalVerified)
-
-  // Probar que ante JSON corrupto genera respaldo y lanza error en vez de resetear silenciosamente
-  const backupOriginal = fs.readFileSync('verified-matches.json', 'utf8')
-  fs.writeFileSync('verified-matches.json', '{"incompleto": ', 'utf8')
-
-  try {
-    assert.throws(() => {
-      loadVerifiedMatches()
-    }, /Error crítico al leer/)
-    // Verificar que se creó un archivo de respaldo corrupt
-    const corruptFiles = fs.readdirSync('.').filter(f => f.startsWith('verified-matches.json.corrupt.'))
-    assert.ok(corruptFiles.length > 0, 'Debe crearse un archivo de respaldo del JSON corrupto')
-    // Limpiar archivos de prueba corrupt
-    for (const cf of corruptFiles) fs.unlinkSync(cf)
-  } finally {
-    fs.writeFileSync('verified-matches.json', backupOriginal, 'utf8')
-  }
+test('indexer: guardado atómico y protección ante corrupción sin tocar datos del usuario', t => {
+  const dir = tempState(t)
+  saveVerifiedMatches({ series: {}, testKey: 12345 }, dir)
+  assert.equal(loadVerifiedMatches(dir).testKey, 12345)
+  fs.writeFileSync(join(dir, 'verified-matches.json'), '{"incompleto": ')
+  assert.throws(() => loadVerifiedMatches(dir), /Error crítico al leer/)
+  assert.ok(fs.readdirSync(dir).some(f => f.startsWith('verified-matches.json.corrupt.')))
+  assert.equal(fs.readFileSync(join(dir, 'verified-matches.json'), 'utf8'), '{"incompleto": ')
 })
 
-test('indexer: runIndexer admite concurrencia y procesa workers paralelos', async () => {
-  // Ejecutar con filtro inexistente para validar la inicialización de workers concurrentes
-  await assert.doesNotReject(async () => {
-    await runIndexer({
-      seriesFilter: ['__serie_inexistente_para_test__'],
-      concurrency: 3,
-      useProxy: false
-    })
-  })
+test('indexer: inicialización vacía no realiza solicitudes ni modifica catálogo', async t => {
+  const dir = tempState(t), catalogPath = join(dir, 'catalog.json')
+  fs.writeFileSync(catalogPath, '[]')
+  const result = await runIndexer({ stateDir: dir, catalogPath, concurrency: 3, log: () => {}, fetchFn: async () => { throw new Error('Unexpected network') } })
+  assert.equal(result.attempted, 0)
+  assert.equal(fs.readFileSync(catalogPath, 'utf8'), '[]')
 })
 
-test('indexer: resuelve candidato vía AnimeTosho cuando Nyaa/NekoBT entregan HTML de Cloudflare (Google Colab)', async () => {
+test('indexer: resuelve candidato vía AnimeTosho cuando Nyaa/NekoBT entregan HTML de Cloudflare (fixture sin red)', async t => {
+  const stateDir = tempState(t)
   const piece0 = Buffer.alloc(1048576, 65)
   const pieceHash = createHash('sha1').update(piece0).digest('hex')
   const dummyTorrent = {
@@ -193,10 +179,8 @@ test('indexer: resuelve candidato vía AnimeTosho cuando Nyaa/NekoBT entregan HT
     }
     // 5. Verificación de piezas Range en Craftervault
     if (u.hostname === 'emision.craftervault.com') {
-      return new Response(piece0, {
-        status: 206,
-        headers: { 'content-range': `bytes 0-${piece0.length - 1}/${piece0.length}` }
-      })
+      const [, start, end] = opts.headers.Range.match(/bytes=(\d+)-(\d+)/).map(Number)
+      return new Response(piece0.subarray(start, end + 1), { status: 206, headers: { 'content-range': `bytes ${start}-${end}/${piece0.length}` } })
     }
     return new Response(null, { status: 404 })
   }
@@ -204,20 +188,17 @@ test('indexer: resuelve candidato vía AnimeTosho cuando Nyaa/NekoBT entregan HT
   const result = await findAndPrepareTorrent(series, ep, {
     fetchFn: mockFetch,
     detailed: true,
-    stateDir: 'tests/scratch-colab-test'
+    stateDir
   })
 
   assert.equal(result.status, 'prepared', 'El episodio debe quedar preparado')
   assert.equal(result.match.infoHash, dummyParsed.infoHash, 'El infoHash debe coincidir')
   assert.equal(result.match.piecesVerified, true, 'Las piezas deben estar verificadas')
 
-  // Limpiar scratch creado en el test
-  if (fs.existsSync('tests/scratch-colab-test')) {
-    fs.rmSync('tests/scratch-colab-test', { recursive: true, force: true })
-  }
+
 })
 
-test('indexer: errores de red/cooldown difieren el episodio en vez de marcar incompatible', async () => {
+test('indexer: errores de red/cooldown difieren el episodio en vez de marcar incompatible', async t => {
   const piece0 = Buffer.from('TEST_DATA_BYTES_FOR_PIECE_CHECK')
   const fileName = '[Group] Network Fail Show - 01 [1080p][12345678].mkv'
   const dummy = {
@@ -263,15 +244,13 @@ test('indexer: errores de red/cooldown difieren el episodio en vez de marcar inc
   const result = await findAndPrepareTorrent(series, ep, {
     fetchFn: mockFetch,
     detailed: true,
-    stateDir: 'tests/scratch-colab-test2'
+    stateDir: tempState(t)
   })
 
   assert.equal(result.status, 'deferred', 'El episodio debe quedar diferido por fallo de red')
   assert.equal(result.incompatible, 0, 'No debe incrementar incompatible ante errores de red')
 
-  if (fs.existsSync('tests/scratch-colab-test2')) {
-    fs.rmSync('tests/scratch-colab-test2', { recursive: true, force: true })
-  }
+
 })
 
 

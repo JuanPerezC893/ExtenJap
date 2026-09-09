@@ -50,7 +50,7 @@ export function episodeReleaseMatch(entry, ep) {
   return Boolean(entry.directUrl && directUrl(entry.directUrl) === directUrl(ep.url))
 }
 const failure = (code, message, extra = {}) => Object.assign(new Error(message), { code, ...extra })
-const errorData = err => ({ code: err.code || (err.name === 'AbortError' ? 'ABORTED' : err.name === 'TimeoutError' ? 'TIMEOUT' : 'NETWORK_ERROR'), message: err.message, status: err.status, provider: err.provider, retryAt: err.retryAt || null })
+const errorData = err => ({ code: err.code || (err.name === 'AbortError' ? 'ABORTED' : err.name === 'TimeoutError' ? 'TIMEOUT' : 'NETWORK_ERROR'), message: err.message, status: err.status, provider: err.provider, retryAt: err.retryAt || null, stage: err.stage || null, host: (() => { try { return new URL(err.url).hostname } catch { return null } })() })
 
 // Evidence for sampled pieces only, never a claim that every byte was checked.
 export async function verifyPieceHashes(url, parsed, fetchFn = fetch, options = {}) {
@@ -61,7 +61,7 @@ export async function verifyPieceHashes(url, parsed, fetchFn = fetch, options = 
   for (const index of new Set([0, Math.floor(parsed.pieces.length / 2), parsed.pieces.length - 1])) {
     options.signal?.throwIfAborted()
     const start = index * parsed.pieceLength, end = Math.min(start + parsed.pieceLength, parsed.length) - 1
-    const res = await fetchFn(url, { headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity', 'User-Agent': BROWSER_UA, 'Accept': '*/*', 'Referer': 'https://emision.craftervault.com/' }, signal: options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(20000)]) : AbortSignal.timeout(20000), maxBodyBytes: end - start + 1 })
+    const res = await fetchFn(url, { headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity', 'User-Agent': BROWSER_UA, 'Accept': '*/*', 'Referer': 'https://emision.craftervault.com/' }, signal: options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(20000)]) : AbortSignal.timeout(20000), maxBodyBytes: end - start + 1, requiredStatus: 206 })
     const range = res.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/i)
     if (res.status !== 206 || !range || Number(range[1]) !== start || Number(range[2]) !== end) {
       await res.body?.cancel?.()
@@ -88,105 +88,81 @@ export function createSearchCache() {
 }
 function boundedQueries(series, ep, maxQueries) {
   const plans = [], seen = new Set()
-  const queries = buildSearchQueries(series, { ...ep, fileName: fileName(ep) })
-  for (const q of queries) {
-    const providers = q.provider === 'all'
-      ? (q.priority === 'crc' ? ['anisearch', 'animetosho'] : ['animetosho', 'anisearch'])
-      : [q.provider]
+  for (const q of buildSearchQueries(series, { ...ep, fileName: fileName(ep) })) {
+    const providers = q.provider === 'all' ? (q.priority === 'crc' ? ['anisearch', 'animetosho'] : ['animetosho', 'anisearch']) : [q.provider]
     for (const provider of providers) {
       const key = provider + ':' + q.query
-      if (!seen.has(key)) {
-        seen.add(key)
-        plans.push({ provider, query: q.query })
-        if (plans.length >= maxQueries) break
-      }
+      if (!seen.has(key)) { seen.add(key); plans.push({ provider, query: q.query }) }
     }
-    if (plans.length >= maxQueries) break
   }
-  return { plans, truncated: queries.length > plans.length }
+  return { plans: plans.slice(0, maxQueries), truncated: plans.length > maxQueries }
 }
+
 const fatalDisk = err => ['ENOSPC', 'EACCES', 'EPERM', 'EROFS', 'EIO'].includes(err.code)
 
-async function downloadTorrentBuffer(item, fetchFn, signal) {
-  const isCloudflareBlocked = url => {
-    try {
-      const h = new URL(url).hostname.toLowerCase()
-      return h === 'nyaa.si' || h.endsWith('.nyaa.si') || h === 'nekobt.to' || h.endsWith('.nekobt.to')
-    } catch { return false }
+async function stageRequest(action, stage, url) {
+  try { return await action() }
+  catch (err) {
+    err.stage ||= stage
+    if (!err.url) err.url = url
+    throw err
   }
+}
 
-  const fetchValidTorrent = async url => {
-    if (!url) return null
-    try {
-      const res = await fetchFn(url, {
-        headers: { 'User-Agent': 'JapanPawIndexer/1.0' },
-        signal,
-        maxBodyBytes: 4 * 1024 * 1024
-      })
-      if (!res || !res.ok) return null
-      const buf = new Uint8Array(await res.arrayBuffer())
-      if (buf.length > 0 && buf[0] === 0x64) return buf
-    } catch {}
-    return null
+export async function probeDirectVideo(url, fetchFn, signal) {
+  const res = await stageRequest(() => fetchFn(url, {
+    headers: { Range: 'bytes=0-0', 'Accept-Encoding': 'identity' },
+    signal, maxBodyBytes: 1, requiredStatus: 206
+  }), 'video_probe', url)
+  const match = res.headers.get('content-range')?.match(/^bytes 0-0\/(\d+)$/i)
+  if (res.status !== 206 || !match || Number(match[1]) < 1 || (await res.arrayBuffer()).byteLength !== 1) {
+    await res.body?.cancel?.().catch(() => {})
+    throw failure('RANGE_UNAVAILABLE', 'El video no responde con Range de un byte', { stage: 'video_probe', url, status: res.status })
   }
+  return Number(match[1])
+}
 
-  const fetchFromToshoMirror = async query => {
-    if (!query) return null
-    for (const host of ['feed.animetosho.xyz', 'feed.animetosho.org']) {
-      try {
-        const res = await fetchFn(`https://${host}/json?q=${encodeURIComponent(query)}`, {
-          headers: { 'User-Agent': 'JapanPawIndexer/1.0' },
-          signal,
-          maxBodyBytes: 1024 * 1024
-        })
-        if (res && res.ok) {
-          const data = await res.json()
-          const mirrorUrl = data?.[0]?.torrent_url
-          if (mirrorUrl) {
-            const buf = await fetchValidTorrent(mirrorUrl)
-            if (buf) return buf
-          }
-        }
-      } catch {}
+async function downloadTorrentBuffer(item, fetchFn, signal, network) {
+  const url = item.torrent_url
+  return stageRequest(async () => {
+    const res = await fetchFn(url, { signal, maxBodyBytes: 4 * 1024 * 1024 })
+    if (!res.ok) throw failure('HTTP_ERROR', `Descarga de torrent: HTTP ${res.status}`, { status: res.status })
+    const bytes = new Uint8Array(await res.arrayBuffer())
+    let parsed
+    try { parsed = await parseTorrent(bytes) }
+    catch {
+      const err = failure('INVALID_RESPONSE', 'La respuesta de descarga no contiene metadatos torrent válidos', { url, status: res.status })
+      network?.noteFailure(url, err)
+      throw err
     }
-    return null
-  }
-
-  const primaryUrl = item.torrent_url
-  const blockedHost = primaryUrl && isCloudflareBlocked(primaryUrl)
-  const nyaaMatch = primaryUrl && primaryUrl.match(/\/download\/(\d+)\.torrent/i)
-  const lookupKey = item.info_hash || (nyaaMatch ? nyaaMatch[1] : null) || item.nyaa_id
-
-  if (blockedHost && lookupKey) {
-    const mirrorBytes = await fetchFromToshoMirror(lookupKey)
-    if (mirrorBytes) return mirrorBytes
-  }
-
-  if (primaryUrl) {
-    const directBytes = await fetchValidTorrent(primaryUrl)
-    if (directBytes) return directBytes
-  }
-
-  if (lookupKey && !blockedHost) {
-    const mirrorBytes = await fetchFromToshoMirror(lookupKey)
-    if (mirrorBytes) return mirrorBytes
-  }
-
-  return null
+    if (item.info_hash && parsed.infoHash !== String(item.info_hash).toLowerCase()) throw failure('TORRENT_HASH_MISMATCH', 'El torrent descargado no corresponde al infohash del resultado', { url })
+    return bytes
+  }, 'torrent_download', url)
 }
 
 async function resolveRelease(series, ep, options) {
-  const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing } = options
+  const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing, network } = options
   const errors = [], rejections = [], seen = new Set()
-  let candidates = 0, incompatible = 0, searched = 0, successfulSearches = 0
+  let candidates = 0, incompatible = 0, searched = 0
   const url = directUrl(ep.url)
   if (!url) throw failure('INVALID_DIRECT_URL', 'URL de video inválida')
+  // Check the data path before spending tracker requests. A 403 here is access,
+  // not evidence about whether a compatible torrent exists.
+  if (verifyPieces) {
+    try {
+      const actualSize = await probeDirectVideo(url, fetchFn, signal)
+      if (ep.size && Number(ep.size) !== actualSize) return { status: 'needs_review', reason: 'SOURCE_SIZE_CHANGED', searched, candidates, errors: [], actualSize }
+    } catch (err) {
+      if (signal?.aborted) throw err
+      return { status: 'deferred', reason: err.code || 'NETWORK_ERROR', searched, candidates, incompatible: 0, errors: [errorData(err)], retryAt: err.retryAt || Date.now() + 60000 }
+    }
+  }
   const tryTorrent = async (bytes, source) => {
     const parsed = await parseTorrent(bytes)
     validateLinkedTorrent(parsed, ep, { allowSampleMatch: verifyPieces })
     let evidence = null
     if (verifyPieces) {
-      evidence = await verifyPieceHashes(url, parsed, fetchFn, { signal, evidence: true })
+      evidence = await stageRequest(() => verifyPieceHashes(url, parsed, fetchFn, { signal, evidence: true }), 'video_pieces', url)
       if (!evidence) { incompatible++; return null }
     }
     parsed.urlList = [url]
@@ -203,7 +179,7 @@ async function resolveRelease(series, ep, options) {
     try { const match = await tryTorrent(readFileSync(path), 'saved-torrent'); if (match) return { status: 'prepared', match, searched, candidates, rejections } }
     catch (err) {
       if (fatalDisk(err)) throw err
-      const isNetwork = ['RANGE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'BODY_TOO_LARGE'].includes(err.code) || err.name === 'AbortError' || err.name === 'IndexerNetworkError'
+      const isNetwork = ['RANGE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'BODY_TOO_LARGE', 'INVALID_RESPONSE', 'TRUNCATED_RANGE'].includes(err.code) || err.name === 'AbortError' || err.name === 'IndexerNetworkError'
       if (isNetwork) errors.push(errorData(err))
       else if (err.code) errors.push(errorData(err))
       else incompatible++
@@ -223,8 +199,11 @@ async function resolveRelease(series, ep, options) {
       searched++
       const searchFn = searchMap[plan.provider] || searchAnimeTosho
       items = await searchCache(`${plan.provider}:${plan.query}`, () => searchFn(plan.query, fetchFn, { signal }))
-      successfulSearches++
-    } catch (err) { errors.push(errorData(err)); continue }
+    } catch (err) {
+      if (err.url) network?.noteFailure(err.url, err)
+      err.stage ||= 'search'
+      errors.push(errorData(err)); continue
+    }
     for (const item of items) {
       signal?.throwIfAborted()
       if (!item.torrent_url || seen.has(item.torrent_url) || isBatchTorrent(item)) continue
@@ -234,11 +213,7 @@ async function resolveRelease(series, ep, options) {
       if (candidates >= maxCandidates) break
       candidates++
       try {
-        const bytes = await downloadTorrentBuffer(item, fetchFn, signal)
-        if (!bytes) {
-          rejections.push(`${item.source || plan.provider}:download_failed`)
-          continue
-        }
+        const bytes = await downloadTorrentBuffer(item, fetchFn, signal, network)
         const match = await tryTorrent(bytes, item.source || plan.provider)
         if (!match) {
           rejections.push('sha1_mismatch')
@@ -247,7 +222,7 @@ async function resolveRelease(series, ep, options) {
         return { status: 'prepared', match, searched, candidates, rejections }
       } catch (err) {
         if (fatalDisk(err)) throw err
-        const isNetwork = ['RANGE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'BODY_TOO_LARGE'].includes(err.code) || err.name === 'AbortError' || err.name === 'IndexerNetworkError'
+        const isNetwork = ['RANGE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'BODY_TOO_LARGE', 'INVALID_RESPONSE', 'TRUNCATED_RANGE'].includes(err.code) || err.name === 'AbortError' || err.name === 'IndexerNetworkError'
         if (isNetwork) {
           errors.push(errorData(err))
           rejections.push(err.status ? `${err.code || 'HTTP_ERROR'}:${err.status}` : (err.code || 'NETWORK_ERROR'))
@@ -260,7 +235,7 @@ async function resolveRelease(series, ep, options) {
     if (candidates >= maxCandidates) break
   }
   const details = { searched, candidates, incompatible, errors, rejections, searchLimited: truncated || candidates >= maxCandidates }
-  const networkFailure = errors.length > 0 && (successfulSearches === 0 || candidates === 0 || errors.some(e => ['RANGE_UNAVAILABLE', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR'].includes(e.code)))
+  const networkFailure = errors.length > 0
   if (networkFailure) {
     const mainErr = errors.find(e => ['HOST_COOLDOWN', 'HTTP_ERROR', 'RANGE_UNAVAILABLE', 'RATE_LIMITED'].includes(e.code)) || errors[0]
     return { ...details, status: 'deferred', reason: mainErr.code, retryAt: Math.max(Date.now() + 60000, ...errors.map(e => e.retryAt || 0)) }
@@ -270,7 +245,7 @@ async function resolveRelease(series, ep, options) {
 export async function findAndPrepareTorrent(series, ep, options = {}) {
   const signal = options.signal || AbortSignal.timeout(120000)
   const network = options.network || createIndexerNetwork({ fetchFn: options.fetchFn || fetch, signal })
-  const result = await resolveRelease(series, ep, { ...options, fetchFn: network.fetch, signal })
+  const result = await resolveRelease(series, ep, { ...options, fetchFn: network.fetch, signal, network })
   if (options.detailed) return result
   if (result.status === 'deferred') throw failure(result.reason, 'La búsqueda quedó diferida por un fallo de acceso', { retryAt: result.retryAt, details: result })
   return result.match || null
@@ -320,15 +295,7 @@ export async function runIndexer(options = {}) {
         pool = new ProxyPool({ enabled: true, proxyFile, strictProxy: true, maxRetries: 0, timeoutMs: 20000 }); await pool.warmup(15, 100, { signal })
         trackerFetch = (url, opts) => pool.fetch(url, opts, 0)
       }
-      const initialProviders = { ...state.providers }
-      if (initialProviders.hosts) {
-        initialProviders.hosts = { ...initialProviders.hosts }
-        for (const host of Object.keys(initialProviders.hosts)) {
-          if (host === 'emision.craftervault.com' || host.endsWith('.craftervault.com')) {
-            delete initialProviders.hosts[host]
-          }
-        }
-      }
+      const initialProviders = state.providers
       const proxiedHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com']
       const network = createIndexerNetwork({
         ...networkOptions,
@@ -344,11 +311,7 @@ export async function runIndexer(options = {}) {
       const report = { startedAt: new Date().toISOString(), selected: 0, attempted: 0, prepared: 0, reused: 0, deferred: 0, not_found: 0, incompatible: 0, needs_review: 0, postponed: 0, stopReason: 'complete' }
       const checkpoint = () => {
         saveVerifiedMatches(registry, stateDir)
-        const snap = network.snapshot()
-        if (snap?.hosts) {
-          delete snap.hosts['emision.craftervault.com']
-        }
-        state.providers = snap; state.updatedAt = new Date().toISOString()
+        state.providers = network.snapshot(); state.updatedAt = new Date().toISOString()
         atomicWrite(statePath, state)
         atomicWrite(resolve(stateDir, 'indexer-report.json'), { ...report, updatedAt: state.updatedAt, providers: state.providers })
       }
@@ -368,7 +331,7 @@ export async function runIndexer(options = {}) {
         if (!seen.has(key)) { seen.add(key); tasks.push({ series, ep, key }) }
       }
       report.selected = tasks.length
-      log(`[Indexer v0.5.4] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      log(`[Indexer v0.5.5] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
       let cursor = 0, stop = false, fatal
       const blockedProviders = () => {
         const hosts = network.snapshot().hosts || {}
@@ -400,12 +363,17 @@ export async function runIndexer(options = {}) {
             } catch {}
           }
           if (reusable) { report.reused++; state.jobs[key] = { ...stamp, status: 'prepared', reused: true }; continue }
+          const videoHost = new URL(directUrl(ep.url)).hostname
+          const hostState = network.snapshot().hosts?.[videoHost]
+          if (Number(hostState?.retryAt) > Date.now()) {
+            report.stopReason = 'video_host_unavailable'; stop = true; break
+          }
           // Reused entries do not consume the budget; repeated --limit runs advance.
-          if (report.attempted >= limit) { cursor--; report.stopReason = 'limit'; break }
+          if (report.attempted >= limit) { report.stopReason = 'limit'; break }
           report.attempted++
           log(`[W${id}] ${series.title} · ${ep.episode} · ${ep.resolution || '?'}p`)
           let result
-          try { result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, verifyPieces, fetchFn: network.fetch, signal, searchCache: cache, maxQueries, maxCandidates }) }
+          try { result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, maxQueries, maxCandidates }) }
           catch (err) {
             if (signal.aborted) { report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'; result = { status: 'deferred', reason: report.stopReason, retryAt: Date.now() } }
             else if (err.code && !fatalDisk(err)) result = { status: 'deferred', reason: err.code, errors: [errorData(err)], retryAt: Date.now() + 60000 }
@@ -421,14 +389,14 @@ export async function runIndexer(options = {}) {
           }
           const { match, ...outcome } = result
           state.jobs[key] = { ...stamp, ...outcome }; report[result.status]++
-          log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}${result.rejections?.length ? ' [' + result.rejections.slice(0, 3).join('; ') + ']' : ''}`)
+          log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}${result.errors?.length ? ' [' + result.errors.slice(0, 3).map(e => [e.stage, e.host, e.status ? 'HTTP ' + e.status : e.code].filter(Boolean).join(' / ')).join('; ') + ']' : ''}`)
           checkpoint()
         }
       }
       await Promise.all(Array.from({ length: concurrency }, (_, i) => worker(i + 1).catch(err => { fatal ||= err; stop = true; controller.abort(err) })))
       if (fatal) throw fatal
       if (signal.aborted && report.stopReason === 'complete') report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'
-      report.remaining = tasks.length - cursor; report.finishedAt = new Date().toISOString(); checkpoint()
+      report.remaining = tasks.length - report.attempted - report.reused - report.postponed; report.finishedAt = new Date().toISOString(); checkpoint()
       log(`Tanda finalizada (${report.stopReason}): ${report.prepared} preparados, ${report.reused} reutilizados, ${report.deferred} diferidos por acceso, ${report.not_found} sin coincidencia en el presupuesto, ${report.incompatible} incompatibles, ${report.needs_review} para revisar. Restantes: ${report.remaining}.`)
       return report
     } finally { clearTimeout(timeout) }
@@ -468,7 +436,7 @@ if (isMain(import.meta.url)) {
   process.once('SIGINT', stop); process.once('SIGTERM', stop)
   try {
     const report = await runIndexer({ ...parseIndexerArgs(process.argv.slice(2)), signal: controller.signal })
-    process.exitCode = report.stopReason === 'interrupted' ? 130 : report.stopReason === 'providers_unavailable' || report.deferred > 0 ? 2 : 0
+    process.exitCode = report.stopReason === 'interrupted' ? 130 : ['providers_unavailable', 'video_host_unavailable'].includes(report.stopReason) || report.deferred > 0 ? 2 : 0
   } catch (err) { console.error(err.message); process.exitCode = 1 }
   finally { process.removeListener('SIGINT', stop); process.removeListener('SIGTERM', stop) }
 }

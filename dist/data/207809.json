@@ -1,0 +1,30 @@
+{
+  "anilistId": 207809,
+  "title": "Sora wa Akai Kawa no Hotori",
+  "episodes": [
+    {
+      "episode": 2,
+      "resolution": "1080",
+      "quality": "[Erai-raws][Web 1080p]",
+      "fileName": "[Erai-raws] Sora wa Akai Kawa no Hotori - 02 [1080p CR WEB-DL AVC AAC][MultiSub][66A15311].mkv",
+      "size": 1402429845,
+      "hash": "41ce3bf0032605e510e1d25d18c79f0244f6bcd5",
+      "torrent": "torrents/41ce3bf0032605e510e1d25d18c79f0244f6bcd5-10f372b836e68f55.torrent",
+      "url": "https://emision.craftervault.com/0:down/Sora%20wa%20Akai%20Kawa%20no%20Hotori/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sora%20wa%20Akai%20Kawa%20no%20Hotori%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B66A15311%5D.mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-09T17:15:46.408Z"
+    },
+    {
+      "episode": 1,
+      "resolution": "1080",
+      "quality": "[Erai-raws][Web 1080p]",
+      "fileName": "[Erai-raws] Sora wa Akai Kawa no Hotori - 01 [1080p CR WEB-DL AVC AAC][MultiSub][2A2EDCE4].mkv",
+      "size": 1400032377,
+      "hash": "13580ae1848e1871efd04743446cc42c6c3f88c1",
+      "torrent": "torrents/13580ae1848e1871efd04743446cc42c6c3f88c1-c746dc8d09049232.torrent",
+      "url": "https://emision.craftervault.com/0:down/Sora%20wa%20Akai%20Kawa%20no%20Hotori/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sora%20wa%20Akai%20Kawa%20no%20Hotori%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B2A2EDCE4%5D.mkv",
+      "verified": true,
+      "verifiedAt": "2026-09-09T17:15:48.436Z"
+    }
+  ]
+}

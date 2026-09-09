@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { toTorrentFile, default as parseTorrent } from 'parse-torrent'
-import { verifyPieceHashes, saveVerifiedMatches, loadVerifiedMatches, episodeReleaseMatch, runIndexer } from '../indexer.mjs'
+import { verifyPieceHashes, saveVerifiedMatches, loadVerifiedMatches, episodeReleaseMatch, runIndexer, findAndPrepareTorrent } from '../indexer.mjs'
 import { createHash } from 'node:crypto'
 
 test('indexer: toTorrentFile inyecta url-list (BEP-19 WebSeed) preservando el infoHash', async () => {
@@ -131,4 +131,90 @@ test('indexer: runIndexer admite concurrencia y procesa workers paralelos', asyn
     })
   })
 })
+
+test('indexer: resuelve candidato vía AnimeTosho cuando Nyaa/NekoBT entregan HTML de Cloudflare (Google Colab)', async () => {
+  const piece0 = Buffer.alloc(1048576, 65)
+  const pieceHash = createHash('sha1').update(piece0).digest('hex')
+  const dummyTorrent = {
+    info: {
+      name: '[TestGroup] Test Show - 01 [1080p][A1B2C3D4].mkv',
+      length: piece0.length,
+      'piece length': piece0.length,
+      pieces: Buffer.from(pieceHash, 'hex')
+    }
+  }
+  const torrentBytes = toTorrentFile(dummyTorrent)
+  const dummyParsed = await parseTorrent(torrentBytes)
+
+  const series = {
+    title: 'Test Show',
+    anilistId: 99999,
+    episodes: [{ episode: 1, resolution: '1080', fileName: '[TestGroup] Test Show - 01 [1080p][A1B2C3D4].mkv', url: 'https://emision.craftervault.com/video.mkv' }]
+  }
+  const ep = series.episodes[0]
+
+  const mockFetch = async (url, opts) => {
+    const u = new URL(url)
+    // 1. Búsqueda AniSearch por CRC
+    if (u.hostname === 'api.anisearch.org') {
+      return new Response(JSON.stringify([
+        {
+          torrentName: '[TestGroup] Test Show - 01 [1080p][A1B2C3D4].mkv',
+          torrentFileUrl: 'https://nyaa.si/download/777.torrent',
+          infohash: dummyParsed.infoHash,
+          length: piece0.length
+        }
+      ]), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    // 2. Nyaa devuelve HTTP 200 con HTML de Cloudflare (como en Google Colab)
+    if (u.hostname === 'nyaa.si') {
+      return new Response('<!DOCTYPE html><html><head><title>Just a moment...</title></head></html>', {
+        status: 200,
+        headers: { 'content-type': 'text/html; charset=UTF-8' }
+      })
+    }
+    // 3. Espejo AnimeTosho por hash o nyaa_id
+    if (u.hostname === 'feed.animetosho.xyz') {
+      return new Response(JSON.stringify([
+        {
+          id: 1234,
+          title: '[TestGroup] Test Show - 01 [1080p][A1B2C3D4].mkv',
+          torrent_url: 'https://animetosho.xyz/download/1234/torrent',
+          info_hash: dummyParsed.infoHash
+        }
+      ]), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    // 4. Descarga del torrent desde AnimeTosho
+    if (u.hostname === 'animetosho.xyz') {
+      return new Response(torrentBytes, {
+        status: 200,
+        headers: { 'content-type': 'application/x-bittorrent' }
+      })
+    }
+    // 5. Verificación de piezas Range en Craftervault
+    if (u.hostname === 'emision.craftervault.com') {
+      return new Response(piece0, {
+        status: 206,
+        headers: { 'content-range': `bytes 0-${piece0.length - 1}/${piece0.length}` }
+      })
+    }
+    return new Response(null, { status: 404 })
+  }
+
+  const result = await findAndPrepareTorrent(series, ep, {
+    fetchFn: mockFetch,
+    detailed: true,
+    stateDir: 'tests/scratch-colab-test'
+  })
+
+  assert.equal(result.status, 'prepared', 'El episodio debe quedar preparado')
+  assert.equal(result.match.infoHash, dummyParsed.infoHash, 'El infoHash debe coincidir')
+  assert.equal(result.match.piecesVerified, true, 'Las piezas deben estar verificadas')
+
+  // Limpiar scratch creado en el test
+  if (fs.existsSync('tests/scratch-colab-test')) {
+    fs.rmSync('tests/scratch-colab-test', { recursive: true, force: true })
+  }
+})
+
 

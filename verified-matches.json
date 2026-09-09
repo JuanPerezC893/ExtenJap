@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T14:52:31.539Z",
+  "updatedAt": "2026-09-09T17:15:48.439Z",
   "series": {
     "84": {
       "title": "Kidou Senshi Gundam 0083: STARDUST MEMORY",
@@ -4939,6 +4939,102 @@
         }
       ]
     },
+    "196187": {
+      "title": "Super no Ura de Yani Suu Futari",
+      "anilistId": 196187,
+      "episodes": [
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Super no Ura de Yani Suu Futari - 01 [1080p CR WEB-DL AVC AAC][MultiSub][80439769].mkv",
+          "sourceFileName": "[Erai-raws] Super no Ura de Yani Suu Futari - 01 [1080p CR WEB-DL AVC AAC][MultiSub][80439769].mkv",
+          "sourceFingerprint": "7a5586c3ab9cd18cfe75df98ef7691396c6304e9c9c8b1175196887cba5bba05",
+          "directUrl": "https://emision.craftervault.com/0:down/Super%20no%20Ura%20de%20Yani%20Suu%20Futari/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Super%20no%20Ura%20de%20Yani%20Suu%20Futari%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B80439769%5D.mkv",
+          "infoHash": "0d2c690f361be1e85df83ee08eca044c1b75530f",
+          "size": 1472912133,
+          "torrentPath": "torrents/0d2c690f361be1e85df83ee08eca044c1b75530f-f95063a5f5a5d922.torrent",
+          "verified": {
+            "matchedBy": "anisearch",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-09T17:15:28.223Z",
+            "evidence": {
+              "method": "sha1-samples",
+              "totalSize": 1472912133,
+              "pieceLength": 1048576,
+              "pieces": [
+                {
+                  "index": 0,
+                  "start": 0,
+                  "end": 1048575,
+                  "sha1": "bd411a39795c8952aded94b156313e2d39ba18be"
+                },
+                {
+                  "index": 702,
+                  "start": 736100352,
+                  "end": 737148927,
+                  "sha1": "d9fcd8055c1406b5541a595058072a6c12c13c8a"
+                },
+                {
+                  "index": 1404,
+                  "start": 1472200704,
+                  "end": 1472912132,
+                  "sha1": "2ca6f4984021797716883f21813f994f00b3fa7d"
+                }
+              ],
+              "checkedAt": "2026-09-09T17:15:28.222Z"
+            }
+          },
+          "isOnline": true,
+          "checkedAt": "2026-09-09T17:15:28.222Z"
+        },
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Super no Ura de Yani Suu Futari - 02 [1080p CR WEB-DL AVC AAC][MultiSub][3F65CB67].mkv",
+          "sourceFileName": "[Erai-raws] Super no Ura de Yani Suu Futari - 02 [1080p CR WEB-DL AVC AAC][MultiSub][3F65CB67].mkv",
+          "sourceFingerprint": "c7c5f9b024ab620628e2b8f287db5bdd7207dad17e6a80b3907f836d549c4913",
+          "directUrl": "https://emision.craftervault.com/0:down/Super%20no%20Ura%20de%20Yani%20Suu%20Futari/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Super%20no%20Ura%20de%20Yani%20Suu%20Futari%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B3F65CB67%5D.mkv",
+          "infoHash": "1c5abeed1650621d31958e364fb5c54317db65c5",
+          "size": 1469746558,
+          "torrentPath": "torrents/1c5abeed1650621d31958e364fb5c54317db65c5-b35fa25b3dab9df5.torrent",
+          "verified": {
+            "matchedBy": "anisearch",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-09T17:15:29.247Z",
+            "evidence": {
+              "method": "sha1-samples",
+              "totalSize": 1469746558,
+              "pieceLength": 1048576,
+              "pieces": [
+                {
+                  "index": 0,
+                  "start": 0,
+                  "end": 1048575,
+                  "sha1": "36762327e16d2eefa559999064b94c1c9a9e145e"
+                },
+                {
+                  "index": 701,
+                  "start": 735051776,
+                  "end": 736100351,
+                  "sha1": "ab5dfd2670397680ef14ef84361b4a517d175493"
+                },
+                {
+                  "index": 1401,
+                  "start": 1469054976,
+                  "end": 1469746557,
+                  "sha1": "c910748e7f17ad423dfecb73d803028182a6824d"
+                }
+              ],
+              "checkedAt": "2026-09-09T17:15:29.246Z"
+            }
+          },
+          "isOnline": true,
+          "checkedAt": "2026-09-09T17:15:29.246Z"
+        }
+      ]
+    },
     "198409": {
       "title": "Sekai Saikyou no Kouei: Meikyuukoku no Shinjin Tansakusha",
       "anilistId": 198409,
@@ -5940,6 +6036,102 @@
             "verifiedAt": "2026-09-08T02:46:51.973Z"
           },
           "isOnline": true
+        }
+      ]
+    },
+    "207809": {
+      "title": "Sora wa Akai Kawa no Hotori",
+      "anilistId": 207809,
+      "episodes": [
+        {
+          "episode": 2,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sora wa Akai Kawa no Hotori - 02 [1080p CR WEB-DL AVC AAC][MultiSub][66A15311].mkv",
+          "sourceFileName": "[Erai-raws] Sora wa Akai Kawa no Hotori - 02 [1080p CR WEB-DL AVC AAC][MultiSub][66A15311].mkv",
+          "sourceFingerprint": "e1ff1a875be2b78c5a7bdd92533266702357fa10f9cf51edf7b15b3fe8d0e84d",
+          "directUrl": "https://emision.craftervault.com/0:down/Sora%20wa%20Akai%20Kawa%20no%20Hotori/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sora%20wa%20Akai%20Kawa%20no%20Hotori%20-%2002%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B66A15311%5D.mkv",
+          "infoHash": "41ce3bf0032605e510e1d25d18c79f0244f6bcd5",
+          "size": 1402429845,
+          "torrentPath": "torrents/41ce3bf0032605e510e1d25d18c79f0244f6bcd5-10f372b836e68f55.torrent",
+          "verified": {
+            "matchedBy": "anisearch",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-09T17:15:46.408Z",
+            "evidence": {
+              "method": "sha1-samples",
+              "totalSize": 1402429845,
+              "pieceLength": 1048576,
+              "pieces": [
+                {
+                  "index": 0,
+                  "start": 0,
+                  "end": 1048575,
+                  "sha1": "04f03919baa87ce458bf829f162554d4600d0b9f"
+                },
+                {
+                  "index": 669,
+                  "start": 701497344,
+                  "end": 702545919,
+                  "sha1": "c1a64176662c237755bd20cf55b5608457301bbe"
+                },
+                {
+                  "index": 1337,
+                  "start": 1401946112,
+                  "end": 1402429844,
+                  "sha1": "9bdf3e4e361175c2f08a75ad23dee74f5c13d4ab"
+                }
+              ],
+              "checkedAt": "2026-09-09T17:15:46.406Z"
+            }
+          },
+          "isOnline": true,
+          "checkedAt": "2026-09-09T17:15:46.406Z"
+        },
+        {
+          "episode": 1,
+          "resolution": "1080",
+          "quality": "[Erai-raws][Web 1080p]",
+          "fileName": "[Erai-raws] Sora wa Akai Kawa no Hotori - 01 [1080p CR WEB-DL AVC AAC][MultiSub][2A2EDCE4].mkv",
+          "sourceFileName": "[Erai-raws] Sora wa Akai Kawa no Hotori - 01 [1080p CR WEB-DL AVC AAC][MultiSub][2A2EDCE4].mkv",
+          "sourceFingerprint": "360289f09e8de3b955c841280449f34fe7773619a6a1c29401e7dd6be5f2188e",
+          "directUrl": "https://emision.craftervault.com/0:down/Sora%20wa%20Akai%20Kawa%20no%20Hotori/%5BErai-raws%5D%5BWeb%201080p%5D/%5BErai-raws%5D%20Sora%20wa%20Akai%20Kawa%20no%20Hotori%20-%2001%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B2A2EDCE4%5D.mkv",
+          "infoHash": "13580ae1848e1871efd04743446cc42c6c3f88c1",
+          "size": 1400032377,
+          "torrentPath": "torrents/13580ae1848e1871efd04743446cc42c6c3f88c1-c746dc8d09049232.torrent",
+          "verified": {
+            "matchedBy": "anisearch",
+            "piecesVerified": true,
+            "verifiedAt": "2026-09-09T17:15:48.436Z",
+            "evidence": {
+              "method": "sha1-samples",
+              "totalSize": 1400032377,
+              "pieceLength": 1048576,
+              "pieces": [
+                {
+                  "index": 0,
+                  "start": 0,
+                  "end": 1048575,
+                  "sha1": "553c8feb52749f3e4fdaed0c22526b0205872d8a"
+                },
+                {
+                  "index": 668,
+                  "start": 700448768,
+                  "end": 701497343,
+                  "sha1": "94f3bd000cdffb9d4a7eb8d360f80801213aa699"
+                },
+                {
+                  "index": 1335,
+                  "start": 1399848960,
+                  "end": 1400032376,
+                  "sha1": "24bd364f32b93d1e3233e4b365788a9468259310"
+                }
+              ],
+              "checkedAt": "2026-09-09T17:15:48.435Z"
+            }
+          },
+          "isOnline": true,
+          "checkedAt": "2026-09-09T17:15:48.435Z"
         }
       ]
     },

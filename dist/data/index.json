@@ -178,5 +178,17 @@
     "title": "Katainaka no Ossan, Kensei ni Naru II",
     "episodesCount": 18,
     "file": "data/194829.json"
+  },
+  {
+    "anilistId": 196187,
+    "title": "Super no Ura de Yani Suu Futari",
+    "episodesCount": 2,
+    "file": "data/196187.json"
+  },
+  {
+    "anilistId": 207809,
+    "title": "Sora wa Akai Kawa no Hotori",
+    "episodesCount": 2,
+    "file": "data/207809.json"
   }
 ]

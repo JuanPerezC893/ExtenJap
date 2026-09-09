@@ -60,7 +60,7 @@ export async function verifyPieceHashes(url, parsed, fetchFn = fetch, options = 
   for (const index of new Set([0, Math.floor(parsed.pieces.length / 2), parsed.pieces.length - 1])) {
     options.signal?.throwIfAborted()
     const start = index * parsed.pieceLength, end = Math.min(start + parsed.pieceLength, parsed.length) - 1
-    const res = await fetchFn(url, { headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity' }, signal: options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(20000)]) : AbortSignal.timeout(20000), maxBodyBytes: end - start + 1 })
+    const res = await fetchFn(url, { headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity', 'User-Agent': 'JapanPawIndexer/1.0' }, signal: options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(20000)]) : AbortSignal.timeout(20000), maxBodyBytes: end - start + 1 })
     const range = res.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/i)
     if (res.status !== 206 || !range || Number(range[1]) !== start || Number(range[2]) !== end) {
       await res.body?.cancel?.()
@@ -105,6 +105,70 @@ function boundedQueries(series, ep, maxQueries) {
   return { plans, truncated: queries.length > plans.length }
 }
 const fatalDisk = err => ['ENOSPC', 'EACCES', 'EPERM', 'EROFS', 'EIO'].includes(err.code)
+
+async function downloadTorrentBuffer(item, fetchFn, signal) {
+  const isCloudflareBlocked = url => {
+    try {
+      const h = new URL(url).hostname.toLowerCase()
+      return h === 'nyaa.si' || h.endsWith('.nyaa.si') || h === 'nekobt.to' || h.endsWith('.nekobt.to')
+    } catch { return false }
+  }
+
+  const fetchValidTorrent = async url => {
+    if (!url) return null
+    try {
+      const res = await fetchFn(url, {
+        headers: { 'User-Agent': 'JapanPawIndexer/1.0' },
+        signal,
+        maxBodyBytes: 4 * 1024 * 1024
+      })
+      if (!res || !res.ok) return null
+      const buf = new Uint8Array(await res.arrayBuffer())
+      if (buf.length > 0 && buf[0] === 0x64) return buf
+    } catch {}
+    return null
+  }
+
+  const fetchFromToshoMirror = async query => {
+    if (!query) return null
+    try {
+      const res = await fetchFn(`https://feed.animetosho.xyz/json?q=${encodeURIComponent(query)}`, {
+        headers: { 'User-Agent': 'JapanPawIndexer/1.0' },
+        signal,
+        maxBodyBytes: 1024 * 1024
+      })
+      if (res && res.ok) {
+        const data = await res.json()
+        const mirrorUrl = data?.[0]?.torrent_url
+        if (mirrorUrl) return await fetchValidTorrent(mirrorUrl)
+      }
+    } catch {}
+    return null
+  }
+
+  const primaryUrl = item.torrent_url
+  const blockedHost = primaryUrl && isCloudflareBlocked(primaryUrl)
+  const nyaaMatch = primaryUrl && primaryUrl.match(/\/download\/(\d+)\.torrent/i)
+  const lookupKey = item.info_hash || (nyaaMatch ? nyaaMatch[1] : null) || item.nyaa_id
+
+  if (blockedHost && lookupKey) {
+    const mirrorBytes = await fetchFromToshoMirror(lookupKey)
+    if (mirrorBytes) return mirrorBytes
+  }
+
+  if (primaryUrl) {
+    const directBytes = await fetchValidTorrent(primaryUrl)
+    if (directBytes) return directBytes
+  }
+
+  if (lookupKey && !blockedHost) {
+    const mirrorBytes = await fetchFromToshoMirror(lookupKey)
+    if (mirrorBytes) return mirrorBytes
+  }
+
+  return null
+}
+
 async function resolveRelease(series, ep, options) {
   const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing } = options
   const errors = [], seen = new Set()
@@ -158,36 +222,25 @@ async function resolveRelease(series, ep, options) {
       if (candidates >= maxCandidates) break
       candidates++
       try {
-        let response
-        try {
-          response = await fetchFn(item.torrent_url, { signal, maxBodyBytes: 4 * 1024 * 1024 })
-          if (!response.ok) throw failure('HTTP_ERROR', `Torrent HTTP ${response.status}`, { status: response.status })
-        } catch (fetchErr) {
-          if (item.info_hash) {
-            try {
-              const toshoRes = await fetchFn(`https://feed.animetosho.xyz/json?info_hash=${item.info_hash}`, { signal, maxBodyBytes: 1024 * 1024 })
-              if (toshoRes.ok) {
-                const data = await toshoRes.json()
-                if (data?.[0]?.torrent_url) {
-                  response = await fetchFn(data[0].torrent_url, { signal, maxBodyBytes: 4 * 1024 * 1024 })
-                }
-              }
-            } catch {}
-          }
-          if (!response || !response.ok) throw fetchErr
-        }
-        const match = await tryTorrent(new Uint8Array(await response.arrayBuffer()), item.source || plan.provider)
+        const bytes = await downloadTorrentBuffer(item, fetchFn, signal)
+        if (!bytes) continue
+        const match = await tryTorrent(bytes, item.source || plan.provider)
         if (match) return { status: 'prepared', match, searched, candidates }
       } catch (err) {
         if (fatalDisk(err)) throw err
-        incompatible++
+        if (err.code === 'RANGE_UNAVAILABLE' || err.code === 'TIMEOUT' || err.code === 'NETWORK_ERROR' || err.name === 'AbortError') {
+          errors.push(errorData(err))
+        } else {
+          incompatible++
+        }
       }
     }
     if (candidates >= maxCandidates) break
   }
   const details = { searched, candidates, incompatible, errors, searchLimited: truncated || candidates >= maxCandidates }
-  if (successfulSearches === 0 && errors.length) {
-    return { ...details, status: 'deferred', reason: errors[0].code, retryAt: Math.max(Date.now() + 60000, ...errors.map(e => e.retryAt || 0)) }
+  if ((successfulSearches === 0 || errors.some(e => e.code === 'RANGE_UNAVAILABLE')) && errors.length) {
+    const mainErr = errors.find(e => e.code === 'RANGE_UNAVAILABLE') || errors[0]
+    return { ...details, status: 'deferred', reason: mainErr.code, retryAt: Math.max(Date.now() + 60000, ...errors.map(e => e.retryAt || 0)) }
   }
   return { ...details, status: incompatible ? 'incompatible' : 'not_found', reason: incompatible ? 'SAMPLED_OR_METADATA_MISMATCH' : 'NO_MATCH_IN_SEARCH_BUDGET', retryAt: Date.now() + 86400000 }
 }

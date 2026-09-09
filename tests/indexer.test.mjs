@@ -217,4 +217,62 @@ test('indexer: resuelve candidato vía AnimeTosho cuando Nyaa/NekoBT entregan HT
   }
 })
 
+test('indexer: errores de red/cooldown difieren el episodio en vez de marcar incompatible', async () => {
+  const piece0 = Buffer.from('TEST_DATA_BYTES_FOR_PIECE_CHECK')
+  const fileName = '[Group] Network Fail Show - 01 [1080p][12345678].mkv'
+  const dummy = {
+    info: {
+      name: fileName,
+      length: piece0.length,
+      'piece length': piece0.length,
+      pieces: Buffer.from(createHash('sha1').update(piece0).digest('hex'), 'hex')
+    }
+  }
+  const torrentBytes = toTorrentFile(dummy)
+  const dummyParsed = await parseTorrent(torrentBytes)
+
+  const series = {
+    title: 'Network Fail Show',
+    anilistId: 88888,
+    episodes: [{ episode: 1, resolution: '1080', fileName: '[Group] Network Fail Show - 01 [1080p][12345678].mkv', url: 'https://emision.craftervault.com/fail.mkv' }]
+  }
+  const ep = series.episodes[0]
+
+  const mockFetch = async (url) => {
+    const u = new URL(url)
+    if (u.hostname === 'feed.animetosho.xyz' || u.hostname === 'feed.animetosho.org') {
+      return new Response(JSON.stringify([{
+        id: 999,
+        title: '[Group] Network Fail Show - 01 [1080p][12345678].mkv',
+        torrent_url: 'https://animetosho.xyz/download/999/torrent',
+        info_hash: dummyParsed.infoHash
+      }]), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    if (u.hostname === 'animetosho.xyz') {
+      return new Response(torrentBytes, { status: 200, headers: { 'content-type': 'application/x-bittorrent' } })
+    }
+    // Craftervault devuelve un error de red o timeout
+    if (u.hostname === 'emision.craftervault.com') {
+      const err = new Error('HTTP 403 en archivo de emision.craftervault.com')
+      err.code = 'HTTP_ERROR'
+      throw err
+    }
+    return new Response(null, { status: 404 })
+  }
+
+  const result = await findAndPrepareTorrent(series, ep, {
+    fetchFn: mockFetch,
+    detailed: true,
+    stateDir: 'tests/scratch-colab-test2'
+  })
+
+  assert.equal(result.status, 'deferred', 'El episodio debe quedar diferido por fallo de red')
+  assert.equal(result.incompatible, 0, 'No debe incrementar incompatible ante errores de red')
+
+  if (fs.existsSync('tests/scratch-colab-test2')) {
+    fs.rmSync('tests/scratch-colab-test2', { recursive: true, force: true })
+  }
+})
+
+
 

@@ -57,10 +57,11 @@ export async function verifyPieceHashes(url, parsed, fetchFn = fetch, options = 
   if (!Number.isSafeInteger(parsed.length) || parsed.length <= 0 || !Number.isSafeInteger(parsed.pieceLength) || parsed.pieceLength <= 0 || parsed.pieces?.length !== Math.ceil(parsed.length / parsed.pieceLength)) return false
   if (parsed.pieceLength > 32 * 1024 * 1024) throw failure('PIECE_BUDGET', 'Pieza mayor al presupuesto de 32 MiB; requiere revisión')
   const evidence = []
+  const BROWSER_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
   for (const index of new Set([0, Math.floor(parsed.pieces.length / 2), parsed.pieces.length - 1])) {
     options.signal?.throwIfAborted()
     const start = index * parsed.pieceLength, end = Math.min(start + parsed.pieceLength, parsed.length) - 1
-    const res = await fetchFn(url, { headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity', 'User-Agent': 'JapanPawIndexer/1.0' }, signal: options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(20000)]) : AbortSignal.timeout(20000), maxBodyBytes: end - start + 1 })
+    const res = await fetchFn(url, { headers: { Range: `bytes=${start}-${end}`, 'Accept-Encoding': 'identity', 'User-Agent': BROWSER_UA, 'Accept': '*/*', 'Referer': 'https://emision.craftervault.com/' }, signal: options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(20000)]) : AbortSignal.timeout(20000), maxBodyBytes: end - start + 1 })
     const range = res.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/i)
     if (res.status !== 206 || !range || Number(range[1]) !== start || Number(range[2]) !== end) {
       await res.body?.cancel?.()
@@ -200,7 +201,13 @@ async function resolveRelease(series, ep, options) {
     const path = inside(resolve(stateDir, 'dist'), record.torrentPath)
     if (!existsSync(path)) continue
     try { const match = await tryTorrent(readFileSync(path), 'saved-torrent'); if (match) return { status: 'prepared', match, searched, candidates, rejections } }
-    catch (err) { if (fatalDisk(err)) throw err; if (err.code) errors.push(errorData(err)); else incompatible++ }
+    catch (err) {
+      if (fatalDisk(err)) throw err
+      const isNetwork = ['RANGE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'BODY_TOO_LARGE'].includes(err.code) || err.name === 'AbortError' || err.name === 'IndexerNetworkError'
+      if (isNetwork) errors.push(errorData(err))
+      else if (err.code) errors.push(errorData(err))
+      else incompatible++
+    }
   }
   const searchMap = {
     nyaa: searchNyaa,
@@ -240,7 +247,8 @@ async function resolveRelease(series, ep, options) {
         return { status: 'prepared', match, searched, candidates, rejections }
       } catch (err) {
         if (fatalDisk(err)) throw err
-        if (err.code === 'RANGE_UNAVAILABLE' || err.code === 'TIMEOUT' || err.code === 'NETWORK_ERROR' || err.name === 'AbortError') {
+        const isNetwork = ['RANGE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'BODY_TOO_LARGE'].includes(err.code) || err.name === 'AbortError' || err.name === 'IndexerNetworkError'
+        if (isNetwork) {
           errors.push(errorData(err))
           rejections.push(err.code || 'NETWORK_ERROR')
         } else {
@@ -252,8 +260,9 @@ async function resolveRelease(series, ep, options) {
     if (candidates >= maxCandidates) break
   }
   const details = { searched, candidates, incompatible, errors, rejections, searchLimited: truncated || candidates >= maxCandidates }
-  if ((successfulSearches === 0 || errors.some(e => e.code === 'RANGE_UNAVAILABLE')) && errors.length) {
-    const mainErr = errors.find(e => e.code === 'RANGE_UNAVAILABLE') || errors[0]
+  const networkFailure = errors.length > 0 && (successfulSearches === 0 || candidates === 0 || errors.some(e => ['RANGE_UNAVAILABLE', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR'].includes(e.code)))
+  if (networkFailure) {
+    const mainErr = errors.find(e => ['HOST_COOLDOWN', 'HTTP_ERROR', 'RANGE_UNAVAILABLE', 'RATE_LIMITED'].includes(e.code)) || errors[0]
     return { ...details, status: 'deferred', reason: mainErr.code, retryAt: Math.max(Date.now() + 60000, ...errors.map(e => e.retryAt || 0)) }
   }
   return { ...details, status: incompatible ? 'incompatible' : 'not_found', reason: incompatible ? 'SAMPLED_OR_METADATA_MISMATCH' : 'NO_MATCH_IN_SEARCH_BUDGET', retryAt: Date.now() + 86400000 }
@@ -311,6 +320,15 @@ export async function runIndexer(options = {}) {
         pool = new ProxyPool({ enabled: true, proxyFile, strictProxy: true, maxRetries: 0, timeoutMs: 20000 }); await pool.warmup(15, 100, { signal })
         trackerFetch = (url, opts) => pool.fetch(url, opts, 0)
       }
+      const initialProviders = { ...state.providers }
+      if (initialProviders.hosts) {
+        initialProviders.hosts = { ...initialProviders.hosts }
+        for (const host of Object.keys(initialProviders.hosts)) {
+          if (host === 'emision.craftervault.com' || host.endsWith('.craftervault.com')) {
+            delete initialProviders.hosts[host]
+          }
+        }
+      }
       const trackerHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to']
       const network = createIndexerNetwork({
         ...networkOptions,
@@ -320,13 +338,17 @@ export async function runIndexer(options = {}) {
           return isTracker ? trackerFetch(url, opts) : fetchFn(url, opts)
         },
         signal,
-        initialState: state.providers
+        initialState: initialProviders
       })
       const cache = createSearchCache()
       const report = { startedAt: new Date().toISOString(), selected: 0, attempted: 0, prepared: 0, reused: 0, deferred: 0, not_found: 0, incompatible: 0, needs_review: 0, postponed: 0, stopReason: 'complete' }
       const checkpoint = () => {
         saveVerifiedMatches(registry, stateDir)
-        state.providers = network.snapshot(); state.updatedAt = new Date().toISOString()
+        const snap = network.snapshot()
+        if (snap?.hosts) {
+          delete snap.hosts['emision.craftervault.com']
+        }
+        state.providers = snap; state.updatedAt = new Date().toISOString()
         atomicWrite(statePath, state)
         atomicWrite(resolve(stateDir, 'indexer-report.json'), { ...report, updatedAt: state.updatedAt, providers: state.providers })
       }
@@ -346,7 +368,7 @@ export async function runIndexer(options = {}) {
         if (!seen.has(key)) { seen.add(key); tasks.push({ series, ep, key }) }
       }
       report.selected = tasks.length
-      log(`[Indexer v0.5.2] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      log(`[Indexer v0.5.3] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
       let cursor = 0, stop = false, fatal
       const blockedProviders = () => {
         const hosts = network.snapshot().hosts || {}

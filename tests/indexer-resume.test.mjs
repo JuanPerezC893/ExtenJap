@@ -181,7 +181,38 @@ test('indexer resume: failed or deferred jobs are postponed on subsequent runs u
   assert.ok(f.requests.includes(f.fixtures[0].ep.url))
 })
 
+test('indexer resume: reclaims stale indexer.lock when previous process is dead', async t => {
+  const f = await setup(t)
+  const lockPath = join(f.dir, 'indexer.lock')
+  fs.writeFileSync(lockPath, JSON.stringify({ pid: 99999999, startedAt: new Date(Date.now() - 3600000).toISOString() }))
+  assert.ok(fs.existsSync(lockPath))
+
+  const messages = []
+  const report = await runIndexer({ ...f.options, limit: 1, log: msg => messages.push(msg) })
+  assert.equal(report.prepared, 1)
+  assert.ok(messages.some(m => m.includes('Se detectó un bloqueo huérfano')))
+  assert.equal(fs.existsSync(lockPath), false)
+})
+
+test('indexer resume: active process rejects concurrent execution unless forceLock is used', async t => {
+  const f = await setup(t)
+  const lockPath = join(f.dir, 'indexer.lock')
+  fs.writeFileSync(lockPath, JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString() }))
+  assert.ok(fs.existsSync(lockPath))
+
+  await assert.rejects(
+    () => runIndexer({ ...f.options, limit: 1 }),
+    /Ya existe .*\(proceso activo PID/
+  )
+
+  const report = await runIndexer({ ...f.options, limit: 1, forceLock: true })
+  assert.equal(report.prepared, 1)
+  assert.equal(fs.existsSync(lockPath), false)
+})
+
 test('indexer CLI rejects misspellings and invalid budgets', () => {
   for (const args of [['--limt', '1'], ['--limit', '-1'], ['--series'], ['--max-queries', 'abc'], ['--interval-ms', '-1']]) assert.throws(() => parseIndexerArgs(args))
   assert.equal(parseIndexerArgs(['--series', 'Demo', '--concurrency', '2', '--limit', '10', '--interval-ms', '0']).intervalMs, 0)
+  assert.equal(parseIndexerArgs(['--force-lock']).forceLock, true)
 })
+

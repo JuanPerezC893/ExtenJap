@@ -1,4 +1,5 @@
-import { readFileSync, writeFileSync, renameSync, copyFileSync, existsSync, mkdirSync, openSync, closeSync, unlinkSync } from 'node:fs'
+import { readFileSync, writeFileSync, renameSync, copyFileSync, existsSync, mkdirSync, openSync, closeSync, unlinkSync, statSync } from 'node:fs'
+import { hostname } from 'node:os'
 import { resolve, dirname, relative, isAbsolute, sep } from 'node:path'
 import { createHash } from 'node:crypto'
 import parseTorrent, { toTorrentFile } from 'parse-torrent'
@@ -250,15 +251,62 @@ export async function findAndPrepareTorrent(series, ep, options = {}) {
   if (result.status === 'deferred') throw failure(result.reason, 'La búsqueda quedó diferida por un fallo de acceso', { retryAt: result.retryAt, details: result })
   return result.match || null
 }
-function acquireLock(stateDir) {
+function isProcessAlive(pid) {
+  if (!pid || typeof pid !== 'number' || !Number.isInteger(pid) || pid <= 0) return false
+  try {
+    process.kill(pid, 0)
+    return true
+  } catch (err) {
+    return err.code === 'EPERM'
+  }
+}
+
+export function acquireLock(stateDir, log = console.log, { force = false } = {}) {
   const path = resolve(stateDir, 'indexer.lock')
+  if (force && existsSync(path)) {
+    try { unlinkSync(path) } catch {}
+  }
   let fd
   try { fd = openSync(path, 'wx') } catch (err) {
     if (err.code !== 'EEXIST') throw err
-    throw new Error(`Ya existe ${path}. No ejecutes dos indexadores sobre el mismo estado. Si la sesión anterior terminó abruptamente, comprueba que esté detenida antes de retirar ese archivo.`)
+    let stale = false
+    let lockData = null
+    try {
+      const raw = readFileSync(path, 'utf8')
+      lockData = JSON.parse(raw)
+      const sameHost = !lockData.hostname || lockData.hostname === hostname()
+      if (sameHost && typeof lockData.pid === 'number' && !isProcessAlive(lockData.pid)) {
+        stale = true
+      } else if (lockData.startedAt && Date.now() - new Date(lockData.startedAt).getTime() > 4 * 3600000) {
+        stale = true
+      }
+    } catch {
+      try {
+        const stats = statSync(path)
+        if (Date.now() - stats.mtimeMs > 10000) stale = true
+      } catch {}
+    }
+    if (stale) {
+      const desc = lockData?.pid ? `PID ${lockData.pid}` : 'archivo residual/vacío'
+      if (log) log(`[Indexer] Se detectó un bloqueo huérfano (${desc} no activo). Reclamando indexer.lock...`)
+      try { unlinkSync(path) } catch {}
+      try {
+        fd = openSync(path, 'wx')
+      } catch (retryErr) {
+        if (retryErr.code !== 'EEXIST') throw retryErr
+        throw new Error(`Ya existe ${path}. No ejecutes dos indexadores sobre el mismo estado. Si la sesión anterior terminó abruptamente, comprueba que esté detenida antes de retirar ese archivo.`)
+      }
+    } else {
+      const hostInfo = lockData?.hostname && lockData.hostname !== hostname() ? ` en el host "${lockData.hostname}"` : ''
+      const pidInfo = lockData?.pid ? ` (proceso activo PID ${lockData.pid}${hostInfo})` : ''
+      throw new Error(`Ya existe ${path}${pidInfo}. No ejecutes dos indexadores sobre el mismo estado. Si la sesión anterior terminó abruptamente, comprueba que esté detenida antes de retirar ese archivo.`)
+    }
   }
-  writeFileSync(fd, JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString() })); closeSync(fd)
-  return () => unlinkSync(path)
+  writeFileSync(fd, JSON.stringify({ pid: process.pid, hostname: hostname(), startedAt: new Date().toISOString() }))
+  closeSync(fd)
+  return () => {
+    try { unlinkSync(path) } catch {}
+  }
 }
 function episodeIssue(series, ep, conflictingIds) {
   if (conflictingIds.has(String(series.anilistId))) return 'ANILIST_SEASON_CONFLICT'
@@ -270,14 +318,14 @@ function episodeIssue(series, ep, conflictingIds) {
 }
 export async function runIndexer(options = {}) {
   const defaultCatalog = existsSync('raw-catalog.json') ? 'raw-catalog.json' : 'dist/indexed-catalog.json'
-  const { seriesFilter = [], verifyPieces = true, limit = Infinity, concurrency = 2, useProxy = false, proxyFile = null, batchRange = null, includeNonAnime = false, retryPending = false, maxQueries = 4, maxCandidates = 4, maxMinutes = 15, stateDir: requestedDir = '.', catalogPath = defaultCatalog, signal: parentSignal, fetchFn = fetch, networkOptions = {}, log = console.log, intervalMs = null } = options
+  const { seriesFilter = [], verifyPieces = true, limit = Infinity, concurrency = 2, useProxy = false, proxyFile = null, batchRange = null, includeNonAnime = false, retryPending = false, forceLock = false, maxQueries = 4, maxCandidates = 4, maxMinutes = 15, stateDir: requestedDir = '.', catalogPath = defaultCatalog, signal: parentSignal, fetchFn = fetch, networkOptions = {}, log = console.log, intervalMs = null } = options
   if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 16) throw new Error('concurrency debe ser un entero de 1 a 16')
   if (intervalMs !== null && (!Number.isInteger(intervalMs) || intervalMs < 0)) throw new Error('interval-ms debe ser un entero mayor o igual a 0')
   if (!(limit === Infinity || Number.isInteger(limit) && limit > 0) || !Number.isFinite(maxMinutes) || maxMinutes <= 0 || !Number.isInteger(maxQueries) || maxQueries < 1 || !Number.isInteger(maxCandidates) || maxCandidates < 1) throw new Error('Límites inválidos')
   if (useProxy && !proxyFile) throw new Error('--proxy requiere --proxy-file; no se cargarán listas públicas automáticamente')
   const stateDir = resolve(requestedDir)
   mkdirSync(stateDir, { recursive: true })
-  const releaseLock = acquireLock(stateDir)
+  const releaseLock = acquireLock(stateDir, log, { force: forceLock })
   let pool
   try {
     const catalog = JSON.parse(readFileSync(resolve(catalogPath), 'utf8'))
@@ -426,6 +474,7 @@ export function parseIndexerArgs(args) {
       while (args[i + 1] && !args[i + 1].startsWith('--')) out.seriesFilter.push(args[++i])
     } else if (arg === '--proxy') out.useProxy = true
     else if (arg === '--retry-pending') out.retryPending = true
+    else if (arg === '--force-lock') out.forceLock = true
     else if (arg === '--include-non-anime') out.includeNonAnime = true
     else if (arg === '--no-pieces') out.verifyPieces = false
     else if (arg === '--pieces') out.verifyPieces = true

@@ -58,12 +58,13 @@ export function episodeReleaseMatch(entry, ep) {
 const failure = (code, message, extra = {}) => Object.assign(new Error(message), { code, ...extra })
 const errorData = err => ({ code: err.code || (err.name === 'AbortError' ? 'ABORTED' : err.name === 'TimeoutError' ? 'TIMEOUT' : 'NETWORK_ERROR'), message: err.message, status: err.status, provider: err.provider, retryAt: err.retryAt || null, stage: err.stage || null, host: (() => { try { return new URL(err.url).hostname } catch { return null } })() })
 
+const BROWSER_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
+
 // Evidence for sampled pieces only, never a claim that every byte was checked.
 export async function verifyPieceHashes(url, parsed, fetchFn = fetch, options = {}) {
   if (!Number.isSafeInteger(parsed.length) || parsed.length <= 0 || !Number.isSafeInteger(parsed.pieceLength) || parsed.pieceLength <= 0 || parsed.pieces?.length !== Math.ceil(parsed.length / parsed.pieceLength)) return false
   if (parsed.pieceLength > 32 * 1024 * 1024) throw failure('PIECE_BUDGET', 'Pieza mayor al presupuesto de 32 MiB; requiere revisión')
   const evidence = []
-  const BROWSER_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
   for (const index of new Set([0, Math.floor(parsed.pieces.length / 2), parsed.pieces.length - 1])) {
     options.signal?.throwIfAborted()
     const start = index * parsed.pieceLength, end = Math.min(start + parsed.pieceLength, parsed.length) - 1
@@ -134,8 +135,15 @@ async function stageRequest(action, stage, url) {
 }
 
 export async function probeDirectVideo(url, fetchFn, signal) {
+  const origin = (() => { try { return new URL(url).origin + '/' } catch { return 'https://emision.craftervault.com/' } })()
   const res = await stageRequest(() => fetchFn(url, {
-    headers: { Range: 'bytes=0-0', 'Accept-Encoding': 'identity' },
+    headers: {
+      Range: 'bytes=0-0',
+      'Accept-Encoding': 'identity',
+      'User-Agent': BROWSER_UA,
+      'Accept': '*/*',
+      'Referer': origin
+    },
     signal, maxBodyBytes: 1, requiredStatus: 206
   }), 'video_probe', url)
   const match = res.headers.get('content-range')?.match(/^bytes 0-0\/(\d+)$/i)

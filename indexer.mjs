@@ -349,8 +349,10 @@ async function resolveRelease(series, ep, options) {
         if (isNetwork) {
           errors.push(errorData(err))
           rejections.push(err.status ? `${err.code || 'HTTP_ERROR'}:${err.status}` : (err.code || 'NETWORK_ERROR'))
-        } else {
+        } else if (err.code === 'SIZE_MISMATCH') {
           incompatible++
+          rejections.push(`${err.code}:${err.message}`)
+        } else {
           rejections.push(`${err.code || 'validation'}:${err.message}`)
         }
       }

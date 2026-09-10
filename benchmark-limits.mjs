@@ -214,7 +214,8 @@ export async function runBenchmark(options = {}, indexerRunner = runIndexer) {
   return report
 }
 
-if (isMain(import.meta.url)) {
+const isDirectRun = isMain(import.meta.url) || Boolean(process.argv[1] && process.argv[1].endsWith('benchmark-limits.mjs'))
+if (isDirectRun) {
   const controller = new AbortController()
   const stop = () => { console.warn('Interrupción solicitada...'); controller.abort() }
   process.once('SIGINT', stop); process.once('SIGTERM', stop)

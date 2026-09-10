@@ -43,3 +43,14 @@ test('rejects invalid or non-HTTP targets without resolving arbitrary hosts', ()
   const lookalike = 'https://redirect.japan-paw.net.example.com/#https://anime.craftervault.com/video.mkv'
   assert.equal(directUrl(lookalike), lookalike)
 })
+
+test('canonicalizes legacy anibatchddl.com domains to craftervault.com', () => {
+  assert.equal(
+    directUrl('https://emision.anibatchddl.com/0:down/Test/video.mkv'),
+    'https://emision.craftervault.com/0:down/Test/video.mkv'
+  )
+  assert.equal(
+    directUrl('https://anime.anibatchddl.com/video.mp4'),
+    'https://anime.craftervault.com/video.mp4'
+  )
+})

@@ -297,7 +297,7 @@ export async function runIndexer(options = {}) {
         trackerFetch = (url, opts) => pool.fetch(url, opts, 0)
       }
       const initialProviders = state.providers
-      const proxiedHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com']
+      const proxiedHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com', 'emision.anibatchddl.com', 'anibatchddl.com']
       const network = createIndexerNetwork({
         concurrencyPerHost: Math.max(2, Math.min(concurrency, 8)),
         minIntervalMs: intervalMs ?? (concurrency > 2 ? 300 : 600),

@@ -12,7 +12,8 @@ test('parseBenchmarkArgs parses flags and validates arguments', () => {
     '--proxy',
     '--proxy-file', '/tmp/proxies.txt',
     '--batch-size', '50',
-    '--out', 'artifacts/test'
+    '--out', 'artifacts/test',
+    '--series', 'Demo Anime', '12345'
   ]
   const parsed = parseBenchmarkArgs(args)
   assert.equal(parsed.catalogPath, 'test-cat.json')
@@ -21,6 +22,7 @@ test('parseBenchmarkArgs parses flags and validates arguments', () => {
   assert.equal(parsed.proxyFile, '/tmp/proxies.txt')
   assert.equal(parsed.batchSize, 50)
   assert.equal(parsed.outDir, 'artifacts/test')
+  assert.deepEqual(parsed.seriesFilter, ['Demo Anime', '12345'])
 
   assert.throws(() => parseBenchmarkArgs(['--batch-size', '0']), /Valor inválido para --batch-size/)
   assert.throws(() => parseBenchmarkArgs(['--batch-size', '-5']), /Valor inválido para --batch-size/)

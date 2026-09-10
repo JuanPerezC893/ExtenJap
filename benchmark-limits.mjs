@@ -36,7 +36,7 @@ export function formatTable(levels) {
 }
 
 export function parseBenchmarkArgs(args) {
-  const opts = {}
+  const opts = { seriesFilter: [] }
   for (let i = 0; i < args.length; i++) {
     const a = args[i]
     if (a === '--catalog' && args[i + 1]) opts.catalogPath = args[++i]
@@ -49,6 +49,10 @@ export function parseBenchmarkArgs(args) {
       opts.batchSize = b
     }
     else if (a === '--out' && args[i + 1]) opts.outDir = args[++i]
+    else if (a === '--series') {
+      opts.seriesFilter.push(args[++i])
+      while (args[i + 1] && !args[i + 1].startsWith('--')) opts.seriesFilter.push(args[++i])
+    }
     else throw new Error('Opción desconocida o incompleta: ' + a)
   }
   return opts
@@ -65,7 +69,8 @@ export async function runBenchmark(options = {}, indexerRunner = runIndexer) {
     outDir = 'artifacts/benchmark',
     log = console.log,
     signal,
-    cooldownBetweenLevelsMs = 1500
+    cooldownBetweenLevelsMs = 1500,
+    seriesFilter = []
   } = options
 
   fs.mkdirSync(outDir, { recursive: true })
@@ -114,6 +119,7 @@ export async function runBenchmark(options = {}, indexerRunner = runIndexer) {
         proxyFile,
         retryPending: false,
         signal,
+        seriesFilter,
         log: (msg) => {
           if (msg.startsWith('[W') || msg.startsWith('Tanda')) {
             log('    ' + msg)
@@ -161,10 +167,17 @@ export async function runBenchmark(options = {}, indexerRunner = runIndexer) {
 
     log(`\n    [RESUMEN NIVEL ${lvl.level}]: ${prepared} preparados en ${elapsedSeconds.toFixed(1)}s -> ${filesPerMinute} archivos/minuto.`)
 
-    if (blockedHosts.length > 0 || result?.stopReason === 'providers_unavailable' || result?.stopReason === 'video_host_unavailable') {
+    if (blockedHosts.length > 0 || result?.stopReason === 'providers_unavailable') {
       log(`\n    [ALERTA DE SATURACIÓN]: Se detectó límite de tasa (429/Cooldown) en: ${blockedHosts.map(b => b.host).join(', ') || result?.stopReason}`)
       log(`    -> Se alcanzó el techo seguro. Deteniendo pruebas para proteger tus cuotas.`)
       report.stopReason = 'rate_limited'
+      break
+    }
+
+    if (result?.stopReason === 'video_host_unavailable') {
+      log(`\n    [PAUSA DE VIDEO]: El servidor de almacenamiento de video pausó temporalmente por archivos inaccesibles.`)
+      log(`    -> Deteniendo pruebas en este punto. Los avances fueron guardados.`)
+      report.stopReason = 'video_host_unavailable'
       break
     }
 

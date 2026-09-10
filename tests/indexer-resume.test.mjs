@@ -483,3 +483,66 @@ test('three unavailable probes pause a series, admit healthy work and rotate aft
   assert.equal(next.prepared, 6)
   assert.equal(next.reused, 1)
 })
+
+
+test('bounded search reaches a file season code and shared series lookup without repeating group variants', () => {
+  const plans = boundedQueries({ title: 'Bakuman S2', aliases: ['Bakuman. 2nd Season'] }, { episode: 1, resolution: '1080', quality: '[SphinxAnime] [BD 1080p]', fileName: 'Bakuman (2010) S02E01.mkv' }, 4).plans
+  assert.equal(plans.length, 4)
+  assert.ok(plans.some(p => p.query === 'Bakuman S02E01'))
+  assert.equal(plans.filter(p => p.query === 'Bakuman').length, 2)
+  assert.ok(plans.some(p => p.query.includes('2nd Season')))
+})
+
+test('one shared broad lookup prepares two episodes when all episode queries are empty', async t => {
+  const f = await setup(t, 2)
+  for (const item of f.fixtures) item.ep.fileName = item.ep.fileName.replace(/\[A000000\d\]/, '')
+  fs.writeFileSync(f.catalogPath, JSON.stringify(f.catalog))
+  let broadCalls = 0
+  const report = await runIndexer({ ...f.options, fetchFn: async (url, opts) => {
+    const u = new URL(url)
+    if (u.hostname === 'api.anisearch.org' || u.hostname.startsWith('feed.animetosho.')) {
+      const q = u.searchParams.get('q') || u.searchParams.get('name')
+      if (q !== 'Demo' && q !== 'ilike.*Demo*') return Response.json([])
+      broadCalls++
+    }
+    return f.response(url, opts)
+  } })
+  assert.equal(report.prepared, 2)
+  assert.equal(broadCalls, 1)
+  const jobs = Object.values(JSON.parse(fs.readFileSync(join(f.dir, 'indexer-state.json'))).jobs)
+  assert.ok(jobs.every(j => j.searchTrace.some(q => q.strategy === 'series_broad' && q.returned === 2)))
+})
+
+test('old not-found jobs use the new plan once and persist an explicit empty-result diagnosis', async t => {
+  const f = await setup(t, 1)
+  const opts = { ...f.options, fetchFn: async (url, options) => new URL(url).hostname === 'emision.craftervault.com' ? f.response(url, options) : Response.json([]) }
+  await runIndexer(opts)
+  const path = join(f.dir, 'indexer-state.json')
+  const state = JSON.parse(fs.readFileSync(path))
+  delete Object.values(state.jobs)[0].searchPlanVersion
+  fs.writeFileSync(path, JSON.stringify(state))
+  assert.equal((await runIndexer(opts)).not_found, 1)
+  const job = Object.values(JSON.parse(fs.readFileSync(path)).jobs)[0]
+  assert.equal(job.searchDiagnosis, 'EMPTY_RESULTS')
+  assert.equal(job.searchTrace.length, 4)
+  assert.equal((await runIndexer(opts)).postponed, 1)
+})
+
+
+test('one broad provider cannot spend all candidate downloads before the next provider', async t => {
+  const f = await setup(t, 1)
+  f.fixtures[0].ep.fileName = f.fixtures[0].ep.fileName.replace(/\[A000000\d\]/, '')
+  f.fixtures[0].ep.url = 'https://emision.craftervault.com/' + encodeURIComponent(f.fixtures[0].ep.fileName)
+  fs.writeFileSync(f.catalogPath, JSON.stringify(f.catalog))
+  const bad = toTorrentFile({ info: { name: f.fixtures[0].ep.fileName, length: 24, 'piece length': 8, pieces: Buffer.alloc(60) } })
+  let badDownloads = 0
+  const report = await runIndexer({ ...f.options, fetchFn: async (url, opts) => {
+    const u = new URL(url)
+    if (u.hostname === 'bad.test') { badDownloads++; return new Response(bad) }
+    if (u.hostname === 'api.anisearch.org') return Response.json([1, 2, 3, 4].map(i => ({ torrentName: f.fixtures[0].ep.fileName, torrentFileUrl: 'https://bad.test/' + i })))
+    if (u.hostname.startsWith('feed.animetosho.') && u.searchParams.get('q') !== 'Demo') return Response.json([])
+    return f.response(url, opts)
+  } })
+  assert.equal(report.prepared, 1, fs.readFileSync(join(f.dir, 'indexer-state.json'), 'utf8'))
+  assert.equal(badDownloads, 2)
+})

@@ -86,7 +86,11 @@ export async function verifyPieceHashes(url, parsed, fetchFn = fetch, options = 
 export function createSearchCache() {
   const entries = new Map()
   return async (key, action) => {
-    if (entries.has(key)) return entries.get(key)
+    if (entries.has(key)) {
+      const cached = entries.get(key)
+      entries.delete(key); entries.set(key, cached)
+      return cached
+    }
     const pending = Promise.resolve().then(action)
     entries.set(key, pending)
     try { const value = await pending; if (entries.size > 500) entries.delete(entries.keys().next().value); return value }
@@ -111,14 +115,28 @@ export function createSourceCache(now = Date.now) {
   }
 }
 export function boundedQueries(series, ep, maxQueries, siblings = [], siblingOnly = false) {
+  const queries = buildSearchQueries(series, { ...ep, fileName: fileName(ep) }, siblings)
   const plans = [], seen = new Set()
-  for (const q of buildSearchQueries(series, { ...ep, fileName: fileName(ep) }, siblings)) {
-    if (siblingOnly && q.priority !== 'sibling') continue
-    const providers = q.provider === 'all' ? (q.priority === 'crc' ? ['anisearch', 'animetosho'] : ['animetosho', 'anisearch']) : [q.provider]
-    for (const provider of providers) {
-      const key = provider + ':' + q.query
-      if (!seen.has(key)) { seen.add(key); plans.push({ provider, query: q.query }) }
+  const add = (q, provider) => {
+    const key = provider + ':' + q.query.toLowerCase()
+    if (!seen.has(key)) { seen.add(key); plans.push({ provider, query: q.query, strategy: q.priority }) }
+  }
+  if (siblingOnly) {
+    for (const q of queries.filter(q => q.priority === 'sibling')) for (const provider of ['animetosho', 'anisearch']) add(q, provider)
+  } else {
+    for (const q of queries.filter(q => q.priority === 'crc')) for (const provider of ['anisearch', 'animetosho']) add(q, provider)
+    const ordered = [], texts = new Set()
+    const pick = q => { if (q && !texts.has(q.query.toLowerCase())) { texts.add(q.query.toLowerCase()); ordered.push(q) } }
+    for (const priority of ['sibling', 'release_stem', 'series_broad', 'alias_ep', 'group', 'title_ep', 'title_ep_res', 'movie', 'alias_movie']) {
+      pick(queries.find(q => q.priority === priority))
     }
+    for (const q of queries.filter(q => q.priority !== 'crc')) pick(q)
+    // Spend scarce slots on different formulations before duplicating each on both providers.
+    ordered.forEach((q, i) => {
+      add(q, i % 2 ? 'anisearch' : 'animetosho')
+      if (q.priority === 'series_broad') add(q, i % 2 ? 'animetosho' : 'anisearch')
+    })
+    ordered.forEach((q, i) => add(q, i % 2 ? 'animetosho' : 'anisearch'))
   }
   return { plans: plans.slice(0, maxQueries), truncated: plans.length > maxQueries }
 }
@@ -174,11 +192,11 @@ async function downloadTorrentBuffer(item, fetchFn, signal, network) {
 
 async function resolveRelease(series, ep, options) {
   const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), sourceCache = createSourceCache(), existing, siblings = [], network } = options
-  const errors = [], rejections = [], seen = new Set()
+  const errors = [], rejections = [], searchTrace = [], seen = new Set()
   let candidates = 0, incompatible = 0, searched = 0, actualSize = null
   const pendingPath = inside(resolve(stateDir, 'pending'), releaseKey(series, ep) + '.torrent')
   const clearPending = () => { if (existsSync(pendingPath)) unlinkSync(pendingPath) }
-  const deferredVideo = err => ({ status: 'deferred', reason: err.code || 'NETWORK_ERROR', searched, candidates, errors: [errorData(err)], retryAt: err.retryAt || Date.now() + 60000, pendingTorrent: existsSync(pendingPath) })
+  const deferredVideo = err => ({ searchPlanVersion: 2, searchTrace, status: 'deferred', reason: err.code || 'NETWORK_ERROR', searched, candidates, errors: [errorData(err)], retryAt: err.retryAt || Date.now() + 60000, pendingTorrent: existsSync(pendingPath) })
   let url = directUrl(existing?.sourceFingerprint === sourceFingerprint(ep) ? existing.directUrl : ep.url)
   if (!url) throw failure('INVALID_DIRECT_URL', 'URL de video inválida')
   // Check the data path before spending tracker requests. A 403 here is access,
@@ -242,7 +260,7 @@ async function resolveRelease(series, ep, options) {
   if (existsSync(pendingPath)) {
     try {
       const match = await tryTorrent(readFileSync(pendingPath), 'pending-torrent')
-      if (match) return { status: 'prepared', match, searched, candidates, rejections }
+      if (match) return { status: 'prepared', match, searchPlanVersion: 2, searchTrace, searched, candidates, rejections }
     } catch (err) {
       if (fatalDisk(err) || signal?.aborted) throw err
       if (err.stage === 'video_pieces') return deferredVideo(err)
@@ -255,7 +273,7 @@ async function resolveRelease(series, ep, options) {
     seen.add(record.torrentPath)
     const path = inside(resolve(stateDir, 'dist'), record.torrentPath)
     if (!existsSync(path)) continue
-    try { const match = await tryTorrent(readFileSync(path), 'saved-torrent'); if (match) return { status: 'prepared', match, searched, candidates, rejections } }
+    try { const match = await tryTorrent(readFileSync(path), 'saved-torrent'); if (match) return { status: 'prepared', match, searchPlanVersion: 2, searchTrace, searched, candidates, rejections } }
     catch (err) {
       if (fatalDisk(err) || signal?.aborted) throw err
       if (err.stage === 'video_pieces') return deferredVideo(err)
@@ -272,9 +290,11 @@ async function resolveRelease(series, ep, options) {
     nekobt: searchNekoBT
   }
   const { plans, truncated } = boundedQueries(series, ep, maxQueries, siblings, options.siblingOnly)
-  for (const plan of plans) {
+  for (const [planIndex, plan] of plans.entries()) {
     signal?.throwIfAborted()
     let items
+    const trace = { ...plan, returned: 0, eligible: 0 }
+    searchTrace.push(trace)
     try {
       searched++
       const searchFn = searchMap[plan.provider] || searchAnimeTosho
@@ -282,11 +302,17 @@ async function resolveRelease(series, ep, options) {
     } catch (err) {
       if (err.url) network?.noteFailure(err.url, err)
       err.stage ||= 'search'
+      trace.error = err.code || 'NETWORK_ERROR'
       errors.push(errorData(err)); continue
     }
     const candidatesToTest = rankCandidates(items, { ...ep, size: actualSize || ep.size }, siblings)
+    trace.returned = items.length; trace.eligible = candidatesToTest.length
+    trace.batchResults = items.filter(isBatchTorrent).length
+    const queryBudget = Math.max(1, Math.ceil((maxCandidates - candidates) / (plans.length - planIndex)))
+    trace.downloaded = 0
     for (const item of candidatesToTest) {
       signal?.throwIfAborted()
+      if (trace.downloaded >= queryBudget) break
       if (!item.torrent_url || seen.has(item.torrent_url)) continue
       seen.add(item.torrent_url)
       const downloadHost = new URL(item.torrent_url).hostname
@@ -297,6 +323,7 @@ async function resolveRelease(series, ep, options) {
       }
       if (candidates >= maxCandidates) break
       candidates++
+      trace.downloaded++
       try {
         const bytes = await downloadTorrentBuffer(item, fetchFn, signal, network)
         const match = await tryTorrent(bytes, item.source || plan.provider)
@@ -304,7 +331,7 @@ async function resolveRelease(series, ep, options) {
           rejections.push('sha1_mismatch')
           continue
         }
-        return { status: 'prepared', match, searched, candidates, rejections }
+        return { status: 'prepared', match, searchPlanVersion: 2, searchTrace, searched, candidates, rejections }
       } catch (err) {
         if (fatalDisk(err) || signal?.aborted) throw err
         if (err.stage === 'video_pieces') return deferredVideo(err)
@@ -324,13 +351,14 @@ async function resolveRelease(series, ep, options) {
     }
     if (candidates >= maxCandidates) break
   }
-  const details = { searched, candidates, incompatible, errors, rejections, searchLimited: truncated || candidates >= maxCandidates }
+  const details = { searchPlanVersion: 2, searchTrace, searched, candidates, incompatible, errors, rejections, searchLimited: truncated || candidates >= maxCandidates }
   const networkFailure = errors.length > 0
   if (networkFailure) {
     const mainErr = errors.find(e => ['HOST_COOLDOWN', 'HTTP_ERROR', 'RANGE_UNAVAILABLE', 'RATE_LIMITED'].includes(e.code)) || errors[0]
     return { ...details, status: 'deferred', reason: mainErr.code, retryAt: Math.max(Date.now() + 60000, ...errors.map(e => e.retryAt || 0)) }
   }
-  return { ...details, status: incompatible ? 'incompatible' : 'not_found', reason: incompatible ? 'SAMPLED_OR_METADATA_MISMATCH' : 'NO_MATCH_IN_SEARCH_BUDGET', retryAt: Date.now() + 86400000 }
+  const searchDiagnosis = incompatible ? 'CANDIDATES_INCOMPATIBLE' : candidates ? 'METADATA_DOWNLOADS_UNAVAILABLE' : searchTrace.some(t => t.returned > 0) ? 'RESULTS_FILTERED_OUT' : 'EMPTY_RESULTS'
+  return { ...details, searchDiagnosis, status: incompatible ? 'incompatible' : 'not_found', reason: incompatible ? 'SAMPLED_OR_METADATA_MISMATCH' : 'NO_MATCH_IN_SEARCH_BUDGET', retryAt: Date.now() + 86400000 }
 }
 export async function findAndPrepareTorrent(series, ep, options = {}) {
   const signal = options.signal || AbortSignal.timeout(120000)
@@ -505,7 +533,7 @@ export async function runIndexer(options = {}) {
       tasks = rotateAvailabilityTasks(tasks, state.availability)
       report.selected = tasks.length
       report.availabilitySkipped = 0
-      log(`[Indexer v0.5.9] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} buscadores, ${videoConcurrency} verificaciones de vídeo simultáneas; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      log(`[Indexer v0.5.10] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} buscadores, ${videoConcurrency} verificaciones de vídeo simultáneas; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
       const pendingDir = resolve(stateDir, 'pending')
       const pendingKeys = new Set(existsSync(pendingDir) ? readdirSync(pendingDir).filter(n => n.endsWith('.torrent')).map(n => n.slice(0, -8)) : [])
       tasks.sort((a, b) => Number(pendingKeys.has(b.key)) - Number(pendingKeys.has(a.key)))
@@ -525,7 +553,7 @@ export async function runIndexer(options = {}) {
           if (report.attempted >= workLimit) { report.stopReason = 'limit'; break }
           const { series, ep, key } = tasks[cursor++]
           const sId = String(series.anilistId || series.id || series.title), priorJob = state.jobs[key]
-          if (!retryPending && priorJob && priorJob.status !== 'prepared' && priorJob.reason !== 'SOURCE_NOT_FOUND' && !(priorJob.status === 'deferred' && Number(priorJob.retryAt || 0) <= Date.now())) { report.postponed++; continue }
+          if (!retryPending && priorJob && priorJob.status !== 'prepared' && priorJob.reason !== 'SOURCE_NOT_FOUND' && !(priorJob.status === 'not_found' && priorJob.searchPlanVersion !== 2) && !(priorJob.status === 'deferred' && Number(priorJob.retryAt || 0) <= Date.now())) { report.postponed++; continue }
           const stamp = { availabilityKey: availabilityKey(series, ep), series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob?.attempts || 0) + 1 }
           const issue = episodeIssue(series, ep, conflictingIds)
           if (issue) {
@@ -595,6 +623,7 @@ export async function runIndexer(options = {}) {
             report.attempted--; report.postponed++; report.availabilitySkipped++; processed.delete(key)
           } else report[result.status]++
           if (!result.availabilitySkipped) log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}${result.errors?.length ? ' [' + result.errors.slice(0, 3).map(e => [e.stage, e.host, e.status ? 'HTTP ' + e.status : e.code].filter(Boolean).join(' / ')).join('; ') + ']' : ''}`)
+          if (result.searchDiagnosis && result.status === 'not_found') log(`[W${id}] Búsqueda: ${result.searchDiagnosis}; ${result.searched} consultas, ${result.searchTrace.reduce((n, q) => n + q.returned, 0)} resultados, ${result.candidates} descargas. Detalle en el estado/journal.`)
           if (result.rejections?.length) log(`[W${id}] Descartes: ${[...new Set(result.rejections)].slice(0, 3).join('; ')}`)
           if (result.availabilitySkipped && !reportedAvailabilityPauses.has(stamp.availabilityKey)) {
             reportedAvailabilityPauses.add(stamp.availabilityKey)

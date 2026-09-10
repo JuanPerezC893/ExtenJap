@@ -456,3 +456,30 @@ test('video path control verifies known pairs without modifying the registry or 
   assert.equal(result.results[0].evidence.pieces.length, 3)
   assert.equal(fs.readFileSync(join(f.dir, 'verified-matches.json'), 'utf8'), registry)
 })
+
+
+test('three unavailable probes pause a series, admit healthy work and rotate after expiry', async t => {
+  const f = await setup(t, 7)
+  f.catalog = [{ ...f.catalog[0], episodes: f.fixtures.slice(0, 6).map(x => x.ep) }, { title: 'Other', anilistId: 456, episodes: [f.fixtures[6].ep] }]
+  fs.writeFileSync(f.catalogPath, JSON.stringify(f.catalog))
+  let missingCalls = 0
+  const report = await runIndexer({ ...f.options, concurrency: 12, fetchFn: async (url, opts) => {
+    if (f.fixtures.slice(0, 6).some(x => x.ep.url === url)) { missingCalls++; return new Response('', { status: 404 }) }
+    return f.response(url, opts)
+  } })
+  assert.equal(missingCalls, 3)
+  assert.equal(report.prepared, 1)
+  assert.equal(report.deferred, 3)
+  assert.equal(report.availabilitySkipped, 3)
+  assert.equal(report.attempted, 4)
+  const path = join(f.dir, 'indexer-state.json')
+  const state = JSON.parse(fs.readFileSync(path))
+  for (const health of Object.values(state.availability)) if (health.retryAt) health.retryAt = Date.now() - 1
+  for (const job of Object.values(state.jobs)) if (job.retryAt) job.retryAt = Date.now() - 1
+  fs.writeFileSync(path, JSON.stringify(state))
+  const calls = []
+  const next = await runIndexer({ ...f.options, concurrency: 1, fetchFn: async (url, opts) => { calls.push(url); return f.response(url, opts) } })
+  assert.equal(calls[0], f.fixtures[3].ep.url)
+  assert.equal(next.prepared, 6)
+  assert.equal(next.reused, 1)
+})

@@ -54,3 +54,9 @@ test('canonicalizes legacy anibatchddl.com domains to craftervault.com', () => {
     'https://anime.craftervault.com/video.mp4'
   )
 })
+
+
+test('mixed scheme encoding preserves encoded path separators', () => {
+  const target = 'https%3A%2F%2Fanime.craftervault.com/A%2FB/video%23name.mkv'
+  assert.equal(directUrl('https://redirect.japan-paw.net/#' + target), 'https://anime.craftervault.com/A%2FB/video%23name.mkv')
+})

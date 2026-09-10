@@ -10,6 +10,7 @@ import { createIndexerNetwork } from './lib/indexer-network.js'
 import { directUrl } from './lib/direct-url.js'
 import { isMain } from './lib/io.mjs'
 import { replayJournal, appendJournal } from './lib/indexer-journal.js'
+import { availabilityKey, createSourceAvailability, rotateAvailabilityTasks } from './lib/source-availability.js'
 import { createWorkGate } from './lib/work-gate.js'
 import { parseSeries } from './scrape.mjs'
 export { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT }
@@ -174,7 +175,7 @@ async function resolveRelease(series, ep, options) {
   if (!url) throw failure('INVALID_DIRECT_URL', 'URL de video inválida')
   // Check the data path before spending tracker requests. A 403 here is access,
   // not evidence about whether a compatible torrent exists.
-  if (verifyPieces) {
+  const probeSource = async () => {
     try {
       actualSize = await probeDirectVideo(url, fetchFn, signal)
       if (ep.size && Number(ep.size) !== actualSize) return { status: 'needs_review', reason: 'SOURCE_SIZE_CHANGED', searched, candidates, errors: [], actualSize }
@@ -205,6 +206,12 @@ async function resolveRelease(series, ep, options) {
         } else return { status: 'deferred', reason: 'SOURCE_UNAVAILABLE', searched, candidates, errors: [errorData(err)], retryAt: Date.now() + 6 * 3600000 }
       } else return { status: 'deferred', reason: err.code || 'NETWORK_ERROR', searched, candidates, incompatible: 0, errors: [errorData(err)], retryAt: err.retryAt || Date.now() + 60000 }
     }
+  }
+  if (verifyPieces) {
+    const result = await (options.availability
+      ? options.availability.run(availabilityKey(series, ep), releaseKey(series, ep), probeSource)
+      : probeSource())
+    if (result) return result
   }
   const tryTorrent = async (bytes, source) => {
     const parsed = await parseTorrent(bytes)
@@ -421,6 +428,7 @@ export async function runIndexer(options = {}) {
     const journalPath = resolve(stateDir, 'indexer-journal.jsonl')
     const recovered = replayJournal(journalPath, state, registry)
     if (recovered) log(`[Indexer] Recuperados ${recovered} resultados del registro incremental`)
+    state.availability ||= {}
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(failure('TIME_BUDGET', 'Fin del presupuesto de tiempo')), maxMinutes * 60000)
     const signal = parentSignal ? AbortSignal.any([parentSignal, controller.signal]) : controller.signal
@@ -448,6 +456,7 @@ export async function runIndexer(options = {}) {
       })
       const cache = createSearchCache()
       const sourceCache = createSourceCache()
+      const availability = createSourceAvailability(state.availability, signal)
       const verifyGate = createWorkGate(videoConcurrency, signal)
       // One directory listing avoids thousands of per-file Drive/FUSE checks.
       const torrentDir = resolve(stateDir, 'dist', 'torrents')
@@ -457,7 +466,7 @@ export async function runIndexer(options = {}) {
       let sinceSnapshot = 0, lastSnapshotAt = Date.now()
       const checkpoint = (key, seriesId, entry) => {
         if (key) {
-          appendJournal(journalPath, { key, job: state.jobs[key], seriesId, entry, providers: network.snapshot() })
+          appendJournal(journalPath, { key, job: state.jobs[key], seriesId, entry, providers: network.snapshot(), availability: state.availability[state.jobs[key].availabilityKey], availabilityKey: state.jobs[key].availabilityKey })
           sinceSnapshot++; report.storage.journalRecords++
           if (sinceSnapshot < 25 && Date.now() - lastSnapshotAt < 15000) return
         }
@@ -479,17 +488,21 @@ export async function runIndexer(options = {}) {
       let selected = includeNonAnime ? catalog : catalog.filter(s => s.anilistId)
       if (batchRange) selected = selected.slice(...batchRange)
       if (seriesFilter.length) selected = selected.filter(s => seriesFilter.some(f => /^\d+$/.test(String(f)) ? String(s.anilistId) === String(f) : [s.title, ...(s.aliases || [])].some(t => t?.toLowerCase().includes(String(f).toLowerCase()))))
-      const tasks = [], seen = new Set()
+      let tasks = []
+      const seen = new Set()
       for (const series of selected) for (const ep of series.episodes || []) {
         const key = releaseKey(series, ep)
         if (!seen.has(key)) { seen.add(key); tasks.push({ series, ep, key }) }
       }
+      tasks = rotateAvailabilityTasks(tasks, state.availability)
       report.selected = tasks.length
-      log(`[Indexer v0.5.8] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} buscadores, ${videoConcurrency} verificaciones de vídeo simultáneas; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      report.availabilitySkipped = 0
+      log(`[Indexer v0.5.9] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} buscadores, ${videoConcurrency} verificaciones de vídeo simultáneas; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
       const pendingDir = resolve(stateDir, 'pending')
       const pendingKeys = new Set(existsSync(pendingDir) ? readdirSync(pendingDir).filter(n => n.endsWith('.torrent')).map(n => n.slice(0, -8)) : [])
       tasks.sort((a, b) => Number(pendingKeys.has(b.key)) - Number(pendingKeys.has(a.key)))
       const pausedVideoHosts = new Set()
+      const reportedAvailabilityPauses = new Set()
       const processed = new Set()
       const rescueReserve = Number.isFinite(limit) && limit >= 3 ? Math.min(100, Math.max(1, Math.floor(limit / 10))) : 0
       const workLimit = limit - rescueReserve
@@ -505,7 +518,7 @@ export async function runIndexer(options = {}) {
           const { series, ep, key } = tasks[cursor++]
           const sId = String(series.anilistId || series.id || series.title), priorJob = state.jobs[key]
           if (!retryPending && priorJob && priorJob.status !== 'prepared' && priorJob.reason !== 'SOURCE_NOT_FOUND' && !(priorJob.status === 'deferred' && Number(priorJob.retryAt || 0) <= Date.now())) { report.postponed++; continue }
-          const stamp = { series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob?.attempts || 0) + 1 }
+          const stamp = { availabilityKey: availabilityKey(series, ep), series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob?.attempts || 0) + 1 }
           const issue = episodeIssue(series, ep, conflictingIds)
           if (issue) {
             report.attempted++; state.jobs[key] = { ...stamp, status: 'needs_review', reason: issue }
@@ -551,7 +564,7 @@ export async function runIndexer(options = {}) {
           let result
           try {
             const verifiedSiblings = seriesRecord.episodes.filter(e => e.verified?.piecesVerified)
-            result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, siblings: verifiedSiblings, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, sourceCache, verifyGate, pieceTimeoutMs, maxQueries, maxCandidates })
+            result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, siblings: verifiedSiblings, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, sourceCache, availability, verifyGate, pieceTimeoutMs, maxQueries, maxCandidates })
           }
           catch (err) {
             if (signal.aborted) { report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'; result = { status: 'deferred', reason: report.stopReason, retryAt: Date.now() } }
@@ -569,9 +582,16 @@ export async function runIndexer(options = {}) {
             preparedEntry = entry
           }
           const { match, ...outcome } = result
-          state.jobs[key] = { ...stamp, ...outcome }; report[result.status]++
-          log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}${result.errors?.length ? ' [' + result.errors.slice(0, 3).map(e => [e.stage, e.host, e.status ? 'HTTP ' + e.status : e.code].filter(Boolean).join(' / ')).join('; ') + ']' : ''}`)
+          state.jobs[key] = { ...stamp, ...outcome }
+          if (result.availabilitySkipped) {
+            report.attempted--; report.postponed++; report.availabilitySkipped++; processed.delete(key)
+          } else report[result.status]++
+          if (!result.availabilitySkipped) log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}${result.errors?.length ? ' [' + result.errors.slice(0, 3).map(e => [e.stage, e.host, e.status ? 'HTTP ' + e.status : e.code].filter(Boolean).join(' / ')).join('; ') + ']' : ''}`)
           if (result.rejections?.length) log(`[W${id}] Descartes: ${[...new Set(result.rejections)].slice(0, 3).join('; ')}`)
+          if (result.availabilitySkipped && !reportedAvailabilityPauses.has(stamp.availabilityKey)) {
+            reportedAvailabilityPauses.add(stamp.availabilityKey)
+            log(`[Disponibilidad] ${series.title}: pausa de serie hasta ${new Date(result.retryAt).toISOString()}; se continúa con otras series.`)
+          }
           checkpoint(key, sId, preparedEntry)
         }
       }
@@ -645,6 +665,8 @@ export async function runIndexer(options = {}) {
       if (signal.aborted && report.stopReason === 'complete') report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'
       report.remaining = tasks.length - report.attempted - report.reused - report.postponed; report.finishedAt = new Date().toISOString(); checkpoint()
       log(`Tanda finalizada (${report.stopReason}): ${report.prepared} preparados, ${report.reused} reutilizados, ${report.deferred} diferidos por acceso, ${report.not_found} sin coincidencia en el presupuesto, ${report.incompatible} incompatibles, ${report.needs_review} para revisar. Restantes: ${report.remaining}.`)
+      if (report.availabilitySkipped) log(`[Disponibilidad] ${report.availabilitySkipped} archivos aplazados sin consulta de red; siguen pendientes.`)
+      if (report.deferred || report.availabilitySkipped) log('[Indexer] Los plazos dependen de la causa: SOURCE_UNAVAILABLE y SERIES_AVAILABILITY_PAUSE se revisan en seis horas. No asumir una pausa universal de un minuto.')
       return report
     } finally { clearTimeout(timeout) }
   } finally { try { await pool?.close() } finally { releaseLock() } }

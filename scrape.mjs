@@ -13,6 +13,7 @@ import { readFileSync, existsSync } from 'node:fs'
 import { isMain, writeJson } from './lib/io.mjs'
 import { mergeSeries } from './lib/merge-catalog.js'
 import { episodeNumber, resolution as getResolution } from './lib/matching.js'
+import { directUrl } from './lib/direct-url.js'
 
 const OUTPUT_FILE = './raw-catalog.json'
 const START = parseInt(process.argv[2] ?? '1', 10)
@@ -29,17 +30,13 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-// Limpia el link: si viene envuelto en redirect.japan-paw.net/#<encoded>,
-// decodifica SOLO el esquema (https%3A%2F%2F -> https://) y deja el resto
-// del path tal cual (ya viene correctamente percent-encoded para una URL).
-// Si el link ya es directo (sin el wrapper), se devuelve sin cambios.
+// Comparte con el indexador el desenrollado local de redirect/OUO, sin visitar
+// acortadores ni perder los escapes del destino explícito.
 export function cleanUrl(href) {
   const decoded = href.replace(/&amp;/gi, '&')
-  const wrapper = new URL(decoded)
-  const raw = wrapper.hostname === 'redirect.japan-paw.net' ? wrapper.hash.slice(1) : decoded
-  const url = new URL(raw.replace(/^(https?)%3A%2F%2F/i, '$1://'))
-  if (!['https:', 'http:'].includes(url.protocol)) throw new Error('URL no HTTP')
-  return url.href
+  const url = directUrl(decoded)
+  if (!url) throw new Error('URL HTTP inválida o envoltura sin destino explícito')
+  return url
 }
 
 // Extensiones de video soportadas para streaming

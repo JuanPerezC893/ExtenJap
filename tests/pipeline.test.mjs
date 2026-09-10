@@ -64,3 +64,11 @@ test('HTTP → torrent completo → descarga por piezas verificada sin peers', a
   }
   assert.deepEqual(Buffer.concat(downloaded), bytes)
 })
+
+
+test('published nested redirect and ouo links retain the first two episodes', () => {
+  const parsed = parseSeries(readFileSync(new URL('./fixtures/source-nested-wrappers.html', import.meta.url), 'utf8'))
+  assert.deepEqual(parsed.episodes.map(e => e.episode), [1, 2, 3])
+  assert.ok(parsed.episodes.every(e => new URL(e.url).hostname === 'anime.craftervault.com'))
+  assert.match(parsed.episodes[0].fileName, /5379B3CB/)
+})

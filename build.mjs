@@ -3,6 +3,7 @@ import { writeJson } from './lib/io.mjs'
 import { resolve, relative, isAbsolute, sep } from 'node:path'
 import parseTorrent from 'parse-torrent'
 import { directUrl } from './lib/direct-url.js'
+import { replayJournal } from './lib/indexer-journal.js'
 import { build } from 'esbuild'
 
 const args = process.argv.slice(2)
@@ -21,6 +22,7 @@ const output = file => {
 const registryPath = resolve(stateDir, 'verified-matches.json')
 const verified = existsSync(registryPath) ? JSON.parse(readFileSync(registryPath, 'utf8')) : { series: {} }
 if (!verified.series || typeof verified.series !== 'object' || Array.isArray(verified.series)) throw new Error('Registro inválido; distribución conservada')
+replayJournal(resolve(stateDir, 'indexer-journal.jsonl'), { jobs: {} }, verified, { repairTail: false })
 const previous = existsSync(output('manifest.json')) ? JSON.parse(readFileSync(output('manifest.json'), 'utf8')) : []
 const base = new URL(baseArg ?? (previous[0]?.code ? new URL('./', previous[0].code).href : 'https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/dist/'))
 if (!['http:', 'https:'].includes(base.protocol) || base.search || base.hash) throw new Error('Usa una URL base HTTP sin query ni fragmento')

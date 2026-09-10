@@ -180,3 +180,17 @@ test('close cancels in-flight transport and closes each agent once', async t => 
   assert.equal(fixture.pool.agents.size, 0)
   await assert.rejects(fixture.pool.fetch('https://example.com/'), /cerrado/)
 })
+
+
+test('shutdown destroys the agent instead of waiting for a stalled graceful close', async t => {
+  let destroyed = 0, closed = 0
+  const fixture = mockPool(t, {
+    proxyFile: proxyFixture(t, 'proxy1:8080'),
+    agentFactory: () => ({ close: () => { closed++; return new Promise(() => {}) }, destroy: async () => { destroyed++ } })
+  })
+  await fixture.pool.warmup()
+  await fixture.pool.fetch('https://video.test/1')
+  await fixture.pool.close()
+  assert.equal(destroyed, 1)
+  assert.equal(closed, 0)
+})

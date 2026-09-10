@@ -8,3 +8,5 @@ artifacts/
 
 pending/
 video-path-report.json
+
+indexer-journal.jsonl

@@ -9,6 +9,7 @@ import { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT, buildSearc
 import { createIndexerNetwork } from './lib/indexer-network.js'
 import { directUrl } from './lib/direct-url.js'
 import { isMain } from './lib/io.mjs'
+import { replayJournal, appendJournal } from './lib/indexer-journal.js'
 import { createWorkGate } from './lib/work-gate.js'
 import { parseSeries } from './scrape.mjs'
 export { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT }
@@ -34,6 +35,7 @@ function readState(path, fallback) {
 export function loadVerifiedMatches(stateDir = '.') {
   const data = readState(resolve(stateDir, 'verified-matches.json'), { series: {} })
   if (!data.series || typeof data.series !== 'object' || Array.isArray(data.series)) throw new Error('Registro sin objeto series; no se sobrescribirá')
+  replayJournal(resolve(stateDir, 'indexer-journal.jsonl'), { jobs: {} }, data, { repairTail: false })
   return data
 }
 export function saveVerifiedMatches(data, stateDir = '.') {
@@ -87,6 +89,23 @@ export function createSearchCache() {
     entries.set(key, pending)
     try { const value = await pending; if (entries.size > 500) entries.delete(entries.keys().next().value); return value }
     catch (err) { entries.delete(key); throw err }
+  }
+}
+export function createSourceCache(now = Date.now) {
+  const pages = new Map()
+  return async (key, action) => {
+    let entry = pages.get(key)
+    if (!entry || entry.expires <= now()) {
+      entry = { expires: Infinity }
+      entry.promise = Promise.resolve().then(action).then(value => ({ value }), error => {
+        entry.expires = now() + ([404, 410].includes(error.status) ? 600000 : 5000)
+        return { error }
+      })
+      pages.set(key, entry)
+    }
+    const result = await entry.promise
+    if (result.error) throw result.error
+    return result.value
   }
 }
 export function boundedQueries(series, ep, maxQueries, siblings = [], siblingOnly = false) {
@@ -145,7 +164,7 @@ async function downloadTorrentBuffer(item, fetchFn, signal, network) {
 }
 
 async function resolveRelease(series, ep, options) {
-  const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing, siblings = [], network } = options
+  const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), sourceCache = createSourceCache(), existing, siblings = [], network } = options
   const errors = [], rejections = [], seen = new Set()
   let candidates = 0, incompatible = 0, searched = 0, actualSize = null
   const pendingPath = inside(resolve(stateDir, 'pending'), releaseKey(series, ep) + '.torrent')
@@ -166,7 +185,7 @@ async function resolveRelease(series, ep, options) {
         if (Number.isInteger(Number(series.sourceV)) && Number(series.sourceV) > 0) {
           const pageUrl = `https://paste.japan-paw.net/?v=${Number(series.sourceV)}`
           try {
-            const published = await searchCache(`source:${pageUrl}`, () => stageRequest(async () => {
+            const published = await sourceCache(`source:${pageUrl}`, () => stageRequest(async () => {
               const response = await fetchFn(pageUrl, { signal, maxBodyBytes: 4 * 1024 * 1024 })
               const parsed = parseSeries(await response.text())
               if (!parsed) throw failure('INVALID_RESPONSE', 'Página de origen no reconocida')
@@ -250,7 +269,7 @@ async function resolveRelease(series, ep, options) {
       err.stage ||= 'search'
       errors.push(errorData(err)); continue
     }
-    const candidatesToTest = rankCandidates(items, ep, siblings)
+    const candidatesToTest = rankCandidates(items, { ...ep, size: actualSize || ep.size }, siblings)
     for (const item of candidatesToTest) {
       signal?.throwIfAborted()
       if (!item.torrent_url || seen.has(item.torrent_url)) continue
@@ -399,6 +418,9 @@ export async function runIndexer(options = {}) {
     const statePath = resolve(stateDir, 'indexer-state.json')
     const state = readState(statePath, { version: 1, jobs: {}, providers: {} })
     if (state.version !== 1 || !state.jobs || typeof state.jobs !== 'object' || Array.isArray(state.jobs)) throw new Error('Estado de reanudación incompatible')
+    const journalPath = resolve(stateDir, 'indexer-journal.jsonl')
+    const recovered = replayJournal(journalPath, state, registry)
+    if (recovered) log(`[Indexer] Recuperados ${recovered} resultados del registro incremental`)
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(failure('TIME_BUDGET', 'Fin del presupuesto de tiempo')), maxMinutes * 60000)
     const signal = parentSignal ? AbortSignal.any([parentSignal, controller.signal]) : controller.signal
@@ -425,16 +447,27 @@ export async function runIndexer(options = {}) {
         initialState: initialProviders
       })
       const cache = createSearchCache()
+      const sourceCache = createSourceCache()
       const verifyGate = createWorkGate(videoConcurrency, signal)
       // One directory listing avoids thousands of per-file Drive/FUSE checks.
       const torrentDir = resolve(stateDir, 'dist', 'torrents')
       const savedTorrents = new Set(existsSync(torrentDir) ? readdirSync(torrentDir).map(name => resolve(torrentDir, name)) : [])
       const report = { startedAt: new Date().toISOString(), selected: 0, attempted: 0, prepared: 0, reused: 0, deferred: 0, not_found: 0, incompatible: 0, needs_review: 0, postponed: 0, rescueAttempted: 0, stopReason: 'complete' }
-      const checkpoint = () => {
+      report.storage = { journalRecords: 0, snapshots: 0 }
+      let sinceSnapshot = 0, lastSnapshotAt = Date.now()
+      const checkpoint = (key, seriesId, entry) => {
+        if (key) {
+          appendJournal(journalPath, { key, job: state.jobs[key], seriesId, entry, providers: network.snapshot() })
+          sinceSnapshot++; report.storage.journalRecords++
+          if (sinceSnapshot < 25 && Date.now() - lastSnapshotAt < 15000) return
+        }
+        report.storage.snapshots++
         saveVerifiedMatches(registry, stateDir)
         state.providers = network.snapshot(); state.updatedAt = new Date().toISOString()
         atomicWrite(statePath, state)
         atomicWrite(resolve(stateDir, 'indexer-report.json'), { ...report, updatedAt: state.updatedAt, providers: state.providers })
+        writeFileSync(journalPath, '')
+        sinceSnapshot = 0; lastSnapshotAt = Date.now()
       }
       const seasons = new Map()
       for (const s of catalog) if (s.anilistId) {
@@ -452,7 +485,7 @@ export async function runIndexer(options = {}) {
         if (!seen.has(key)) { seen.add(key); tasks.push({ series, ep, key }) }
       }
       report.selected = tasks.length
-      log(`[Indexer v0.5.7] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} buscadores, ${videoConcurrency} verificaciones de vídeo simultáneas; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      log(`[Indexer v0.5.8] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} buscadores, ${videoConcurrency} verificaciones de vídeo simultáneas; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
       const pendingDir = resolve(stateDir, 'pending')
       const pendingKeys = new Set(existsSync(pendingDir) ? readdirSync(pendingDir).filter(n => n.endsWith('.torrent')).map(n => n.slice(0, -8)) : [])
       tasks.sort((a, b) => Number(pendingKeys.has(b.key)) - Number(pendingKeys.has(a.key)))
@@ -476,7 +509,7 @@ export async function runIndexer(options = {}) {
           const issue = episodeIssue(series, ep, conflictingIds)
           if (issue) {
             report.attempted++; state.jobs[key] = { ...stamp, status: 'needs_review', reason: issue }
-            report.needs_review++; checkpoint(); continue
+            report.needs_review++; checkpoint(key); continue
           }
           const seriesRecord = registry.series[sId] ||= { title: series.title, anilistId: series.anilistId ?? null, episodes: [] }
           const existing = seriesRecord.episodes.find(e => episodeReleaseMatch(e, ep))
@@ -518,13 +551,14 @@ export async function runIndexer(options = {}) {
           let result
           try {
             const verifiedSiblings = seriesRecord.episodes.filter(e => e.verified?.piecesVerified)
-            result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, siblings: verifiedSiblings, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, verifyGate, pieceTimeoutMs, maxQueries, maxCandidates })
+            result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, siblings: verifiedSiblings, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, sourceCache, verifyGate, pieceTimeoutMs, maxQueries, maxCandidates })
           }
           catch (err) {
             if (signal.aborted) { report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'; result = { status: 'deferred', reason: report.stopReason, retryAt: Date.now() } }
             else if (err.code && !fatalDisk(err)) result = { status: 'deferred', reason: err.code, errors: [errorData(err)], retryAt: Date.now() + 60000 }
             else throw err
           }
+          let preparedEntry
           if (result.match) {
             const m = result.match
             const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: m.directUrl || ep.url, sourceUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
@@ -532,12 +566,13 @@ export async function runIndexer(options = {}) {
             if (idx >= 0) seriesRecord.episodes[idx] = entry
             else seriesRecord.episodes.push(entry)
             registry.series[sId] = seriesRecord
+            preparedEntry = entry
           }
           const { match, ...outcome } = result
           state.jobs[key] = { ...stamp, ...outcome }; report[result.status]++
           log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}${result.errors?.length ? ' [' + result.errors.slice(0, 3).map(e => [e.stage, e.host, e.status ? 'HTTP ' + e.status : e.code].filter(Boolean).join(' / ')).join('; ') + ']' : ''}`)
           if (result.rejections?.length) log(`[W${id}] Descartes: ${[...new Set(result.rejections)].slice(0, 3).join('; ')}`)
-          checkpoint()
+          checkpoint(key, sId, preparedEntry)
         }
       }
       await Promise.all(Array.from({ length: concurrency }, (_, i) => worker(i + 1).catch(err => { fatal ||= err; stop = true; controller.abort(err) })))
@@ -580,6 +615,7 @@ export async function runIndexer(options = {}) {
                   maxQueries: Math.min(maxQueries, 2),
                   maxCandidates
                 })
+                let preparedEntry
                 if (res.status === 'prepared' && res.match) {
                   const m = res.match
                   const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: m.directUrl || ep.url, sourceUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
@@ -588,13 +624,14 @@ export async function runIndexer(options = {}) {
                   if (idx >= 0) sRec.episodes[idx] = entry
                   else sRec.episodes.push(entry)
                   registry.series[sId] = sRec
+                  preparedEntry = entry
                   log(`[Rescate] ${series.title} · ${ep.episode} -> prepared`)
                 }
                 const { match, ...outcome } = res
                 state.jobs[key] = { ...priorJob, ...outcome, updatedAt: new Date().toISOString(), attempts: (priorJob.attempts || 0) + 1, rescued: true }
                 report[priorJob.status]--
                 report[res.status]++
-                checkpoint()
+                checkpoint(key, sId, preparedEntry)
               } catch (err) {
                 if (signal.aborted) break
                 throw err

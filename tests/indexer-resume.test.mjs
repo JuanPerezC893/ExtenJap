@@ -5,7 +5,7 @@ import { join, resolve, sep } from 'node:path'
 import { tmpdir } from 'node:os'
 import { createHash } from 'node:crypto'
 import parseTorrent, { toTorrentFile } from 'parse-torrent'
-import { runIndexer, parseIndexerArgs, saveVerifiedMatches, loadVerifiedMatches } from '../indexer.mjs'
+import { runIndexer, boundedQueries, parseIndexerArgs, saveVerifiedMatches, loadVerifiedMatches } from '../indexer.mjs'
 import { rankCandidates } from '../lib/matching.js'
 
 async function setup(t, count = 2) {
@@ -164,7 +164,7 @@ test('indexer resume: failed or deferred jobs are postponed on subsequent runs u
       return f.response(url, opts)
     }
   })
-  assert.equal(first.deferred, 1)
+  assert.equal(first.needs_review, 1)
 
   // Second run without retryPending should postpone ep 1 and advance to ep 2
   f.requests.length = 0
@@ -243,7 +243,7 @@ test('indexer resume: sibling rescue pass re-attempts and rescues previously inc
     fetchFn: async (url, opts) => {
       if (url === f.fixtures[0].ep.url) {
         ep1Attempts++
-        if (ep1Attempts === 1) {
+        if (ep1Attempts === 2) {
           const res = await f.response(url, opts)
           const data = new Uint8Array(await res.arrayBuffer())
           data[0] ^= 0xff
@@ -264,3 +264,114 @@ test('indexer CLI rejects misspellings and invalid budgets', () => {
 })
 
 
+
+
+test('rescue query budget actually uses verified siblings instead of repeating CRC', () => {
+  const ep = { episode: 2, fileName: '[Group] Demo - 02 [1080p][A0000002].mkv' }
+  const siblings = [{ episode: 1, fileName: '[Group] Demo - 01 [1080p][A0000001].mkv' }]
+  const result = boundedQueries({ title: 'Demo' }, ep, 2, siblings, true)
+  assert.equal(result.plans.length, 2)
+  assert.ok(result.plans.every(p => p.query.includes('02') && !p.query.includes('A0000002')))
+})
+
+test('resume repairs a missing torrent instead of trusting registry flags', async t => {
+  const f = await setup(t, 1)
+  await runIndexer(f.options)
+  const entry = loadVerifiedMatches(f.dir).series['123'].episodes[0]
+  fs.unlinkSync(join(f.dir, 'dist', entry.torrentPath))
+  const report = await runIndexer(f.options)
+  assert.equal(report.reused, 0)
+  assert.equal(report.prepared, 1)
+  assert.ok(fs.existsSync(join(f.dir, 'dist', entry.torrentPath)))
+})
+
+test('expired deferred jobs retry automatically; future pauses survive force-lock', async t => {
+  const f = await setup(t, 1)
+  await runIndexer({ ...f.options, fetchFn: async () => { throw new Error('offline') } })
+  const statePath = join(f.dir, 'indexer-state.json')
+  const state = JSON.parse(fs.readFileSync(statePath))
+  Object.values(state.jobs)[0].retryAt = Date.now() - 1
+  state.providers = {}
+  fs.writeFileSync(statePath, JSON.stringify(state))
+  assert.equal((await runIndexer(f.options)).prepared, 1)
+  const another = await setup(t, 1)
+  fs.writeFileSync(join(another.dir, 'indexer-state.json'), JSON.stringify({ version: 1, jobs: {}, providers: { hosts: { 'emision.craftervault.com': { retryAt: Date.now() + 60000 } } } }))
+  assert.equal((await runIndexer({ ...another.options, forceLock: true })).stopReason, 'video_host_unavailable')
+  assert.equal(another.requests.length, 0)
+})
+
+test('404 refreshes exact published file, verifies pieces and reuses corrected URL', async t => {
+  const f = await setup(t, 1)
+  f.catalog[0].sourceV = 7400
+  fs.writeFileSync(f.catalogPath, JSON.stringify(f.catalog))
+  const originalUrl = f.fixtures[0].ep.url
+  const newUrl = originalUrl.replace('.com/', '.com/archive/')
+  const html = '<h2>Demo</h2><div id="tab_content_1" class="tab_content"><img src="Publicos-Paste.png"><a href="' + newUrl + '">Episodio 1</a></div>'
+  const opts = { ...f.options, fetchFn: async (url, options) => {
+    if (url === originalUrl) return new Response('', { status: 404 })
+    if (url.startsWith('https://paste.japan-paw.net/')) return new Response(html)
+    return f.response(url === newUrl ? originalUrl : url, options)
+  } }
+  const report = await runIndexer(opts)
+  assert.equal(report.prepared, 1)
+  const entry = loadVerifiedMatches(f.dir).series['123'].episodes[0]
+  assert.equal(entry.directUrl, newUrl)
+  assert.equal(entry.sourceUrl, originalUrl)
+  assert.equal(entry.verified.piecesVerified, true)
+  const parsed = await parseTorrent(fs.readFileSync(join(f.dir, 'dist', entry.torrentPath)))
+  assert.deepEqual(parsed.urlList, [newUrl])
+  assert.equal((await runIndexer({ ...opts, fetchFn: () => { throw new Error('must reuse') } })).reused, 1)
+})
+
+
+test('rescue performs a new sibling query and respects the total attempt budget', async t => {
+  for (const limit of [2, 3]) {
+    const f = await setup(t, 2)
+    f.catalog[0].title = 'Different catalog title'
+    fs.writeFileSync(f.catalogPath, JSON.stringify(f.catalog))
+    const queries = []
+    const report = await runIndexer({ ...f.options, concurrency: 1, limit, fetchFn: async (url, opts) => {
+      const u = new URL(url)
+      if (u.hostname === 'api.anisearch.org' || u.hostname.startsWith('feed.animetosho.')) {
+        const query = decodeURIComponent(u.search)
+        queries.push(query)
+        if (!query.includes('A0000002') && !query.includes('Group] Demo - 01')) return Response.json([])
+      }
+      return f.response(url, opts)
+    } })
+    assert.equal(report.prepared, limit === 2 ? 1 : 2)
+    assert.equal(report.rescueAttempted, limit === 2 ? 0 : 1)
+    assert.ok(report.attempted + report.rescueAttempted <= limit)
+    if (limit === 3) assert.ok(queries.some(q => q.includes('Group] Demo - 01')))
+  }
+})
+
+test('404 refresh never substitutes a different release', async t => {
+  const f = await setup(t, 1)
+  f.catalog[0].sourceV = 7400
+  fs.writeFileSync(f.catalogPath, JSON.stringify(f.catalog))
+  const report = await runIndexer({ ...f.options, fetchFn: async url => {
+    if (url.startsWith('https://paste.japan-paw.net/')) return new Response('<h2>Demo</h2><div id="tab_content_1" class="tab_content"><img src="Publicos-Paste.png"><a href="https://emision.craftervault.com/Other-01-1080p.mkv">Episodio 1</a></div>')
+    return new Response('', { status: 404 })
+  } })
+  assert.equal(report.needs_review, 1)
+  assert.equal(report.prepared, 0)
+  assert.equal(Object.values(JSON.parse(fs.readFileSync(join(f.dir, 'indexer-state.json'))).jobs)[0].reason, 'SOURCE_NOT_FOUND')
+})
+
+
+test('paused torrent host does not exhaust candidate budget before an available source', async t => {
+  const f = await setup(t, 1)
+  fs.writeFileSync(join(f.dir, 'indexer-state.json'), JSON.stringify({ version: 1, jobs: {}, providers: { hosts: { 'nyaa.si': { retryAt: Date.now() + 60000, lastStatus: 429 } } } }))
+  const item = f.fixtures[0]
+  const report = await runIndexer({ ...f.options, maxCandidates: 1, fetchFn: async (url, opts) => {
+    if (new URL(url).hostname === 'api.anisearch.org') return Response.json([
+      ...[1, 2, 3, 4].map(i => ({ torrentName: item.ep.fileName, torrentFileUrl: 'https://nyaa.si/download/' + i + '.torrent', infohash: item.hash })),
+      { torrentName: item.ep.fileName, torrentFileUrl: item.torrentUrl, infohash: item.hash }
+    ])
+    assert.notEqual(new URL(url).hostname, 'nyaa.si')
+    return f.response(url, opts)
+  } })
+  assert.equal(report.prepared, 1)
+  assert.equal(report.deferred, 0)
+})

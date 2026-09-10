@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, renameSync, copyFileSync, existsSync, mkdirSync, openSync, closeSync, unlinkSync, statSync } from 'node:fs'
+import { readFileSync, readdirSync, writeFileSync, renameSync, copyFileSync, existsSync, mkdirSync, openSync, closeSync, unlinkSync, statSync } from 'node:fs'
 import { hostname } from 'node:os'
 import { resolve, dirname, relative, isAbsolute, sep } from 'node:path'
 import { createHash } from 'node:crypto'
@@ -9,6 +9,7 @@ import { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT, buildSearc
 import { createIndexerNetwork } from './lib/indexer-network.js'
 import { directUrl } from './lib/direct-url.js'
 import { isMain } from './lib/io.mjs'
+import { parseSeries } from './scrape.mjs'
 export { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT }
 
 function atomicWrite(path, value) {
@@ -48,7 +49,7 @@ const sourceFingerprint = ep => digest([ep.url, fileName(ep), Number(ep.episode)
 export const releaseKey = (series, ep) => digest([series.anilistId || series.id || series.title, sourceFingerprint(ep)])
 export function episodeReleaseMatch(entry, ep) {
   if (Number(entry.episode) !== Number(ep.episode) || String(entry.resolution || '') !== String(ep.resolution || '')) return false
-  return Boolean(entry.directUrl && directUrl(entry.directUrl) === directUrl(ep.url))
+  return Boolean(entry.directUrl && (directUrl(entry.directUrl) === directUrl(ep.url) || directUrl(entry.sourceUrl) === directUrl(ep.url)))
 }
 const failure = (code, message, extra = {}) => Object.assign(new Error(message), { code, ...extra })
 const errorData = err => ({ code: err.code || (err.name === 'AbortError' ? 'ABORTED' : err.name === 'TimeoutError' ? 'TIMEOUT' : 'NETWORK_ERROR'), message: err.message, status: err.status, provider: err.provider, retryAt: err.retryAt || null, stage: err.stage || null, host: (() => { try { return new URL(err.url).hostname } catch { return null } })() })
@@ -87,9 +88,10 @@ export function createSearchCache() {
     catch (err) { entries.delete(key); throw err }
   }
 }
-function boundedQueries(series, ep, maxQueries, siblings = []) {
+export function boundedQueries(series, ep, maxQueries, siblings = [], siblingOnly = false) {
   const plans = [], seen = new Set()
   for (const q of buildSearchQueries(series, { ...ep, fileName: fileName(ep) }, siblings)) {
+    if (siblingOnly && q.priority !== 'sibling') continue
     const providers = q.provider === 'all' ? (q.priority === 'crc' ? ['anisearch', 'animetosho'] : ['animetosho', 'anisearch']) : [q.provider]
     for (const provider of providers) {
       const key = provider + ':' + q.query
@@ -145,7 +147,7 @@ async function resolveRelease(series, ep, options) {
   const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing, siblings = [], network } = options
   const errors = [], rejections = [], seen = new Set()
   let candidates = 0, incompatible = 0, searched = 0
-  const url = directUrl(ep.url)
+  let url = directUrl(existing?.sourceFingerprint === sourceFingerprint(ep) ? existing.directUrl : ep.url)
   if (!url) throw failure('INVALID_DIRECT_URL', 'URL de video inválida')
   // Check the data path before spending tracker requests. A 403 here is access,
   // not evidence about whether a compatible torrent exists.
@@ -155,7 +157,30 @@ async function resolveRelease(series, ep, options) {
       if (ep.size && Number(ep.size) !== actualSize) return { status: 'needs_review', reason: 'SOURCE_SIZE_CHANGED', searched, candidates, errors: [], actualSize }
     } catch (err) {
       if (signal?.aborted) throw err
-      return { status: 'deferred', reason: err.code || 'NETWORK_ERROR', searched, candidates, incompatible: 0, errors: [errorData(err)], retryAt: err.retryAt || Date.now() + 60000 }
+      if ([404, 410].includes(err.status)) {
+        // Refresh the published source once per series/run; never guess storage paths.
+        if (Number.isInteger(Number(series.sourceV)) && Number(series.sourceV) > 0) {
+          const pageUrl = `https://paste.japan-paw.net/?v=${Number(series.sourceV)}`
+          try {
+            const published = await searchCache(`source:${pageUrl}`, () => stageRequest(async () => {
+              const response = await fetchFn(pageUrl, { signal, maxBodyBytes: 4 * 1024 * 1024 })
+              const parsed = parseSeries(await response.text())
+              if (!parsed) throw failure('INVALID_RESPONSE', 'Página de origen no reconocida')
+              return parsed
+            }, 'source_refresh', pageUrl))
+            const replacements = [...new Set(published.episodes.filter(e => fileName(e) === fileName(ep) && Number(e.episode) === Number(ep.episode) && String(e.resolution) === String(ep.resolution)).map(e => directUrl(e.url)).filter(u => u && u !== url))]
+            if (replacements.length === 1) {
+              url = replacements[0]
+              const actualSize = await probeDirectVideo(url, fetchFn, signal)
+              if (ep.size && Number(ep.size) !== actualSize) return { status: 'needs_review', reason: 'SOURCE_SIZE_CHANGED', searched, candidates, actualSize }
+            } else return { status: 'needs_review', reason: 'SOURCE_NOT_FOUND', searched, candidates, errors: [errorData(err)] }
+          } catch (refreshError) {
+            if (signal?.aborted) throw refreshError
+            if (refreshError.url) network?.noteFailure(refreshError.url, refreshError)
+            return { status: [404, 410].includes(refreshError.status) ? 'needs_review' : 'deferred', reason: [404, 410].includes(refreshError.status) ? 'SOURCE_NOT_FOUND' : 'SOURCE_REFRESH_FAILED', searched, candidates, errors: [errorData(err), errorData(refreshError)], retryAt: refreshError.retryAt || Date.now() + 60000 }
+          }
+        } else return { status: 'needs_review', reason: 'SOURCE_NOT_FOUND', searched, candidates, errors: [errorData(err)] }
+      } else return { status: 'deferred', reason: err.code || 'NETWORK_ERROR', searched, candidates, incompatible: 0, errors: [errorData(err)], retryAt: err.retryAt || Date.now() + 60000 }
     }
   }
   const tryTorrent = async (bytes, source) => {
@@ -170,7 +195,7 @@ async function resolveRelease(series, ep, options) {
     // A different mirror gets a separate container; the content infohash is unchanged.
     const torrentPath = `torrents/${parsed.infoHash}-${digest(url).slice(0, 16)}.torrent`
     atomicWrite(inside(resolve(stateDir, 'dist'), torrentPath), toTorrentFile(parsed))
-    return { infoHash: parsed.infoHash, size: parsed.length, torrentFileName: parsed.files[0].name, torrentPath, piecesVerified: Boolean(evidence), evidence, matchedBy: source, title: parsed.name }
+    return { directUrl: url, infoHash: parsed.infoHash, size: parsed.length, torrentFileName: parsed.files[0].name, torrentPath, piecesVerified: Boolean(evidence), evidence, matchedBy: source, title: parsed.name }
   }
   for (const record of [existing, ep]) {
     if (!record?.torrentPath || seen.has(record.torrentPath)) continue
@@ -192,7 +217,7 @@ async function resolveRelease(series, ep, options) {
     anisearch: searchAniSearch,
     nekobt: searchNekoBT
   }
-  const { plans, truncated } = boundedQueries(series, ep, maxQueries, siblings)
+  const { plans, truncated } = boundedQueries(series, ep, maxQueries, siblings, options.siblingOnly)
   for (const plan of plans) {
     signal?.throwIfAborted()
     let items
@@ -210,6 +235,12 @@ async function resolveRelease(series, ep, options) {
       signal?.throwIfAborted()
       if (!item.torrent_url || seen.has(item.torrent_url)) continue
       seen.add(item.torrent_url)
+      const downloadHost = new URL(item.torrent_url).hostname
+      const pause = network?.snapshot().hosts?.[downloadHost]
+      if (Number(pause?.retryAt) > Date.now()) {
+        errors.push({ code: 'HOST_COOLDOWN', stage: 'torrent_download', host: downloadHost, status: pause.lastStatus, retryAt: pause.retryAt })
+        continue
+      }
       if (candidates >= maxCandidates) break
       candidates++
       try {
@@ -222,6 +253,10 @@ async function resolveRelease(series, ep, options) {
         return { status: 'prepared', match, searched, candidates, rejections }
       } catch (err) {
         if (fatalDisk(err)) throw err
+        if (err.stage === 'torrent_download' && [401, 404, 410].includes(err.status)) {
+          rejections.push(`TORRENT_UNAVAILABLE:${err.status}`)
+          continue
+        }
         const isNetwork = ['RANGE_UNAVAILABLE', 'TIMEOUT', 'NETWORK_ERROR', 'HOST_COOLDOWN', 'HTTP_ERROR', 'RATE_LIMITED', 'SERVICE_UNAVAILABLE', 'BODY_TOO_LARGE', 'INVALID_RESPONSE', 'TRUNCATED_RANGE'].includes(err.code) || err.name === 'AbortError' || err.name === 'IndexerNetworkError'
         if (isNetwork) {
           errors.push(errorData(err))
@@ -351,15 +386,13 @@ export async function runIndexer(options = {}) {
         pool = new ProxyPool({ enabled: true, proxyFile, strictProxy: true, maxRetries: 0, timeoutMs: 20000 }); await pool.warmup(15, 100, { signal })
         trackerFetch = (url, opts) => pool.fetch(url, opts, 0)
       }
-      if (forceLock) {
-        state.providers = {}
-      }
       const initialProviders = state.providers
-      const proxiedHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com', 'emision.anibatchddl.com', 'anibatchddl.com']
+      const proxiedHosts = ['paste.japan-paw.net', 'nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com', 'emision.anibatchddl.com', 'anibatchddl.com']
       const network = createIndexerNetwork({
         concurrencyPerHost: Math.max(2, Math.min(concurrency, 16)),
         minIntervalMs: intervalMs ?? (concurrency > 2 ? 300 : 600),
         ...networkOptions,
+        hostPolicies: { 'nyaa.si': { concurrency: 1, minIntervalMs: 1500 }, 'paste.japan-paw.net': { concurrency: 1, minIntervalMs: 1000 }, ...networkOptions.hostPolicies },
         fetchFn: (url, opts) => {
           const hostname = new URL(url).hostname.toLowerCase()
           const shouldProxy = useProxy && proxiedHosts.some(h => hostname === h || hostname.endsWith('.' + h))
@@ -369,7 +402,10 @@ export async function runIndexer(options = {}) {
         initialState: initialProviders
       })
       const cache = createSearchCache()
-      const report = { startedAt: new Date().toISOString(), selected: 0, attempted: 0, prepared: 0, reused: 0, deferred: 0, not_found: 0, incompatible: 0, needs_review: 0, postponed: 0, stopReason: 'complete' }
+      // One directory listing avoids thousands of per-file Drive/FUSE checks.
+      const torrentDir = resolve(stateDir, 'dist', 'torrents')
+      const savedTorrents = new Set(existsSync(torrentDir) ? readdirSync(torrentDir).map(name => resolve(torrentDir, name)) : [])
+      const report = { startedAt: new Date().toISOString(), selected: 0, attempted: 0, prepared: 0, reused: 0, deferred: 0, not_found: 0, incompatible: 0, needs_review: 0, postponed: 0, rescueAttempted: 0, stopReason: 'complete' }
       const checkpoint = () => {
         saveVerifiedMatches(registry, stateDir)
         state.providers = network.snapshot(); state.updatedAt = new Date().toISOString()
@@ -392,7 +428,10 @@ export async function runIndexer(options = {}) {
         if (!seen.has(key)) { seen.add(key); tasks.push({ series, ep, key }) }
       }
       report.selected = tasks.length
-      log(`[Indexer v0.5.5] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      log(`[Indexer v0.5.6] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} trabajadores; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      const processed = new Set()
+      const rescueReserve = Number.isFinite(limit) && limit >= 3 ? Math.min(100, Math.max(1, Math.floor(limit / 10))) : 0
+      const workLimit = limit - rescueReserve
       let cursor = 0, stop = false, fatal
       const blockedProviders = () => {
         const hosts = network.snapshot().hosts || {}
@@ -401,11 +440,11 @@ export async function runIndexer(options = {}) {
       }
       async function worker(id) {
         while (cursor < tasks.length && !stop && !signal.aborted) {
-          if (report.attempted >= limit) { report.stopReason = 'limit'; break }
+          if (report.attempted >= workLimit) { report.stopReason = 'limit'; break }
           if (blockedProviders()) { report.stopReason = 'providers_unavailable'; stop = true; break }
           const { series, ep, key } = tasks[cursor++]
           const sId = String(series.anilistId || series.id || series.title), priorJob = state.jobs[key]
-          if (!retryPending && priorJob && priorJob.status !== 'prepared') { report.postponed++; continue }
+          if (!retryPending && priorJob && priorJob.status !== 'prepared' && !(priorJob.status === 'deferred' && Number(priorJob.retryAt || 0) <= Date.now())) { report.postponed++; continue }
           const stamp = { series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob?.attempts || 0) + 1 }
           const issue = episodeIssue(series, ep, conflictingIds)
           if (issue) {
@@ -416,14 +455,14 @@ export async function runIndexer(options = {}) {
           const existing = seriesRecord.episodes.find(e => episodeReleaseMatch(e, ep))
           const priorMetadata = existing || seriesRecord.episodes.find(e => Number(e.episode) === Number(ep.episode) && (e.sourceFileName || e.fileName) === fileName(ep))
           let reusable = false
-          if (existing && directUrl(existing.directUrl) === directUrl(ep.url) && existing.torrentPath && (!verifyPieces || existing.verified?.piecesVerified) && (!existing.sourceFingerprint || existing.sourceFingerprint === sourceFingerprint(ep))) {
+          if (existing && episodeReleaseMatch(existing, ep) && existing.torrentPath && (!verifyPieces || existing.verified?.piecesVerified) && (!existing.sourceFingerprint || existing.sourceFingerprint === sourceFingerprint(ep))) {
             if (existing.verified?.piecesVerified && existing.infoHash && existing.size) {
-              reusable = true
+              reusable = savedTorrents.has(inside(resolve(stateDir, 'dist'), existing.torrentPath))
             } else {
               try {
                 const parsed = await parseTorrent(readFileSync(inside(resolve(stateDir, 'dist'), existing.torrentPath)))
                 validateLinkedTorrent(parsed, ep, { allowSampleMatch: existing.verified?.piecesVerified === true })
-                reusable = parsed.infoHash === existing.infoHash && parsed.length === existing.size && parsed.urlList.includes(directUrl(ep.url))
+                reusable = parsed.infoHash === existing.infoHash && parsed.length === existing.size && parsed.urlList.includes(directUrl(existing.directUrl))
               } catch {}
             }
           }
@@ -443,8 +482,9 @@ export async function runIndexer(options = {}) {
             report.stopReason = 'video_host_unavailable'; stop = true; break
           }
           // Reused entries do not consume the budget; repeated --limit runs advance.
-          if (report.attempted >= limit) { report.stopReason = 'limit'; break }
+          if (report.attempted >= workLimit) { report.stopReason = 'limit'; break }
           report.attempted++
+          processed.add(key)
           log(`[W${id}] ${series.title} · ${ep.episode} · ${ep.resolution || '?'}p`)
           let result
           try {
@@ -458,7 +498,7 @@ export async function runIndexer(options = {}) {
           }
           if (result.match) {
             const m = result.match
-            const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
+            const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: m.directUrl || ep.url, sourceUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
             const idx = seriesRecord.episodes.findIndex(e => episodeReleaseMatch(e, ep))
             if (idx >= 0) seriesRecord.episodes[idx] = entry
             else seriesRecord.episodes.push(entry)
@@ -467,17 +507,18 @@ export async function runIndexer(options = {}) {
           const { match, ...outcome } = result
           state.jobs[key] = { ...stamp, ...outcome }; report[result.status]++
           log(`[W${id}] ${result.status}${result.reason ? ': ' + result.reason : ''}${result.match ? ' (piezas muestreadas)' : ''}${result.errors?.length ? ' [' + result.errors.slice(0, 3).map(e => [e.stage, e.host, e.status ? 'HTTP ' + e.status : e.code].filter(Boolean).join(' / ')).join('; ') + ']' : ''}`)
+          if (result.rejections?.length) log(`[W${id}] Descartes: ${[...new Set(result.rejections)].slice(0, 3).join('; ')}`)
           checkpoint()
         }
       }
       await Promise.all(Array.from({ length: concurrency }, (_, i) => worker(i + 1).catch(err => { fatal ||= err; stop = true; controller.abort(err) })))
       if (fatal) throw fatal
-      if (!signal.aborted && !['interrupted', 'time_budget'].includes(report.stopReason)) {
+      if (!signal.aborted && ['complete', 'limit'].includes(report.stopReason) && report.attempted < limit) {
         const rescueCandidates = []
         for (const { series, ep, key } of tasks) {
           const sId = String(series.anilistId || series.id || series.title)
           const job = state.jobs[key]
-          if (job && ['incompatible', 'not_found'].includes(job.status)) {
+          if (processed.has(key) && job && ['incompatible', 'not_found'].includes(job.status)) {
             const seriesRecord = registry.series[sId]
             const verifiedSiblings = seriesRecord?.episodes?.filter(e => e.verified?.piecesVerified && Number(e.episode) !== Number(ep.episode)) || []
             if (verifiedSiblings.length > 0) {
@@ -490,13 +531,15 @@ export async function runIndexer(options = {}) {
           log(`[Indexer] Ejecutando pase de rescate intra-serie para ${rescueCandidates.length} archivo(s) con ${rescueConcurrency} trabajadores...`)
           let rescueCursor = 0
           async function rescueWorker(wId) {
-            while (rescueCursor < rescueCandidates.length && !signal.aborted) {
+            while (rescueCursor < rescueCandidates.length && !signal.aborted && report.rescueAttempted < Math.min(100, limit - report.attempted)) {
               const { series, ep, key, sId, seriesRecord, verifiedSiblings, priorJob } = rescueCandidates[rescueCursor++]
+              report.rescueAttempted++
               try {
                 const res = await resolveRelease(series, ep, {
                   stateDir,
                   existing: priorJob,
                   siblings: verifiedSiblings,
+                  siblingOnly: true,
                   verifyPieces,
                   fetchFn: network.fetch,
                   signal,
@@ -507,26 +550,27 @@ export async function runIndexer(options = {}) {
                 })
                 if (res.status === 'prepared' && res.match) {
                   const m = res.match
-                  const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
+                  const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: m.directUrl || ep.url, sourceUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
                   const sRec = registry.series[sId] ||= { title: series.title, anilistId: series.anilistId ?? null, episodes: [] }
                   const idx = sRec.episodes.findIndex(e => episodeReleaseMatch(e, ep))
                   if (idx >= 0) sRec.episodes[idx] = entry
                   else sRec.episodes.push(entry)
                   registry.series[sId] = sRec
-                  const { match, ...outcome } = res
-                  const stamp = { series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob.attempts || 0) + 1 }
-                  state.jobs[key] = { ...stamp, ...outcome }
-                  if (report[priorJob.status] > 0) report[priorJob.status]--
-                  report.prepared++
-                  log(`[Rescate] ${series.title} · ${ep.episode} · ${ep.resolution || '?'}p -> prepared (rescatado vía hermanos)`)
-                  checkpoint()
+                  log(`[Rescate] ${series.title} · ${ep.episode} -> prepared`)
                 }
+                const { match, ...outcome } = res
+                state.jobs[key] = { ...priorJob, ...outcome, updatedAt: new Date().toISOString(), attempts: (priorJob.attempts || 0) + 1, rescued: true }
+                report[priorJob.status]--
+                report[res.status]++
+                checkpoint()
               } catch (err) {
                 if (signal.aborted) break
+                throw err
               }
             }
           }
-          await Promise.all(Array.from({ length: rescueConcurrency }, (_, i) => rescueWorker(i + 1)))
+          await Promise.all(Array.from({ length: rescueConcurrency }, (_, i) => rescueWorker(i + 1).catch(err => { fatal ||= err; controller.abort(err) })))
+          if (fatal) throw fatal
         }
       }
       if (signal.aborted && report.stopReason === 'complete') report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'

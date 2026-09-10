@@ -414,13 +414,24 @@ export async function runIndexer(options = {}) {
           const priorMetadata = existing || seriesRecord.episodes.find(e => Number(e.episode) === Number(ep.episode) && (e.sourceFileName || e.fileName) === fileName(ep))
           let reusable = false
           if (existing && directUrl(existing.directUrl) === directUrl(ep.url) && existing.torrentPath && (!verifyPieces || existing.verified?.piecesVerified) && (!existing.sourceFingerprint || existing.sourceFingerprint === sourceFingerprint(ep))) {
-            try {
-              const parsed = await parseTorrent(readFileSync(inside(resolve(stateDir, 'dist'), existing.torrentPath)))
-              validateLinkedTorrent(parsed, ep, { allowSampleMatch: existing.verified?.piecesVerified === true })
-              reusable = parsed.infoHash === existing.infoHash && parsed.length === existing.size && parsed.urlList.includes(directUrl(ep.url))
-            } catch {}
+            if (existing.verified?.piecesVerified && existing.infoHash && existing.size) {
+              reusable = true
+            } else {
+              try {
+                const parsed = await parseTorrent(readFileSync(inside(resolve(stateDir, 'dist'), existing.torrentPath)))
+                validateLinkedTorrent(parsed, ep, { allowSampleMatch: existing.verified?.piecesVerified === true })
+                reusable = parsed.infoHash === existing.infoHash && parsed.length === existing.size && parsed.urlList.includes(directUrl(ep.url))
+              } catch {}
+            }
           }
-          if (reusable) { report.reused++; state.jobs[key] = { ...stamp, status: 'prepared', reused: true }; continue }
+          if (reusable) {
+            report.reused++
+            state.jobs[key] = { ...stamp, status: 'prepared', reused: true }
+            if (report.reused % 500 === 0) {
+              log(`[Indexer] Reanudando... ${report.reused} archivos previos reutilizados`)
+            }
+            continue
+          }
           const videoHost = new URL(directUrl(ep.url)).hostname
           const hostState = network.snapshot().hosts?.[videoHost]
           if (Number(hostState?.retryAt) > Date.now()) {

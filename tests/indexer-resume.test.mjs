@@ -152,6 +152,35 @@ test('indexer resume: cancellation saves partial status and releases writer lock
   assert.equal(Object.keys(JSON.parse(fs.readFileSync(join(f.dir, 'indexer-state.json'))).jobs).length, 1)
 })
 
+test('indexer resume: failed or deferred jobs are postponed on subsequent runs unless retryPending is set', async t => {
+  const f = await setup(t, 2)
+  // First run fails ep 1 with 404
+  const first = await runIndexer({
+    ...f.options,
+    limit: 1,
+    fetchFn: async (url, opts) => {
+      if (url === f.fixtures[0].ep.url) return new Response('Not Found', { status: 404 })
+      return f.response(url, opts)
+    }
+  })
+  assert.equal(first.deferred, 1)
+
+  // Second run without retryPending should postpone ep 1 and advance to ep 2
+  f.requests.length = 0
+  const second = await runIndexer({ ...f.options, limit: 1 })
+  assert.equal(second.postponed, 1)
+  assert.equal(second.prepared, 1)
+  assert.equal(f.requests.includes(f.fixtures[0].ep.url), false)
+  assert.ok(f.requests.includes(f.fixtures[1].ep.url))
+
+  // Third run with retryPending=true should re-attempt ep 1
+  f.requests.length = 0
+  const third = await runIndexer({ ...f.options, limit: 1, retryPending: true })
+  assert.equal(third.postponed, 0)
+  assert.equal(third.prepared, 1)
+  assert.ok(f.requests.includes(f.fixtures[0].ep.url))
+})
+
 test('indexer CLI rejects misspellings and invalid budgets', () => {
   for (const args of [['--limt', '1'], ['--limit', '-1'], ['--series'], ['--max-queries', 'abc'], ['--interval-ms', '-1']]) assert.throws(() => parseIndexerArgs(args))
   assert.equal(parseIndexerArgs(['--series', 'Demo', '--concurrency', '2', '--limit', '10', '--interval-ms', '0']).intervalMs, 0)

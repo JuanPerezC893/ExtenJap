@@ -347,7 +347,7 @@ export async function runIndexer(options = {}) {
           if (blockedProviders()) { report.stopReason = 'providers_unavailable'; stop = true; break }
           const { series, ep, key } = tasks[cursor++]
           const sId = String(series.anilistId || series.id || series.title), priorJob = state.jobs[key]
-          if (!retryPending && priorJob?.status !== 'prepared' && (priorJob?.status === 'needs_review' || priorJob?.retryAt > Date.now())) { report.postponed++; continue }
+          if (!retryPending && priorJob && priorJob.status !== 'prepared') { report.postponed++; continue }
           const stamp = { series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob?.attempts || 0) + 1 }
           const issue = episodeIssue(series, ep, conflictingIds)
           if (issue) {

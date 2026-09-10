@@ -263,6 +263,14 @@ function isProcessAlive(pid) {
 export function acquireLock(stateDir, log = console.log, { force = false } = {}) {
   const path = resolve(stateDir, 'indexer.lock')
   if (force && existsSync(path)) {
+    try {
+      const raw = readFileSync(path, 'utf8')
+      const lockData = JSON.parse(raw)
+      const sameHost = !lockData.hostname || lockData.hostname === hostname()
+      if (sameHost && typeof lockData.pid === 'number' && lockData.pid !== process.pid) {
+        try { process.kill(lockData.pid, 'SIGKILL') } catch {}
+      }
+    } catch {}
     try { unlinkSync(path) } catch {}
   }
   let fd

@@ -194,3 +194,14 @@ test('shutdown destroys the agent instead of waiting for a stalled graceful clos
   assert.equal(destroyed, 1)
   assert.equal(closed, 0)
 })
+
+test('socks5 proxy without credentials is accepted and instantiates socks agent', async t => {
+  const path = proxyFixture(t, 'socks5://127.0.0.1:40000\n')
+  const pool = new ProxyPool({ enabled: true, proxyFile: path })
+  t.after(() => pool.close())
+  await pool.warmup()
+  assert.deepEqual(pool.candidateProxies, ['socks5://127.0.0.1:40000'])
+  const agent = pool.getAgent('socks5://127.0.0.1:40000')
+  assert.ok(agent)
+})
+

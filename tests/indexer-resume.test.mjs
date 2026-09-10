@@ -546,3 +546,21 @@ test('one broad provider cannot spend all candidate downloads before the next pr
   assert.equal(report.prepared, 1, fs.readFileSync(join(f.dir, 'indexer-state.json'), 'utf8'))
   assert.equal(badDownloads, 2)
 })
+
+
+test('persistent metadata cooldown stops admission after three failed files', async t => {
+  const f = await setup(t, 8)
+  let nyaaCalls = 0
+  const report = await runIndexer({ ...f.options, concurrency: 1, fetchFn: async (url, opts) => {
+    const host = new URL(url).hostname
+    if (host === 'nyaa.si') { nyaaCalls++; return new Response('', { status: 429, headers: { 'retry-after': '600' } }) }
+    if (host === 'api.anisearch.org') return Response.json(f.fixtures.map((x, i) => ({ torrentName: x.ep.fileName, torrentFileUrl: 'https://nyaa.si/download/' + i + '.torrent', infohash: x.hash })))
+    if (host.startsWith('feed.animetosho.')) return Response.json([])
+    return f.response(url, opts)
+  } })
+  assert.equal(report.stopReason, 'metadata_unavailable')
+  assert.equal(report.attempted, 3)
+  assert.equal(report.deferred, 3)
+  assert.equal(report.remaining, 5)
+  assert.equal(nyaaCalls, 1)
+})

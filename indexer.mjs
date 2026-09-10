@@ -11,6 +11,7 @@ import { directUrl } from './lib/direct-url.js'
 import { isMain } from './lib/io.mjs'
 import { replayJournal, appendJournal } from './lib/indexer-journal.js'
 import { availabilityKey, createSourceAvailability, rotateAvailabilityTasks } from './lib/source-availability.js'
+import { createTorrentCache } from './lib/torrent-cache.js'
 import { createWorkGate } from './lib/work-gate.js'
 import { parseSeries } from './scrape.mjs'
 export { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT }
@@ -172,9 +173,9 @@ export async function probeDirectVideo(url, fetchFn, signal) {
   return Number(match[1])
 }
 
-async function downloadTorrentBuffer(item, fetchFn, signal, network) {
+async function downloadTorrentBuffer(item, fetchFn, signal, network, metadataCache) {
   const url = item.torrent_url
-  return stageRequest(async () => {
+  const download = () => stageRequest(async () => {
     const res = await fetchFn(url, { signal, maxBodyBytes: 4 * 1024 * 1024 })
     if (!res.ok) throw failure('HTTP_ERROR', `Descarga de torrent: HTTP ${res.status}`, { status: res.status })
     const bytes = new Uint8Array(await res.arrayBuffer())
@@ -185,13 +186,17 @@ async function downloadTorrentBuffer(item, fetchFn, signal, network) {
       network?.noteFailure(url, err)
       throw err
     }
-    if (item.info_hash && parsed.infoHash !== String(item.info_hash).toLowerCase()) throw failure('TORRENT_HASH_MISMATCH', 'El torrent descargado no corresponde al infohash del resultado', { url })
+
     return bytes
   }, 'torrent_download', url)
+  const bytes = await (metadataCache ? metadataCache.load(url, download) : download())
+  const parsed = await parseTorrent(bytes)
+  if (item.info_hash && parsed.infoHash !== String(item.info_hash).toLowerCase()) throw failure('TORRENT_HASH_MISMATCH', 'El torrent descargado no corresponde al infohash del resultado', { url })
+  return bytes
 }
 
 async function resolveRelease(series, ep, options) {
-  const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), sourceCache = createSourceCache(), existing, siblings = [], network } = options
+  const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), sourceCache = createSourceCache(), metadataCache = createTorrentCache(), existing, siblings = [], network } = options
   const errors = [], rejections = [], searchTrace = [], seen = new Set()
   let candidates = 0, incompatible = 0, searched = 0, actualSize = null
   const pendingPath = inside(resolve(stateDir, 'pending'), releaseKey(series, ep) + '.torrent')
@@ -314,6 +319,7 @@ async function resolveRelease(series, ep, options) {
       signal?.throwIfAborted()
       if (trace.downloaded >= queryBudget) break
       if (!item.torrent_url || seen.has(item.torrent_url)) continue
+      if (metadataCache.rejected(item.torrent_url)) { rejections.push('KNOWN_UNSUPPORTED_TORRENT'); continue }
       seen.add(item.torrent_url)
       const downloadHost = new URL(item.torrent_url).hostname
       const pause = network?.snapshot().hosts?.[downloadHost]
@@ -325,7 +331,7 @@ async function resolveRelease(series, ep, options) {
       candidates++
       trace.downloaded++
       try {
-        const bytes = await downloadTorrentBuffer(item, fetchFn, signal, network)
+        const bytes = await downloadTorrentBuffer(item, fetchFn, signal, network, metadataCache)
         const match = await tryTorrent(bytes, item.source || plan.provider)
         if (!match) {
           rejections.push('sha1_mismatch')
@@ -492,6 +498,7 @@ export async function runIndexer(options = {}) {
       })
       const cache = createSearchCache()
       const sourceCache = createSourceCache()
+      const metadataCache = createTorrentCache()
       const availability = createSourceAvailability(state.availability, signal)
       const verifyGate = createWorkGate(videoConcurrency, signal)
       // One directory listing avoids thousands of per-file Drive/FUSE checks.
@@ -533,7 +540,7 @@ export async function runIndexer(options = {}) {
       tasks = rotateAvailabilityTasks(tasks, state.availability)
       report.selected = tasks.length
       report.availabilitySkipped = 0
-      log(`[Indexer v0.5.10] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} buscadores, ${videoConcurrency} verificaciones de vídeo simultáneas; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
+      log(`[Indexer v0.5.11] Indexación: ${selected.length} series, ${tasks.length} archivos; ${concurrency} buscadores, ${videoConcurrency} verificaciones de vídeo simultáneas; máximo ${maxQueries} consultas y ${maxCandidates} candidatos por archivo.`)
       const pendingDir = resolve(stateDir, 'pending')
       const pendingKeys = new Set(existsSync(pendingDir) ? readdirSync(pendingDir).filter(n => n.endsWith('.torrent')).map(n => n.slice(0, -8)) : [])
       tasks.sort((a, b) => Number(pendingKeys.has(b.key)) - Number(pendingKeys.has(a.key)))
@@ -543,6 +550,7 @@ export async function runIndexer(options = {}) {
       const rescueReserve = Number.isFinite(limit) && limit >= 3 ? Math.min(100, Math.max(1, Math.floor(limit / 10))) : 0
       const workLimit = limit - rescueReserve
       let cursor = 0, stop = false, fatal
+      const blockedMetadata = new Map()
       const blockedProviders = () => {
         const hosts = network.snapshot().hosts || {}
         const activeProviders = ['api.anisearch.org', 'feed.animetosho.xyz']
@@ -592,6 +600,7 @@ export async function runIndexer(options = {}) {
             continue
           }
           if (blockedProviders() && !pendingKeys.has(key)) { report.stopReason = 'providers_unavailable'; stop = true; break }
+          if (!pendingKeys.has(key) && [...blockedMetadata].some(([host, failures]) => failures >= 3 && Number(network.snapshot().hosts[host]?.retryAt) > Date.now())) { report.stopReason = 'metadata_unavailable'; stop = true; break }
           // Reused entries do not consume the budget; repeated --limit runs advance.
           if (report.attempted >= workLimit) { report.stopReason = 'limit'; break }
           report.attempted++
@@ -600,13 +609,16 @@ export async function runIndexer(options = {}) {
           let result
           try {
             const verifiedSiblings = seriesRecord.episodes.filter(e => e.verified?.piecesVerified)
-            result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, siblings: verifiedSiblings, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, sourceCache, availability, verifyGate, pieceTimeoutMs, maxQueries, maxCandidates })
+            result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, siblings: verifiedSiblings, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, sourceCache, metadataCache, availability, verifyGate, pieceTimeoutMs, maxQueries, maxCandidates })
           }
           catch (err) {
             if (signal.aborted) { report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'; result = { status: 'deferred', reason: report.stopReason, retryAt: Date.now() } }
             else if (err.code && !fatalDisk(err)) result = { status: 'deferred', reason: err.code, errors: [errorData(err)], retryAt: Date.now() + 60000 }
             else throw err
           }
+          const blocked = new Set((result.errors || []).filter(e => e.stage === 'torrent_download' && Number(e.retryAt) > Date.now()).map(e => e.host))
+          if (result.status === 'prepared') blockedMetadata.clear()
+          else if (result.status === 'deferred') for (const host of blocked) blockedMetadata.set(host, (blockedMetadata.get(host) || 0) + 1)
           let preparedEntry
           if (result.match) {
             const m = result.match
@@ -700,6 +712,8 @@ export async function runIndexer(options = {}) {
         }
       }
       if (signal.aborted && report.stopReason === 'complete') report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'
+      report.metadataCache = { ...metadataCache.stats }
+      if (report.stopReason === 'metadata_unavailable') log('[Indexer] Descargas de metadatos en pausa: se detiene la admisión de archivos nuevos; conservar el estado y respetar retryAt de los proveedores.')
       report.remaining = tasks.length - report.attempted - report.reused - report.postponed; report.finishedAt = new Date().toISOString(); checkpoint()
       log(`Tanda finalizada (${report.stopReason}): ${report.prepared} preparados, ${report.reused} reutilizados, ${report.deferred} diferidos por acceso, ${report.not_found} sin coincidencia en el presupuesto, ${report.incompatible} incompatibles, ${report.needs_review} para revisar. Restantes: ${report.remaining}.`)
       if (report.availabilitySkipped) log(`[Disponibilidad] ${report.availabilitySkipped} archivos aplazados sin consulta de red; siguen pendientes.`)
@@ -743,7 +757,7 @@ if (isMain(import.meta.url)) {
   process.once('SIGINT', stop); process.once('SIGTERM', stop)
   try {
     const report = await runIndexer({ ...parseIndexerArgs(process.argv.slice(2)), signal: controller.signal })
-    process.exitCode = report.stopReason === 'interrupted' ? 130 : ['providers_unavailable', 'video_host_unavailable'].includes(report.stopReason) || report.deferred > 0 ? 2 : 0
+    process.exitCode = report.stopReason === 'interrupted' ? 130 : ['providers_unavailable', 'video_host_unavailable', 'metadata_unavailable'].includes(report.stopReason) || report.deferred > 0 ? 2 : 0
   } catch (err) { console.error(err.message); process.exitCode = 1 }
   finally { process.removeListener('SIGINT', stop); process.removeListener('SIGTERM', stop) }
 }

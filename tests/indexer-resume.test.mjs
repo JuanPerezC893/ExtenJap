@@ -153,6 +153,6 @@ test('indexer resume: cancellation saves partial status and releases writer lock
 })
 
 test('indexer CLI rejects misspellings and invalid budgets', () => {
-  for (const args of [['--limt', '1'], ['--limit', '-1'], ['--series'], ['--max-queries', 'abc']]) assert.throws(() => parseIndexerArgs(args))
-  assert.equal(parseIndexerArgs(['--series', 'Demo', '--concurrency', '2', '--limit', '10']).limit, 10)
+  for (const args of [['--limt', '1'], ['--limit', '-1'], ['--series'], ['--max-queries', 'abc'], ['--interval-ms', '-1']]) assert.throws(() => parseIndexerArgs(args))
+  assert.equal(parseIndexerArgs(['--series', 'Demo', '--concurrency', '2', '--limit', '10', '--interval-ms', '0']).intervalMs, 0)
 })

@@ -78,6 +78,30 @@ El script comprueba primero la conexión directa. Luego sondea candidatos (FreeP
 
 La validación compara metadatos y una muestra de piezas HTTP con sus hashes. Es evidencia de correspondencia de los bytes comprobados; no significa haber descargado y validado el archivo completo, ni garantiza disponibilidad o velocidad futura. El mapeo de anime y la numeración del episodio requieren controles separados. No renumeres masivamente a partir de nombres: algunos usan numeración absoluta, temporadas o episodios especiales.
 
+### Test de estrés y búsqueda del límite de velocidad (Benchmark)
+
+Para determinar la concurrencia y el espaciado más rápidos sin arriesgar bloqueos o pausas de trackers, puedes ejecutar el script de benchmark:
+
+```bash
+node benchmark-limits.mjs \
+  --catalog /content/ExtenJap/raw-catalog.json \
+  --state-dir /content/drive/MyDrive/JapanPaw-index \
+  --proxy --proxy-file /content/proxies.txt \
+  --batch-size 25
+```
+
+El benchmark evalúa progresivamente 6 niveles:
+1. **Conservador:** 2 workers, 400 ms de intervalo
+2. **Moderado:** 4 workers, 250 ms de intervalo
+3. **Rápido:** 6 workers, 150 ms de intervalo
+4. **Muy Rápido:** 8 workers, 80 ms de intervalo
+5. **Extremo:** 12 workers, 30 ms de intervalo
+6. **Límite Máximo:** 16 workers, 0 ms de intervalo
+
+- **Protección automática:** si cualquier proveedor devuelve `HTTP 429` (Rate Limited) o entra en enfriamiento, el test se detiene de inmediato.
+- **Sin desperdicio de cuota:** los archivos preparados en cada nivel quedan guardados en Drive de forma acumulativa y permanente.
+- **Recomendación automática:** genera una tabla comparativa y sugiere la concurrencia e intervalo óptimos (`optimalLevel`) para configurar en la celda 3 (`CONCURRENCY` e `INTERVAL_MS`).
+
 ## Compilar, exportar y reanudar
 
 Después de una tanda con salida `0`, `2` o `130`, puedes compilar las asociaciones preparadas que quedaron guardadas:

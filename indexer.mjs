@@ -414,7 +414,7 @@ export function parseIndexerArgs(args) {
     const value = () => { if (!args[i + 1] || args[i + 1].startsWith('--')) throw new Error(`Falta valor para ${arg}`); return args[++i] }
     if (numbers[arg]) {
       const n = Number(value())
-      if (!Number.isFinite(n) || n <= 0 || arg !== '--max-minutes' && !Number.isInteger(n)) throw new Error(`Valor inválido para ${arg}`)
+      if (!Number.isFinite(n) || (arg === '--interval-ms' ? n < 0 : n <= 0) || arg !== '--max-minutes' && !Number.isInteger(n)) throw new Error(`Valor inválido para ${arg}`)
       out[numbers[arg]] = n
     } else if (strings[arg]) out[strings[arg]] = value()
     else if (arg === '--batch') {

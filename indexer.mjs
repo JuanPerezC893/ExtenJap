@@ -346,7 +346,7 @@ export async function runIndexer(options = {}) {
       const initialProviders = state.providers
       const proxiedHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com', 'emision.anibatchddl.com', 'anibatchddl.com']
       const network = createIndexerNetwork({
-        concurrencyPerHost: Math.max(2, Math.min(concurrency, 8)),
+        concurrencyPerHost: Math.max(2, Math.min(concurrency, 16)),
         minIntervalMs: intervalMs ?? (concurrency > 2 ? 300 : 600),
         ...networkOptions,
         fetchFn: (url, opts) => {
@@ -462,41 +462,47 @@ export async function runIndexer(options = {}) {
           }
         }
         if (rescueCandidates.length > 0) {
-          log(`[Indexer] Ejecutando pase de rescate intra-serie para ${rescueCandidates.length} archivo(s)...`)
-          for (const { series, ep, key, sId, seriesRecord, verifiedSiblings, priorJob } of rescueCandidates) {
-            if (signal.aborted) break
-            try {
-              const res = await resolveRelease(series, ep, {
-                stateDir,
-                existing: priorJob,
-                siblings: verifiedSiblings,
-                verifyPieces,
-                fetchFn: network.fetch,
-                signal,
-                network,
-                searchCache: cache,
-                maxQueries,
-                maxCandidates
-              })
-              if (res.status === 'prepared' && res.match) {
-                const m = res.match
-                const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
-                const idx = seriesRecord.episodes.findIndex(e => episodeReleaseMatch(e, ep))
-                if (idx >= 0) seriesRecord.episodes[idx] = entry
-                else seriesRecord.episodes.push(entry)
-                registry.series[sId] = seriesRecord
-                const { match, ...outcome } = res
-                const stamp = { series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob.attempts || 0) + 1 }
-                state.jobs[key] = { ...stamp, ...outcome }
-                if (report[priorJob.status] > 0) report[priorJob.status]--
-                report.prepared++
-                log(`[Rescate] ${series.title} · ${ep.episode} · ${ep.resolution || '?'}p -> prepared (rescatado vía hermanos)`)
-                checkpoint()
+          const rescueConcurrency = Math.min(concurrency, rescueCandidates.length)
+          log(`[Indexer] Ejecutando pase de rescate intra-serie para ${rescueCandidates.length} archivo(s) con ${rescueConcurrency} trabajadores...`)
+          let rescueCursor = 0
+          async function rescueWorker(wId) {
+            while (rescueCursor < rescueCandidates.length && !signal.aborted) {
+              const { series, ep, key, sId, seriesRecord, verifiedSiblings, priorJob } = rescueCandidates[rescueCursor++]
+              try {
+                const res = await resolveRelease(series, ep, {
+                  stateDir,
+                  existing: priorJob,
+                  siblings: verifiedSiblings,
+                  verifyPieces,
+                  fetchFn: network.fetch,
+                  signal,
+                  network,
+                  searchCache: cache,
+                  maxQueries: Math.min(maxQueries, 2),
+                  maxCandidates
+                })
+                if (res.status === 'prepared' && res.match) {
+                  const m = res.match
+                  const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
+                  const sRec = registry.series[sId] ||= { title: series.title, anilistId: series.anilistId ?? null, episodes: [] }
+                  const idx = sRec.episodes.findIndex(e => episodeReleaseMatch(e, ep))
+                  if (idx >= 0) sRec.episodes[idx] = entry
+                  else sRec.episodes.push(entry)
+                  registry.series[sId] = sRec
+                  const { match, ...outcome } = res
+                  const stamp = { series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob.attempts || 0) + 1 }
+                  state.jobs[key] = { ...stamp, ...outcome }
+                  if (report[priorJob.status] > 0) report[priorJob.status]--
+                  report.prepared++
+                  log(`[Rescate] ${series.title} · ${ep.episode} · ${ep.resolution || '?'}p -> prepared (rescatado vía hermanos)`)
+                  checkpoint()
+                }
+              } catch (err) {
+                if (signal.aborted) break
               }
-            } catch (err) {
-              if (signal.aborted) break
             }
           }
+          await Promise.all(Array.from({ length: rescueConcurrency }, (_, i) => rescueWorker(i + 1)))
         }
       }
       if (signal.aborted && report.stopReason === 'complete') report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'

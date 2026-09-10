@@ -164,7 +164,7 @@ test('indexer resume: failed or deferred jobs are postponed on subsequent runs u
       return f.response(url, opts)
     }
   })
-  assert.equal(first.needs_review, 1)
+  assert.equal(first.deferred, 1)
 
   // Second run without retryPending should postpone ep 1 and advance to ep 2
   f.requests.length = 0
@@ -354,9 +354,9 @@ test('404 refresh never substitutes a different release', async t => {
     if (url.startsWith('https://paste.japan-paw.net/')) return new Response('<h2>Demo</h2><div id="tab_content_1" class="tab_content"><img src="Publicos-Paste.png"><a href="https://emision.craftervault.com/Other-01-1080p.mkv">Episodio 1</a></div>')
     return new Response('', { status: 404 })
   } })
-  assert.equal(report.needs_review, 1)
+  assert.equal(report.deferred, 1)
   assert.equal(report.prepared, 0)
-  assert.equal(Object.values(JSON.parse(fs.readFileSync(join(f.dir, 'indexer-state.json'))).jobs)[0].reason, 'SOURCE_NOT_FOUND')
+  assert.equal(Object.values(JSON.parse(fs.readFileSync(join(f.dir, 'indexer-state.json'))).jobs)[0].reason, 'SOURCE_UNAVAILABLE')
 })
 
 
@@ -374,4 +374,85 @@ test('paused torrent host does not exhaust candidate budget before an available 
   } })
   assert.equal(report.prepared, 1)
   assert.equal(report.deferred, 0)
+})
+
+
+test('pending torrent survives a piece timeout and resumes while search providers are paused', async t => {
+  const f = await setup(t, 1)
+  const first = await runIndexer({ ...f.options, pieceTimeoutMs: 20, fetchFn: async (url, opts) => {
+    if (url === f.fixtures[0].ep.url && opts.headers.Range !== 'bytes=0-0') return new Promise(() => {})
+    return f.response(url, opts)
+  } })
+  assert.equal(first.deferred, 1)
+  const pending = fs.readdirSync(join(f.dir, 'pending'))
+  assert.equal(pending.length, 1)
+  const statePath = join(f.dir, 'indexer-state.json')
+  const state = JSON.parse(fs.readFileSync(statePath))
+  Object.values(state.jobs)[0].retryAt = Date.now() - 1
+  for (const host of ['api.anisearch.org', 'feed.animetosho.xyz']) state.providers.hosts[host] = { retryAt: Date.now() + 60000 }
+  fs.writeFileSync(statePath, JSON.stringify(state))
+  const next = await runIndexer({ ...f.options, fetchFn: async (url, opts) => {
+    assert.equal(url, f.fixtures[0].ep.url, 'No buscar ni volver a descargar el torrent')
+    return f.response(url, opts)
+  } })
+  assert.equal(next.prepared, 1)
+  assert.equal(fs.readdirSync(join(f.dir, 'pending')).length, 0)
+  assert.equal(loadVerifiedMatches(f.dir).series['123'].episodes[0].verified.matchedBy, 'pending-torrent')
+})
+
+test('twelve discovery workers never perform more than two video verifications at once', async t => {
+  const f = await setup(t, 12)
+  let active = 0, peak = 0
+  const report = await runIndexer({ ...f.options, concurrency: 12, videoConcurrency: 2, fetchFn: async (url, opts) => {
+    const piece = opts.headers?.Range && opts.headers.Range !== 'bytes=0-0'
+    if (piece) {
+      peak = Math.max(peak, ++active)
+      await new Promise(resolve => setTimeout(resolve, 5))
+    }
+    try { return await f.response(url, opts) } finally { if (piece) active-- }
+  } })
+  assert.equal(report.prepared, 12)
+  assert.equal(peak, 2)
+})
+
+test('one video host in cooldown does not stop a healthy host', async t => {
+  const f = await setup(t, 2)
+  const original = f.fixtures[1].ep.url
+  const other = original.replace('emision.', 'anime.')
+  f.catalog[0].episodes[1] = { ...f.fixtures[1].ep, url: other }
+  fs.writeFileSync(f.catalogPath, JSON.stringify(f.catalog))
+  fs.writeFileSync(join(f.dir, 'indexer-state.json'), JSON.stringify({ version: 1, jobs: {}, providers: { hosts: { 'emision.craftervault.com': { retryAt: Date.now() + 60000 } } } }))
+  const report = await runIndexer({ ...f.options, concurrency: 1, fetchFn: (url, opts) => f.response(url === other ? original : url, opts) })
+  assert.equal(report.prepared, 1)
+  assert.deepEqual(report.pausedVideoHosts, ['emision.craftervault.com'])
+  assert.equal(report.remaining, 1)
+})
+
+test('video size mismatch rejects torrent before downloading any sampled pieces', async t => {
+  const f = await setup(t, 1)
+  const report = await runIndexer({ ...f.options, fetchFn: async (url, opts) => {
+    if (url === f.fixtures[0].ep.url) {
+      assert.equal(opts.headers.Range, 'bytes=0-0')
+      return new Response(new Uint8Array(1), { status: 206, headers: { 'content-range': 'bytes 0-0/1000' } })
+    }
+    return f.response(url, opts)
+  } })
+  assert.equal(report.incompatible, 1)
+  assert.equal(report.prepared, 0)
+})
+
+
+test('video path control verifies known pairs without modifying the registry or searching', async t => {
+  const f = await setup(t, 1)
+  await runIndexer(f.options)
+  const registry = fs.readFileSync(join(f.dir, 'verified-matches.json'), 'utf8')
+  const { checkVideoPath } = await import('../check-video-path.mjs')
+  const result = await checkVideoPath({ stateDir: f.dir, limit: 1, log: () => {}, fetchFn: (url, opts) => {
+    assert.equal(url, f.fixtures[0].ep.url)
+    return f.response(url, opts)
+  } })
+  assert.equal(result.ok, true)
+  assert.equal(result.passed, 1)
+  assert.equal(result.results[0].evidence.pieces.length, 3)
+  assert.equal(fs.readFileSync(join(f.dir, 'verified-matches.json'), 'utf8'), registry)
 })

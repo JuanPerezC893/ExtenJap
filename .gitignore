@@ -5,3 +5,6 @@ indexer-state.json
 indexer-report.json
 indexer.lock
 artifacts/
+
+pending/
+video-path-report.json

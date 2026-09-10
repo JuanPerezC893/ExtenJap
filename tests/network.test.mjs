@@ -211,3 +211,15 @@ test('network: Range rechazado cancela el video entero antes de leerlo', async (
   assert.equal(cancelled, true)
   assert.equal(reads, 0)
 })
+
+
+test('network: queue waiting does not consume transfer timeout; transport receives same budget', async () => {
+  const network = createIndexerNetwork({ concurrencyPerHost: 1, minIntervalMs: 0, timeoutMs: 150, fetchFn: async (url, opts) => {
+    assert.equal(opts.timeout, 150)
+    await delay(80)
+    return new Response('ok')
+  } })
+  const results = await Promise.all([1, 2, 3].map(i => network.fetch('https://queue.test/' + i)))
+  assert.equal(results.length, 3)
+  assert.equal(network.snapshot().hosts['queue.test'].consecutiveFailures, 0)
+})

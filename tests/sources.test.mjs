@@ -1,12 +1,32 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { extractCrc32, extractFansubGroup, cleanReleaseFileName, buildSearchQueries, parseNyaaResults, parseAnimeToshoResults, parseAniSearchResults, parseNekoBTResults, searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT } from '../lib/sources.js'
+import { extractCrc32, extractFansubGroup, cleanReleaseFileName, buildSearchQueries, buildSiblingQueries, parseNyaaResults, parseAnimeToshoResults, parseAniSearchResults, parseNekoBTResults, searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT } from '../lib/sources.js'
 import { createIndexerNetwork } from '../lib/indexer-network.js'
 
 test('sources: extractCrc32 extrae hash de 8 caracteres en mayúsculas', () => {
   assert.equal(extractCrc32('[Erai-raws] Mashle - 01 [1080p][DF020541].mkv'), 'DF020541')
   assert.equal(extractCrc32('Sayonara Lara [7a5d5f0e]'), '7A5D5F0E')
   assert.equal(extractCrc32('Archivo sin crc.mkv'), null)
+})
+
+test('sources: buildSiblingQueries deriva consultas reemplazando el número de capítulo de hermanos verificados', () => {
+  const ep = { episode: 1, resolution: '1080' }
+  const siblings = [
+    {
+      episode: 2,
+      fileName: 'Jack-of-All-Trades.Party.of.None.S01E02.No.Going.Back.1080p.CR.WEB-DL.JPN.AAC2.0.H.264.MSubs-ToonsHub.mkv'
+    },
+    {
+      episode: 3,
+      fileName: '[Erai-raws] Beast Tamer - 03 [1080p][Multiple Subtitle].mkv'
+    }
+  ]
+
+  const queries = buildSiblingQueries(ep, siblings)
+  assert.ok(queries.length >= 2)
+  assert.ok(queries.some(q => q.query.includes('Jack of All Trades Party of None S01E01')))
+  assert.ok(queries.some(q => q.query.includes('[Erai-raws] Beast Tamer - 01')))
+  assert.ok(queries.every(q => q.priority === 'sibling'))
 })
 
 test('sources: extractFansubGroup extrae el fansub del inicio', () => {

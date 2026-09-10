@@ -3,7 +3,7 @@ import { hostname } from 'node:os'
 import { resolve, dirname, relative, isAbsolute, sep } from 'node:path'
 import { createHash } from 'node:crypto'
 import parseTorrent, { toTorrentFile } from 'parse-torrent'
-import { fileName, episodeNumber, resolution, seasonNumber, isBatchTorrent } from './lib/matching.js'
+import { fileName, episodeNumber, resolution, seasonNumber, isBatchTorrent, rankCandidates } from './lib/matching.js'
 import { validateLinkedTorrent } from './lib/link-validation.js'
 import { searchNyaa, searchAnimeTosho, searchAniSearch, searchNekoBT, buildSearchQueries } from './lib/sources.js'
 import { createIndexerNetwork } from './lib/indexer-network.js'
@@ -87,9 +87,9 @@ export function createSearchCache() {
     catch (err) { entries.delete(key); throw err }
   }
 }
-function boundedQueries(series, ep, maxQueries) {
+function boundedQueries(series, ep, maxQueries, siblings = []) {
   const plans = [], seen = new Set()
-  for (const q of buildSearchQueries(series, { ...ep, fileName: fileName(ep) })) {
+  for (const q of buildSearchQueries(series, { ...ep, fileName: fileName(ep) }, siblings)) {
     const providers = q.provider === 'all' ? (q.priority === 'crc' ? ['anisearch', 'animetosho'] : ['animetosho', 'anisearch']) : [q.provider]
     for (const provider of providers) {
       const key = provider + ':' + q.query
@@ -142,7 +142,7 @@ async function downloadTorrentBuffer(item, fetchFn, signal, network) {
 }
 
 async function resolveRelease(series, ep, options) {
-  const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing, network } = options
+  const { fetchFn, signal, stateDir = '.', verifyPieces = true, maxQueries = 4, maxCandidates = 4, searchCache = createSearchCache(), existing, siblings = [], network } = options
   const errors = [], rejections = [], seen = new Set()
   let candidates = 0, incompatible = 0, searched = 0
   const url = directUrl(ep.url)
@@ -192,7 +192,7 @@ async function resolveRelease(series, ep, options) {
     anisearch: searchAniSearch,
     nekobt: searchNekoBT
   }
-  const { plans, truncated } = boundedQueries(series, ep, maxQueries)
+  const { plans, truncated } = boundedQueries(series, ep, maxQueries, siblings)
   for (const plan of plans) {
     signal?.throwIfAborted()
     let items
@@ -205,12 +205,11 @@ async function resolveRelease(series, ep, options) {
       err.stage ||= 'search'
       errors.push(errorData(err)); continue
     }
-    for (const item of items) {
+    const candidatesToTest = rankCandidates(items, ep, siblings)
+    for (const item of candidatesToTest) {
       signal?.throwIfAborted()
-      if (!item.torrent_url || seen.has(item.torrent_url) || isBatchTorrent(item)) continue
+      if (!item.torrent_url || seen.has(item.torrent_url)) continue
       seen.add(item.torrent_url)
-      const number = episodeNumber(item.title), res = resolution(item.title), wantedRes = resolution(fileName(ep)) || String(ep.resolution || '')
-      if (number !== null && number !== Number(ep.episode) || res && wantedRes && res !== wantedRes) continue
       if (candidates >= maxCandidates) break
       candidates++
       try {
@@ -424,7 +423,10 @@ export async function runIndexer(options = {}) {
           report.attempted++
           log(`[W${id}] ${series.title} · ${ep.episode} · ${ep.resolution || '?'}p`)
           let result
-          try { result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, maxQueries, maxCandidates }) }
+          try {
+            const verifiedSiblings = seriesRecord.episodes.filter(e => e.verified?.piecesVerified)
+            result = await resolveRelease(series, ep, { stateDir, existing: priorMetadata, siblings: verifiedSiblings, verifyPieces, fetchFn: network.fetch, signal, network, searchCache: cache, maxQueries, maxCandidates })
+          }
           catch (err) {
             if (signal.aborted) { report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'; result = { status: 'deferred', reason: report.stopReason, retryAt: Date.now() } }
             else if (err.code && !fatalDisk(err)) result = { status: 'deferred', reason: err.code, errors: [errorData(err)], retryAt: Date.now() + 60000 }
@@ -446,6 +448,57 @@ export async function runIndexer(options = {}) {
       }
       await Promise.all(Array.from({ length: concurrency }, (_, i) => worker(i + 1).catch(err => { fatal ||= err; stop = true; controller.abort(err) })))
       if (fatal) throw fatal
+      if (!signal.aborted && !['interrupted', 'time_budget'].includes(report.stopReason)) {
+        const rescueCandidates = []
+        for (const { series, ep, key } of tasks) {
+          const sId = String(series.anilistId || series.id || series.title)
+          const job = state.jobs[key]
+          if (job && ['incompatible', 'not_found'].includes(job.status)) {
+            const seriesRecord = registry.series[sId]
+            const verifiedSiblings = seriesRecord?.episodes?.filter(e => e.verified?.piecesVerified && Number(e.episode) !== Number(ep.episode)) || []
+            if (verifiedSiblings.length > 0) {
+              rescueCandidates.push({ series, ep, key, sId, seriesRecord, verifiedSiblings, priorJob: job })
+            }
+          }
+        }
+        if (rescueCandidates.length > 0) {
+          log(`[Indexer] Ejecutando pase de rescate intra-serie para ${rescueCandidates.length} archivo(s)...`)
+          for (const { series, ep, key, sId, seriesRecord, verifiedSiblings, priorJob } of rescueCandidates) {
+            if (signal.aborted) break
+            try {
+              const res = await resolveRelease(series, ep, {
+                stateDir,
+                existing: priorJob,
+                siblings: verifiedSiblings,
+                verifyPieces,
+                fetchFn: network.fetch,
+                signal,
+                network,
+                searchCache: cache,
+                maxQueries,
+                maxCandidates
+              })
+              if (res.status === 'prepared' && res.match) {
+                const m = res.match
+                const entry = { episode: ep.episode, resolution: String(ep.resolution || ''), quality: ep.quality, fileName: m.torrentFileName, sourceFileName: fileName(ep), sourceFingerprint: sourceFingerprint(ep), directUrl: ep.url, infoHash: m.infoHash, size: m.size, torrentPath: m.torrentPath, verified: { matchedBy: m.matchedBy, piecesVerified: m.piecesVerified, verifiedAt: new Date().toISOString(), evidence: m.evidence }, isOnline: m.piecesVerified ? true : null, checkedAt: m.evidence?.checkedAt }
+                const idx = seriesRecord.episodes.findIndex(e => episodeReleaseMatch(e, ep))
+                if (idx >= 0) seriesRecord.episodes[idx] = entry
+                else seriesRecord.episodes.push(entry)
+                registry.series[sId] = seriesRecord
+                const { match, ...outcome } = res
+                const stamp = { series: series.title, anilistId: series.anilistId, episode: ep.episode, resolution: ep.resolution, fileName: fileName(ep), updatedAt: new Date().toISOString(), attempts: (priorJob.attempts || 0) + 1 }
+                state.jobs[key] = { ...stamp, ...outcome }
+                if (report[priorJob.status] > 0) report[priorJob.status]--
+                report.prepared++
+                log(`[Rescate] ${series.title} · ${ep.episode} · ${ep.resolution || '?'}p -> prepared (rescatado vía hermanos)`)
+                checkpoint()
+              }
+            } catch (err) {
+              if (signal.aborted) break
+            }
+          }
+        }
+      }
       if (signal.aborted && report.stopReason === 'complete') report.stopReason = parentSignal?.aborted ? 'interrupted' : 'time_budget'
       report.remaining = tasks.length - report.attempted - report.reused - report.postponed; report.finishedAt = new Date().toISOString(); checkpoint()
       log(`Tanda finalizada (${report.stopReason}): ${report.prepared} preparados, ${report.reused} reutilizados, ${report.deferred} diferidos por acceso, ${report.not_found} sin coincidencia en el presupuesto, ${report.incompatible} incompatibles, ${report.needs_review} para revisar. Restantes: ${report.remaining}.`)

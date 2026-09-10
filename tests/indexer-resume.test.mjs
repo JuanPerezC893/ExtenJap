@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os'
 import { createHash } from 'node:crypto'
 import parseTorrent, { toTorrentFile } from 'parse-torrent'
 import { runIndexer, parseIndexerArgs, saveVerifiedMatches, loadVerifiedMatches } from '../indexer.mjs'
+import { rankCandidates } from '../lib/matching.js'
 
 async function setup(t, count = 2) {
   const dir = fs.mkdtempSync(join(tmpdir(), 'japanpaw-resume-'))
@@ -210,9 +211,56 @@ test('indexer resume: active process rejects concurrent execution unless forceLo
   assert.equal(fs.existsSync(lockPath), false)
 })
 
+test('matching: rankCandidates prioritizes candidates matching group, source and siblings over conflicting variants', () => {
+  const ep = {
+    episode: 1,
+    resolution: '1080',
+    fileName: 'Jack-of-All-Trades.Party.of.None.S01E01.The.Jack-of-All-Trades.Becomes.a.Swordsman.Once.More.1080p.CR.WEB-DL.JPN.AAC2.0.H.264.MSubs-ToonsHub.mkv'
+  }
+  const siblings = [
+    {
+      episode: 2,
+      fileName: 'Jack-of-All-Trades.Party.of.None.S01E02.No.Going.Back.1080p.CR.WEB-DL.JPN.AAC2.0.H.264.MSubs-ToonsHub.mkv'
+    }
+  ]
+  const items = [
+    { title: '[ToonsHub] Jack-of-All-Trades Party of None S01E01 1080p BILI WEB-DL AAC2.0 H.265', torrent_url: 'https://test/bili.torrent' },
+    { title: '[ToonsHub] Jack-of-All-Trades Party of None S01E01 1080p CR WEB-DL DUAL AAC2.0 H.264', torrent_url: 'https://test/dual.torrent' },
+    { title: '[ToonsHub] Jack-of-All-Trades Party of None S01E01 1080p CR WEB-DL AAC2.0 H.264 (Multi-Subs)', torrent_url: 'https://test/exact.torrent' },
+    { title: '[ToonsHub] Jack-of-All-Trades Party of None S01E01 1080p AMZN WEB-DL DDP2.0 H.264', torrent_url: 'https://test/amzn.torrent' }
+  ]
+
+  const ranked = rankCandidates(items, ep, siblings)
+  assert.equal(ranked[0].torrent_url, 'https://test/exact.torrent', 'La release exacta de Crunchyroll debe quedar en posición #1')
+  assert.equal(ranked[ranked.length - 1].torrent_url, 'https://test/bili.torrent', 'La variante incompatible de Bilibili debe quedar al final')
+})
+
+test('indexer resume: sibling rescue pass re-attempts and rescues previously incompatible episodes', async t => {
+  const f = await setup(t, 2)
+  let ep1Attempts = 0
+  const report = await runIndexer({
+    ...f.options,
+    fetchFn: async (url, opts) => {
+      if (url === f.fixtures[0].ep.url) {
+        ep1Attempts++
+        if (ep1Attempts === 1) {
+          const res = await f.response(url, opts)
+          const data = new Uint8Array(await res.arrayBuffer())
+          data[0] ^= 0xff
+          return new Response(data, { status: 206, headers: res.headers })
+        }
+      }
+      return f.response(url, opts)
+    }
+  })
+  assert.equal(report.prepared, 2)
+  assert.equal(report.incompatible, 0)
+})
+
 test('indexer CLI rejects misspellings and invalid budgets', () => {
   for (const args of [['--limt', '1'], ['--limit', '-1'], ['--series'], ['--max-queries', 'abc'], ['--interval-ms', '-1']]) assert.throws(() => parseIndexerArgs(args))
   assert.equal(parseIndexerArgs(['--series', 'Demo', '--concurrency', '2', '--limit', '10', '--interval-ms', '0']).intervalMs, 0)
   assert.equal(parseIndexerArgs(['--force-lock']).forceLock, true)
 })
+
 

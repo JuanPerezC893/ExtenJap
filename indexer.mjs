@@ -351,6 +351,9 @@ export async function runIndexer(options = {}) {
         pool = new ProxyPool({ enabled: true, proxyFile, strictProxy: true, maxRetries: 0, timeoutMs: 20000 }); await pool.warmup(15, 100, { signal })
         trackerFetch = (url, opts) => pool.fetch(url, opts, 0)
       }
+      if (forceLock) {
+        state.providers = {}
+      }
       const initialProviders = state.providers
       const proxiedHosts = ['nyaa.si', 'feed.animetosho.xyz', 'animetosho.xyz', 'feed.animetosho.org', 'animetosho.org', 'storage.animetosho.org', 'api.anisearch.org', 'nekobt.to', 'emision.craftervault.com', 'craftervault.com', 'emision.anibatchddl.com', 'anibatchddl.com']
       const network = createIndexerNetwork({
@@ -435,6 +438,8 @@ export async function runIndexer(options = {}) {
           const videoHost = new URL(directUrl(ep.url)).hostname
           const hostState = network.snapshot().hosts?.[videoHost]
           if (Number(hostState?.retryAt) > Date.now()) {
+            const leftSec = Math.max(1, Math.ceil((Number(hostState.retryAt) - Date.now()) / 1000))
+            log(`[Indexer] El host de video "${videoHost}" tiene una pausa temporal activa (${leftSec}s restantes).`)
             report.stopReason = 'video_host_unavailable'; stop = true; break
           }
           // Reused entries do not consume the budget; repeated --limit runs advance.

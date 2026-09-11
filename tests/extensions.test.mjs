@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { createTorrentSource } from '../torrent.js'
-import { sameRelease, isBatchTorrent, episodeNumber, seasonNumber } from '../lib/matching.js'
+import { sameRelease, isBatchTorrent, episodeNumber, seasonNumber, rankCandidates } from '../lib/matching.js'
 
 test('torrent.js: lee catálogo dividido dist/data/<anilistId>.json con accuracy high', async () => {
   const fakeAnilistId = 166610
@@ -124,11 +124,38 @@ test('matching: sameRelease rechaza CRCs contradictorios y resoluciones distinta
 })
 
 test('matching: isBatchTorrent detecta lotes y permite archivos individuales', () => {
+  for (const title of ['[Erai-raws] Dan Da Dan Season 2 - 01 [1080p CR WEB-DL AVC AAC][MultiSub][F7C4CD7F].mkv', '86 - 01 [1080p]', 'Show Season 2 - 12 [720p]', '[Erai-raws] Spy x Family Season 3 - 01 [1080p CR WEB-DL AVC AAC][MultiSub][3E30274A]']) {
+    assert.equal(isBatchTorrent({ title }), false, title)
+  }
+  for (const title of ['Show - 01 - 12 [1080p]', 'Show [01 - 12]', 'Show 01-12 [720p]']) {
+    assert.equal(isBatchTorrent({ title }), true, title)
+  }
+  assert.equal(isBatchTorrent({ num_files: 1, title: 'Show - 01 [1080p]' }), false)
+  assert.equal(isBatchTorrent({ num_files: 12, title: 'Show - 01 [1080p]' }), true)
   assert.equal(isBatchTorrent({ files: [{ name: '01.mkv' }, { name: '02.mkv' }] }), true)
   assert.equal(isBatchTorrent({ files: [{ name: 'movie.mkv' }, { name: 'subs.ass' }] }), false)
   assert.equal(isBatchTorrent({ title: 'Show - 01-12 [Batch]' }), true)
   assert.equal(isBatchTorrent({ title: 'Show Season 1 Complete' }), true)
   assert.equal(isBatchTorrent({ title: '[Erai-raws] Show - 01 [1080p]' }), false)
+})
+
+test('matching: rankCandidates descarta candidatos con grupos de fansub incompatibles', () => {
+  const targetEp = {
+    episode: 6,
+    resolution: '1080',
+    group: 'KronnosRzer',
+    fileName: '[KronnosRzer] Kaoru Hana - 06 (1080p).mkv'
+  }
+  const items = [
+    { title: '[Erai-raws] Kaoru Hana wa Rin to Saku - 06 [1080p]', torrent_url: 'https://test/erai.torrent', num_files: 1 },
+    { title: '[DKB] Kaoru Hana wa Rin to Saku - S01E06 [1080p]', torrent_url: 'https://test/dkb.torrent', num_files: 1 },
+    { title: '[KronnosRzer] Kaoru Hana - 06 [1080p]', torrent_url: 'https://test/kronnos.torrent', num_files: 1 },
+    { title: 'Kaoru Hana wa Rin to Saku - 06 [1080p]', torrent_url: 'https://test/nogroup.torrent', num_files: 1 }
+  ]
+  const ranked = rankCandidates(items, targetEp)
+  assert.equal(ranked.length, 2, 'Solo debe aceptar el grupo coincidente o candidatos sin grupo explícito')
+  assert.equal(ranked[0].torrent_url, 'https://test/kronnos.torrent')
+  assert.equal(ranked[1].torrent_url, 'https://test/nogroup.torrent')
 })
 
 test('matching: episodeNumber y seasonNumber extraen números correctamente', () => {

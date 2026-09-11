@@ -153,7 +153,7 @@ async function stageRequest(action, stage, url) {
   }
 }
 
-export async function probeDirectVideo(url, fetchFn, signal) {
+export async function probeDirectVideo(url, fetchFn, signal, options = {}) {
   const origin = (() => { try { return new URL(url).origin + '/' } catch { return 'https://emision.craftervault.com/' } })()
   const res = await stageRequest(() => fetchFn(url, {
     headers: {
@@ -163,7 +163,8 @@ export async function probeDirectVideo(url, fetchFn, signal) {
       'Accept': '*/*',
       'Referer': origin
     },
-    signal, maxBodyBytes: 1, requiredStatus: 206
+    signal, maxBodyBytes: 1, requiredStatus: 206,
+    timeoutMs: options.timeoutMs ?? options.pieceTimeoutMs ?? 60000
   }), 'video_probe', url)
   const match = res.headers.get('content-range')?.match(/^bytes 0-0\/(\d+)$/i)
   if (res.status !== 206 || !match || Number(match[1]) < 1 || (await res.arrayBuffer()).byteLength !== 1) {
@@ -208,7 +209,7 @@ async function resolveRelease(series, ep, options) {
   // not evidence about whether a compatible torrent exists.
   const probeSource = async () => {
     try {
-      actualSize = await probeDirectVideo(url, fetchFn, signal)
+      actualSize = await probeDirectVideo(url, fetchFn, signal, { timeoutMs: options.pieceTimeoutMs ?? 60000 })
       if (ep.size && Number(ep.size) !== actualSize) return { status: 'needs_review', reason: 'SOURCE_SIZE_CHANGED', searched, candidates, errors: [], actualSize }
     } catch (err) {
       if (signal?.aborted) throw err
@@ -226,7 +227,7 @@ async function resolveRelease(series, ep, options) {
             const replacements = [...new Set(published.episodes.filter(e => fileName(e) === fileName(ep) && Number(e.episode) === Number(ep.episode) && String(e.resolution) === String(ep.resolution)).map(e => directUrl(e.url)).filter(u => u && u !== url))]
             if (replacements.length === 1) {
               url = replacements[0]
-              actualSize = await probeDirectVideo(url, fetchFn, signal)
+              actualSize = await probeDirectVideo(url, fetchFn, signal, { timeoutMs: options.pieceTimeoutMs ?? 60000 })
               if (ep.size && Number(ep.size) !== actualSize) return { status: 'needs_review', reason: 'SOURCE_SIZE_CHANGED', searched, candidates, actualSize }
             } else return { status: 'deferred', reason: 'SOURCE_UNAVAILABLE', searched, candidates, errors: [errorData(err)], retryAt: Date.now() + 6 * 3600000 }
           } catch (refreshError) {

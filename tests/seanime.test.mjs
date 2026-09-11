@@ -27,6 +27,11 @@ test('Seanime endpoints: manifest, provider, search, episodes and sources', asyn
   assert.equal(manifest.type, 'onlinestream-provider')
   assert.equal(manifest.payloadURI, app.base + '/seanime/provider.js')
 
+  // 1b. Marketplace JSON (Array for Seanime repository unmarshal)
+  const marketplace = await get('/seanime/marketplace.json')
+  assert.ok(Array.isArray(marketplace))
+  assert.equal(marketplace[0].id, 'japanpaw-direct')
+
   // 2. Provider code
   const providerRes = await fetch(app.base + '/seanime/provider.js')
   assert.equal(providerRes.status, 200)

@@ -90,6 +90,20 @@ export async function createAddon({ catalog, port = 8790, fetchFn, metadata, pro
           payloadURI: `${base}/seanime/provider.js`
         })
       }
+      if (url.pathname === '/seanime/marketplace.json') {
+        return json(200, [{
+          id: 'japanpaw-direct',
+          name: 'Japan-Paw Directo',
+          description: 'Streaming directo por HTTP para Japan-Paw mediante servicio local sin torrents.',
+          manifestURI: `${base}/seanime/manifest.json`,
+          version: '1.0.0',
+          author: 'JuanPerezC893',
+          type: 'onlinestream-provider',
+          language: 'javascript',
+          lang: 'es',
+          payloadURI: `${base}/seanime/provider.js`
+        }])
+      }
       if (url.pathname === '/seanime/provider.js') {
         try {
           const js = readFileSync('seanime-extension/provider.js', 'utf8')

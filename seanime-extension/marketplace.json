@@ -1,0 +1,14 @@
+[
+  {
+    "id": "japanpaw-direct",
+    "name": "Japan-Paw Directo",
+    "description": "Streaming directo por HTTP para Japan-Paw mediante servicio local sin torrents.",
+    "manifestURI": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/seanime-extension/manifest.json",
+    "version": "1.0.0",
+    "author": "JuanPerezC893",
+    "type": "onlinestream-provider",
+    "language": "javascript",
+    "lang": "es",
+    "payloadURI": "https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/seanime-extension/provider.js"
+  }
+]

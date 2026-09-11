@@ -18,32 +18,40 @@ Esta extensión permite reproducir anime directamente desde Japan-Paw en [Seanim
 
 ## Cómo Instalar en Seanime
 
-Tienes dos formas muy sencillas de instalar la extensión:
+Tienes tres formas según la pantalla de Seanime en la que te encuentres:
 
-### Método 1: Desde Seanime (Recomendado)
-1. Abre **Seanime**.
-2. En el menú lateral izquierdo, haz clic en el icono de **Extensions** (icono de pieza de rompecabezas 🧩).
-3. Haz clic en **Add extension** o **Install extension**.
-4. Pega la URL del manifiesto local:
-   ```
-   http://127.0.0.1:8790/seanime/manifest.json
-   ```
-   *(O la URL de GitHub si prefieres: `https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/seanime-extension/manifest.json`)*
-5. Pulsa **Install** y activa la extensión.
+### Opción 1: Si usas «Change repository» (Pestaña Marketplace)
+En Seanime, la pestaña **Marketplace** espera un archivo de catálogo (repositorio con una lista de extensiones). Usa esta URL:
+```
+https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/seanime-extension/marketplace.json
+```
+*(O la URL local si el servicio está iniciado: `http://127.0.0.1:8790/seanime/marketplace.json`)*
+Aparecerá **Japan-Paw Directo** en el Marketplace con un botón **Install**.
 
-### Método 2: Instalación Manual por Carpeta
+### Opción 2: Si usas «Add extension» -> «Manifest URL» (Pestaña Extensions)
+1. Ve a la pestaña **Extensions** (icono de puzzle 🧩) en Seanime.
+2. Pulsa el botón **Add extension** (arriba a la derecha).
+3. En el campo **Manifest URL**, pega:
+```
+https://raw.githubusercontent.com/JuanPerezC893/ExtenJap/main/seanime-extension/manifest.json
+```
+*(O la URL local: `http://127.0.0.1:8790/seanime/manifest.json`)*
+4. Pulsa **Fetch** y luego **Install**.
+
+### Opción 3: Instalación Manual Directa (Sin dependencias de red)
 1. Abre el cuadro Ejecutar en Windows (`Win + R`), escribe:
    ```
    %appdata%\Seanime\extensions
    ```
-   y presiona Enter (si la carpeta `extensions` no existe, créala).
+   y presiona Enter (si la carpeta `extensions` no existe dentro de `Seanime`, créala).
 2. Copia la carpeta `seanime-extension` de este proyecto dentro de esa ruta y renómbrala como `japanpaw-direct`:
    ```
    %appdata%\Seanime\extensions\japanpaw-direct\
        ├── manifest.json
+       ├── marketplace.json
        └── provider.js
    ```
-3. Reinicia Seanime.
+3. Reinicia Seanime. Ya aparecerá instalada automáticamente.
 
 ---
 

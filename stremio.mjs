@@ -74,8 +74,89 @@ export async function createAddon({ catalog, port = 8790, fetchFn, metadata, pro
       if (req.method === 'OPTIONS') { res.writeHead(204); return res.end() }
       if (!['GET', 'HEAD'].includes(req.method)) return json(405, { error: 'Método no permitido' })
       const url = new URL(req.url, base)
-      if (url.pathname === '/') { res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' }); return res.end(`<h1>Japan-Paw Directo</h1><p>${series.size} series disponibles. Servicio local activo.</p><p><a href="stremio://127.0.0.1:${server.address().port}/manifest.json">Instalar en Stremio</a></p><p>O pega esta dirección en los complementos de Stremio:</p><code>${base}/manifest.json</code><p>Busca en el catálogo Japan-Paw. Este servicio debe permanecer encendido.</p>`) }
+      if (url.pathname === '/') { res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' }); return res.end(`<h1>Japan-Paw Directo</h1><p>${series.size} series disponibles. Servicio local activo.</p><h3>Stremio</h3><p><a href="stremio://127.0.0.1:${server.address().port}/manifest.json">Instalar en Stremio</a></p><code>${base}/manifest.json</code><h3>Seanime</h3><p>URL de la extensión para Seanime:</p><code>${base}/seanime/manifest.json</code>`) }
       if (url.pathname === '/manifest.json') return json(200, manifest)
+      if (url.pathname === '/seanime/manifest.json') {
+        return json(200, {
+          id: 'japanpaw-direct',
+          name: 'Japan-Paw Directo',
+          description: 'Streaming directo por HTTP para Japan-Paw mediante servicio local sin torrents.',
+          manifestURI: `${base}/seanime/manifest.json`,
+          version: '1.0.0',
+          author: 'JuanPerezC893',
+          type: 'onlinestream-provider',
+          language: 'javascript',
+          lang: 'es',
+          payloadURI: `${base}/seanime/provider.js`
+        })
+      }
+      if (url.pathname === '/seanime/provider.js') {
+        try {
+          const js = readFileSync('seanime-extension/provider.js', 'utf8')
+          res.writeHead(200, { 'Content-Type': 'application/javascript; charset=utf-8' })
+          return res.end(js)
+        } catch {
+          return json(404, { error: 'Archivo no encontrado' })
+        }
+      }
+      if (url.pathname === '/seanime/search') {
+        const q = normalize(url.searchParams.get('q') || '')
+        const anilistId = Number(url.searchParams.get('anilistId') || 0)
+        let matches = []
+        if (Number.isSafeInteger(anilistId) && anilistId > 0) {
+          matches = [...series].filter(([, s]) => Number(s.row.anilistId) === anilistId)
+        }
+        if (!matches.length && q) {
+          matches = [...series].filter(([, s]) => [s.row.title, ...(s.row.aliases || [])].some(t => normalize(t).includes(q)))
+        }
+        return json(200, {
+          results: matches.slice(0, 25).map(([id, s]) => ({
+            id,
+            title: s.row.title,
+            url: `${base}/seanime/episodes?id=${encodeURIComponent(id)}`,
+            subOrDub: 'sub'
+          }))
+        })
+      }
+      if (url.pathname === '/seanime/episodes') {
+        const id = url.searchParams.get('id')
+        const s = series.get(id)
+        if (!s) return json(404, { error: 'Serie no encontrada', episodes: [] })
+        const episodes = [...s.videos.keys()].sort((a, b) => a - b).map(ep => ({
+          id: `${id}:${ep}`,
+          number: ep,
+          title: `Episodio ${ep}`,
+          url: `${base}/seanime/source?id=${encodeURIComponent(`${id}:${ep}`)}`
+        }))
+        return json(200, { episodes })
+      }
+      if (url.pathname === '/seanime/source') {
+        const fullId = url.searchParams.get('id') || ''
+        const server = url.searchParams.get('server') || 'Japan-Paw'
+        const m = fullId.match(/^(jp:[^:]+):(\d+(?:\.\d+)?)$/)
+        const s = m && series.get(m[1])
+        const keys = s?.videos.get(Number(m[2])) || []
+        if (!keys.length) return json(404, { error: 'Episodio no encontrado', videoSources: [] })
+        let sources = keys.map(key => {
+          const { ep } = files.get(key)
+          return {
+            url: `${base}/play/${key}`,
+            quality: ep.resolution ? `${ep.resolution}p` : 'auto',
+            type: 'mp4',
+            subtitles: []
+          }
+        })
+        if (server.includes('720')) {
+          sources.sort((a, b) => (b.quality === '720p' ? 1 : 0) - (a.quality === '720p' ? 1 : 0))
+        } else {
+          sources.sort((a, b) => (b.quality === '1080p' ? 1 : 0) - (a.quality === '1080p' ? 1 : 0))
+        }
+        return json(200, {
+          server: server || 'Japan-Paw',
+          headers: {},
+          videoSources: sources
+        })
+      }
       const route = url.pathname.match(/^\/(catalog|meta|stream)\/series\/([^/]+?)(?:\/([^/]+))?\.json$/)
       if (route) {
         const [, resource, rawId, extra] = route, id = decodeURIComponent(rawId)

@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "stremio": "node stremio.mjs",
     "hash": "node hash.mjs",
     "scrape": "node scrape.mjs",
     "sample": "node scrape.mjs --html ejempl.html 7901",
